@@ -1,0 +1,88 @@
+/*
+Theme Name: Madeleine
+Theme URI: http://jgthms.com
+Author: JT
+Author URI: http://jt.ms/
+Description: The Madeleine Theme.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: dark, light, white, black, gray, one-column, two-columns, left-sidebar, right-sidebar, fixed-width, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
+Text Domain: twentyeleven
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Bitter:400,700,400italic);
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{ margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{ display: block; }
+body{  line-height: 1; }
+ol, ul{ list-style: none; }
+blockquote, q{ quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after{ content: ''; content: none; }
+table{ border-collapse: collapse; border-spacing: 0; }
+
+body{ background: #f2f4f6; color: #444; font: 14px/1.5 Arial, sans-serif;}
+a{ color: #708491; cursor: pointer; text-decoration: none;}
+a:hover{ text-decoration: underline;}
+
+.wrap{ margin: 0 auto; width: 960px;}
+
+/* Header */
+
+#header{ background: white; padding-top: 20px;}
+#logo{ background: url(logo.png) no-repeat 0 0; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px; padding-left: 80px;}
+#title{ font-size: 22px; font-weight: bold; padding-top: 6px;}
+#title a{ color: #d0574e;}
+#description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
+#navigation{ height: 60px;}
+#nav{ background: #f2f4f6; border: solid #eaedef; border-width: 1px 0; font: bold 14px/30px Bitter, Georgia, serif; height: 30px;}
+#nav li{ display: inline;}
+#nav li a{ color: #444; float: left; padding: 0 10px;}
+#today{ background: #d0574e; color: white; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; text-align: center; width: 60px;}
+#today strong{ display: block; font-size: 30px; padding-top: 6px;}
+#today em{ display: block; font-size: 9px; padding-top: 4px;}
+#trending{ border-bottom: 1px solid #eaedef; height: 27px;}
+#trending li{ display: inline;}
+#trending li a{ float: left; font-size: 11px; line-height: 27px; margin-left: 10px;}
+
+/* Parts */
+
+#full .wrap{ background: white; padding-bottom: 40px;}
+#main{ float: left;  width: 640px;}
+#secondary{ float: right; padding: 0 10px; width: 300px;}
+
+#footer{ background: #708491; clear: both; color: #d7dce1; padding: 20px 0;}
+#footer a{ color: #d7dce1;}
+
+/* Category */
+
+/*#category{ background: #96ca47;}*/
+#category{ font-family: Bitter, Georgia, serif; height: 30px; line-height: 30px;}
+#category .wrap{ background: #eff7e4;}
+#category strong{ background: #96ca47; color: white; float: left; font-size: 14px; padding: 0 10px;}
+#category li{ display: inline; font-size: 13px; margin-left: 10px;}
+#category a{ color: #96ca47;}
+
+/* Post */
+
+.entry-title{ font: bold 18px/1.2 Bitter, Georgia, serif;}
+.entry-title a{ color: #d0574e;}
+.entry-meta{ font-family: Bitter, Georgia, serif; font-size: 12px; padding-top: 2px;}
+.entry-thumbnail{ display: block;}
+.entry-thumbnail img{ display: block;}
+.comments-link a{ background: #708491; color: white; display: inline-block; font: bold 10px/1 Bitter, Georgia, serif; padding: 2px 8px 3px;}
+
+/* Layouts */
+
+.list{ padding: 20px 10px;}
+.list .post{ border-bottom: 1px solid #eaedef; margin-bottom: 15px; padding-bottom: 15px;}
+.list .entry-title{ font-size: 18px;}
+.list .entry-thumbnail{ float: left; margin-right: 20px;}
+.list .entry-summary{ font-size: 13px;}
+.list .sticky .entry-title{ font-size: 22px;}
+.list .sticky .entry-thumbnail{ float: none; margin: 0 0 10px;}
+.list .sticky .entry-summary{ font-size: 15px;}
+
+.grid .post{ float: left; margin: 10px; width: 300px;}
+.grid .entry-summary{ font-size: 12px; padding-top: 4px;}
+
