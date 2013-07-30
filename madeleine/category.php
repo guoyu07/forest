@@ -17,19 +17,7 @@
 get_header(); ?>
 <div id="category">
   <div class="wrap">
-    <strong><?php single_cat_title(); ?></strong>
-    <?php
-    $cat = get_query_var('cat');
-    $args = array(
-      'child_of'          => $cat,
-      'hide_empty '       => 0,
-      // 'show_option_none'  => '',
-      'title_li'          => ''
-    );
-    ?>
-    <ul>
-      <?php wp_list_categories( $args ); ?>
-    </ul>
+    <?php madeleine_breadcrumb(); ?>
   </div>
 </div>
 <div id="full">

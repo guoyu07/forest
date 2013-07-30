@@ -17,7 +17,7 @@
 			</hgroup>
 
 			<?php if ( comments_open() && ! post_password_required() ) : ?>
-			<div class="comments-link">
+			<div class="entry-comments">
 				<?php comments_popup_link( '<span class="leave-reply">' . __( 'Reply', 'twentyeleven' ) . '</span>', _x( '1', 'comments number', 'twentyeleven' ), _x( '%', 'comments number', 'twentyeleven' ) ); ?>
 			</div>
 			<?php endif; ?>
@@ -37,10 +37,10 @@
 		<?php endif; ?>
 
 		<footer class="entry-meta">
-			<?php twentyeleven_posted_on(); ?>
+			<?php madeleine_posted_on(); ?>
 			<?php if ( comments_open() ) : ?>
 			<span class="sep"> | </span>
-			<span class="comments-link"><?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'twentyeleven' ) . '</span>', __( '<b>1</b> Reply', 'twentyeleven' ), __( '<b>%</b> Replies', 'twentyeleven' ) ); ?></span>
+			<span class="entry-comments"><?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'twentyeleven' ) . '</span>', __( '<b>1</b> Reply', 'twentyeleven' ), __( '<b>%</b> Replies', 'twentyeleven' ) ); ?></span>
 			<?php endif; ?>
 			<?php edit_post_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?>
 		</footer><!-- .entry-meta -->

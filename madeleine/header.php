@@ -77,7 +77,7 @@
         <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
       </hgroup>
       <div id="navigation">
-        <a href="#" id="today">
+        <a href="#" id="today-news">
           <strong>12</strong>
           <em>news today</em>
         </a>

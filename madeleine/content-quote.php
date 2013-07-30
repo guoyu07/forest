@@ -16,11 +16,11 @@
 			</hgroup>
 
 			<div class="entry-meta">
-				<?php twentyeleven_posted_on(); ?>
+				<?php madeleine_posted_on(); ?>
 			</div><!-- .entry-meta -->
 
 			<?php if ( comments_open() && ! post_password_required() ) : ?>
-			<div class="comments-link">
+			<div class="entry-comments">
 				<?php comments_popup_link( '<span class="leave-reply">' . __( 'Reply', 'twentyeleven' ) . '</span>', _x( '1', 'comments number', 'twentyeleven' ), _x( '%', 'comments number', 'twentyeleven' ) ); ?>
 			</div>
 			<?php endif; ?>
@@ -56,8 +56,8 @@
 				if ( $show_sep ) : ?>
 			<span class="sep"> | </span>
 				<?php endif; // End if $show_sep ?>
-			<span class="tag-links">
-				<?php printf( __( '<span class="%1$s">Tagged</span> %2$s', 'twentyeleven' ), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list );
+			<span class="tags">
+				<?php printf( __( '<span class="%1$s">Tagged</span> %2$s', 'twentyeleven' ), 'entry-utility-prep entry-utility-prep-tags', $tags_list );
 				$show_sep = true; ?>
 			</span>
 			<?php endif; // End if $tags_list ?>
@@ -66,7 +66,7 @@
 			<?php if ( $show_sep ) : ?>
 			<span class="sep"> | </span>
 			<?php endif; // End if $show_sep ?>
-			<span class="comments-link"><?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'twentyeleven' ) . '</span>', __( '<b>1</b> Reply', 'twentyeleven' ), __( '<b>%</b> Replies', 'twentyeleven' ) ); ?></span>
+			<span class="entry-comments"><?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'twentyeleven' ) . '</span>', __( '<b>1</b> Reply', 'twentyeleven' ), __( '<b>%</b> Replies', 'twentyeleven' ) ); ?></span>
 			<?php endif; // End if comments_open() ?>
 
 			<?php edit_post_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?>

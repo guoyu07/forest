@@ -1,31 +1,17 @@
-<?php
-/**
- * The Sidebar containing the main widget area.
- *
- * @package WordPress
- * @subpackage Twenty_Eleven
- * @since Twenty Eleven 1.0
- */
-
-?>
-<div id="secondary" class="widget-area" role="complementary">
-	<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
-
-		<aside id="archives" class="widget">
-			<h3 class="widget-title"><?php _e( 'Archives', 'twentyeleven' ); ?></h3>
-			<ul>
-				<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
-			</ul>
-		</aside>
-
-		<aside id="meta" class="widget">
-			<h3 class="widget-title"><?php _e( 'Meta', 'twentyeleven' ); ?></h3>
-			<ul>
-				<?php wp_register(); ?>
-				<li><?php wp_loginout(); ?></li>
-				<?php wp_meta(); ?>
-			</ul>
-		</aside>
-
-	<?php endif; // end sidebar widget area ?>
-</div><!-- #secondary .widget-area -->
+<div id="sidebar" class="widget-area" role="complementary">
+  <section class="widget">
+    <h4 class="widget-title">Images</h4>
+    <?php madeleine_images(); ?>
+  </section>
+  <section class="widget">
+    <h4 class="widget-title">Links</h4>
+    <?php madeleine_links(); ?>
+  </section>
+	<section class="widget">
+		<h4 class="widget-title">Quotes</h4>
+		<?php madeleine_quotes(); ?>
+	</section>
+<!-- 	<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar() ) : ?>
+		<?php dynamic_sidebar(); ?>
+	<?php endif; ?> -->
+</div>
