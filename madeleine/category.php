@@ -23,7 +23,9 @@ get_header(); ?>
 <div id="full">
   <div class="wrap">
     <div id="main">
-      <?php get_template_part( 'layout', 'grid' ); ?>
+      <?php if ( have_posts() ) : ?>
+        <?php get_template_part( 'layout', 'grid' ); ?>
+      <?php endif; ?>
     </div>
 		<?php get_sidebar(); ?>
     <div style="clear: both;"></div>

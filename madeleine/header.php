@@ -30,19 +30,21 @@
 	 */
 	global $page, $paged;
 
-	wp_title( '|', true, 'right' );
+	// wp_title( '|', true, 'right' );
 
 	// Add the blog name.
 	bloginfo( 'name' );
 
 	// Add the blog description for the home/front page.
 	$site_description = get_bloginfo( 'description', 'display' );
-	if ( $site_description && ( is_home() || is_front_page() ) )
+	if ( $site_description && ( is_home() || is_front_page() ) ) {
 		echo " | $site_description";
+  }
 
 	// Add a page number if necessary:
-	if ( $paged >= 2 || $page >= 2 )
-		echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
+	if ( $paged >= 2 || $page >= 2 ) {
+		echo ' | ' . sprintf( 'Page %s', max( $paged, $page ) );
+  }
 
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
@@ -67,7 +69,7 @@
 ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php madeleine_body_class(); ?>>
   <header id="header">
     <div class="wrap">
       <hgroup id="logo">
@@ -83,13 +85,13 @@
         </a>
         <nav id="nav">
           <ul>
-            <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">Home</a></li>
-            <?php wp_list_categories('depth=1&orderby=ID&title_li='); ?>
+            <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home">Home</a></li>
+            <?php madeleine_nav(); ?>
           </ul>
         </nav>
         <div id="trending">
+          <p>Trending</p>
           <ul>
-            <li><a>Trending</a></li>
             <li><a>San Diego Comic-Con</a></li>
             <li><a>Sony PlayStation 4</a></li>
             <li><a>Microsoft Xbox One</a></li>
