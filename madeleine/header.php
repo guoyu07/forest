@@ -72,12 +72,14 @@
 <body <?php madeleine_body_class(); ?>>
   <header id="header">
     <div class="wrap">
-      <hgroup id="logo">
-        <h1 id="title">
-          <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
-        </h1>
-        <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
-      </hgroup>
+      <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+        <hgroup>
+          <h1 id="title">
+            <?php bloginfo( 'name' ); ?>
+          </h1>
+          <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
+        </hgroup>
+      </a>
       <div id="navigation">
         <a href="#" id="today-news">
           <strong>12</strong>
