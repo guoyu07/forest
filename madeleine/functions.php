@@ -32,6 +32,23 @@ if ( function_exists('register_sidebar') ) {
 }
 
 
+/* Backend */
+
+
+function hide_editor() {
+  if( isset( $_GET['post'] ) ) { 
+    $post_id = $_GET['post'];
+    if ( $post_id == 119 ){
+      remove_post_type_support( 'post', 'editor' );
+    }
+  }
+}
+add_action( 'admin_init', 'hide_editor' );
+
+
+/* Frontend */
+
+
 function madeleine_excerpt( $text ) {
   return str_replace(' [...]', '... <a href="'. get_permalink() . '">&rarr;</a>', $text);
 }
@@ -49,15 +66,24 @@ function madeleine_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'madeleine_excerpt_length' );
 
 
-function madeleine_body_class() {
-  $class = '';
+function madeleine_body_class( $classes ) {
   if ( is_category() || is_single() ) {
     $top_category_ID = madeleine_top_category();
     $top_category = get_category( $top_category_ID );
-    $class = 'category-' . $top_category->category_nicename;
+    $classes[] = 'category-' . $top_category->category_nicename;
   }
-  return body_class( $class );
+  return $classes;
 }
+add_filter( 'body_class', 'madeleine_body_class' );
+
+
+function madeleine_post_class( $classes ) {
+  $top_category_ID = madeleine_top_category();
+  $top_category = get_category( $top_category_ID );
+  $classes[] = 'category-' . $top_category->category_nicename;
+  return $classes;
+}
+add_filter( 'post_class', 'madeleine_post_class' );
 
 
 function madeleine_thumbnail( $size = 'thumbnail' ) {
@@ -67,20 +93,135 @@ function madeleine_thumbnail( $size = 'thumbnail' ) {
 }
 
 
-function madeleine_top_category() {
-  if ( is_category() ) {
+function madeleine_caption( $val, $attr, $content = null ) {
+  extract(shortcode_atts(array(
+    'id'      => '',
+    'align'   => 'alignnoe',
+    'width'   => '',
+    'caption' => ''
+  ), $attr));
+  
+  // No caption, no dice... But why width? 
+  if ( 1 > (int) $width || empty($caption) )
+    return $val;
+ 
+  if ( $id )
+    $id = esc_attr( $id );
+     
+  // Add itemprop="contentURL" to image - Ugly hack
+  $content = str_replace( 'height=', 'data-height=', $content );
+  $content = str_replace( 'width=', 'data-width=', $content );
+
+  return '<figure id="' . $id . '" class="wp-caption ' . esc_attr($align) . '">' . do_shortcode( $content ) . '<figcaption id="figcaption_'. $id . '" class="wp-caption-text" itemprop="description">' . $caption . '</figcaption></figure>';
+}
+add_filter( 'img_caption_shortcode', 'madeleine_caption', 10, 3 );
+
+
+function madeleine_comments( $comment, $args, $depth ) {
+  $GLOBALS['comment'] = $comment;
+  switch ( $comment->comment_type ) :
+    case 'pingback' :
+    case 'trackback' :
+  ?>
+  <li class="pingback">
+    <p><?php echo 'Pingback:'; ?> <?php comment_author_link(); ?><?php edit_comment_link( 'Edit', '<span class="comment-edit">', '</span>' ); ?></p>
+  <?php
+      break;
+    default :
+  ?>
+  <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
+    <article id="comment-<?php comment_ID(); ?>" class="comment-article">
+      <div class="comment-avatar">
+        <?php $avatar_size = 60;
+        if ( '0' != $comment->comment_parent )
+          $avatar_size = 40;
+        echo get_avatar( $comment, $avatar_size ); ?>
+      </div>
+      <div class="comment-content">
+        <div class="comment-info vcard">
+          <?php printf( '<span class="comment-author">%s</span>', get_comment_author_link() ) ?>
+          <?php printf( '<a href="%1$s" class="comment-date"><time datetime="%2$s">%3$s</time></a>', esc_url( get_comment_link( $comment->comment_ID ) ), get_comment_time( 'c' ), sprintf( '%1$s at %2$s', get_comment_date(), get_comment_time() ) ); ?>
+          <?php edit_comment_link( 'Edit' , '<span class="comment-edit">', '</span>' ); ?>
+        </div>
+        <?php if ( $comment->comment_approved == '0' ) : ?>
+          <p class="comment-awaiting-moderation"><?php echo 'Your comment is awaiting moderation.'; ?></p>
+        <?php endif; ?>
+        <div class="comment-text"><?php comment_text(); ?></div>
+      </div>
+      <div class="comment-reply">
+        <?php comment_reply_link( array_merge( $args, array( 'reply_text' => 'Reply <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+      </div>
+    </article>
+  <?php
+      break;
+  endswitch;
+}
+
+
+function madeleine_pagination( $pages = '', $range = 2 ) {
+  global $paged;
+  $showitems = ( $range * 2 ) + 1;
+  if ( empty( $paged ) ) {
+    $paged = 1;
+  }
+
+  if ( $pages == '' ) {
+    global $wp_query;
+    $pages = $wp_query->max_num_pages;
+    if ( !$pages ) {
+      $pages = 1;
+    }
+  }   
+
+  if ( 1 != $pages ) {
+    echo '<div class="pagination">';
+    if ( $paged > 2 && $paged > $range+1 && $showitems < $pages ) echo '<a href="' . get_pagenum_link( 1 ) . '" class="page-nav page-first">&laquo;</a>';
+    if ( $paged > 1 && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $paged - 1 ) . '" class="page-nav page-previous">&lsaquo;</a>';
+    for ( $i=1; $i <= $pages; $i++ ) {
+      if ( 1 != $pages &&(  !( $i >= $paged+$range+1 || $i <= $paged-$range-1 ) || $pages <= $showitems  ) ) {
+        echo ( $paged == $i )? "<strong>".$i."</strong>":'<a href="' . get_pagenum_link( $i ) . '">' . $i . '</a>';
+      }
+    }
+    if ( $paged < $pages && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $paged + 1 ) . '" class="page-nav page-next">&rsaquo;</a>';  
+    if ( $paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $pages ) . '" class="page-nav page-last">&raquo;</a>';
+    echo "</div>\n";
+  }
+}
+
+
+function madeleine_tags( $query ) {
+  if ( $query->is_tag() && $query->is_main_query() ) {
+    $query->set( 'posts_per_page', 9 );
+  }
+}
+add_action( 'pre_get_posts', 'madeleine_tags' );
+
+
+function madeleine_top_category( $cat_ID = 1 ) {
+  if ( isset( $cat_ID ) ) {
+    $cat = $cat_ID;
+  } elseif ( is_category() ) {
     $cat = get_query_var('cat');
-  } elseif ( is_single() ) {
+  } elseif ( is_attachment() ) {
+    $cat = 2;
+  } else {
     $categories = get_the_category();
     $cat = $categories[0]->cat_ID;
   }
   $category = get_category( $cat );
-  if ( $category->category_parent == '0' ) {
-    $top_category_ID = $cat;
-  } else {
-    $top_category_ID = $category->category_parent;
+  if ( isset( $category ) ) {
+    if ( $category->category_parent == '0' ) {
+      $top_category_ID = $cat;
+    } else {
+      $top_category_ID = $category->category_parent;
+    }
+    return $top_category_ID;
   }
-  return $top_category_ID;
+}
+
+
+function madeleine_category_description() {
+
 }
 
 
@@ -121,6 +262,7 @@ function madeleine_nav() {
 
 function madeleine_focus() {
   $args = array(
+    'ignore_sticky_posts' => 1,
     'post__in' => array( 1, 10, 16, 23, 57 )
   );
   $query = new WP_Query( $args );
@@ -150,6 +292,35 @@ function madeleine_focus() {
   }
   echo '</div>';
   wp_reset_postdata();
+}
+
+
+function madeleine_popular() {
+  global $wpdb;
+  madeleine_register_popularity_table();
+  $populars = $wpdb->get_results( 
+    "
+    SELECT post_id, total
+    FROM $wpdb->madeleine_popularity
+    ORDER BY total DESC
+    LIMIT 5
+    "
+  );
+  if ( $populars ) {
+    echo '<ul class="popular">';
+    foreach ( $populars as $popular ) {
+      $id = $popular->post_id;
+      $categories = get_the_category( $id );
+      $category = get_category( madeleine_top_category( $categories[0] ) );
+      echo '<li class="post category-' . $category->category_nicename . '">';
+      echo '<em data-total="' . $popular->total . '"></em>';
+      echo '<strong><span>' . $popular->total . '</span></strong> ';
+      echo '<a href="' . get_permalink( $id ) . '">' . get_the_title( $id ) . '</a>';
+      echo '</li>';
+    }
+    echo '</ul>';
+    echo '<div style="clear: left;"></div>';
+  }
 }
 
 
@@ -227,10 +398,12 @@ function madeleine_quotes() {
 
 
 function madeleine_standard_posts() {
+  $paged = get_query_var('paged') ? get_query_var('paged') : 1;
   $cat   = get_query_var('cat');
   $args  = array(
     'cat'                 => $cat,
     'ignore_sticky_posts' => 1,
+    'paged'               => $paged,
     'post_type'           => 'post',
     'tax_query'           => array(
       array(
@@ -251,24 +424,6 @@ function madeleine_standard_posts() {
       )
     )
   );
-  if ( get_query_var('m') ) {
-    $m     = get_query_var('m');
-    if ( is_year() ) {
-      $year  = substr( $m, 0, 4);
-      $args['year'] = $year;
-    } elseif ( is_month() ) {
-      $year  = substr( $m, 0, 4);
-      $month = substr( $m, 4, 2);
-      $args['m'] = $year . $month;
-    } elseif ( is_day() ) {
-      $year  = substr( $m, 0, 4);
-      $month = abs( substr( $m, 4, 2) );
-      $day   = abs( substr( $m, 6, 2) );
-      $args['year'] = $year;
-      $args['monthnum'] = $month;
-      $args['day'] = $day;
-    }
-  }
   query_posts( $args );
 }
 
@@ -422,6 +577,7 @@ function madeleine_create_popularity_table() {
     twitter smallint(5) unsigned NOT NULL default '0',
     google smallint(5) unsigned NOT NULL default '0',
     pinterest smallint(5) unsigned NOT NULL default '0',
+    total smallint(5) unsigned NOT NULL default '0',
     PRIMARY KEY  (post_id)
    ) $charset_collate; ";
    
@@ -459,23 +615,22 @@ add_action( 'publish_post', 'madeleine_insert_popularity' );
 function madeleine_update_popularity( $post_id ) {
   global $wpdb;
   $shares = madeleine_share_count();
-  $facebook = 222;
-  $twitter = 122;
-  $google = 42;
-  $pinterest = 42;
+  $total = array_sum( $shares );
   $wpdb->update(
     $wpdb->madeleine_popularity,
     array(
       'facebook' => $shares['facebook'],
       'twitter' => $shares['twitter'],
       'google' => $shares['google'],
-      'pinterest' => $shares['pinterest']
+      'pinterest' => $shares['pinterest'],
+      'total' => $total
     ),
     array( 'post_id' => $post_id ),
     array( '%d' ),
     array( '%d' )
   );
 }
+add_action( 'save_post', 'madeleine_update_popularity' );
 
 
 function madeleine_schedule_popularity( $post_id ) {
@@ -485,7 +640,7 @@ function madeleine_schedule_popularity( $post_id ) {
     wp_schedule_event( current_time ( 'timestamp' ), 'daily', 'madeleine_popularity_event', array( '$post_id' => $post_id ) );
   }
 }
-add_action( 'save_post', 'madeleine_schedule_popularity' );
+// add_action( 'save_post', 'madeleine_schedule_popularity' );
 add_action( 'madeleine_popularity_event', 'madeleine_update_popularity' );
 
 

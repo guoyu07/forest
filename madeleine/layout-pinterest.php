@@ -1,5 +1,4 @@
-<div class="grid">
-  <?php madeleine_standard_posts(); ?>
+<div class="pinterest">
   <?php while ( have_posts() ) : the_post(); ?>
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
       <?php madeleine_thumbnail( 'medium' ); ?>
@@ -16,5 +15,5 @@
       </div>
     </article>
   <?php endwhile; ?>
-  <?php madeleine_pagination(); ?>
 </div>
+<?php madeleine_pagination(); ?>

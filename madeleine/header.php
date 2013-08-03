@@ -2,7 +2,7 @@
 /**
  * The Header for our theme.
  *
- * Displays all of the <head> section and everything up till <div id="main">
+ * Displays all of the <head> section and everything up till <div id="lead">
  *
  * @package WordPress
  * @subpackage Twenty_Eleven
@@ -69,7 +69,7 @@
 ?>
 </head>
 
-<body <?php madeleine_body_class(); ?>>
+<body <?php body_class(); ?>>
   <header id="header">
     <div class="wrap">
       <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">

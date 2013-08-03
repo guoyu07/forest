@@ -1,5 +1,9 @@
 <div id="sidebar" class="widget-area" role="complementary">
   <section class="widget">
+    <h4 class="widget-title">Popular</h4>
+    <?php madeleine_popular(); ?>
+  </section>
+  <section class="widget">
     <h4 class="widget-title">Images</h4>
     <?php madeleine_images(); ?>
   </section>

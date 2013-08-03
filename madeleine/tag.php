@@ -1,18 +1,16 @@
 <?php get_header(); ?>
 <div id="main">
   <div class="wrap">
-    <div id="lead">
+    <div id="full">
       <?php if ( have_posts() ) : ?>
         <hgroup class="heading">
-          <h1 class="title" id="date">
-            <?php madeleine_nested_date() ?>
+          <h1 class="title">
+            <em>Tag:</em> <strong><?php single_cat_title(); ?></strong>
           </h1>
-          <div style="clear: left;"></div>
         </hgroup>
-        <?php get_template_part( 'layout', 'list' ); ?>
+        <?php get_template_part( 'layout', 'pinterest' ); ?>
       <?php endif; ?>
     </div>
-		<?php get_sidebar(); ?>
     <div style="clear: both;"></div>
   </div>
 </div>

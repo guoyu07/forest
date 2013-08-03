@@ -1,7 +1,7 @@
 <?php get_header(); ?>
-<div id="full">
+<div id="main">
   <div class="wrap">
-    <div id="main">
+    <div id="lead">
       <?php if ( have_posts() ) : ?>
         <?php the_post(); ?>
         <hgroup class="heading">
