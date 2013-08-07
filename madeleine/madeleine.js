@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+  // Date archive
+
   var y = $('#date-archive').data('year');
   var m = $('#date-archive').data('month');
   var d = $('#date-archive').data('day');
@@ -43,7 +45,10 @@ $(document).ready(function(){
   $.each(bars, function() {
     var total = $(this).data('total');
     var relative_width = (250 * total) / total_highest;
-    $(this).css('width', relative_width);
+    $(this).stop().animate({
+      width: relative_width
+    });
+    // $(this).css('width', relative_width);
   });
 
   // Pinterest

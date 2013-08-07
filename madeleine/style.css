@@ -26,7 +26,7 @@ body{ background: #f2f4f6; border-top: 2px solid #d0574e; color: #444; font: 14p
 a{ color: #708491; cursor: pointer; text-decoration: none;}
 a:hover{ text-decoration: underline;}
 
-.wrap{ margin: 0 auto; width: 1020px;}
+.wrap{ margin: 0 auto; position: relative; width: 1020px;}
 .heading{ border-bottom: 1px solid #eaedef; color: #708491; font: 24px/1.15 Bitter, Georgia, serif; margin: 20px 20px 0; padding-bottom: 20px;}
 .title strong{ color: #444;}
 .title p{ color: #444; font-weight: bold;}
@@ -41,6 +41,11 @@ a:hover{ text-decoration: underline;}
 .pagination .page-previous{ left: 40px;}
 .pagination .page-last{ right: 0;}
 .pagination .page-next{ right: 40px;}
+.search-form{ position: relative; width: 240px;}
+.search-text{ background: #f2f4f6; border: 2px solid #d7dce1; border-radius: 15px; height: 18px; line-height: 18px; padding: 4px 20px 4px 30px; width: 186px;}
+.search-text:focus{ border-color: #708491; outline: none;}
+.search-submit{ background: url(search.png) no-repeat 0 0; border: none; cursor: pointer; height: 16px; left: 10px; position: absolute; top: 7px; width: 16px;}
+.content{ padding: 0 20px;}
 
 /* Header */
 
@@ -49,12 +54,25 @@ a:hover{ text-decoration: underline;}
 #title{ color: #d0574e;font-size: 22px; font-weight: bold; padding-top: 6px;}
 #description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
 #logo:hover{ text-decoration: none;}
+#header .search-form{ position: absolute; right: 0; top: 15px;}
 #navigation{ border-right: 1px solid #eaedef; clear: left; height: 60px;}
 #nav{ background: white; background: white; border: solid #eaedef; border-width: 1px 0; font: bold 14px/28px Bitter, Georgia, serif; height: 30px;}
 #nav li{ display: inline;}
 #nav a{ border-right: 1px solid #eaedef; border-top: 2px solid #444; color: #444; float: left; margin: -1px -1px 0 0; padding: 0 10px 0 11px;}
 #nav a:hover{ border-top-color: #444; text-decoration: none;}
 #home{ background: url(home.png) no-repeat 10px 7px; height: 30px; text-indent: -290486px; width: 14px;}
+#nav #images,
+#nav #videos,
+#nav #links,
+#nav #quotes{ background: url(icons.png) no-repeat 0 -31px; border-top-color: transparent; float: right; height: 30px; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
+#nav #images:hover,
+#nav #videos:hover,
+#nav #links:hover,
+#nav #quotes:hover{ border-top-color: #708491;}
+#nav #images{ border-left: 1px solid #eaedef;}
+#nav #videos{ background-position: 0 -61px;}
+#nav #links{ background-position: 0 -91px;}
+#nav #quotes{ background-position: 0 -121px;}
 #today-news{ background: #444; color: white; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; text-align: center; width: 60px;}
 #today-news strong{ display: block; font-size: 30px; padding-top: 6px;}
 #today-news em{ display: block; font-size: 9px; padding-top: 4px;}
@@ -78,7 +96,7 @@ a:hover{ text-decoration: underline;}
 
 /* Sidebar */
 
-#sidebar{ float: right; font-size: 12px; margin: 20px 20px 0 0; width: 300px;}
+#sidebar{ border-left: 1px solid #eaedef; float: right; font-size: 12px; margin: 20px 19px 0 0; padding-left: 19px; position: relative; right: 1px; width: 300px;}
 .widget{ border-bottom: 1px solid #eaedef; margin-bottom: 20px; padding-bottom: 20px;}
 .widget-title{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 4px; text-transform: uppercase;}
 #wp-calendar{ width: 100%;}
@@ -91,66 +109,9 @@ a:hover{ text-decoration: underline;}
 #wp-calendar a{ color: #d0574e; font-weight: bold;}
 .rsswidget img{ vertical-align: bottom;}
 
-/* 01 Home */
-
-#focus{ height: 480px; position: relative; width: 1020px;}
-.focus{ position: absolute;}
-#focus-1{ left: 0; top: 0;}
-#focus-2{ right: 0; top: 0;}
-#focus-3{ bottom: 0; left: 0;}
-#focus-4{ bottom: 0; left: 340px;}
-#focus-5{ bottom: 0; right: 0;}
-.focus-text{ background: rgba(14, 24, 31, 0.48); border-top: 1px solid #c33; bottom: 0; left: 0; padding: 20px; position: absolute; width: 300px;}
-#focus-1 .focus-text{ width: 640px;}
-#focus-1 .entry-title,
-#focus-5 .entry-title{ font-size: 24px;}
-.focus .entry-title a{ color: white;}
-.focus .entry-excerpt{ color: #afc6d5; display: none; padding-top: 10px;}
-#focus-1 .entry-excerpt,
-#focus-5 .entry-excerpt{ display: block;}
-
-/* 02 Category */
-
-#category{ font-family: Bitter, Georgia, serif; height: 30px; line-height: 30px;}
-#category .wrap{ background: #444;}
-#category strong{ background: #96ca47; color: white; float: left; font-size: 14px; margin-right: 20px; padding: 0 5px 0 10px; position: relative;}
-#category strong:after{ border: 15px solid transparent; border-left-color: #96ca47; content: ' '; height: 0; left: 100%; margin-top: -15px; position: absolute; pointer-events: none; top: 50%; width: 0;}
-#category strong a{ color: white;}
-#category li{ color: #aaa; display: inline; font-size: 13px; margin-left: 10px;}
-#category li a{ color: white; float: left; padding: 0 10px;}
-#category .current-cat a{ background: white; color: #444;}
-
-/* 03 Tag */
-
-
-
-/* 04 Author */
-
-#author-avatar{ float: left; margin-right: 20px;}
-
-/* 05 Date */
-
-#date-archive{ height: 40px; line-height: 40px; position: relative;}
-#date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 120px;}
-#date-archive .year{ display: none;}
-#date-archive .year.on{ display: block;}
-#date-archive .months{ display: none; left: 140px; width: 200px;}
-#date-archive .days{ display: none; left: 360px; width: 200px;}
-#date-archive .month{ display: none;}
-#date-archive .day{ display: none;}
-#date-archive .select{ color: #ccc; cursor: pointer; font-size: 16px; font-style: italic; padding-left: 10px;}
-#date-archive a{ display: block; padding: 0 10px;}
-#date-archive a:hover{ background: #d7dce1; text-decoration: none;}
-
-#date-archive .on{ display: block;}
-#date-archive .on a{ background: #708491; color: white}
-#date-archive .active{ display: block;}
-#date-archive .active .select{ display: none;}
-
-#date-archive button{ float: right;}
-
 /* Post */
 
+.post{ position: relative;}
 .aligncenter{ text-align: center;}
 .alignleft { display: inline; float: left; margin-right: 1em;}
 .alignright { display: inline; float: right; margin-left: 1em;}
@@ -162,6 +123,7 @@ a:hover{ text-decoration: underline;}
 .entry-content figcaption{ color: #708491; font: italic 11px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; text-align: center;}
 .entry-content .size-medium{ }
 
+.entry-format{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 4px; text-transform: uppercase;}
 .entry-title{ color: #444; font: bold 18px/1.15 Bitter, Georgia, serif;}
 .entry-title a{ color: #d0574e;}
 .entry-info{ color: #708491; font: italic 11px/1.15 Bitter, Georgia, serif;}
@@ -186,8 +148,8 @@ a:hover{ text-decoration: underline;}
 
 .format-quote .entry-title{ font-style: italic; font-weight: normal;}
 .format-quote .entry-summary{ color: #708491;}
-
-.format-image .entry-title{ clear: left;}
+.format-image{ height: 205px;}
+.format-image .entry-title{ background: rgba(255, 255, 255, .86); bottom: 10px; padding: 10px; position: absolute; width: 280px;}
 
 /* Single */
 
@@ -229,8 +191,10 @@ a:hover{ text-decoration: underline;}
 .pinterest .entry-thumbnail{ margin-bottom: 10px;}
 .pinterest .entry-summary{ font-size: 12px;}
 
+/* Lists */
+
 .popular li{ font: bold 18px/1.15 Bitter, Georgia, serif; min-height: 40px; padding-left: 50px; position: relative;}
-.popular em{ background: #444; display: block; height: 2px; left: 50px; position: absolute; top: 0; width: 250px;}
+.popular em{ background: #444; display: block; height: 2px; left: 50px; position: absolute; top: 0; width: 0;}
 .popular strong{ background: #444; color: white; float: left; height: 100%; left: 0; margin-right: 10px; position: absolute; text-align: center; top: 0; width: 50px;}
 .popular span{ display: inline-block; padding-top: 10px;}
 .popular a{ display: block; padding: 10px 0 10px 10px;}
@@ -290,6 +254,64 @@ a:hover{ text-decoration: underline;}
 .form-allowed-tags code{ display: block; font-family: monospace; font-style: normal;}
 .form-submit{ padding-top: 10px;}
 .form-submit #submit{ background: #708491; border: none; border-radius: 40px; color: white; cursor: pointer; font: bold 16px/1 Bitter, Georgia, serif; padding: 10px 20px 12px;}
+
+/* 01 Home */
+
+#focus{ height: 480px; position: relative; width: 1020px;}
+.focus{ position: absolute;}
+#focus-1{ left: 0; top: 0;}
+#focus-2{ right: 0; top: 0;}
+#focus-3{ bottom: 0; left: 0;}
+#focus-4{ bottom: 0; left: 340px;}
+#focus-5{ bottom: 0; right: 0;}
+.focus-text{ background: rgba(14, 24, 31, 0.48); border-top: 1px solid #c33; bottom: 0; left: 0; padding: 20px; position: absolute; width: 300px;}
+#focus-1 .focus-text{ width: 640px;}
+#focus-1 .entry-title,
+#focus-5 .entry-title{ font-size: 24px;}
+.focus .entry-title a{ color: white;}
+.focus .entry-excerpt{ color: #afc6d5; display: none; padding-top: 10px;}
+#focus-1 .entry-excerpt,
+#focus-5 .entry-excerpt{ display: block;}
+
+/* 02 Category */
+
+#category{ font-family: Bitter, Georgia, serif; height: 30px; line-height: 30px;}
+#category .wrap{ background: #444;}
+#category strong{ background: #96ca47; color: white; float: left; font-size: 14px; margin-right: 20px; padding: 0 5px 0 10px; position: relative;}
+#category strong:after{ border: 15px solid transparent; border-left-color: #96ca47; content: ' '; height: 0; left: 100%; margin-top: -15px; position: absolute; pointer-events: none; top: 50%; width: 0;}
+#category strong a{ color: white;}
+#category li{ color: #aaa; display: inline; font-size: 13px; margin-left: 10px;}
+#category li a{ color: white; float: left; padding: 0 10px;}
+#category .current-cat a{ background: white; color: #444;}
+
+/* 03 Tag */
+
+
+
+/* 04 Author */
+
+#author-avatar{ float: left; margin-right: 20px;}
+
+/* 05 Date */
+
+#date-archive{ height: 40px; line-height: 40px; position: relative;}
+#date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 120px;}
+#date-archive .year{ display: none;}
+#date-archive .year.on{ display: block;}
+#date-archive .months{ display: none; left: 140px; width: 200px;}
+#date-archive .days{ display: none; left: 360px; width: 200px;}
+#date-archive .month{ display: none;}
+#date-archive .day{ display: none;}
+#date-archive .select{ color: #ccc; cursor: pointer; font-size: 16px; font-style: italic; padding-left: 10px;}
+#date-archive a{ display: block; padding: 0 10px;}
+#date-archive a:hover{ background: #d7dce1; text-decoration: none;}
+
+#date-archive .on{ display: block;}
+#date-archive .on a{ background: #708491; color: white}
+#date-archive .active{ display: block;}
+#date-archive .active .select{ display: none;}
+
+#date-archive button{ float: right;}
 
 /* Colors */
 

@@ -1,10 +1,6 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-  <p class="entry-format">Image</p>
-  <?php if ( is_category() ): ?>
-    <?php madeleine_thumbnail( 'large' ); ?>
-  <?php else: ?>
-    <?php madeleine_thumbnail( 'medium' ); ?>
-  <?php endif; ?>
+  <p class="entry-format">Video</p>
+  <?php madeleine_thumbnail( 'medium' ); ?>
   <p class="entry-title">
     <?php the_title(); ?>
   </p>

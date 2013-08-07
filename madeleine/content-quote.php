@@ -1,4 +1,5 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+  <p class="entry-format">Quote</p>
   <blockquote class="entry-title">
     &#8220; <?php the_title(); ?> &#8221;
   </blockquote>

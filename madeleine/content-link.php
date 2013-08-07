@@ -1,4 +1,5 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+    <p class="entry-format">Link</p>
   <p class="entry-title">
     <a href="<?php the_excerpt(); ?>"><?php the_title(); ?> &rarr;</a>
   </p>

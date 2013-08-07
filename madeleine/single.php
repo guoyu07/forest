@@ -19,14 +19,14 @@
 
               <h1 class="entry-title"><?php the_title(); ?></h1>
 
-              <?php if ( is_object_in_taxonomy( get_post_type(), 'category' ) ) : // Hide category text when not supported ?>
+              <?php if ( is_object_in_taxonomy( get_post_type(), 'category' ) ) : ?>
                   <?php $categories_list = get_the_category_list( '</li><li>' ); ?>
                   <?php if ( $categories_list ): ?>
                     <ul class="entry-categories">
                       <li><?php printf( $categories_list ); ?></li>
                     </ul>
-                  <?php endif; // End if categories ?>
-              <?php endif; // End if is_object_in_taxonomy( get_post_type(), 'category' ) ?>
+                  <?php endif; ?>
+              <?php endif; ?>
               
               <?php if ( 'post' == get_post_type() ) : ?>
                 <div class="entry-info">
@@ -37,19 +37,26 @@
 
             <?php the_post_thumbnail( 'large' ); ?>
 
+            <?php
+            $format = get_post_format();
+            if ( $format == 'video' ):
+              madeleine_video();
+            endif;
+            ?>
+
             <div class="entry-content">
-              <?php the_content( 'Continue reading <span class="meta-nav">&rarr;</span>' ); ?>
+              <?php the_content(); ?>
               <?php wp_link_pages( array( 'before' => '<div class="page-link"><span>Pages:</span>', 'after' => '</div>' ) ); ?>
             </div>
 
-            <?php if ( is_object_in_taxonomy( get_post_type(), 'post_tag' ) ) : // Hide tag text when not supported ?>
+            <?php if ( is_object_in_taxonomy( get_post_type(), 'post_tag' ) ) : ?>
               <?php $tags_list = get_the_tag_list( '<li>', '</li><li>', '</li>' ); ?>
               <?php if ( $tags_list ): ?>
                 <ul class="entry-tags">
                   <?php printf( $tags_list ); ?>
                 </ul>
-              <?php endif; // End if $tags_list ?>
-            <?php endif; // End if is_object_in_taxonomy( get_post_type(), 'post_tag' ) ?>
+              <?php endif; ?>
+            <?php endif; ?>
 
             <?php comments_template( '', true ); ?>
           </article>

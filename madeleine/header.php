@@ -1,14 +1,4 @@
-<?php
-/**
- * The Header for our theme.
- *
- * Displays all of the <head> section and everything up till <div id="lead">
- *
- * @package WordPress
- * @subpackage Twenty_Eleven
- * @since Twenty Eleven 1.0
- */
-?><!doctype html>
+<!doctype html>
 <!--[if IE 6]>
 <html id="ie6" <?php language_attributes(); ?>>
 <![endif]-->
@@ -70,16 +60,25 @@
 </head>
 
 <body <?php body_class(); ?>>
+  <div id="debug" style="position: absolute; right: 10px; top: 10px;">
+    <a href="/forest/">Home</a>
+    <a href="/forest/category/social-media">Category</a>
+    <a href="/forest/tag/apple">Tag</a>
+    <a href="/forest/author/jt">Author</a>
+    <a href="/forest/type/image">Format</a>
+    <a href="/forest/">Search</a>
+  </div>
   <header id="header">
     <div class="wrap">
       <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
         <hgroup>
           <h1 id="title">
-            <?php bloginfo( 'name' ); ?>
+            <?php bloginfo( 'name' ); echo $_SERVER['REQUEST_URI']; ?>
           </h1>
           <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
         </hgroup>
       </a>
+      <?php get_search_form(); ?>
       <div id="navigation">
         <a href="#" id="today-news">
           <strong>12</strong>
@@ -89,6 +88,10 @@
           <ul>
             <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home">Home</a></li>
             <?php madeleine_nav(); ?>
+            <li><a id="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>">Quotes</a></li>
+            <li><a id="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>">Links</a></li>
+            <li><a id="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>">Videos</a></li>
+            <li><a id="images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>">Images</a></li>
           </ul>
         </nav>
         <div id="trending">
