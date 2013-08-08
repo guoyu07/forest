@@ -6,9 +6,6 @@
     <?php madeleine_thumbnail( 'medium' ); ?>
   <?php endif; ?>
   <p class="entry-title">
-    <?php the_title(); ?>
-  </p>
-  <p class="entry-permalink">
-  	<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentyeleven' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">#</a>
+    <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
   </p>
 </article>

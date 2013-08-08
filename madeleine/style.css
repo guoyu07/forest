@@ -124,6 +124,7 @@ a:hover{ text-decoration: underline;}
 .entry-content .size-medium{ }
 
 .entry-format{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 4px; text-transform: uppercase;}
+/*.entry-format{ background: #eaedef url(icons.png) no-repeat 0 -30px; border-radius: 15px; height: 30px; left: -30px; overflow: hidden; position: absolute; text-indent: -290486px; top: 20px; width: 30px;}*/
 .entry-title{ color: #444; font: bold 18px/1.15 Bitter, Georgia, serif;}
 .entry-title a{ color: #d0574e;}
 .entry-info{ color: #708491; font: italic 11px/1.15 Bitter, Georgia, serif;}
@@ -208,7 +209,7 @@ a:hover{ text-decoration: underline;}
 .links li:last-child{ margin-bottom: 0;}
 .widget .links a{ color: #444;}
 
-.quotes li{ margin-bottom: 10px;}
+.quotes li{ border-left: 1px solid #444; margin-bottom: 10px; padding-left: 10px;}
 .quotes li:last-child{ margin-bottom: 0;}
 .quotes blockquote{ color: #444; font: italic 14px/1.15 Bitter, Georgia, serif;}
 .quotes p{ color: #708491; font-size: 11px; padding-top: 2px;}
@@ -323,6 +324,7 @@ body.category-tech #category strong,
 .category-tech .entry-categories a,
 .popular .category-tech em,
 .popular .category-tech strong{ background: #d0574e;}
+.quote.category-tech,
 body.category-tech #category strong:after{ border-left-color: #d0574e;}
 #nav .category-tech a,
 body.category-tech,
@@ -338,6 +340,7 @@ body.category-social-media #category strong,
 .category-social-media .entry-categories a,
 .popular .category-social-media em,
 .popular .category-social-media strong{ background: #4d9cd1;}
+.quote.category-social-media,
 body.category-social-media #category strong:after{ border-left-color: #4d9cd1;}
 #nav .category-social-media a,
 body.category-social-media,
@@ -353,6 +356,7 @@ body.category-mobile #category strong,
 .category-mobile .entry-categories a,
 .popular .category-mobile em,
 .popular .category-mobile strong{ background: #96ca47;}
+.quote.category-mobile,
 body.category-mobile #category strong:after{ border-left-color: #96ca47;}
 #nav .category-mobile a,
 body.category-mobile,
@@ -368,6 +372,7 @@ body.category-coding #category strong,
 .category-coding .entry-categories a,
 .popular .category-coding em,
 .popular .category-coding strong{ background: #d1ae4d;}
+.quote.category-coding,
 body.category-coding #category strong:after{ border-left-color: #d1ae4d;}
 #nav .category-coding a,
 body.category-coding,
@@ -383,6 +388,7 @@ body.category-design #category strong,
 .category-design .entry-categories a,
 .popular .category-design em,
 .popular .category-design strong{ background: #6acdb3;}
+.quote.category-design,
 body.category-design #category strong:after{ border-left-color: #6acdb3;}
 #nav .category-design a,
 body.category-design,
@@ -398,6 +404,7 @@ body.category-gaming #category strong,
 .category-gaming .entry-categories a,
 .popular .category-gaming em,
 .popular .category-gaming strong{ background: #d087cb;}
+.quote.category-gaming,
 body.category-gaming #category strong:after{ border-left-color: #d087cb;}
 #nav .category-gaming a,
 body.category-gaming,
@@ -414,6 +421,7 @@ body.category-business #category strong,
 .category-business .entry-categories a,
 .popular .category-business em,
 .popular .category-business strong{ background: #c1cb31;}
+.quote.category-business,
 body.category-business #category strong:after{ border-left-color: #c1cb31;}
 #nav .category-business a,
 body.category-business,

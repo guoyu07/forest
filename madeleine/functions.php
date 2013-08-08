@@ -156,7 +156,7 @@ function madeleine_save_meta( $post_id, $post ) {
     $posted = str_replace( '_', '-', $meta );
     $new_meta_value = ( isset( $_POST[$posted] ) ? $_POST[$posted] : '' );
     $key = $meta;
-    $meta_value = get_post_meta( $post_id, $key, true );
+    $current_meta_value = get_post_meta( $post_id, $key, true );
 
     if ( $new_meta_value != '' ):
       if ( $meta == 'video_youtube' ):
@@ -176,12 +176,12 @@ function madeleine_save_meta( $post_id, $post ) {
       endif;
     endif;
 
-    if ( $new_meta_value && '' == $meta_value )
+    if ( $new_meta_value && '' == $current_meta_value )
       add_post_meta( $post_id, $key, $new_meta_value, true );
-    elseif ( $new_meta_value && $new_meta_value != $meta_value )
+    elseif ( $new_meta_value && $new_meta_value != $current_meta_value )
       update_post_meta( $post_id, $key, $new_meta_value );
-    elseif ( '' == $new_meta_value && $meta_value )
-      delete_post_meta( $post_id, $key, $meta_value );
+    elseif ( '' == $new_meta_value && $current_meta_value )
+      delete_post_meta( $post_id, $key, $current_meta_value );
   endforeach;
 }
 
@@ -351,17 +351,35 @@ function madeleine_focus() {
 }
 
 
+function madeleine_latest_posts() {
+  global $wpdb;
+  $latests = $wpdb->get_results( 
+    "
+    SELECT ID
+    FROM $wpdb->posts
+    WHERE post_status = 'publish'
+    AND post_date between date_sub(now(), INTERVAL 1 MONTH) and now();
+    "
+  , 'ARRAY_N');
+  $latest_ids = array();
+  foreach ( $latests as $latest ):
+    $latest_ids[] = $latest[0];
+  endforeach;
+  return $latest_ids;
+}
+
 // 04 Sidebar
 
 
 function madeleine_popular() {
   global $wpdb;
-  madeleine_register_popularity_table();
+  $latest_ids = join(',', madeleine_latest_posts() ); 
   $populars = $wpdb->get_results( 
     "
-    SELECT post_id, total
-    FROM $wpdb->madeleine_popularity
-    ORDER BY total DESC
+    SELECT post_id, meta_key, meta_value
+    FROM $wpdb->postmeta
+    WHERE meta_key = 'share_total'
+    ORDER BY CAST(meta_value AS UNSIGNED) DESC
     LIMIT 5
     "
   );
@@ -372,8 +390,8 @@ function madeleine_popular() {
       $categories = get_the_category( $id );
       $category = get_category( madeleine_top_category( $categories[0] ) );
       echo '<li class="post category-' . $category->category_nicename . '">';
-      echo '<em data-total="' . $popular->total . '"></em>';
-      echo '<strong><span>' . $popular->total . '</span></strong> ';
+      echo '<em data-total="' . $popular->meta_value . '"></em>';
+      echo '<strong><span>' . $popular->meta_value . '</span></strong> ';
       echo '<a href="' . get_permalink( $id ) . '">' . get_the_title( $id ) . '</a>';
       echo '</li>';
     endforeach;
@@ -398,7 +416,9 @@ function madeleine_images() {
   echo '<ul class="images">';
   while ( $query->have_posts() ) {
     $query->the_post();
-    echo '<li>';
+    $categories = get_the_category( get_the_ID() );
+    $category = get_category( madeleine_top_category( $categories[0] ) );
+    echo '<li class="post image category-' . $category->category_nicename . '">';
     madeleine_thumbnail( 'thumbnail' );
     echo '</li>';
   }
@@ -423,7 +443,9 @@ function madeleine_links() {
   echo '<ul class="links">';
   while ( $query->have_posts() ) {
     $query->the_post();
-    echo '<li><a href="' . get_the_excerpt() . '">' . get_the_title() . ' <span>&rarr;</span></a></li>';
+    $categories = get_the_category( get_the_ID() );
+    $category = get_category( madeleine_top_category( $categories[0] ) );
+    echo '<li class="post link category-' . $category->category_nicename . '"><a href="' . get_the_excerpt() . '">' . get_the_title() . ' <span>&rarr;</span></a></li>';
   }
   echo '</ul>';
   wp_reset_postdata();
@@ -445,7 +467,9 @@ function madeleine_quotes() {
   echo '<ul class="quotes">';
   while ( $query->have_posts() ) {
     $query->the_post();
-    echo '<li>';
+    $categories = get_the_category( get_the_ID() );
+    $category = get_category( madeleine_top_category( $categories[0] ) );
+    echo '<li class="post quote category-' . $category->category_nicename . '">';
     echo '<blockquote>&#8220; ' . get_the_title() . ' &#8221;</blockquote>';
     echo '<p>' . get_the_excerpt() . '</p>';
     echo '</li>';
@@ -507,18 +531,34 @@ function madeleine_pagination( $pages = '', $range = 2 ) {
 }
 
 
-function madeleine_tags( $query ) {
+function madeleine_archive_settings( $query ) {
+  $query->set( 'ignore_sticky_posts', 1 );
+  $standard_posts = array(
+    array(
+      'taxonomy' => 'post_format',
+      'field'    => 'slug',
+      'terms'    => array( 
+          'post-format-aside',
+          'post-format-audio',
+          'post-format-chat',
+          'post-format-gallery',
+          'post-format-image',
+          'post-format-link',
+          'post-format-quote',
+          'post-format-status',
+          'post-format-video'
+      ),
+      'operator' => 'NOT IN'
+    )
+  );
+  if ( $query->is_home() && $query->is_main_query() )
+    $query->set( 'tax_query', $standard_posts );
   if ( $query->is_tag() && $query->is_main_query() )
     $query->set( 'posts_per_page', 9 );
-}
-add_action( 'pre_get_posts', 'madeleine_tags' );
-
-
-function madeleine_type_archive( $query ) {
   if ( $query->is_tax() && $query->is_main_query() )
     $query->set( 'posts_per_page', 12 );
 }
-add_action( 'pre_get_posts', 'madeleine_type_archive' );
+add_action( 'pre_get_posts', 'madeleine_archive_settings' );
 
 
 function madeleine_date_vars() {
@@ -604,19 +644,20 @@ function madeleine_nested_date() {
 
 
 function madeleine_excerpt( $text ) {
-  return str_replace(' [...]', '... <a href="'. get_permalink() . '">&rarr;</a>', $text);
+  return '&#8230; <a href="'. get_permalink() . '">&rarr;</a>';
 }
-add_filter( 'the_excerpt', 'madeleine_excerpt' );
+add_filter( 'excerpt_more', 'madeleine_excerpt' );
 
 
 function madeleine_excerpt_length( $length ) {
   global $post;
   if ( has_post_thumbnail( $post->ID ) )
-    return 25;
+    return 16;
   else
-    return 75;
+    return 86;
 }
 add_filter( 'excerpt_length', 'madeleine_excerpt_length' );
+
 
 function madeleine_post_class( $classes ) {
   $top_category_ID = madeleine_top_category();
@@ -751,6 +792,10 @@ function madeleine_google_shares( $url ){
 
 function madeleine_share_count() {
   $url = 'http://uscodebeta.house.gov/download/download.shtml';
+  $url = 'http://arstechnica.com/gadgets/2013/08/review-lego-mindstorms-ev3-means-giant-robots-powerful-computers/';
+  $url = 'http://www.theverge.com/2013/8/7/4596646/behind-the-art-of-elysium';
+  $url = 'http://www.wired.com/underwire/2013/08/kevin-feige-marvel-dc-movies/';
+  $url = 'http://paulgraham.com/convince.html';
 
   $finfo = json_decode(file_get_contents('http://api.ak.facebook.com/restserver.php?v=1.0&method=links.getStats&urls='.$url.'&format=json'));
   $tinfo = json_decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url));
@@ -767,13 +812,21 @@ function madeleine_share_count() {
   return $shares;
 }
 
- 
+
+function madeleine_save_popularity( $post_id ) {
+  $shares = madeleine_share_count();
+  $total = array_sum( $shares );
+  update_post_meta( $post_id, 'share_counts', $shares );
+  update_post_meta( $post_id, 'share_total', $total );
+}
+add_action( 'save_post', 'madeleine_save_popularity' );
+
+
 function madeleine_register_popularity_table() {
   global $wpdb;
   $wpdb->madeleine_popularity = "{$wpdb->prefix}madeleine_popularity";
 }
-
-add_action( 'init', 'madeleine_register_popularity_table', 1 );
+// add_action( 'init', 'madeleine_register_popularity_table', 1 );
 
 
 function madeleine_create_popularity_table() {
@@ -794,7 +847,7 @@ function madeleine_create_popularity_table() {
   dbDelta( $sql_create_table );
   madeleine_initiate_popularity();
 }
-add_action( 'after_switch_theme', 'madeleine_create_popularity_table' );
+// add_action( 'after_switch_theme', 'madeleine_create_popularity_table' );
 
 
 function madeleine_initiate_popularity() {
@@ -819,7 +872,7 @@ function madeleine_insert_popularity( $post_id ) {
     );
   endif;
 }
-add_action( 'publish_post', 'madeleine_insert_popularity' );
+// add_action( 'publish_post', 'madeleine_insert_popularity' );
 
 
 function madeleine_update_popularity( $post_id ) {
@@ -840,7 +893,7 @@ function madeleine_update_popularity( $post_id ) {
     array( '%d' )
   );
 }
-add_action( 'save_post', 'madeleine_update_popularity' );
+// add_action( 'save_post', 'madeleine_update_popularity' );
 
 
 function madeleine_schedule_popularity( $post_id ) {
@@ -850,10 +903,10 @@ function madeleine_schedule_popularity( $post_id ) {
     wp_schedule_event( current_time ( 'timestamp' ), 'daily', 'madeleine_popularity_event', array( '$post_id' => $post_id ) );
 }
 // add_action( 'save_post', 'madeleine_schedule_popularity' );
-add_action( 'madeleine_popularity_event', 'madeleine_update_popularity' );
+// add_action( 'madeleine_popularity_event', 'madeleine_update_popularity' );
 
 
 function madeleine_delete_popularity( $post_id ) {
   wp_clear_scheduled_hook( 'madeleine_popularity_event', array( '$post_id' => $post_id ) );
 }
-add_action( 'delete_post', 'madeleine_delete_popularity' );
+// add_action( 'delete_post', 'madeleine_delete_popularity' );
