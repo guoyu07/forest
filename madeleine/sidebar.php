@@ -1,19 +1,9 @@
 <div id="sidebar" class="widget-area" role="complementary">
-  <section class="widget">
-    <h4 class="widget-title">Popular this month</h4>
-    <?php madeleine_popular(); ?>
-  </section>
-  <section class="widget">
-    <h4 class="widget-title">Images</h4>
-    <?php madeleine_images(); ?>
-  </section>
-  <section class="widget">
-    <h4 class="widget-title">Links</h4>
-    <?php madeleine_links(); ?>
-  </section>
-	<section class="widget">
-		<h4 class="widget-title">Quotes</h4>
-		<?php madeleine_quotes(); ?>
-	</section>
+  <?php madeleine_latest_widget(); ?>
+  <?php madeleine_popular_widget(); ?>
+  <?php // madeleine_on_the_radar_widget(); ?>
+  <?php madeleine_format_widget( 'image' ); ?>
+  <?php madeleine_format_widget( 'link' ); ?>
+	<?php madeleine_format_widget( 'quote' ); ?>
 	<?php // dynamic_sidebar(); ?>
 </div>

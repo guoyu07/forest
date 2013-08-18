@@ -1,7 +1,16 @@
 <?php
 
+/*
+01 Settings
+02 Common functions
+03 Backend
+04 Sidebar widgets
+05 Archives
+06 Post
+07 Popularity plugin
+*/
 
-// 00 Settings
+// 01 Settings
 
 
 add_theme_support( 'post-formats', array( 'image', 'video', 'link', 'quote', ) );
@@ -34,13 +43,14 @@ if ( function_exists('register_sidebar') )
   register_sidebar( $sidebar_arguments );
 
 
-// 01 Common functions
+// 02 Common functions
 
 
 function madeleine_get_redirect_target( $destination ) {
   $headers = get_headers( $destination, 1 );
   return $headers['Location'];
 }
+
 
 function madeleine_get_youtube_id( $url ) {
   if ( preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match) ):
@@ -69,7 +79,147 @@ function madeleine_get_dailymotion_id( $url ) {
 }
 
 
-// 02 Backend
+function madeleine_top_category( $cat_ID = null ) {
+  if ( isset( $cat_ID ) ):
+    $cat = $cat_ID;
+  elseif ( is_category() ):
+    $cat = get_query_var('cat');
+  elseif ( is_attachment() ):
+    $cat = 2;
+  else:
+    $categories = get_the_category();
+    $cat = $categories[0]->cat_ID;
+  endif;
+  $category = get_category( $cat );
+  if ( isset( $category ) ):
+    if ( $category->category_parent == '0' )
+      $top_category_ID = $cat;
+    else
+      $top_category_ID = $category->category_parent;
+    return $top_category_ID;
+  endif;
+}
+
+
+function madeleine_body_class( $classes ) {
+  if ( is_category() || is_single() ):
+    $top_category_ID = madeleine_top_category();
+    $top_category = get_category( $top_category_ID );
+    $classes[] = 'category-' . $top_category->category_nicename;
+  endif;
+  return $classes;
+}
+add_filter( 'body_class', 'madeleine_body_class' );
+
+
+function madeleine_categories_list() {
+  $cats = get_categories('hide_empty=0&orderby=ID');
+  $nav = wp_list_categories('depth=1&echo=0&hide_empty=0&orderby=ID&title_li=');
+  foreach( $cats as $cat ):
+    $find = 'cat-item-' . $cat->term_id . '"';
+    $replace =  'category-' . $cat->slug . '"';
+    $nav = str_replace( $find, $replace, $nav );
+    $find = 'cat-item-' . $cat->term_id . ' ';
+    $replace = 'category-' . $cat->slug . ' ';
+    $nav = str_replace( $find, $replace, $nav );
+  endforeach;
+  echo $nav;
+}
+
+
+function page_redirect() {
+  if ( $_SERVER['REQUEST_URI'] == '/forest/images' ):
+    require( TEMPLATEPATH . '/images.php' );
+  elseif ( $_SERVER['REQUEST_URI'] == '/forest/videos' ):
+    require( TEMPLATEPATH . '/videos.php' );
+  elseif ( $_SERVER['REQUEST_URI'] == '/forest/links' ):
+    require( TEMPLATEPATH . '/links.php' );
+  elseif ( $_SERVER['REQUEST_URI'] == '/forest/quotes' ):
+    require( TEMPLATEPATH . '/quotes.php' );
+  endif;
+}
+// add_action( 'template_redirect', 'page_redirect' );
+
+
+function madeleine_standard_posts() {
+  $standard_posts  = array(
+    array(
+      'taxonomy' => 'post_format',
+      'field'    => 'slug',
+      'terms'    => array( 
+          'post-format-aside',
+          'post-format-audio',
+          'post-format-chat',
+          'post-format-gallery',
+          'post-format-image',
+          'post-format-link',
+          'post-format-quote',
+          'post-format-status',
+          'post-format-video'
+      ),
+      'operator' => 'NOT IN'
+    )
+  );
+  return $standard_posts;
+}
+
+
+function madeleine_focus() {
+  $args = array(
+    'ignore_sticky_posts' => 1,
+    'post__in' => array( 1, 10, 16, 23, 57 )
+  );
+  $query = new WP_Query( $args );
+  $n = 1;
+  echo '<div id="focus">';
+  while ( $query->have_posts() ) {
+    $query->the_post();
+    $categories = get_the_category();
+    $category_links = '';
+    $class = 'focus';
+    foreach ( $categories as $category ):
+      $class .= ' category-' . $category->category_nicename;
+      $category_links .= '<li><a href="' . get_category_link( $category->cat_ID ) . '">' . $category->name . '</a></li>';
+    endforeach;
+    echo '<article class="post ' . $class . '" id="focus-' . $n . '">';
+    if ( $n == 1 )
+      madeleine_thumbnail( 'focus' );
+    elseif ( $n == 5 )
+      madeleine_thumbnail( 'tall' );
+    else
+      madeleine_thumbnail( 'wide' );
+    echo '<div class="focus-text">';
+    echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+    echo '<ul class="entry-category">' . $category_links . '</ul>';
+    echo '<p class="entry-excerpt">' . get_the_excerpt() . '</p>';
+    echo '</div>';
+    echo '</article>';
+    $n++;
+  }
+  echo '</div>';
+  wp_reset_postdata();
+}
+
+
+function madeleine_latest_posts() {
+  global $wpdb;
+  $latests = $wpdb->get_results( 
+    "
+    SELECT ID
+    FROM $wpdb->posts
+    WHERE post_status = 'publish'
+    AND post_date between date_sub(now(), INTERVAL 1 MONTH) and now();
+    "
+  , 'ARRAY_N');
+  $latest_ids = array();
+  foreach ( $latests as $latest ):
+    $latest_ids[] = $latest[0];
+  endforeach;
+  return $latest_ids;
+}
+
+
+// 03 Backend
 
 
 function madeleine_video_meta_box( $object, $box ) { ?>
@@ -222,156 +372,65 @@ function madeleine_upload_video_thumbnail( $image_url, $image_id, $post_id, $sou
 }
 
 
-// 03 Common
+// 04 Sidebar widgets
 
 
-function madeleine_top_category( $cat_ID = null ) {
-  if ( isset( $cat_ID ) ):
-    $cat = $cat_ID;
-  elseif ( is_category() ):
-    $cat = get_query_var('cat');
-  elseif ( is_attachment() ):
-    $cat = 2;
-  else:
-    $categories = get_the_category();
-    $cat = $categories[0]->cat_ID;
-  endif;
-  $category = get_category( $cat );
-  if ( isset( $category ) ):
-    if ( $category->category_parent == '0' )
-      $top_category_ID = $cat;
-    else
-      $top_category_ID = $category->category_parent;
-    return $top_category_ID;
-  endif;
-}
-
-function madeleine_body_class( $classes ) {
-  if ( is_category() || is_single() ):
-    $top_category_ID = madeleine_top_category();
-    $top_category = get_category( $top_category_ID );
-    $classes[] = 'category-' . $top_category->category_nicename;
-  endif;
-  return $classes;
-}
-add_filter( 'body_class', 'madeleine_body_class' );
-
-
-function madeleine_nav() {
-  $cats = get_categories('hide_empty=0&order=desc');
-  $nav = wp_list_categories('depth=1&echo=0&hide_empty=0&orderby=ID&title_li=');
-  foreach( $cats as $cat ):
-    $find = 'cat-item-' . $cat->term_id . '"';
-    $replace =  'category-' . $cat->slug . '"';
-    $nav = str_replace( $find, $replace, $nav );
-    $find = 'cat-item-' . $cat->term_id . ' ';
-    $replace = 'category-' . $cat->slug . ' ';
-    $nav = str_replace( $find, $replace, $nav );
-  endforeach;
-  echo $nav;
-}
-
-
-function page_redirect() {
-  if ( $_SERVER['REQUEST_URI'] == '/forest/images' ):
-    require( TEMPLATEPATH . '/images.php' );
-  elseif ( $_SERVER['REQUEST_URI'] == '/forest/videos' ):
-    require( TEMPLATEPATH . '/videos.php' );
-  elseif ( $_SERVER['REQUEST_URI'] == '/forest/links' ):
-    require( TEMPLATEPATH . '/links.php' );
-  elseif ( $_SERVER['REQUEST_URI'] == '/forest/quotes' ):
-    require( TEMPLATEPATH . '/quotes.php' );
-  endif;
-}
-// add_action( 'template_redirect', 'page_redirect' );
-
-
-function madeleine_standard_posts() {
-  $paged = get_query_var('paged') ? get_query_var('paged') : 1;
-  $cat   = get_query_var('cat');
-  $args  = array(
-    'cat'                 => $cat,
-    'ignore_sticky_posts' => 1,
-    'paged'               => $paged,
-    'post_type'           => 'post',
-    'tax_query'           => array(
-      array(
-        'taxonomy' => 'post_format',
-        'field'    => 'slug',
-        'terms'    => array( 
-            'post-format-aside',
-            'post-format-audio',
-            'post-format-chat',
-            'post-format-gallery',
-            'post-format-image',
-            'post-format-link',
-            'post-format-quote',
-            'post-format-status',
-            'post-format-video'
-        ),
-        'operator' => 'NOT IN'
-      )
-    )
-  );
-  query_posts( $args );
-}
-
-
-function madeleine_focus() {
+function madeleine_latest_widget() {
   $args = array(
-    'ignore_sticky_posts' => 1,
-    'post__in' => array( 1, 10, 16, 23, 57 )
+    'posts_per_page ' => -1
   );
   $query = new WP_Query( $args );
-  $n = 1;
-  echo '<div id="focus">';
-  while ( $query->have_posts() ) {
-    $query->the_post();
-    $categories = get_the_category();
-    $class = 'focus';
-    foreach ( $categories as $category ):
-      $class .= ' focus-' . $category->category_nicename;
-    endforeach;
-    echo '<article class="' . $class . '" id="focus-' . $n . '">';
-    if ( $n == 1 )
-      madeleine_thumbnail( 'focus' );
-    elseif ( $n == 5 )
-      madeleine_thumbnail( 'tall' );
-    else
-      madeleine_thumbnail( 'wide' );
-    echo '<div class="focus-text">';
-    echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
-    echo '<p class="entry-excerpt">' . get_the_excerpt() . '</p>';
-    echo '</div>';
-    echo '</article>';
-    $n++;
-  }
-  echo '</div>';
+  if ( $query->have_posts() ):
+    echo '<section class="widget latest">';
+    echo '<h4 class="widget-title">Latest posts</h4>';
+    echo '<ul class="latest">';
+    while ( $query->have_posts() ) {
+      $query->the_post();
+      $categories = get_the_category( get_the_ID() );
+      $category = get_category( madeleine_top_category( $categories[0] ) );
+      echo '<li class="post category-' . $category->category_nicename . '">';
+      echo '<time class="entry-date">' . get_the_date( 'd/m' ) . '</time>';
+      echo '<h3 class="entry-title"><a href="' . get_permalink() . '" title="' . esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ) . '" rel="bookmark">' . get_the_title() . '</a></h3>';
+      echo '</li>';
+    }
+    echo '</section>';
+  endif;
   wp_reset_postdata();
 }
 
 
-function madeleine_latest_posts() {
-  global $wpdb;
-  $latests = $wpdb->get_results( 
-    "
-    SELECT ID
-    FROM $wpdb->posts
-    WHERE post_status = 'publish'
-    AND post_date between date_sub(now(), INTERVAL 1 MONTH) and now();
-    "
-  , 'ARRAY_N');
-  $latest_ids = array();
-  foreach ( $latests as $latest ):
-    $latest_ids[] = $latest[0];
-  endforeach;
-  return $latest_ids;
+function madeleine_on_the_radar_widget() {
+  $args = array(
+    'ignore_sticky_posts' => 1,
+    'post__in' => get_option( 'sticky_posts' ),
+    'posts_per_page ' => 2,
+    'post_type' => 'post'
+  );
+  $cat = get_query_var('cat');
+  if ( isset( $cat ) )
+    $args['cat'] = get_query_var('cat');
+  $query = new WP_Query( $args );
+  if ( $query->have_posts() ):
+    echo '<section class="widget radar">';
+    echo '<h4 class="widget-title">On the radar</h4>';
+    while ( $query->have_posts() ) {
+      $query->the_post();
+      $categories = get_the_category( get_the_ID() );
+      $category = get_category( madeleine_top_category( $categories[0] ) );
+      echo '<div class="post category-' . $category->category_nicename . '">';
+      madeleine_thumbnail( 'medium' );
+      echo '<h3 class="entry-title">';
+      echo '<a href="' . get_permalink() . '" title="' . esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ) . '" rel="bookmark">' . get_the_title() . '</a>';
+      echo '</h3>';
+      echo '</div>';
+    }
+    echo '</section>';
+  endif;
+  wp_reset_postdata();
 }
 
-// 04 Sidebar
 
-
-function madeleine_popular() {
+function madeleine_popular_widget() {
   global $wpdb;
   $latest_ids = join(',', madeleine_latest_posts() ); 
   $populars = $wpdb->get_results( 
@@ -384,7 +443,9 @@ function madeleine_popular() {
     "
   );
   if ( $populars ):
-    echo '<ul class="popular">';
+    echo '<section class="widget popular">';
+    echo '<h4 class="widget-title">Popular this month</h4>';
+    echo '<ul>';
     foreach ( $populars as $popular ):
       $id = $popular->post_id;
       $categories = get_the_category( $id );
@@ -397,7 +458,52 @@ function madeleine_popular() {
     endforeach;
     echo '</ul>';
     echo '<div style="clear: left;"></div>';
+    echo '</section>';
   endif;
+}
+
+
+function madeleine_format_widget( $format ) {
+  $args = array(
+    'post_type' => 'post',
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'post_format',
+        'field' => 'slug',
+        'terms' => array( 'post-format-' . $format )
+      )
+    )
+  );
+  $cat = get_query_var('cat');
+  if ( isset( $cat ) )
+    $args['cat'] = get_query_var('cat');
+  $query = new WP_Query( $args );
+  if ( $query->have_posts() ):
+    echo '<section class="widget ' . $format . 's">';
+    echo '<h4 class="widget-title">';
+    single_cat_title();
+    echo ' ' . $format . 's</h4>';
+    echo '<ul>';
+    while ( $query->have_posts() ) {
+      $query->the_post();
+      $categories = get_the_category( get_the_ID() );
+      $category = get_category( madeleine_top_category( $categories[0] ) );
+      echo '<li class="post ' . $format . ' category-' . $category->category_nicename . '">';
+      if ( $format == 'image' ):
+        madeleine_thumbnail( 'thumbnail' );
+      elseif ( $format == 'link' ):
+        echo '<a href="' . get_the_excerpt() . '">' . get_the_title() . ' <span>&rarr;</span></a>';
+      elseif ( $format == 'quote' ):
+        echo '<blockquote>&#8220; ' . get_the_title() . ' &#8221;</blockquote>';
+        echo '<p>' . get_the_excerpt() . '</p>';
+      endif;
+      echo '</li>';
+    }
+    echo '</ul>';
+    echo '<div style="clear: left;"></div>';
+    echo '</section>';
+  endif;
+  wp_reset_postdata();
 }
 
 
@@ -439,6 +545,9 @@ function madeleine_links() {
       )
     )
   );
+  $cat = get_query_var('cat');
+  if ( isset( $cat ) )
+    $args['cat'] = get_query_var('cat');
   $query = new WP_Query( $args );
   echo '<ul class="links">';
   while ( $query->have_posts() ) {
@@ -463,6 +572,9 @@ function madeleine_quotes() {
       )
     )
   );
+  $cat = get_query_var('cat');
+  if ( isset( $cat ) )
+    $args['cat'] = get_query_var('cat');
   $query = new WP_Query( $args );
   echo '<ul class="quotes">';
   while ( $query->have_posts() ) {
@@ -480,7 +592,72 @@ function madeleine_quotes() {
 }
 
 
-// 05 Archive
+// 05 Archives
+
+
+function madeleine_next_posts() {
+  $standard_posts = madeleine_standard_posts();
+  $args = array(
+    'post_type' => 'post',
+    'posts_per_page' => 10,
+    'tax_query' => $standard_posts
+    // 'offset' => 6
+  );
+  $query = new WP_Query( $args );
+  echo '<div class="board">';
+  while ( $query->have_posts() ) {
+    $query->the_post();
+    $categories = get_the_category( get_the_ID() );
+    $category = get_category( madeleine_top_category( $categories[0] ) );
+    echo '<div ';
+    post_class();
+    echo '>';
+    madeleine_thumbnail( 'thumbnail' );
+    echo '<ul class="entry-category"><li>' . get_the_category_list( '</li><li>' ) . '</li></ul>';
+    echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+    echo '</div>';
+  }
+  echo '</div>';
+  echo '<div style="clear: left;"></div>';
+  wp_reset_postdata();
+}
+
+
+function madeleine_category_wheel () {
+  $cats = get_categories('hide_empty=0&orderby=ID&parent=0');
+  $standard_posts = madeleine_standard_posts();
+  foreach( $cats as $cat ):
+    $args = array(
+      'cat' => $cat->term_id,
+      'post_type' => 'post',
+      'posts_per_page' => 5,
+      'tax_query' => $standard_posts
+    );
+    $query = new WP_Query( $args );
+    echo '<div class="wheel category-' . $cat->category_nicename . '">';
+    while ( $query->have_posts() ) {
+      $query->the_post();
+      $categories = get_the_category( get_the_ID() );
+      $category = get_category( madeleine_top_category( $categories[0] ) );
+      echo '<div ';
+      post_class();
+      echo '>';
+      madeleine_thumbnail( 'medium' );
+      echo '<div class="entry-comments">';
+      comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' );
+      echo '</div>';
+      echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+      echo '<div class="entry-info">';
+      madeleine_posted_on();
+      echo '</div>';
+      echo '<p class="entry-summary">'. get_the_excerpt() . '</p>';
+      echo '</div>';
+    }
+    echo '</div>';
+    wp_reset_postdata();
+  endforeach;
+  echo '<div style="clear: both;"></div>';
+}
 
 
 function madeleine_breadcrumb() {
@@ -533,25 +710,8 @@ function madeleine_pagination( $pages = '', $range = 2 ) {
 
 function madeleine_archive_settings( $query ) {
   $query->set( 'ignore_sticky_posts', 1 );
-  $standard_posts = array(
-    array(
-      'taxonomy' => 'post_format',
-      'field'    => 'slug',
-      'terms'    => array( 
-          'post-format-aside',
-          'post-format-audio',
-          'post-format-chat',
-          'post-format-gallery',
-          'post-format-image',
-          'post-format-link',
-          'post-format-quote',
-          'post-format-status',
-          'post-format-video'
-      ),
-      'operator' => 'NOT IN'
-    )
-  );
-  if ( $query->is_home() && $query->is_main_query() )
+  $standard_posts = madeleine_standard_posts();
+  if ( ( $query->is_home() || $query->is_category() ) && $query->is_main_query() )
     $query->set( 'tax_query', $standard_posts );
   if ( $query->is_tag() && $query->is_main_query() )
     $query->set( 'posts_per_page', 9 );
@@ -580,6 +740,7 @@ function madeleine_date_vars() {
   endif;
 }
 
+
 function madeleine_date_archive() {
   $archive_year  = get_the_date('Y');
   $archive_month = get_the_date('m');
@@ -599,30 +760,32 @@ function madeleine_date_archive() {
 
 function madeleine_nested_date() {
   global $wpdb;
-  $date = get_query_var('m');
-  $m = '';
-  $d = '';
-  if ( is_year() ):
-    $y  = substr( $date, 0, 4);
-  elseif ( is_month() ):
-    $y  = substr( $date, 0, 4);
-    $m = abs( substr( $date, 4, 2) );
-  elseif ( is_day() ):
-    $y  = substr( $date, 0, 4);
-    $m = abs( substr( $date, 4, 2) );
-    $d   = abs( substr( $date, 6, 2) );
-  endif;
+  $y = get_query_var( 'year' );
+  $m = get_query_var( 'monthnum' );
+  $d = get_query_var( 'day' );
+  // if ( is_year() ):
+  //   $type = 'year';
+  // elseif ( is_month() ):
+  //   $y = substr( $date, 0, 4);
+  //   $m = abs( substr( $date, 4, 2) );
+  //   $type = 'month';
+  // elseif ( is_day() ):
+  //   $y = substr( $date, 0, 4);
+  //   $m = abs( substr( $date, 4, 2) );
+  //   $d = abs( substr( $date, 6, 2) );
+  //   $type = 'day';
+  // endif;
   $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
   $years_list = '<li class="select">Select year</li>';
   echo '<div id="date-archive" data-year="' . $y . '" data-month="' . $m . '" data-day="' . $d . '">';
   foreach( $years as $year ):
     $years_list .= '<li class="year" data-value="' . $year . '"><a href="'. get_year_link( $year ). '">' . $year . '</a></li>';
     $months_list = '<li class="select">Select month</li>';
-    $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '".$year."' ORDER BY post_date DESC");
+    $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
     foreach( $months as $month ):
       $months_list .= '<li class="month" data-value="' . $month . '""><a href="' . get_month_link( $year, $month ) . '">' . date( 'F', mktime( 0, 0, 0, $month, 1, $year ) ) . '</a></li>';
       echo '<ul class="days" data-year="' . $year . '" data-month="' . $month . '">';
-      $days = $wpdb->get_col("SELECT DISTINCT DAY(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date) = '".$month."' AND YEAR(post_date) = '".$year."' ORDER BY post_date DESC");
+      $days = $wpdb->get_col("SELECT DISTINCT DAY(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date) = '" . $month . "' AND YEAR(post_date) = '".$year."' ORDER BY post_date DESC");
       echo '<li class="select">Select day</li>';
       foreach( $days as $day ):
         echo '<li class="day" data-value="' . $day . '"><a href="' . get_day_link( $year, $month, $day ) . '">' . $day . '</a></li>';
@@ -652,9 +815,9 @@ add_filter( 'excerpt_more', 'madeleine_excerpt' );
 function madeleine_excerpt_length( $length ) {
   global $post;
   if ( has_post_thumbnail( $post->ID ) )
-    return 16;
+    return 25;
   else
-    return 86;
+    return 90;
 }
 add_filter( 'excerpt_length', 'madeleine_excerpt_length' );
 
@@ -819,7 +982,7 @@ function madeleine_save_popularity( $post_id ) {
   update_post_meta( $post_id, 'share_counts', $shares );
   update_post_meta( $post_id, 'share_total', $total );
 }
-add_action( 'save_post', 'madeleine_save_popularity' );
+// add_action( 'save_post', 'madeleine_save_popularity' );
 
 
 function madeleine_register_popularity_table() {

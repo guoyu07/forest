@@ -16,7 +16,7 @@
           <?php endif; ?>
           <div style="clear: left;"></div>
         </hgroup>
-        <?php get_template_part( 'layout', 'grid' ); ?>
+        <?php get_template_part( 'layout', 'list' ); ?>
       <?php endif; ?>
     </div>
 		<?php get_sidebar(); ?>

@@ -20,12 +20,12 @@
               <h1 class="entry-title"><?php the_title(); ?></h1>
 
               <?php if ( is_object_in_taxonomy( get_post_type(), 'category' ) ) : ?>
-                  <?php $categories_list = get_the_category_list( '</li><li>' ); ?>
-                  <?php if ( $categories_list ): ?>
-                    <ul class="entry-categories">
-                      <li><?php printf( $categories_list ); ?></li>
-                    </ul>
-                  <?php endif; ?>
+                <?php $categories_list = get_the_category_list( '</li><li>' ); ?>
+                <?php if ( $categories_list ): ?>
+                  <ul class="entry-category">
+                    <li><?php printf( $categories_list ); ?></li>
+                  </ul>
+                <?php endif; ?>
               <?php endif; ?>
               
               <?php if ( 'post' == get_post_type() ) : ?>
