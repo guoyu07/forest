@@ -60,7 +60,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-  <div id="debug" style="position: absolute; right: 10px; top: 10px;">
+  <div id="debug" style="position: absolute; right: 10px; top: 40px;">
     <a href="/forest/">Home</a>
     <a href="/forest/category/social-media">Category</a>
     <a href="/forest/tag/apple">Tag</a>

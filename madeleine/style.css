@@ -31,11 +31,13 @@ a:hover{ text-decoration: underline;}
 .title strong{ color: #444;}
 .title p{ color: #444; font-weight: bold;}
 .subtitle{ font-size: 17px; margin-top: 10px;}
-.pagination{ clear: left; font: bold 16px/30px Bitter, Georgia, serif; height: 30px; padding-top: 20px; position: relative; text-align: center;}
+.pagination{ clear: left; font: bold 16px/30px Bitter, Georgia, serif; height: 30px; padding: 20px 0; position: relative; text-align: center;}
 .pagination a,
 .pagination strong{ background: #eaedef; border-radius: 4px; display: inline-block; height: 30px; margin: 0 5px; min-width: 30px;}
 .pagination strong{ background: #444; color: white;}
+.pagination a strong{ background: none; color: #708491; display: inline; height: auto; margin: 0; min-width: 0;}
 .pagination a:hover{ background: #708491; color: white; text-decoration: none;}
+.pagination a:hover strong{ color: white;}
 .pagination .page-nav{ font-size: 20px; line-height: 26px; margin: 0; position: absolute; top: 20pxt;}
 .pagination .page-first{ left: 0;}
 .pagination .page-previous{ left: 40px;}
@@ -51,7 +53,7 @@ a:hover{ text-decoration: underline;}
 .tabs span,
 .tabs a{ float: left; padding: 0 15px;}
 .tabs span{ background: #444; color: white;}
-.tabs a:hover{ color: white !important; text-decoration: none;}
+.tabs a:hover{ background: #708491; color: white !important; text-decoration: none;}
 
 /* Header */
 
@@ -118,7 +120,7 @@ a:hover{ text-decoration: underline;}
 /* Post */
 
 .post{ position: relative;}
-.post-edit-link{ display: none; left: 0; position: absolute; top: 0;}
+.post-edit-link{ background: white; display: none; font-size: 11px; padding: 2px 4px; position: absolute; right: 100%; top: 0; white-space: nowrap;}
 .post:hover .post-edit-link{ display: inline;}
 .aligncenter{ text-align: center;}
 .alignleft { display: inline; float: left; margin-right: 1em;}
@@ -142,11 +144,13 @@ a:hover{ text-decoration: underline;}
 .entry-thumbnail img{ display: block;}
 .entry-category,
 .entry-tags{ color: #708491; font-size: 11px;}
+.post .entry-category{ float: right; margin: 0 0 10px 10px;}
 .post .entry-category li{ display: inline; margin-left: 2px;}
 .post .entry-category a{ color: white !important; display: inline-block; padding: 2px 6px;}
 .post .entry-category a:hover{ background: #444 !important; text-decoration: none;}
 .post .entry-tags a{ background: #d7dce1; color: #708491 !important; float: left; margin-right: 2px; padding: 2px 6px;}
 .post .entry-tags a:hover{ background: #708491; color: white !important; text-decoration: none;}
+.post .entry-comments{ float: right; padding-top: 2px;}
 .post .entry-comments a{ background: #708491 !important; color: white !important; display: inline-block; font: bold 11px/1 Bitter, Georgia, serif; height: 16px; line-height: 16px; padding: 0 8px; position: relative;}
 .post .entry-comments a:hover{ text-decoration: none;}
 .entry-comments a:after{ background: url(comments-arrow.png) no-repeat 0 0; content: ' '; display: block; height: 4px; left: 4px; position: absolute; top: 100%; width: 4px;}
@@ -164,8 +168,8 @@ a:hover{ text-decoration: underline;}
 
 .single #lead .post{ padding: 20px; width: 640px;}
 .single #lead .entry-title{ font-size: 28px; line-height: 1.15; margin-bottom: 10px;}
-.single #lead .entry-category{ float: right; line-height: 14px; margin-top: -2px;}
-.single #lead .entry-info{ font-size: 13px; margin-bottom: 15px;}
+.single #lead .entry-category{}
+.single #lead .entry-info{ font-size: 13px; margin-bottom: 15px; padding-top: 6px;}
 .single #lead .entry-comments a{ float: right; margin-left: 20px;}
 
 .single-attachment .attachment{ padding: 20px;}
@@ -173,12 +177,10 @@ a:hover{ text-decoration: underline;}
 /* Layouts */
 
 .list{ padding: 20px; padding-right: 19px; width: 640px;}
-.list .post{ border-bottom: 1px solid #eaedef; margin-bottom: 15px; padding-bottom: 15px;}
-.list .entry-category{ float: right; margin: 0 0 10px 10px;}
+.list .post{ border-bottom: 1px solid #eaedef; margin-bottom: 20px; padding-bottom: 20px;}
 .list .entry-title{ font-size: 20px; margin-bottom: 6px;}
 .list .entry-info{ margin-top: 6px;}
-.list .entry-thumbnail{ float: left; margin: 0 20px 10px 0;}
-.list .entry-comments{ float: right; padding-top: 2px;}
+.list .entry-thumbnail{ float: left; margin-right: 20px;}
 .list .entry-summary{ font-size: 13px;}
 .list .sticky .entry-title{ font-size: 24px;}
 .list .sticky .entry-thumbnail{ float: none; margin: 0 0 10px;}
@@ -190,23 +192,22 @@ a:hover{ text-decoration: underline;}
 .grid .post:nth-child(2){ border-top: none;}
 .grid .post:nth-child(2n-1){ border-right-width: 1px; clear: left; padding-left: 0;}
 .grid .post:nth-child(2n){ border-left-width: 1px; margin-left: -1px; padding-right: 0;}
-.grid .entry-category{ float: right; margin-bottom: 0.5em;}
 .grid .entry-title{ font-size: 18px; margin-bottom: 6px;}
 .grid .entry-thumbnail{ margin-bottom: 10px;}
 .grid .entry-summary{ font-size: 12px;}
 .grid .entry-info{ margin-top: 6px;}
-.grid .entry-comments{ float: right; padding-top: 2px;}
 
 .board{ border-top: 1px solid #eaedef; float: left; padding: 0 20px 20px;}
 .board .post{ float: left; margin-top: 20px; width: 300px;}
 .board .post:nth-child(2n-1){ clear: left; margin-right: 40px;}
 .board .entry-thumbnail{ float: left; margin-right: 10px;}
 .board .entry-title{ font-size: 18px; font-weight: bold;}
-.board .entry-category{ float: right; margin: 0 0 5px 5px; text-align: right;}
+.board .entry-category{ text-align: right;}
 .board .entry-category li{ display: block;}
 .board .entry-category a{ font-size: 10px; padding: 0 4px 1px;}
 
-.wheel{ clear: both;}
+.wheel{ clear: both; display: none;}
+.wheel:first-child{ display: block;}
 .wheel .post{ clear: none; float: left; padding: 20px; position: relative; width: 300px;}
 .wheel .entry-thumbnail{ margin-bottom: 10px;}
 .wheel .entry-comments{ float: right; margin: 0 0 10px 10px;}
@@ -294,11 +295,31 @@ a:hover{ text-decoration: underline;}
 .comment-form-comment{ clear: left;}
 #commentform input[type="text"],
 #commentform textarea{ border: 1px solid #d7dce1; padding: 6px 8px;}
-#commentform textarea{ max-width: 578px;}
+#commentform textarea{ max-width: 578px; min-width: 578px; width: 578px;}
 .form-allowed-tags{ color: #708491; font-size: 11px; font-style: italic; margin-bottom: 5px;}
 .form-allowed-tags code{ display: block; font-family: monospace; font-style: normal;}
 .form-submit{ padding-top: 10px;}
 .form-submit #submit{ background: #708491; border: none; border-radius: 40px; color: white; cursor: pointer; font: bold 16px/1 Bitter, Georgia, serif; padding: 10px 20px 12px;}
+
+/* Reviews */
+
+.entry-rating{ background: #708491; color: white; font: bold 24px/60px Bitter, Georgia, serif;}
+.entry-rating.rating-9{ background: #d0574e;}
+.entry-rating.rating-8{ background: #d07544;}
+.entry-rating.rating-7{ background: #d0943a;}
+.entry-rating.rating-6{ background: #d0b230;}
+.entry-rating.rating-5{ background: #d1d126;}
+.entry-rating.rating-4{ background: #b0c350;}
+.entry-rating.rating-3{ background: #8fb67b;}
+.entry-rating.rating-2{ background: #6ea9a6;}
+.entry-rating.rating-1{ background: #4d9cd1;}
+.entry-price{ background: #708491; color: white;}
+.reviews-grid .review{ float: left; height: 320px; position: relative; width: 340px;}
+.reviews-grid .review .review-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: #afc6d5; padding: 20px; position: absolute; width: 300px;}
+.reviews-grid .review .entry-title{ font-size: 20px; margin-bottom: 5px;}
+.reviews-grid .review .entry-title a{ color: white;}
+.reviews-grid .review .entry-price{ float: right;}
+.reviews-grid .review .entry-rating{ height: 60px; position: absolute; right: 0; text-align: center; top: 0; width: 60px;}
 
 /* 01 Home */
 
@@ -474,19 +495,19 @@ body.category-gaming #category .wrap,
 #nav .category-business a:hover,
 .tabs .category-business a,
 body.category-business #nav .current-cat a,
-body.category-business #category .current-cat a{ color: #c0c75b; color: #d1d132;}
+body.category-business #category .current-cat a{ color: #c0c75b; color: #d1d126;}
 .tabs .category-business a:hover,
 body.category-business #category strong,
 .category-business .entry-category a,
 .popular .category-business em,
-.popular .category-business strong{ background: #d1d132;}
+.popular .category-business strong{ background: #d1d126;}
 .quote.category-business,
-body.category-business #category strong:after{ border-left-color: #d1d132;}
+body.category-business #category strong:after{ border-left-color: #d1d126;}
 #nav .category-business a,
 body.category-business,
 body.category-business #nav .current-cat a,
 body.category-business #category .wrap,
-.focus.category-business .focus-text{ border-top-color: #d1d132;}
+.focus.category-business .focus-text{ border-top-color: #d1d126;}
 
 /* CSS 3 */
 

@@ -127,7 +127,7 @@ function madeleine_categories_list() {
 }
 
 
-function page_redirect() {
+function madeleine_page_redirect() {
   if ( $_SERVER['REQUEST_URI'] == '/forest/images' ):
     require( TEMPLATEPATH . '/images.php' );
   elseif ( $_SERVER['REQUEST_URI'] == '/forest/videos' ):
@@ -165,9 +165,10 @@ function madeleine_standard_posts() {
 
 
 function madeleine_focus() {
+  $posts_list = array( 1, 10, 16, 23, 57 );
   $args = array(
     'ignore_sticky_posts' => 1,
-    'post__in' => array( 1, 10, 16, 23, 57 )
+    'post__in' => $posts_list
   );
   $query = new WP_Query( $args );
   $n = 1;
@@ -198,6 +199,7 @@ function madeleine_focus() {
   }
   echo '</div>';
   wp_reset_postdata();
+  return $posts_list;
 }
 
 
@@ -223,17 +225,15 @@ function madeleine_latest_posts() {
 
 
 function madeleine_video_meta_box( $object, $box ) { ?>
-  <?php wp_nonce_field( basename( __FILE__ ), 'video_youtube_nonce' ); ?>
+  <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
   <p>
     <label for="video-youtube">YouTube Video URL</label>
     <input type="text" name="video-youtube" id="video-youtube" value="<?php echo esc_attr( get_post_meta( $object->ID, 'video_youtube', true ) ); ?>" size="30" class="regular-text">
   </p>
-  <?php wp_nonce_field( basename( __FILE__ ), 'video_vimeo_nonce' ); ?>
   <p>
     <label for="video-vimeo">Vimeo Video URL</label>
     <input type="text" name="video-vimeo" id="video-vimeo" value="<?php echo esc_attr( get_post_meta( $object->ID, 'video_vimeo', true ) ); ?>" size="30" class="regular-text">
   </p>
-  <?php wp_nonce_field( basename( __FILE__ ), 'video_dailymotion_nonce' ); ?>
   <p>
     <label for="video-dailymotion">Dailymotion Video URL</label>
     <input type="text" name="video-dailymotion" id="video-dailymotion" value="<?php echo esc_attr( get_post_meta( $object->ID, 'video_dailymotion', true ) ); ?>" size="30" class="regular-text">
@@ -243,7 +243,7 @@ function madeleine_video_meta_box( $object, $box ) { ?>
 
 
 function madeleine_link_meta_box( $object, $box ) { ?>
-  <?php wp_nonce_field( basename( __FILE__ ), 'link_url_nonce' ); ?>
+  <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
   <p>
     <label for="link-url">URL</label>
     <input type="text" name="link-url" id="link-url" value="<?php echo esc_attr( get_post_meta( $object->ID, 'link_url', true ) ); ?>" size="30" class="regular-text">
@@ -253,10 +253,28 @@ function madeleine_link_meta_box( $object, $box ) { ?>
 
 
 function madeleine_quote_meta_box( $object, $box ) { ?>
-  <?php wp_nonce_field( basename( __FILE__ ), 'quote_author_nonce' ); ?>
+  <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
   <p>
     <label for="quote-author">Author or source</label>
     <input type="text" name="quote-author" id="quote-author" value="<?php echo esc_attr( get_post_meta( $object->ID, 'quote_author', true ) ); ?>" size="30" class="regular-text">
+  </p>
+  <?php
+}
+
+
+function madeleine_review_meta_box( $object, $box ) { ?>
+  <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
+  <p>
+    <label for="rating">Rating</label>
+    <input type="text" name="rating" id="rating" value="<?php echo esc_attr( get_post_meta( $object->ID, 'rating', true ) ); ?>">
+  </p>
+  <p>
+    <label for="good">Good</label><br>
+    <textarea type="text" name="good" id="good" rows="1" cols="40" style="height: 8em; width: 98%;"><?php echo get_post_meta( $object->ID, 'good', true ); ?></textarea>
+  </p>
+  <p>
+    <label for="bad">Bad</label><br>
+    <textarea type="text" name="bad" id="bad" rows="1" cols="40" style="height: 8em; width: 98%;"><?php echo get_post_meta( $object->ID, 'bad', true ); ?></textarea>
   </p>
   <?php
 }
@@ -287,51 +305,60 @@ function madeleine_add_meta_boxes() {
     'normal',
     'high'
   );
+  add_meta_box(
+    'review',
+    esc_html( 'Review' ),
+    'madeleine_review_meta_box',
+    'review',
+    'normal',
+    'high'
+  );
 }
 
 
 function madeleine_save_meta( $post_id, $post ) {
-  $metas = array( 'video_dailymotion', 'video_vimeo', 'video_youtube', 'link_url', 'quote_author' );
+  $metas = array( 'video_dailymotion', 'video_vimeo', 'video_youtube', 'link_url', 'quote_author', 'rating', 'good', 'bad' );
   foreach ( $metas as $meta ):
-    $nonce = $meta . '_nonce';
+    $nonce = 'madeleine_nonce';
 
-    if ( !isset( $_POST[$nonce] ) || !wp_verify_nonce( $_POST[$nonce], basename( __FILE__ ) ) )
+    if ( !isset( $_POST[$nonce] ) || !wp_verify_nonce( $_POST[$nonce], basename( __FILE__ ) ) ):
       return $post_id;
+    endif;
 
     $post_type = get_post_type_object( $post->post_type );
 
-    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ):
       return $post_id;
+    endif;
 
     $posted = str_replace( '_', '-', $meta );
     $new_meta_value = ( isset( $_POST[$posted] ) ? $_POST[$posted] : '' );
-    $key = $meta;
-    $current_meta_value = get_post_meta( $post_id, $key, true );
+    $current_meta_value = get_post_meta( $post_id, $meta, true );
 
-    if ( $new_meta_value != '' ):
-      if ( $meta == 'video_youtube' ):
-        $youtube_id = madeleine_get_youtube_id( $new_meta_value );
-        $youtube_image = 'http://img.youtube.com/vi/' . $youtube_id . '/0.jpg';
-        madeleine_upload_video_thumbnail( $youtube_image, $youtube_id, $post_id, 'youtube' );
-      elseif ( $meta == 'video_vimeo' ):
-        $vimeo_id = madeleine_get_vimeo_id( $new_meta_value );
-        $vimeo_json = file_get_contents( 'http://vimeo.com/api/v2/video/' . $vimeo_id . '.json' );
-        $vimeo_data = json_decode( $vimeo_json, true );
-        $vimeo_image = $vimeo_data[0]['thumbnail_large'];
-        madeleine_upload_video_thumbnail( $vimeo_image, $vimeo_id, $post_id, 'vimeo' );
-      elseif ( $meta == 'video_dailymotion' ):
-        $dailymotion_id = madeleine_get_dailymotion_id( $new_meta_value );
-        $dailymotion_image = madeleine_get_redirect_target( 'http://www.dailymotion.com/thumbnail/video/' . $dailymotion_id );
-        madeleine_upload_video_thumbnail( $dailymotion_image, $dailymotion_id, $post_id, 'dailymotion' );
-      endif;
-    endif;
+    // if ( $new_meta_value != '' ):
+    //   if ( $meta == 'video_youtube' ):
+    //     $youtube_id = madeleine_get_youtube_id( $new_meta_value );
+    //     $youtube_image = 'http://img.youtube.com/vi/' . $youtube_id . '/0.jpg';
+    //     madeleine_upload_video_thumbnail( $youtube_image, $youtube_id, $post_id, 'youtube' );
+    //   elseif ( $meta == 'video_vimeo' ):
+    //     $vimeo_id = madeleine_get_vimeo_id( $new_meta_value );
+    //     $vimeo_json = file_get_contents( 'http://vimeo.com/api/v2/video/' . $vimeo_id . '.json' );
+    //     $vimeo_data = json_decode( $vimeo_json, true );
+    //     $vimeo_image = $vimeo_data[0]['thumbnail_large'];
+    //     madeleine_upload_video_thumbnail( $vimeo_image, $vimeo_id, $post_id, 'vimeo' );
+    //   elseif ( $meta == 'video_dailymotion' ):
+    //     $dailymotion_id = madeleine_get_dailymotion_id( $new_meta_value );
+    //     $dailymotion_image = madeleine_get_redirect_target( 'http://www.dailymotion.com/thumbnail/video/' . $dailymotion_id );
+    //     madeleine_upload_video_thumbnail( $dailymotion_image, $dailymotion_id, $post_id, 'dailymotion' );
+    //   endif;
+    // endif;
 
-    if ( $new_meta_value && '' == $current_meta_value )
-      add_post_meta( $post_id, $key, $new_meta_value, true );
+    if ( $new_meta_value && $current_meta_value == '' )
+      add_post_meta( $post_id, $meta, $new_meta_value, true );
     elseif ( $new_meta_value && $new_meta_value != $current_meta_value )
-      update_post_meta( $post_id, $key, $new_meta_value );
-    elseif ( '' == $new_meta_value && $current_meta_value )
-      delete_post_meta( $post_id, $key, $current_meta_value );
+      update_post_meta( $post_id, $meta, $new_meta_value );
+    elseif ( $new_meta_value == '' && $current_meta_value )
+      delete_post_meta( $post_id, $meta, $current_meta_value );
   endforeach;
 }
 
@@ -597,11 +624,13 @@ function madeleine_quotes() {
 
 function madeleine_next_posts() {
   $standard_posts = madeleine_standard_posts();
+  $post_ids = array(); 
+  $offset = get_option( 'posts_per_page' );
   $args = array(
     'post_type' => 'post',
     'posts_per_page' => 10,
+    'offset' => $offset,
     'tax_query' => $standard_posts
-    // 'offset' => 6
   );
   $query = new WP_Query( $args );
   echo '<div class="board">';
@@ -616,21 +645,25 @@ function madeleine_next_posts() {
     echo '<ul class="entry-category"><li>' . get_the_category_list( '</li><li>' ) . '</li></ul>';
     echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
     echo '</div>';
+    $post_ids[] = get_the_ID();
   }
   echo '</div>';
   echo '<div style="clear: left;"></div>';
   wp_reset_postdata();
+  return $post_ids;
 }
 
 
-function madeleine_category_wheel () {
+function madeleine_category_wheel ( $already_posted ) {
   $cats = get_categories('hide_empty=0&orderby=ID&parent=0');
   $standard_posts = madeleine_standard_posts();
+  echo '<div class="wheels">';
   foreach( $cats as $cat ):
     $args = array(
       'cat' => $cat->term_id,
       'post_type' => 'post',
       'posts_per_page' => 5,
+      'post__not_in' => $already_posted,
       'tax_query' => $standard_posts
     );
     $query = new WP_Query( $args );
@@ -656,6 +689,7 @@ function madeleine_category_wheel () {
     echo '</div>';
     wp_reset_postdata();
   endforeach;
+  echo '</div>';
   echo '<div style="clear: both;"></div>';
 }
 
@@ -934,6 +968,12 @@ function madeleine_posted_on() {
 }
 
 
+function madeleine_entry_rating( $id ) {
+  $rating = get_post_meta( $id, 'rating', true );
+  echo '<div class="entry-rating rating-' . floor( $rating ) . '">' . $rating . '</div>';
+}
+
+
 // 07 Popularity Plugin
 
 
@@ -1073,3 +1113,90 @@ function madeleine_delete_popularity( $post_id ) {
   wp_clear_scheduled_hook( 'madeleine_popularity_event', array( '$post_id' => $post_id ) );
 }
 // add_action( 'delete_post', 'madeleine_delete_popularity' );
+
+
+// 08 Reviews
+
+
+function madeleine_register_reviews() {
+  register_post_type( 'review', array(
+    'label' => 'Reviews',
+    'labels' => array(
+      'name' => 'Reviews',
+      'singular_name' => 'Review',
+      'all_items' => 'All Reviews',
+      'add_new_item' => 'Add New Review',
+      'edit_item' => 'Edit Review',
+      'new_item' => 'New Review',
+      'view_item' => 'View Review',
+      'search_items' => 'Search Reviews',
+      'not_found' => 'No reviews found',
+      'not_found_in_trash' => 'No reviews found in Trash'
+     ),
+    'public' => true,
+    'show_ui' => true,
+    'capability_type' => 'post',
+    'supports' => array(
+      'title',
+      'editor',
+      'author',
+      'thumbnail',
+      'excerpt',
+      'trackbaks',
+      'custom-fields',
+      'comments',
+      'revisions'
+    ),
+    'has_archive' => true
+  ));
+  register_taxonomy( 'product', null, array(
+    'label' => 'Products',
+    'labels' => array(
+      'name' => 'Products',
+      'singular_name' => 'Product',
+      'all_items' => 'All Products',
+      'edit_item' => 'Edit Product',
+      'view_item' => 'View Product',
+      'update_item' => 'Update Product',
+      'add_new_item' => 'Add New Product',
+      'new_item_name' => 'New Product',
+      'search_items' => 'Search Products',
+      'popular_items' => 'Popular Products',
+    ),
+    'hierarchical' => true,
+    'sort' => true
+  ));
+  register_taxonomy_for_object_type( 'product', 'review' );
+}
+add_action( 'init', 'madeleine_register_reviews' );
+
+
+function madeleine_products_list() {
+  $nav = wp_list_categories('depth=1 &hide_empty=0&orderby=ID&title_li=&taxonomy=product');
+  echo $nav;
+}
+
+
+function madeleine_reviews_grid() {
+  $post_ids = array(); 
+  $args = array(
+    'post_type' => 'review',
+    'posts_per_page' => 10
+  );
+  $query = new WP_Query( $args );
+  echo '<div class="reviews-grid">';
+  while ( $query->have_posts() ) {
+    $query->the_post();
+    echo '<div class="review">';
+    madeleine_thumbnail( 'tall' );
+    echo '<div class="review-text">';
+    echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+    echo '<p class="entry-summary">' . get_the_excerpt() . '</p>';
+    echo '</div>';
+    madeleine_entry_rating( get_the_ID() );
+    echo '</div>';
+  }
+  echo '<div style="clear: left;"></div>';
+  echo '</div>';
+  wp_reset_postdata();
+}
