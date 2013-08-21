@@ -1,7 +1,7 @@
 <?php $class = ( is_sticky() ? 'sticky' : '' ); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( $class ); ?>>
   <?php edit_post_link(); ?>
-  <?php if ( is_archive() ): ?>
+  <?php if ( is_archive() || is_search() ): ?>
     <?php if ( is_sticky() ) : ?>
       <?php madeleine_entry_thumbnail( 'large' ); ?>
     <?php else : ?>

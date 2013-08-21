@@ -127,6 +127,24 @@ function madeleine_categories_list() {
 }
 
 
+function madeleine_trending() {
+  global $wpdb;
+  $term_ids = $wpdb->get_col("
+    SELECT term_id, taxonomy FROM $wpdb->term_taxonomy
+    INNER JOIN $wpdb->term_relationships ON $wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id
+    INNER JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
+    WHERE taxonomy = 'post_tag'
+    AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= $wpdb->posts.post_date");
+  if ( count( $term_ids ) > 0 ):
+    $tags = array_unique( $term_ids );
+    foreach ( $tags as $tag ):
+      $tag_info = get_tag( $tag );
+      echo '<li><a href="' . get_tag_link( $tag ) . '" rel="tag">' . $tag_info->name . '</a></li>';
+    endforeach;
+  endif;
+}
+
+
 function madeleine_page_redirect() {
   if ( $_SERVER['REQUEST_URI'] == '/forest/images' ):
     require( TEMPLATEPATH . '/images.php' );
@@ -854,7 +872,7 @@ add_filter( 'excerpt_more', 'madeleine_entry_excerpt_more' );
 function madeleine_entry_excerpt_length( $length ) {
   global $post;
   if ( has_post_thumbnail( $post->ID ) )
-    return 25;
+    return 15;
   else
     return 90;
 }
@@ -876,7 +894,7 @@ function madeleine_entry_content( $content ) {
     $content = $dom->saveHtml();
     $jump = '<div id="jump">';
     $jump .= '<em class="section">Jump to</em>';
-    $jump .= '<a href="#start">Start</a>';
+    $jump .= '<a class="on" href="#start">Start</a>';
     foreach( $sections as $section ):
       $jump .= '<a href="#' . strtolower( $section ) . '">' . $section . '</a>';
     endforeach;

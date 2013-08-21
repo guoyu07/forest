@@ -65,7 +65,7 @@
     <a href="/forest/tag/apple">Tag</a>
     <a href="/forest/author/jt">Author</a>
     <a href="/forest/type/image">Format</a>
-    <a href="/forest/">Search</a>
+    <a href="/forest/?s=lorem">Search</a>
   </div>
   <p id="value" style="left: 20px; position: fixed; top: 20px;"></p>
   <header id="header">
@@ -98,15 +98,7 @@
         <div id="trending">
           <p>Trending</p>
           <ul>
-            <li><a>San Diego Comic-Con</a></li>
-            <li><a>Sony PlayStation 4</a></li>
-            <li><a>Microsoft Xbox One</a></li>
-            <li><a>Hollywood</a></li>
-            <li><a>NSA surveillance</a></li>
-            <li><a>Samsung Galaxy S4</a></li>
-            <li><a>Google Glass</a></li>
-            <li><a>Best New Apps</a></li>
-            <li><a>Verge Favorites</a></li>
+            <?php madeleine_trending(); ?>
           </ul>
         </div>
       </div>
