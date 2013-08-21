@@ -59,7 +59,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-  <div id="debug" style="position: absolute; right: 10px; top: 40px;">
+  <div id="debug" style="position: absolute; right: 10px; top: 20px;">
     <a href="/forest/">Home</a>
     <a href="/forest/category/social-media">Category</a>
     <a href="/forest/tag/apple">Tag</a>
@@ -67,6 +67,7 @@
     <a href="/forest/type/image">Format</a>
     <a href="/forest/">Search</a>
   </div>
+  <p id="value" style="left: 20px; position: fixed; top: 20px;"></p>
   <header id="header">
     <div class="wrap">
       <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">

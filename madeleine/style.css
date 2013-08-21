@@ -264,7 +264,7 @@ a:hover{ text-decoration: underline;}
 
 /* Comments */
 
-#comments{ clear: left; padding-top: 40px;}
+#comments{ clear: left; margin-top: 40px;}
 #comments-title,
 #reply-title{ color: #444; font: bold 24px/1.5 Bitter, Georgia, serif; padding-bottom: 20px;}
 
@@ -341,9 +341,16 @@ a:hover{ text-decoration: underline;}
 .single-review .review .entry-info a{ color: white;}
 .single-review .review .entry-comments{ padding-top: 0;}
 .single-review .review .wp-post-image{ display: block;}
-.single-review .review .entry-text{ padding: 20px; padding-top: 6px;}
+.single-review .review .entry-text{ padding: 6px 20px 20px 180px; position: relative;}
 .single-review .review .entry-content{ width: auto;}
 .single-review .review .entry-rating{ float: left; font-size: 48px; height: 120px; line-height: 120px; width: 120px;}
+
+#jump{ margin-left: -165px; position: absolute; top: 20px; width: 150px;}
+#jump .section{ display: block; margin-bottom: 10px;}
+#jump a{ border-top: 1px solid #eaedef; display: block; font-size: 13px; line-height: 1.15; padding: 5px 5px  6px; position: relative;}
+#jump a:hover{ background: #eaedef; text-decoration: none;}
+#jump .on,
+#jump .on:hover{ background: #d0574e; border-top-color: transparent; color: white; font-weight: bold;}
 
 #menu{ border-right: 1px solid #eaedef; float: left; left: 1px; margin: 20px 0 0 19px; padding-right: 19px; position: relative; width: 160px;}
 #menu ul{ margin-bottom: 20px;}

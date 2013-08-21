@@ -861,6 +861,35 @@ function madeleine_entry_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'madeleine_entry_excerpt_length' );
 
 
+function madeleine_entry_content( $content ) {
+  global $post;
+  if ( $post->post_type == 'review' ):
+    $dom = new DOMDocument;
+    $dom->loadHTML( $content );
+    $xpath = new DOMXPath( $dom );
+    $sections = array();
+    foreach ( $xpath->query("//h2") as $node ):
+      $node->setAttribute( 'id', strtolower( $node->nodeValue ) );
+      $node->setAttribute( 'class', 'chapter' );
+      $sections[] = $node->nodeValue;
+    endforeach;
+    $content = $dom->saveHtml();
+    $jump = '<div id="jump">';
+    $jump .= '<em class="section">Jump to</em>';
+    $jump .= '<a href="#start">Start</a>';
+    foreach( $sections as $section ):
+      $jump .= '<a href="#' . strtolower( $section ) . '">' . $section . '</a>';
+    endforeach;
+    $jump .= '<a href="#verdict">Verdict</a>';
+    $jump .= '<a href="#comments">Comments</a>';
+    $jump .= '</div>';
+    $content = $jump . $content;
+  endif;
+  return $content;
+}
+add_filter('the_content', 'madeleine_entry_content');
+
+
 function madeleine_entry_post_class( $classes ) {
   $top_category_ID = madeleine_top_category();
   $top_category = get_category( $top_category_ID );

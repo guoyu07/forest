@@ -1,4 +1,4 @@
-<div id="comments">
+<div id="comments" class="chapter">
 	<?php if ( post_password_required() ) : ?>
 			<p class="nopassword"><?php echo 'This post is password protected. Enter the password to view any comments.'; ?></p>
 		</div>

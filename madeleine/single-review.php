@@ -27,13 +27,15 @@
               <?php madeleine_entry_info(); ?>
             </div>
           </header>
-          <?php the_post_thumbnail( 'panorama' ); ?>
+          <div id="start" class="entry-thumbnail chapter">
+            <?php the_post_thumbnail( 'panorama' ); ?>
+          </div>
           <div class="entry-text">
             <div class="entry-content">
               <?php the_content(); ?>
               <?php wp_link_pages( array( 'before' => '<div class="pagination">', 'after' => '</div>', 'pagelink' => '<strong>%</strong>' ) ); ?>
             </div>
-            <div class="entry-verdict">
+            <div id="verdict" class="entry-verdict chapter">
               <div class="entry-rating">
                 <?php madeleine_entry_rating( get_the_ID() ); ?>
               </div>
