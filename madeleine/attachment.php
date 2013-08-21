@@ -1,9 +1,5 @@
 <?php get_header(); ?>
-<div id="category">
-  <div class="wrap">
-    <?php madeleine_breadcrumb(); ?>
-  </div>
-</div>
+<?php madeleine_category_breadcrumb(); ?>
 <div id="main">
   <div class="wrap">
     <?php if ( have_posts() ) : ?>

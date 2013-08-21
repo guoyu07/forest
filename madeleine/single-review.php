@@ -1,45 +1,49 @@
 <?php get_header(); ?>
-<div id="category">
-  <div class="wrap">
-    <?php madeleine_breadcrumb(); ?>
-  </div>
-</div>
+<?php madeleine_reviews_breadcrumb(); ?>
 <div id="main">
   <div class="wrap">
-    <div id="lead">
-      <?php if ( have_posts() ) : ?>
-        <?php while ( have_posts() ) : the_post(); ?>
-          <article id="review-<?php the_ID(); ?>" class="review">
-            <header class="entry-header">
-
-              <h1 class="entry-title"><?php the_title(); ?></h1>
-
-              <?php if ( comments_open() && ! post_password_required() ) : ?>
-                <div class="entry-comments">
-                  <?php comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' ); ?>
-                </div>
-              <?php endif; ?>
-              
-              <?php if ( 'post' == get_post_type() ) : ?>
-                <div class="entry-info">
-                  <?php madeleine_posted_on(); ?>
-                </div>
-              <?php endif; ?>
-            </header>
-
-            <?php the_post_thumbnail( 'large' ); ?>
-
+    <?php if ( have_posts() ) : ?>
+      <?php while ( have_posts() ) : the_post(); ?>
+        <article id="review-<?php the_ID(); ?>" class="post review">
+          <header class="entry-header">
+            <?php $product_list = get_the_term_list( get_the_ID(), 'product', '</li><li>' ); ?>
+            <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '</li><li>' ); ?>
+            <?php if ( $product_list || $brand_list ): ?>
+              <ul class="entry-category">
+                <li><?php printf( $product_list ); ?></li>
+                <li><?php printf( $brand_list ); ?></li>
+              </ul>
+            <?php endif; ?>
+            <h1 class="entry-title"><?php the_title(); ?></h1>
+            <div class="entry-summary">
+              <?php the_excerpt(); ?>
+            </div>
+            <?php if ( comments_open() && ! post_password_required() ) : ?>
+              <div class="entry-comments">
+                <?php comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' ); ?>
+              </div>
+            <?php endif; ?>
+            <div class="entry-info">
+              <?php madeleine_entry_info(); ?>
+            </div>
+          </header>
+          <?php the_post_thumbnail( 'panorama' ); ?>
+          <div class="entry-text">
             <div class="entry-content">
               <?php the_content(); ?>
               <?php wp_link_pages( array( 'before' => '<div class="pagination">', 'after' => '</div>', 'pagelink' => '<strong>%</strong>' ) ); ?>
             </div>
-
+            <div class="entry-verdict">
+              <div class="entry-rating">
+                <?php madeleine_entry_rating( get_the_ID() ); ?>
+              </div>
+              <?php madeleine_entry_verdict( get_the_ID() ); ?>
+            </div>
             <?php comments_template( '', true ); ?>
-          </article>
-        <?php endwhile; ?>
-      <?php endif; ?>
-    </div>
-    <?php get_sidebar(); ?>
+          </div>
+        </article>
+      <?php endwhile; ?>
+    <?php endif; ?>
     <div style="clear: both;"></div>
   </div>
 </div>

@@ -37,7 +37,6 @@
   }
 
 	?></title>
-<link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
@@ -73,7 +72,7 @@
       <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
         <hgroup>
           <h1 id="title">
-            <?php bloginfo( 'name' ); echo $_SERVER['REQUEST_URI']; ?>
+            <?php bloginfo( 'name' ); // echo $_SERVER['REQUEST_URI']; ?>
           </h1>
           <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
         </hgroup>
@@ -88,6 +87,7 @@
           <ul>
             <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home">Home</a></li>
             <?php madeleine_categories_list(); ?>
+            <li><a href="<?php echo get_post_type_archive_link( 'review' ); ?>">Reviews</a></li>
             <li><a id="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>">Quotes</a></li>
             <li><a id="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>">Links</a></li>
             <li><a id="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>">Videos</a></li>

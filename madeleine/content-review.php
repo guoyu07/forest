@@ -1,19 +1,12 @@
-<?php $class = ( is_sticky() ? 'sticky' : '' ); ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class( $class ); ?>>
+<article id="post-<?php the_ID(); ?>" class="post review">
   <?php edit_post_link(); ?>
-  <?php if ( is_archive() ): ?>
-    <?php if ( is_sticky() ) : ?>
-      <?php madeleine_entry_thumbnail( 'large' ); ?>
-    <?php else : ?>
-      <?php madeleine_entry_thumbnail( 'medium' ); ?>
-    <?php endif; ?>
-  <?php else : ?>
-    <?php madeleine_entry_thumbnail( 'medium' ); ?>
-  <?php endif; ?>
-  <?php $category_list = get_the_category_list( '</li><li>' ); ?>
-  <?php if ( $category_list ): ?>
+  <?php madeleine_entry_thumbnail( 'medium' ); ?>
+  <?php $product_list = get_the_term_list( get_the_ID(), 'product', '</li><li>' ); ?>
+  <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '</li><li>' ); ?>
+  <?php if ( $product_list || $brand_list ): ?>
     <ul class="entry-category">
-      <li><?php printf( $category_list ); ?></li>
+      <li><?php printf( $product_list ); ?></li>
+      <li><?php printf( $brand_list ); ?></li>
     </ul>
   <?php endif; ?>
   <h2 class="entry-title">
@@ -30,5 +23,6 @@
   <div class="entry-info">
     <?php madeleine_entry_info(); ?>
   </div>
+  <?php madeleine_entry_rating( get_the_ID() ); ?>
   <div style="clear: both;"></div>
 </article>

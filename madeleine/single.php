@@ -1,9 +1,5 @@
 <?php get_header(); ?>
-<div id="category">
-  <div class="wrap">
-    <?php madeleine_breadcrumb(); ?>
-  </div>
-</div>
+<?php madeleine_category_breadcrumb(); ?>
 <div id="main">
   <div class="wrap">
     <div id="lead">
@@ -13,10 +9,10 @@
             <header class="entry-header">
 
               <?php if ( is_object_in_taxonomy( get_post_type(), 'category' ) ) : ?>
-                <?php $categories_list = get_the_category_list( '</li><li>' ); ?>
-                <?php if ( $categories_list ): ?>
+                <?php $category_list = get_the_category_list( '</li><li>' ); ?>
+                <?php if ( $category_list ): ?>
                   <ul class="entry-category">
-                    <li><?php printf( $categories_list ); ?></li>
+                    <li><?php printf( $category_list ); ?></li>
                   </ul>
                 <?php endif; ?>
               <?php endif; ?>
@@ -31,7 +27,7 @@
               
               <?php if ( 'post' == get_post_type() ) : ?>
                 <div class="entry-info">
-                  <?php madeleine_posted_on(); ?>
+                  <?php madeleine_entry_info(); ?>
                 </div>
               <?php endif; ?>
             </header>
@@ -41,7 +37,7 @@
             <?php
             $format = get_post_format();
             if ( $format == 'video' ):
-              madeleine_video();
+              madeleine_entry_video();
             endif;
             ?>
 

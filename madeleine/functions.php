@@ -102,7 +102,7 @@ function madeleine_top_category( $cat_ID = null ) {
 
 
 function madeleine_body_class( $classes ) {
-  if ( is_category() || is_single() ):
+  if ( is_category() ):
     $top_category_ID = madeleine_top_category();
     $top_category = get_category( $top_category_ID );
     $classes[] = 'category-' . $top_category->category_nicename;
@@ -184,11 +184,11 @@ function madeleine_focus() {
     endforeach;
     echo '<article class="post ' . $class . '" id="focus-' . $n . '">';
     if ( $n == 1 )
-      madeleine_thumbnail( 'focus' );
+      madeleine_entry_thumbnail( 'focus' );
     elseif ( $n == 5 )
-      madeleine_thumbnail( 'tall' );
+      madeleine_entry_thumbnail( 'tall' );
     else
-      madeleine_thumbnail( 'wide' );
+      madeleine_entry_thumbnail( 'wide' );
     echo '<div class="focus-text">';
     echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
     echo '<ul class="entry-category">' . $category_links . '</ul>';
@@ -224,7 +224,7 @@ function madeleine_latest_posts() {
 // 03 Backend
 
 
-function madeleine_video_meta_box( $object, $box ) { ?>
+function madeleine_entry_video_meta_box( $object, $box ) { ?>
   <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
   <p>
     <label for="video-youtube">YouTube Video URL</label>
@@ -284,7 +284,7 @@ function madeleine_add_meta_boxes() {
   add_meta_box(
     'video',
     esc_html( 'Video' ),
-    'madeleine_video_meta_box',
+    'madeleine_entry_video_meta_box',
     'post',
     'normal',
     'high'
@@ -445,7 +445,7 @@ function madeleine_on_the_radar_widget() {
       $categories = get_the_category( get_the_ID() );
       $category = get_category( madeleine_top_category( $categories[0] ) );
       echo '<div class="post category-' . $category->category_nicename . '">';
-      madeleine_thumbnail( 'medium' );
+      madeleine_entry_thumbnail( 'medium' );
       echo '<h3 class="entry-title">';
       echo '<a href="' . get_permalink() . '" title="' . esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ) . '" rel="bookmark">' . get_the_title() . '</a>';
       echo '</h3>';
@@ -517,7 +517,7 @@ function madeleine_format_widget( $format ) {
       $category = get_category( madeleine_top_category( $categories[0] ) );
       echo '<li class="post ' . $format . ' category-' . $category->category_nicename . '">';
       if ( $format == 'image' ):
-        madeleine_thumbnail( 'thumbnail' );
+        madeleine_entry_thumbnail( 'thumbnail' );
       elseif ( $format == 'link' ):
         echo '<a href="' . get_the_excerpt() . '">' . get_the_title() . ' <span>&rarr;</span></a>';
       elseif ( $format == 'quote' ):
@@ -552,7 +552,7 @@ function madeleine_images() {
     $categories = get_the_category( get_the_ID() );
     $category = get_category( madeleine_top_category( $categories[0] ) );
     echo '<li class="post image category-' . $category->category_nicename . '">';
-    madeleine_thumbnail( 'thumbnail' );
+    madeleine_entry_thumbnail( 'thumbnail' );
     echo '</li>';
   }
   echo '</ul>';
@@ -641,7 +641,7 @@ function madeleine_next_posts() {
     echo '<div ';
     post_class();
     echo '>';
-    madeleine_thumbnail( 'thumbnail' );
+    madeleine_entry_thumbnail( 'thumbnail' );
     echo '<ul class="entry-category"><li>' . get_the_category_list( '</li><li>' ) . '</li></ul>';
     echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
     echo '</div>';
@@ -654,7 +654,7 @@ function madeleine_next_posts() {
 }
 
 
-function madeleine_category_wheel ( $already_posted ) {
+function madeleine_category_wheels( $already_posted ) {
   $cats = get_categories('hide_empty=0&orderby=ID&parent=0');
   $standard_posts = madeleine_standard_posts();
   echo '<div class="wheels">';
@@ -675,13 +675,13 @@ function madeleine_category_wheel ( $already_posted ) {
       echo '<div ';
       post_class();
       echo '>';
-      madeleine_thumbnail( 'medium' );
+      madeleine_entry_thumbnail( 'medium' );
       echo '<div class="entry-comments">';
       comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' );
       echo '</div>';
       echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
       echo '<div class="entry-info">';
-      madeleine_posted_on();
+      madeleine_entry_info();
       echo '</div>';
       echo '<p class="entry-summary">'. get_the_excerpt() . '</p>';
       echo '</div>';
@@ -694,10 +694,11 @@ function madeleine_category_wheel ( $already_posted ) {
 }
 
 
-function madeleine_breadcrumb() {
+function madeleine_category_breadcrumb() {
   $top_category_ID = madeleine_top_category();
   $top_category = get_category( $top_category_ID );
   $title = $top_category->cat_name;
+  $slug = $top_category->slug;
   $args = array(
     'child_of'    => $top_category_ID,
     'hide_empty'  => 0,
@@ -705,12 +706,16 @@ function madeleine_breadcrumb() {
     'title_li'    => ''
   );
   $link = get_category_link( $top_category_ID );
+  echo '<div id="category" class="category-' . $slug . '">';
+  echo '<div class="wrap">';
   echo '<strong>';
   echo '<a href="' . esc_url( $link ) . '">' . $title . '</a>';
   echo '</strong>';
   echo '<ul>';
   wp_list_categories( $args );
   echo '</ul>';
+  echo '</div>';
+  echo '</div>';
 }
 
 
@@ -840,37 +845,38 @@ function madeleine_nested_date() {
 // 06 Post
 
 
-function madeleine_excerpt( $text ) {
+function madeleine_entry_excerpt_more( $text ) {
   return '&#8230; <a href="'. get_permalink() . '">&rarr;</a>';
 }
-add_filter( 'excerpt_more', 'madeleine_excerpt' );
+add_filter( 'excerpt_more', 'madeleine_entry_excerpt_more' );
 
 
-function madeleine_excerpt_length( $length ) {
+function madeleine_entry_excerpt_length( $length ) {
   global $post;
   if ( has_post_thumbnail( $post->ID ) )
     return 25;
   else
     return 90;
 }
-add_filter( 'excerpt_length', 'madeleine_excerpt_length' );
+add_filter( 'excerpt_length', 'madeleine_entry_excerpt_length' );
 
 
-function madeleine_post_class( $classes ) {
+function madeleine_entry_post_class( $classes ) {
   $top_category_ID = madeleine_top_category();
   $top_category = get_category( $top_category_ID );
   $classes[] = 'category-' . $top_category->category_nicename;
   return $classes;
 }
-add_filter( 'post_class', 'madeleine_post_class' );
+add_filter( 'post_class', 'madeleine_entry_post_class' );
 
 
-function madeleine_thumbnail( $size = 'thumbnail' ) {
+function madeleine_entry_thumbnail( $size = 'thumbnail' ) {
   if ( has_post_thumbnail() )
     echo '<a href="' . get_permalink() . '" class="entry-thumbnail">' . get_the_post_thumbnail( null, $size ) . '</a>';
 }
 
-function madeleine_caption( $val, $attr, $content = null ) {
+
+function madeleine_entry_caption( $val, $attr, $content = null ) {
   extract(shortcode_atts(array(
     'id'      => '',
     'align'   => 'alignnoe',
@@ -891,10 +897,10 @@ function madeleine_caption( $val, $attr, $content = null ) {
 
   return '<figure id="' . $id . '" class="wp-caption ' . esc_attr($align) . '">' . do_shortcode( $content ) . '<figcaption id="figcaption_'. $id . '" class="wp-caption-text" itemprop="description">' . $caption . '</figcaption></figure>';
 }
-add_filter( 'img_caption_shortcode', 'madeleine_caption', 10, 3 );
+add_filter( 'img_caption_shortcode', 'madeleine_entry_caption', 10, 3 );
 
 
-function madeleine_video() {
+function madeleine_entry_video() {
   global $post;
   $youtube = get_post_meta( $post->ID, 'video_youtube', true );
   $dailymotion = get_post_meta( $post->ID, 'video_dailymotion', true );
@@ -912,7 +918,7 @@ function madeleine_video() {
 }
 
 
-function madeleine_comments( $comment, $args, $depth ) {
+function madeleine_entry_comments( $comment, $args, $depth ) {
   $GLOBALS['comment'] = $comment;
   switch ( $comment->comment_type ):
     case 'pingback' :
@@ -953,7 +959,7 @@ function madeleine_comments( $comment, $args, $depth ) {
 }
 
 
-function madeleine_posted_on() {
+function madeleine_entry_info() {
   $archive_year  = get_the_time('Y'); 
   $archive_month = get_the_time('m'); 
   $archive_day   = get_the_time('d'); 
@@ -971,6 +977,26 @@ function madeleine_posted_on() {
 function madeleine_entry_rating( $id ) {
   $rating = get_post_meta( $id, 'rating', true );
   echo '<div class="entry-rating rating-' . floor( $rating ) . '">' . $rating . '</div>';
+}
+
+
+function madeleine_entry_verdict( $id ) {
+  $good = get_post_meta( $id, 'good', true );
+  $bad = get_post_meta( $id, 'bad', true );
+  $lists = array( 'good' => $good, 'bad' => $bad );
+  echo '<div class="entry-value">';
+  foreach( $lists as $key => $value ):
+    echo '<div class="entry-value-' . $key . '">';
+    echo '<h4 class="section">' . ucwords( $key ) . '</h4>';
+    echo '<ul class="entry-value-list">';
+    $items = explode( "\n", $value );
+    foreach( $items as $item ):
+      echo '<li>' . $item . '</li>';
+    endforeach;
+    echo '</ul>';
+    echo '</div>';
+  endforeach;
+  echo '</div>';
 }
 
 
@@ -1147,7 +1173,10 @@ function madeleine_register_reviews() {
       'comments',
       'revisions'
     ),
-    'has_archive' => true
+    'has_archive' => true,
+    'rewrite' => array(
+      'slug' => 'reviews'
+    )
   ));
   register_taxonomy( 'product', null, array(
     'label' => 'Products',
@@ -1166,7 +1195,25 @@ function madeleine_register_reviews() {
     'hierarchical' => true,
     'sort' => true
   ));
+  register_taxonomy( 'brand', null, array(
+    'label' => 'Brands',
+    'labels' => array(
+      'name' => 'Brands',
+      'singular_name' => 'Brand',
+      'all_items' => 'All Brands',
+      'edit_item' => 'Edit Brand',
+      'view_item' => 'View Brand',
+      'update_item' => 'Update Brand',
+      'add_new_item' => 'Add New Brand',
+      'new_item_name' => 'New Brand',
+      'search_items' => 'Search Brands',
+      'popular_items' => 'Popular Brands',
+    ),
+    'hierarchical' => true,
+    'sort' => true
+  ));
   register_taxonomy_for_object_type( 'product', 'review' );
+  register_taxonomy_for_object_type( 'brand', 'review' );
 }
 add_action( 'init', 'madeleine_register_reviews' );
 
@@ -1188,7 +1235,7 @@ function madeleine_reviews_grid() {
   while ( $query->have_posts() ) {
     $query->the_post();
     echo '<div class="review">';
-    madeleine_thumbnail( 'tall' );
+    madeleine_entry_thumbnail( 'tall' );
     echo '<div class="review-text">';
     echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
     echo '<p class="entry-summary">' . get_the_excerpt() . '</p>';
@@ -1199,4 +1246,54 @@ function madeleine_reviews_grid() {
   echo '<div style="clear: left;"></div>';
   echo '</div>';
   wp_reset_postdata();
+}
+
+
+function madeleine_reviews_breadcrumb() {
+  $args = array(
+    'depth' => 1,
+    'hide_empty' => 0,
+    'orderby' => 'ID',
+    'title_li' => '',
+    'taxonomy' => 'product'
+  );
+  echo '<div id="category">';
+  echo '<div class="wrap">';
+  echo '<strong>';
+  echo '<a href="' . get_post_type_archive_link( 'review' ) . '">Reviews</a>';
+  echo '</strong>';
+  echo '<ul>';
+  wp_list_categories( $args );
+  echo '</ul>';
+  echo '</div>';
+  echo '</div>';
+}
+
+
+function madeleine_reviews_menu() {
+  $reviews_count = wp_count_posts( 'review' );
+  $product_args = array(
+    'depth' => 1,
+    'echo' => 0,
+    'hide_empty' => 0,
+    'orderby' => 'ID',
+    'show_count' => 1,
+    'title_li' => '',
+    'taxonomy' => 'product'
+  );
+  $brand_args = $product_args;
+  $brand_args['taxonomy'] = 'brand';
+  $menu = '<div id="menu">';
+  $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">All reviews</a></p>';
+  $menu .= '<p class="section">Products</p>';
+  $menu .= '<ul>' . wp_list_categories( $product_args ) . '</ul>';
+  $menu .= '<p class="section">Brands</p>';
+  $menu .= '<ul>';
+  $menu .= '<ul>' . wp_list_categories( $brand_args ) . '</ul>';
+  $menu .= '</ul>';
+  $menu .= '</div>';
+  $menu = str_replace( 'posts', 'reviews', $menu );
+  $menu = str_replace( '(', '<span>', $menu );
+  $menu = str_replace( ')', '</span>', $menu );
+  echo $menu;
 }

@@ -20,7 +20,7 @@
 		<?php endif; // check for comment navigation ?>
 
 		<ol class="comment-list">
-			<?php wp_list_comments( array( 'callback' => 'madeleine_comments' ) ); ?>
+			<?php wp_list_comments( array( 'callback' => 'madeleine_entry_comments' ) ); ?>
 		</ol>
 
 		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
