@@ -89,10 +89,10 @@
             <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home">Home</a></li>
             <?php madeleine_categories_list(); ?>
             <li><a href="<?php echo get_post_type_archive_link( 'review' ); ?>">Reviews</a></li>
-            <li><a id="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>">Quotes</a></li>
-            <li><a id="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>">Links</a></li>
-            <li><a id="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>">Videos</a></li>
-            <li><a id="images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>">Images</a></li>
+            <li><a class="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>">Quotes</a></li>
+            <li><a class="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>">Links</a></li>
+            <li><a class="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>">Videos</a></li>
+            <li><a class="images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>">Images</a></li>
           </ul>
         </nav>
         <div id="trending">

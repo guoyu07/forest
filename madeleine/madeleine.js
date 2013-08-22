@@ -36,6 +36,19 @@ $(document).ready(function(){
     }
   );
 
+  // Dots
+
+  var videos = $('#videos li');
+  var videos_dots = $('#videos-dots span');
+  videos_dots.first().addClass('on');
+
+  videos_dots.hover( function() {
+    videos_dots.removeClass('on');
+    $(this).addClass('on');
+    videos.hide();
+    videos.eq($(this).index()).show();
+  });
+
   // Wheel tabs
 
   var wheels = $('.wheel');
@@ -80,7 +93,7 @@ $(document).ready(function(){
 
   // Popular
 
-  var bars = $('.popular li em');
+  var bars = $('#popular li em');
   var totals = new Array();
   var total_highest = parseInt(bars.first().data('total'));
 

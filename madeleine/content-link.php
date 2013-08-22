@@ -8,15 +8,13 @@
   <div class="entry-summary">
     <?php the_excerpt(); ?>
   </div>
-  <p class="entry-permalink">
-    <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ); ?>">#</a>
-  </p>
   <div class="entry-info">
     <?php if ( comments_open() && ! post_password_required() ) : ?>
       <div class="entry-comments">
         <?php comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' ); ?>
       </div>
     <?php endif; ?>
+    <a class="entry-permalink" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ); ?>">#</a>
     <?php madeleine_entry_info(); ?>
   </div>
   <div style="clear: both;"></div>

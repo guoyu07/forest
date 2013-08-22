@@ -16,18 +16,18 @@
                   </ul>
                 <?php endif; ?>
               <?php endif; ?>
-              <?php if ( $format ): ?>
-                <p class="entry-format"><?php echo $format; ?>
-                <div style="clear: both;"></div>
-              <?php endif; ?>
               <h1 class="entry-title"><?php the_title(); ?></h1>
               <div class="entry-info">
+                <?php if ( $format ): ?>
+                  <a class="entry-format" href="<?php echo esc_url( home_url( '/' ) . '/type/' . $format ); ?>"><?php echo $format; ?></a>
+                <?php endif; ?>
                 <?php if ( comments_open() && ! post_password_required() ) : ?>
                   <div class="entry-comments">
                     <?php comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' ); ?>
                   </div>
                 <?php endif; ?>
                 <?php madeleine_entry_info(); ?>
+                <div style="clear: both;"></div>
               </div>
             </header>
             <?php
@@ -36,7 +36,7 @@
                 madeleine_entry_video();
               elseif ( $format == 'image' ):
                 echo '<div class="entry-thumbnail">';
-                the_post_thumbnail( 'full' );
+                echo wp_get_attachment_link( get_post_thumbnail_id(), 'large', true );
                 echo '</div>';
               else:
                 echo '<div class="entry-thumbnail">';

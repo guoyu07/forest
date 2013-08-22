@@ -4,8 +4,8 @@
   <blockquote class="entry-title">
     <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
   </blockquote>
-  <div class="entry-summary">
-    <?php the_excerpt(); ?>
+  <div class="entry-source">
+    <?php echo get_post_meta( get_the_ID(), 'quote_source', true ); ?>
   </div>
   <div class="entry-info">
     <?php if ( comments_open() && ! post_password_required() ) : ?>

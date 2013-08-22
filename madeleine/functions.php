@@ -85,7 +85,9 @@ function madeleine_top_category( $cat_ID = null ) {
   elseif ( is_category() ):
     $cat = get_query_var('cat');
   elseif ( is_attachment() ):
-    $cat = 2;
+    $parent = get_post_field( 'post_parent', get_the_ID() );
+    $parent_categories = get_the_category( $parent );
+    $cat = $parent_categories[0]->cat_ID;
   else:
     $categories = get_the_category();
     $cat = $categories[0]->cat_ID;
@@ -296,8 +298,8 @@ function madeleine_link_meta_box( $object, $box ) { ?>
 function madeleine_quote_meta_box( $object, $box ) { ?>
   <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
   <p>
-    <label for="quote-author">Author or source</label>
-    <input type="text" name="quote-author" id="quote-author" value="<?php echo esc_attr( get_post_meta( $object->ID, 'quote_author', true ) ); ?>" size="30" class="regular-text">
+    <label for="quote-source">Source</label>
+    <input type="text" name="quote-source" id="quote-source" value="<?php echo esc_attr( get_post_meta( $object->ID, 'quote_source', true ) ); ?>" size="30" class="regular-text">
   </p>
   <?php
 }
@@ -358,7 +360,7 @@ function madeleine_add_meta_boxes() {
 
 
 function madeleine_save_meta( $post_id, $post ) {
-  $metas = array( 'video_dailymotion', 'video_vimeo', 'video_youtube', 'link_url', 'quote_author', 'rating', 'good', 'bad' );
+  $metas = array( 'video_dailymotion', 'video_vimeo', 'video_youtube', 'link_url', 'quote_source', 'rating', 'good', 'bad' );
   foreach ( $metas as $meta ):
     $nonce = 'madeleine_nonce';
 
@@ -445,13 +447,20 @@ function madeleine_upload_video_thumbnail( $image_url, $image_id, $post_id, $sou
 
 function madeleine_latest_widget() {
   $args = array(
-    'posts_per_page ' => -1
+    'posts_per_page' => 10
   );
+  $title = 'Latest ';
+  $cat = get_query_var('cat');
+  if ( $cat != '' ):
+    $category = get_category( $cat );
+    $title .= $category->name;
+    $args['cat'] = get_query_var('cat');
+  endif;
   $query = new WP_Query( $args );
   if ( $query->have_posts() ):
-    echo '<section class="widget latest">';
-    echo '<h4 class="widget-title">Latest posts</h4>';
-    echo '<ul class="latest">';
+    echo '<section id="latest" class="widget">';
+    echo '<h4 class="widget-title">' . $title . ' posts</h4>';
+    echo '<ul>';
     while ( $query->have_posts() ) {
       $query->the_post();
       $categories = get_the_category( get_the_ID() );
@@ -479,7 +488,7 @@ function madeleine_on_the_radar_widget() {
     $args['cat'] = get_query_var('cat');
   $query = new WP_Query( $args );
   if ( $query->have_posts() ):
-    echo '<section class="widget radar">';
+    echo '<section id="radar" class="widget">';
     echo '<h4 class="widget-title">On the radar</h4>';
     while ( $query->have_posts() ) {
       $query->the_post();
@@ -511,7 +520,7 @@ function madeleine_popular_widget() {
     "
   );
   if ( $populars ):
-    echo '<section class="widget popular">';
+    echo '<section id="popular" class="widget">';
     echo '<h4 class="widget-title">Popular this month</h4>';
     echo '<ul>';
     foreach ( $populars as $popular ):
@@ -534,6 +543,7 @@ function madeleine_popular_widget() {
 function madeleine_format_widget( $format ) {
   $args = array(
     'post_type' => 'post',
+    'posts_per_page' => 6,
     'tax_query' => array(
       array(
         'taxonomy' => 'post_format',
@@ -547,28 +557,36 @@ function madeleine_format_widget( $format ) {
     $args['cat'] = get_query_var('cat');
   $query = new WP_Query( $args );
   if ( $query->have_posts() ):
-    echo '<section class="widget ' . $format . 's">';
-    echo '<h4 class="widget-title">';
-    single_cat_title();
-    echo ' ' . $format . 's</h4>';
+    echo '<section class="widget" id="' . $format . 's">';
+    echo '<h4 class="widget-title">' . single_cat_title( '', false ) . ' ' . $format . 's</h4>';
     echo '<ul>';
+    $videos = 0;
     while ( $query->have_posts() ) {
       $query->the_post();
       $categories = get_the_category( get_the_ID() );
       $category = get_category( madeleine_top_category( $categories[0] ) );
-      echo '<li class="post ' . $format . ' category-' . $category->category_nicename . '">';
+      echo '<li class="post format-' . $format . ' category-' . $category->category_nicename . '">';
       if ( $format == 'image' ):
         madeleine_entry_thumbnail( 'thumbnail' );
+      elseif ( $format == 'video' ):
+        echo '<p class="entry-title">' . get_the_title() . '</p>';
+        madeleine_entry_thumbnail( 'medium' );
+        $videos++;
       elseif ( $format == 'link' ):
-        echo '<a href="' . get_the_excerpt() . '">' . get_the_title() . ' <span>&rarr;</span></a>';
+        echo '<p class="entry-title">' . get_the_title() . '</p>';
       elseif ( $format == 'quote' ):
-        echo '<blockquote>&#8220; ' . get_the_title() . ' &#8221;</blockquote>';
-        echo '<p>' . get_the_excerpt() . '</p>';
+        echo '<blockquote class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></blockquote>';
+        echo '<p class="entry-source">' . get_post_meta( get_the_ID(), 'quote_source', true ) . '</p>';
       endif;
       echo '</li>';
     }
     echo '</ul>';
     echo '<div style="clear: left;"></div>';
+    if ( $format == 'video' ):
+      echo '<div id="videos-dots" class="dots">';
+      echo str_repeat( '<span></span>', $videos );
+      echo '</div>';
+    endif;
     echo '</section>';
   endif;
   wp_reset_postdata();
