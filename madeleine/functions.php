@@ -242,6 +242,29 @@ function madeleine_latest_posts() {
 // 03 Backend
 
 
+function madeleine_admin_posts_filter( &$query ) {
+  if ( is_admin() AND 'edit.php' === $GLOBALS['pagenow'] AND isset( $_GET['p_format'] ) AND $_GET['p_format'] != '-1' ):
+    $query->query_vars['tax_query'] = array( array(
+      'taxonomy' => 'post_format',
+      'field'    => 'ID',
+      'terms'    => array( $_GET['p_format'] )
+    ) );
+  endif;
+}
+add_filter( 'parse_query', 'madeleine_admin_posts_filter' );
+
+
+function madeleine_restrict_manage_posts_format() {
+  wp_dropdown_categories( array(
+    'taxonomy'         => 'post_format',
+    'hide_empty'       => 0,
+    'name'             => 'p_format',
+    'show_option_none' => 'View all formats'
+  ));
+}
+add_action( 'restrict_manage_posts', 'madeleine_restrict_manage_posts_format' );
+
+
 function madeleine_entry_video_meta_box( $object, $box ) { ?>
   <?php wp_nonce_field( basename( __FILE__ ), 'madeleine_nonce' ); ?>
   <p>
@@ -353,23 +376,23 @@ function madeleine_save_meta( $post_id, $post ) {
     $new_meta_value = ( isset( $_POST[$posted] ) ? $_POST[$posted] : '' );
     $current_meta_value = get_post_meta( $post_id, $meta, true );
 
-    // if ( $new_meta_value != '' ):
-    //   if ( $meta == 'video_youtube' ):
-    //     $youtube_id = madeleine_get_youtube_id( $new_meta_value );
-    //     $youtube_image = 'http://img.youtube.com/vi/' . $youtube_id . '/0.jpg';
-    //     madeleine_upload_video_thumbnail( $youtube_image, $youtube_id, $post_id, 'youtube' );
-    //   elseif ( $meta == 'video_vimeo' ):
-    //     $vimeo_id = madeleine_get_vimeo_id( $new_meta_value );
-    //     $vimeo_json = file_get_contents( 'http://vimeo.com/api/v2/video/' . $vimeo_id . '.json' );
-    //     $vimeo_data = json_decode( $vimeo_json, true );
-    //     $vimeo_image = $vimeo_data[0]['thumbnail_large'];
-    //     madeleine_upload_video_thumbnail( $vimeo_image, $vimeo_id, $post_id, 'vimeo' );
-    //   elseif ( $meta == 'video_dailymotion' ):
-    //     $dailymotion_id = madeleine_get_dailymotion_id( $new_meta_value );
-    //     $dailymotion_image = madeleine_get_redirect_target( 'http://www.dailymotion.com/thumbnail/video/' . $dailymotion_id );
-    //     madeleine_upload_video_thumbnail( $dailymotion_image, $dailymotion_id, $post_id, 'dailymotion' );
-    //   endif;
-    // endif;
+    if ( $new_meta_value != '' ):
+      if ( $meta == 'video_youtube' ):
+        $youtube_id = madeleine_get_youtube_id( $new_meta_value );
+        $youtube_image = 'http://img.youtube.com/vi/' . $youtube_id . '/0.jpg';
+        madeleine_upload_video_thumbnail( $youtube_image, $youtube_id, $post_id, 'youtube' );
+      elseif ( $meta == 'video_vimeo' ):
+        $vimeo_id = madeleine_get_vimeo_id( $new_meta_value );
+        $vimeo_json = file_get_contents( 'http://vimeo.com/api/v2/video/' . $vimeo_id . '.json' );
+        $vimeo_data = json_decode( $vimeo_json, true );
+        $vimeo_image = $vimeo_data[0]['thumbnail_large'];
+        madeleine_upload_video_thumbnail( $vimeo_image, $vimeo_id, $post_id, 'vimeo' );
+      elseif ( $meta == 'video_dailymotion' ):
+        $dailymotion_id = madeleine_get_dailymotion_id( $new_meta_value );
+        $dailymotion_image = madeleine_get_redirect_target( 'http://www.dailymotion.com/thumbnail/video/' . $dailymotion_id );
+        madeleine_upload_video_thumbnail( $dailymotion_image, $dailymotion_id, $post_id, 'dailymotion' );
+      endif;
+    endif;
 
     if ( $new_meta_value && $current_meta_value == '' )
       add_post_meta( $post_id, $meta, $new_meta_value, true );
@@ -640,6 +663,19 @@ function madeleine_quotes() {
 // 05 Archives
 
 
+function madeleine_archive_settings( $query ) {
+  $query->set( 'ignore_sticky_posts', 1 );
+  $standard_posts = madeleine_standard_posts();
+  if ( ( $query->is_home() ) && $query->is_main_query() )
+    $query->set( 'tax_query', $standard_posts );
+  if ( $query->is_tag() && $query->is_main_query() )
+    $query->set( 'posts_per_page', 9 );
+  if ( $query->is_tax() && $query->is_main_query() )
+    $query->set( 'posts_per_page', 12 );
+}
+add_action( 'pre_get_posts', 'madeleine_archive_settings' );
+
+
 function madeleine_next_posts() {
   $standard_posts = madeleine_standard_posts();
   $post_ids = array(); 
@@ -765,19 +801,6 @@ function madeleine_pagination( $pages = '', $range = 2 ) {
 }
 
 
-function madeleine_archive_settings( $query ) {
-  $query->set( 'ignore_sticky_posts', 1 );
-  $standard_posts = madeleine_standard_posts();
-  if ( ( $query->is_home() || $query->is_category() ) && $query->is_main_query() )
-    $query->set( 'tax_query', $standard_posts );
-  if ( $query->is_tag() && $query->is_main_query() )
-    $query->set( 'posts_per_page', 9 );
-  if ( $query->is_tax() && $query->is_main_query() )
-    $query->set( 'posts_per_page', 12 );
-}
-add_action( 'pre_get_posts', 'madeleine_archive_settings' );
-
-
 function madeleine_date_vars() {
   $m = get_query_var('m');
   if ( is_year() ):
@@ -872,7 +895,7 @@ add_filter( 'excerpt_more', 'madeleine_entry_excerpt_more' );
 function madeleine_entry_excerpt_length( $length ) {
   global $post;
   if ( has_post_thumbnail( $post->ID ) )
-    return 15;
+    return 20;
   else
     return 90;
 }
@@ -1050,6 +1073,37 @@ function madeleine_entry_verdict( $id ) {
     echo '</div>';
   endforeach;
   echo '</div>';
+}
+
+
+function madeleine_entry_images( $html ) {
+   $html = preg_replace( '/(width|height)="\d*"\s/', "", $html );
+   return $html;
+}
+add_filter( 'post_thumbnail_html', 'madeleine_entry_images', 10 );
+add_filter( 'image_send_to_editor', 'madeleine_entry_images', 10 );
+
+
+function nmadeleine_entry_title( $title, $id ) {
+  $format = get_post_format( $id );
+  if ( $format == 'link' ):
+    $link_url =  get_post_meta( get_the_ID(), 'link_url', true );
+    return '<a href="' . $link_url . '">' . $title . '</a> &rarr;';
+  elseif ( $format == 'quote' ):
+    return '&#8220; ' . $title . ' &#8221;';
+  endif;
+  return $title;
+}
+add_filter( 'the_title', 'nmadeleine_entry_title', 10, 2 );
+
+
+function madeleine_entry_category() {
+  $category_list = get_the_category_list( '</li><li>' );
+  if ( $category_list ):
+    echo '<ul class="entry-category">';
+    echo '<li>' . $category_list . '</li>';
+    echo '</ul>';
+  endif;
 }
 
 
@@ -1284,6 +1338,7 @@ function madeleine_reviews_tabs() {
     $find = 'cat-item-' . $product->term_id . '"';
     $replace = 'cat-item-' . $product->term_id . '" data-id="' . $product->term_id . '"';
     $tabs = str_replace( $find, $replace, $tabs );
+    $tabs = str_replace( 'posts', 'reviews', $tabs );
   endforeach;
   echo $tabs;
 }
@@ -1373,19 +1428,13 @@ function madeleine_reviews_menu() {
 }
 
 
-function ajax_get_latest_posts( $count ) {
-  $posts = get_posts( 'numberposts=' . $count );
-  return $posts;
-}
-
-
-function our_ajax_function(){
+function madeleine_ajax_request(){
  
    // the first part is a SWTICHBOARD that fires specific functions
    // according to the value of Query Var 'fn'
  
   switch ( $_REQUEST['fn'] ) {
-    case 'get_latest_posts':
+    case 'madeleine_tabs':
       $output = madeleine_reviews_grid( $_REQUEST['id'] );
     break;
     default:
@@ -1401,5 +1450,5 @@ function our_ajax_function(){
   die;
  
 }
-add_action( 'wp_ajax_nopriv_do_ajax', 'our_ajax_function' );
-add_action( 'wp_ajax_do_ajax', 'our_ajax_function' );
+add_action( 'wp_ajax_nopriv_madeleine_ajax', 'madeleine_ajax_request' );
+add_action( 'wp_ajax_madeleine_ajax', 'madeleine_ajax_request' );
