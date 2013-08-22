@@ -36,6 +36,35 @@ $(document).ready(function(){
     }
   );
 
+  // Wheel tabs
+
+  var wheel_tabs = $('#wheel-tabs ul a');
+  var wheels = $('.wheel');
+  wheel_tabs.first().addClass('on');
+
+  wheel_tabs.click( function() {
+    var index = $(this).parent().index();
+    wheels.hide();
+    wheels.eq(index).show();
+    wheel_tabs.removeClass();
+    $(this).addClass('on');
+    return false;
+  });
+
+  // Review tabs
+
+  var reviews_tabs = $('#reviews-tabs ul a');
+  var reviews = $('.reviews-grid .review');
+  reviews_tabs.first().addClass('on');
+
+  reviews_tabs.click( function() {
+    var index = $(this).parent().index();
+    reviews_tabs.removeClass();
+    $(this).addClass('on');
+    doAjaxRequest($(this).parent().data('id'));
+    return false;
+  });
+
   // Popular
 
   var bars = $('.popular li em');
@@ -49,30 +78,6 @@ $(document).ready(function(){
       width: relative_width
     });
     // $(this).css('width', relative_width);
-  });
-
-  // Jump
-
-  var jump = $('#jump');
-  var jump_links = $('#jump a');
-  var jump_reference = $('.review .entry-text');
-  var jump_offset = jump_reference.offset();
-  var chapters = $('.chapter');
-
-  $(window).scroll(function() {
-    var position = $(window).scrollTop();
-    if (position > jump_offset.top) {
-      jump.css('position', 'fixed');
-    } else {
-      jump.css('position', 'absolute');
-    }
-    chapters.each( function(index) {
-      var chapter_offset = $(this).offset();
-      if ((position + 20) > chapter_offset.top) {
-        jump_links.removeClass();
-        jump_links.eq(index).addClass('on');
-      }
-    });
   });
 
   // Pinterest
@@ -132,5 +137,33 @@ $(document).ready(function(){
   }
   
   Grid(1020);
+
+  // Ajax
+
+  function doAjaxRequest(id) {
+    $('.loading').show();
+    $.ajax({
+      url: 'http://localhost/forest/wp-admin/admin-ajax.php',
+      data: {
+        'action': 'do_ajax',
+        'fn': 'get_latest_posts',
+        'id': id
+      },
+      dataType: 'html',
+      success:function(data) {
+        $('.loading').hide();
+        $('#reviews-result').html(data);
+        // $.each(data, function(index, element) {
+        //     $('#json_response_box').append($('<div>', {
+        //         text: element.ID
+        //     }));
+        // });
+      },
+      error: function(errorThrown){
+        alert('error');
+        console.log(errorThrown);
+      }
+    });
+  }
 
 });    

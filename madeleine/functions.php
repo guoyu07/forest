@@ -881,31 +881,33 @@ add_filter( 'excerpt_length', 'madeleine_entry_excerpt_length' );
 
 function madeleine_entry_content( $content ) {
   global $post;
-  if ( $post->post_type == 'review' ):
-    $dom = new DOMDocument;
-    $dom->loadHTML( $content );
-    $xpath = new DOMXPath( $dom );
-    $sections = array();
-    foreach ( $xpath->query("//h2") as $node ):
-      $node->setAttribute( 'id', strtolower( $node->nodeValue ) );
-      $node->setAttribute( 'class', 'chapter' );
-      $sections[] = $node->nodeValue;
-    endforeach;
-    $content = $dom->saveHtml();
-    $jump = '<div id="jump">';
-    $jump .= '<em class="section">Jump to</em>';
-    $jump .= '<a class="on" href="#start">Start</a>';
-    foreach( $sections as $section ):
-      $jump .= '<a href="#' . strtolower( $section ) . '">' . $section . '</a>';
-    endforeach;
-    $jump .= '<a href="#verdict">Verdict</a>';
-    $jump .= '<a href="#comments">Comments</a>';
-    $jump .= '</div>';
-    $content = $jump . $content;
+  if ( !is_feed() && is_single() ):
+    if ( $post->post_type == 'review' ):
+      $dom = new DOMDocument;
+      $dom->loadHTML( $content );
+      $xpath = new DOMXPath( $dom );
+      $sections = array();
+      foreach ( $xpath->query("//h2") as $node ):
+        $node->setAttribute( 'id', strtolower( $node->nodeValue ) );
+        $node->setAttribute( 'class', 'chapter' );
+        $sections[] = $node->nodeValue;
+      endforeach;
+      $content = $dom->saveHtml();
+      $jump = '<div id="jump">';
+      $jump .= '<em class="section">Jump to</em>';
+      $jump .= '<a class="on" href="#start">Start</a>';
+      foreach( $sections as $section ):
+        $jump .= '<a href="#' . strtolower( $section ) . '">' . $section . '</a>';
+      endforeach;
+      $jump .= '<a href="#verdict">Verdict</a>';
+      $jump .= '<a href="#comments">Comments</a>';
+      $jump .= '</div>';
+      $content .= $jump;
+    endif;
   endif;
   return $content;
 }
-add_filter('the_content', 'madeleine_entry_content');
+add_filter( 'the_content', 'madeleine_entry_content' );
 
 
 function madeleine_entry_post_class( $classes ) {
@@ -1021,9 +1023,13 @@ function madeleine_entry_info() {
 }
 
 
-function madeleine_entry_rating( $id ) {
+function madeleine_entry_rating( $id, $echo = true ) {
   $rating = get_post_meta( $id, 'rating', true );
-  echo '<div class="entry-rating rating-' . floor( $rating ) . '">' . $rating . '</div>';
+  $div = '<div class="entry-rating rating-' . floor( $rating ) . '">' . $rating . '</div>';
+  if ( $echo )
+    echo $div;
+  else
+    return $div;
 }
 
 
@@ -1271,28 +1277,49 @@ function madeleine_products_list() {
 }
 
 
-function madeleine_reviews_grid() {
-  $post_ids = array(); 
+function madeleine_reviews_tabs() {
+  $products = get_categories('hide_empty=0&orderby=ID&taxonomy=product');
+  $tabs = wp_list_categories('depth=1&echo=0&hide_empty=0&orderby=ID&title_li=&taxonomy=product');
+  foreach( $products as $product ):
+    $find = 'cat-item-' . $product->term_id . '"';
+    $replace = 'cat-item-' . $product->term_id . '" data-id="' . $product->term_id . '"';
+    $tabs = str_replace( $find, $replace, $tabs );
+  endforeach;
+  echo $tabs;
+}
+
+
+function madeleine_reviews_grid( $tax_ID = 'all' ) {
+  $post_ids = array();
   $args = array(
     'post_type' => 'review',
-    'posts_per_page' => 10
+    'posts_per_page' => 6
   );
+  if ( $tax_ID != 'all' ):
+    $args['tax_query'] = array(
+      array(
+        'taxonomy' => 'product',
+        'terms' => $tax_ID,
+        'field' => 'term_id',
+      )
+    );
+  endif;
   $query = new WP_Query( $args );
-  echo '<div class="reviews-grid">';
+  $grid = '';
   while ( $query->have_posts() ) {
     $query->the_post();
-    echo '<div class="review">';
-    madeleine_entry_thumbnail( 'tall' );
-    echo '<div class="review-text">';
-    echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
-    echo '<p class="entry-summary">' . get_the_excerpt() . '</p>';
-    echo '</div>';
-    madeleine_entry_rating( get_the_ID() );
-    echo '</div>';
+    $grid .= '<div class="review">';
+    $grid .= '<a href="' . get_permalink() . '" class="entry-thumbnail">' . get_the_post_thumbnail( null, 'tall' ) . '</a>';
+    $grid .= '<div class="review-text">';
+    $grid .= '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+    $grid .= '<p class="entry-summary">' . get_the_excerpt() . '</p>';
+    $grid .= '</div>';
+    $grid .= madeleine_entry_rating( get_the_ID(), false );
+    $grid .= '</div>';
   }
-  echo '<div style="clear: left;"></div>';
-  echo '</div>';
+  $grid .= '<div style="clear: left;"></div>';
   wp_reset_postdata();
+  return $grid;
 }
 
 
@@ -1344,3 +1371,35 @@ function madeleine_reviews_menu() {
   $menu = str_replace( ')', '</span>', $menu );
   echo $menu;
 }
+
+
+function ajax_get_latest_posts( $count ) {
+  $posts = get_posts( 'numberposts=' . $count );
+  return $posts;
+}
+
+
+function our_ajax_function(){
+ 
+   // the first part is a SWTICHBOARD that fires specific functions
+   // according to the value of Query Var 'fn'
+ 
+  switch ( $_REQUEST['fn'] ) {
+    case 'get_latest_posts':
+      $output = madeleine_reviews_grid( $_REQUEST['id'] );
+    break;
+    default:
+      $output = 'No function specified, check your jQuery.ajax() call';
+    break;
+  }
+ 
+   // at this point, $output contains some sort of valuable data!
+   // Now, convert $output to JSON and echo it to the browser 
+   // That way, we can recapture it with jQuery and run our success function
+ 
+  echo $output;
+  die;
+ 
+}
+add_action( 'wp_ajax_nopriv_do_ajax', 'our_ajax_function' );
+add_action( 'wp_ajax_do_ajax', 'our_ajax_function' );

@@ -1,12 +1,12 @@
 <article id="post-<?php the_ID(); ?>" class="post review">
   <?php edit_post_link(); ?>
   <?php madeleine_entry_thumbnail( 'medium' ); ?>
-  <?php $product_list = get_the_term_list( get_the_ID(), 'product', '</li><li>' ); ?>
-  <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '</li><li>' ); ?>
+  <?php $product_list = get_the_term_list( get_the_ID(), 'product', '<li>' ,'</li><li>', '</li>' ); ?>
+  <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '<li>' ,'</li><li>', '</li>' ); ?>
   <?php if ( $product_list || $brand_list ): ?>
     <ul class="entry-category">
-      <li><?php printf( $product_list ); ?></li>
-      <li><?php printf( $brand_list ); ?></li>
+      <?php echo $brand_list; ?>
+      <?php echo $product_list; ?>
     </ul>
   <?php endif; ?>
   <h2 class="entry-title">

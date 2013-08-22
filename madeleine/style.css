@@ -50,13 +50,15 @@ a:hover{ text-decoration: underline;}
 .content{ padding: 0 20px;}
 .tabs{ background: #f2f4f6; font: italic 11px/30px Bitter, Georgia, serif; height: 30px; letter-spacing: 0.125em; text-transform: uppercase;}
 .tabs li{ display: inline;}
-.tabs span,
+.tabs p,
 .tabs a{ float: left; padding: 0 15px;}
-.tabs span{ background: #444; color: white;}
-.tabs span a{ background: none; color: white; float: none; padding: 0;}
-.tabs a:hover{ background: #708491; color: white !important; text-decoration: none;}
-.tabs span a:hover{ background: none; text-decoration: underline;}
+.tabs p{ background: #444; color: white;}
+.tabs p a{ background: none; color: white; float: none; padding: 0;}
+.tabs a:hover,
+.tabs .on{ background: #708491; color: white !important; text-decoration: none;}
+.tabs p a:hover{ background: none; text-decoration: underline;}
 .section, .widget-title{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 5px; text-transform: uppercase;}
+.loading{ background: rgba(14, 24, 31, 0.86) url(loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%;}
 
 /* Header */
 
@@ -96,7 +98,7 @@ a:hover{ text-decoration: underline;}
 
 /* Footer */
 
-#footer{ background: #708491; clear: both; color: #d7dce1; padding: 20px 0;}
+#footer{ background: #708491; clear: both; color: #d7dce1; height: 400px; padding: 20px 0;}
 #footer a{ color: #d7dce1;}
 
 /* Parts */
@@ -122,7 +124,7 @@ a:hover{ text-decoration: underline;}
 /* Post */
 
 .post{ position: relative;}
-.post-edit-link{ background: #444; color: white !important; display: none; font-size: 11px; left: 100%; padding: 2px 4px; position: absolute; top: 0; white-space: nowrap;}
+.post-edit-link{ background: #444; color: white !important; display: none; font-size: 11px; left: 100%; padding: 2px 4px; position: absolute; top: 0; white-space: nowrap; z-index: 1986;}
 .post:hover .post-edit-link{ display: inline;}
 .aligncenter{ text-align: center;}
 .alignleft { display: inline; float: left; margin-right: 1em;}
@@ -148,8 +150,8 @@ a:hover{ text-decoration: underline;}
 .entry-category,
 .entry-tags{ color: #708491; font-size: 11px;}
 .post .entry-category{ float: right; margin: 0 0 10px 10px;}
-.post .entry-category li{ display: inline; margin-left: 2px;}
-.post .entry-category a{ background: #d0574e; color: white !important; display: inline-block; padding: 2px 6px;}
+.post .entry-category li{ display: inline;}
+.post .entry-category a{ background: #d0574e; color: white !important; float: left; margin-left: 2px; padding: 2px 6px;}
 .post .entry-category a:hover{ background: #444 !important; text-decoration: none;}
 .post .entry-tags a{ background: #d7dce1; color: #708491 !important; float: left; margin-right: 2px; padding: 2px 6px;}
 .post .entry-tags a:hover{ background: #708491; color: white !important; text-decoration: none;}
@@ -326,6 +328,7 @@ a:hover{ text-decoration: underline;}
 .entry-value-bad .section{ color: #D0574E;}
 
 .review .entry-summary{ font-size: 16px;}
+.reviews-grid{ position: relative;}
 .reviews-grid .review{ float: left; height: 320px; position: relative; width: 340px;}
 .reviews-grid .review .review-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: #afc6d5; padding: 20px; position: absolute; width: 300px;}
 .reviews-grid .review .entry-title{ font-size: 20px; margin-bottom: 5px;}
@@ -433,6 +436,7 @@ a:hover{ text-decoration: underline;}
 body.category-tech #nav .current-cat a,
 #category.category-tech .current-cat a{ color: #d0574e;}
 .tabs .category-tech a:hover,
+.tabs .category-tech .on,
 #category.category-tech strong,
 .category-tech .entry-category a,
 .popular .category-tech em,
@@ -451,6 +455,7 @@ body.category-tech #nav .current-cat a,
 body.category-social-media #nav .current-cat a,
 #category.category-social-media .current-cat a{ color: #4d9cd1;}
 .tabs .category-social-media a:hover,
+.tabs .category-social-media .on,
 #category.category-social-media strong,
 .category-social-media .entry-category a,
 .popular .category-social-media em,
@@ -469,6 +474,7 @@ body.category-social-media #nav .current-cat a,
 body.category-mobile #nav .current-cat a,
 #category.category-mobile .current-cat a{ color: #96ca47;}
 .tabs .category-mobile a:hover,
+.tabs .category-mobile .on,
 #category.category-mobile strong,
 .category-mobile .entry-category a,
 .popular .category-mobile em,
@@ -487,6 +493,7 @@ body.category-mobile #nav .current-cat a,
 body.category-coding #nav .current-cat a,
 #category.category-coding .current-cat a{ color: #d1ae4d;}
 .tabs .category-coding a:hover,
+.tabs .category-coding .on,
 #category.category-coding strong,
 .category-coding .entry-category a,
 .popular .category-coding em,
@@ -505,6 +512,7 @@ body.category-coding #nav .current-cat a,
 body.category-design #nav .current-cat a,
 #category.category-design .current-cat a{ color: #6acdb3;}
 .tabs .category-design a:hover,
+.tabs .category-design .on,
 #category.category-design strong,
 .category-design .entry-category a,
 .popular .category-design em,
@@ -523,6 +531,7 @@ body.category-design #nav .current-cat a,
 body.category-gaming #nav .current-cat a,
 #category.category-gaming .current-cat a{ color: #d087cb;}
 .tabs .category-gaming a:hover,
+.tabs .category-gaming .on,
 #category.category-gaming strong,
 .category-gaming .entry-category a,
 .popular .category-gaming em,
@@ -542,6 +551,7 @@ body.category-gaming #nav .current-cat a,
 body.category-business #nav .current-cat a,
 #category.category-business .current-cat a{ color: #c0c75b; color: #d1d126;}
 .tabs .category-business a:hover,
+.tabs .category-business .on,
 #category.category-business strong,
 .category-business .entry-category a,
 .popular .category-business em,

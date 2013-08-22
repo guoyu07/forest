@@ -6,12 +6,12 @@
       <?php while ( have_posts() ) : the_post(); ?>
         <article id="review-<?php the_ID(); ?>" class="post review">
           <header class="entry-header">
-            <?php $product_list = get_the_term_list( get_the_ID(), 'product', '</li><li>' ); ?>
-            <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '</li><li>' ); ?>
+            <?php $product_list = get_the_term_list( get_the_ID(), 'product', '<li>' ,'</li><li>', '</li>' ); ?>
+            <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '<li>' ,'</li><li>', '</li>' ); ?>
             <?php if ( $product_list || $brand_list ): ?>
               <ul class="entry-category">
-                <li><?php printf( $product_list ); ?></li>
-                <li><?php printf( $brand_list ); ?></li>
+                <?php echo $brand_list; ?>
+                <?php echo $product_list; ?>
               </ul>
             <?php endif; ?>
             <h1 class="entry-title"><?php the_title(); ?></h1>
