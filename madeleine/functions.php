@@ -129,6 +129,24 @@ function madeleine_categories_list() {
 }
 
 
+function madeleine_tags_list() {
+  $tags = get_tags();
+  $tags_list = '<div id="tags" class="dropdown">';
+  $tags_list .= '<ul>';
+  $current_tag = get_query_var( 'tag' );
+  foreach ( $tags as $tag ) {
+    $tag_link = get_tag_link( $tag->term_id );
+    if ( $tag->slug == $current_tag )
+      $tags_list .= '<li class="on">';
+    else
+      $tags_list .= '<li>';
+    $tags_list .= '<a href="' . $tag_link . '" class="' . $tag->slug . '">' . $tag->name . '<span>' . $tag->count . '</span></a>';
+  }
+  $tags_list .= '</ul>';
+  $tags_list .= '</div>';
+  echo $tags_list;
+}
+
 function madeleine_trending() {
   global $wpdb;
   $term_ids = $wpdb->get_col("
@@ -687,7 +705,7 @@ function madeleine_archive_settings( $query ) {
   if ( ( $query->is_home() ) && $query->is_main_query() )
     $query->set( 'tax_query', $standard_posts );
   if ( $query->is_tag() && $query->is_main_query() )
-    $query->set( 'posts_per_page', 9 );
+    $query->set( 'posts_per_page', -1 );
   if ( $query->is_tax() && $query->is_main_query() )
     $query->set( 'posts_per_page', 12 );
 }
@@ -1022,6 +1040,9 @@ function madeleine_entry_comments( $comment, $args, $depth ) {
   ?>
   <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
     <article id="comment-<?php comment_ID(); ?>" class="comment-article">
+      <?php if ( $comment->comment_approved == '0' ) : ?>
+        <p class="comment-awaiting-moderation"><?php echo 'Your comment is awaiting moderation.'; ?></p>
+      <?php endif; ?>
       <div class="comment-avatar">
         <?php $avatar_size = 60;
         if ( '0' != $comment->comment_parent )
@@ -1034,13 +1055,10 @@ function madeleine_entry_comments( $comment, $args, $depth ) {
           <?php printf( '<a href="%1$s" class="comment-date"><time datetime="%2$s">%3$s</time></a>', esc_url( get_comment_link( $comment->comment_ID ) ), get_comment_time( 'c' ), sprintf( '%1$s at %2$s', get_comment_date(), get_comment_time() ) ); ?>
           <?php edit_comment_link( 'Edit' , '<span class="comment-edit">', '</span>' ); ?>
         </div>
-        <?php if ( $comment->comment_approved == '0' ) : ?>
-          <p class="comment-awaiting-moderation"><?php echo 'Your comment is awaiting moderation.'; ?></p>
-        <?php endif; ?>
         <div class="comment-text"><?php comment_text(); ?></div>
-      </div>
-      <div class="comment-reply">
-        <?php comment_reply_link( array_merge( $args, array( 'reply_text' => 'Reply <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+        <div class="comment-reply">
+          <?php comment_reply_link( array_merge( $args, array( 'reply_text' => 'Reply <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+        </div>
       </div>
     </article>
   <?php

@@ -63,6 +63,19 @@ a:hover{ text-decoration: underline;}
 .dots{ float: right; height: 10px; line-height: 10px; text-align: center;}
 .dots span{ background: #d7dce1; border-radius: 5px; display: inline-block; height: 10px; margin-left: 5px; width: 10px;}
 .dots .on{ background: #708491;}
+.dropdown{ float: left; margin-left: 5px; position: relative; z-index: 2013;}
+.dropdown ul{ background: #eaedef; left: 0; min-width: 300px; position: absolute; top: -4px;}
+.dropdown li{ display: none;}
+.dropdown a{ display: block; padding: 5px 5px 5px 10px;}
+.dropdown span{ background: #d7dce1; border-radius: 5px; color: white; float: right; font-size: 16px; font-weight: bold; height: 27px; line-height: 25px; min-width: 18px; padding: 0 5px; text-align: center;}
+.dropdown:hover ul{ background: #eaedef;}
+.dropdown:hover li{ display: list-item;}
+.dropdown:hover .on span{ background: #444;}
+.dropdown a:hover{ background: #d7dce1; text-decoration: none;}
+.dropdown a:hover span,
+.dropdown .on span{ background: #708491;}
+.dropdown .on{ display: list-item;}
+.dropdown .on a{ color: #444; cursor: default; font-weight: bold;}
 
 /* Header */
 
@@ -242,11 +255,19 @@ a:hover{ text-decoration: underline;}
 .wheel .post:nth-child(5) .entry-thumbnail{ float: right; margin-left: 20px;}
 .wheel .post:nth-child(4) .entry-thumbnail{ display: none;}
 
-.pinterest{ position: relative;}
+.pinterest{ min-height: 600px; position: relative;}
 .pinterest .post{ border: solid #eaedef; border-width: 0 0 1px 1px; padding: 20px 19px 20px 20px; width: 300px;}
+.pinterest .entry-format{ line-height: 20px;}
 .pinterest .entry-title{ font-size: 18px; margin-bottom: 10px;}
 .pinterest .entry-thumbnail{ margin-bottom: 10px;}
 .pinterest .entry-summary{ font-size: 12px;}
+.pinterest .entry-info{ margin-top: 10px;}
+.pinterest .format-image .entry-format,
+.pinterest .format-link .entry-format,
+.pinterest .format-quote .entry-format{ float: left; margin-bottom: 0;}
+.pinterest .format-image .entry-thumbnail,
+.pinterest .format-link .entry-title,
+.pinterest .format-quote .entry-title{ clear: both;}
 
 /* Widgets */
 
@@ -289,7 +310,7 @@ a:hover{ text-decoration: underline;}
 
 .comment-list{ border-bottom: 1px solid #eaedef; margin-bottom: 40px;}
 .comment-article{ border-top: 1px solid #eaedef; clear: left; min-height: 60px; padding: 20px 0;}
-.bypostauthor .comment-article{ background: lightgoldenrodyellow;}
+.bypostauthor > .comment-article{ background: lightgoldenrodyellow; border-top: 2px solid #444;}
 .comment-avatar{ float: left; height: 60px; width: 60px;}
 .comment-content{ margin-left: 80px;}
 .comment-info{ color: #708491; font: 13px/1.15 Bitter, Georgia, serif; margin-bottom: 10px;}
@@ -298,14 +319,16 @@ a:hover{ text-decoration: underline;}
 #comments .comment-author a{ color: #444;}
 .comment-date{ font-style: italic;}
 .comment-edit{ margin-left: 5px;}
-.comment-awaiting-moderation{ font-style: italic;}
-.comment-reply{ display: none;}
+.comment-awaiting-moderation{ background: lightgoldenrodyellow; color: burlywood; font-style: italic; margin-bottom: 10px; padding: 5px 10px;}
+.comment-reply{ text-align: right;}
 .children .comment-article{ margin-left: 80px; min-height: 40px; padding: 15px 0;}
 .children .comment-avatar{ height: 40px; width: 40px;}
 .children .comment-content{ margin-left: 60px;}
 .children .comment-info{ font-size: 12px;}
 .children .comment-author{ font-size: 14px;}
-.children .comment-text{ font-size: 13px;}
+.children .comment-text,
+.children .comment-reply{ font-size: 13px;}
+.children .children .comment-article{ margin-left: 160px;}
 
 #commentform{ background: #f2f4f6; border: solid #eaedef; border-width: 1px 0; padding: 20px;}
 #commentform label{ display: block; font: bold 16px/1.5 Bitter, Georgia, serif;}
