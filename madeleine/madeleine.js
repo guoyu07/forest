@@ -91,6 +91,37 @@ $(document).ready(function(){
     return false;
   });
 
+  // Reviews filter
+
+  var rating = $('#rating');
+  var rating_value = $('#rating-value');
+
+  var price = $('#price');
+  var price_value = $('#price-value');
+
+  rating.slider({
+    range: true,
+    min: 0,
+    max: 10,
+    values: [ 0, 10 ],
+    slide: function( event, ui ) {
+      rating_value.text(ui.values[ 0 ] + ' - ' + ui.values[ 1 ]);
+    }
+  });
+  rating_value.text(rating.slider('values', 0) + ' - ' + rating.slider( 'values', 1));
+
+  price.slider({
+    range: true,
+    min: 0,
+    max: 2000,
+    step: 50,
+    values: [ 0, 2000 ],
+    slide: function( event, ui ) {
+      price_value.text('$' + ui.values[ 0 ] + ' - $' + ui.values[ 1 ]);
+    }
+  });
+  price_value.text('$' + price.slider('values', 0) + ' - $' + price.slider( 'values', 1));
+
   // Popular
 
   var bars = $('#popular li em');

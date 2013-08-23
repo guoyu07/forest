@@ -328,6 +328,8 @@ function madeleine_review_meta_box( $object, $box ) { ?>
   <p>
     <label for="rating">Rating</label>
     <input type="text" name="rating" id="rating" value="<?php echo esc_attr( get_post_meta( $object->ID, 'rating', true ) ); ?>">
+    <label for="price">Price</label>
+    <input type="text" name="price" id="price" value="<?php echo esc_attr( get_post_meta( $object->ID, 'price', true ) ); ?>">
   </p>
   <p>
     <label for="good">Good</label><br>
@@ -378,7 +380,7 @@ function madeleine_add_meta_boxes() {
 
 
 function madeleine_save_meta( $post_id, $post ) {
-  $metas = array( 'video_dailymotion', 'video_vimeo', 'video_youtube', 'link_url', 'quote_source', 'rating', 'good', 'bad' );
+  $metas = array( 'video_dailymotion', 'video_vimeo', 'video_youtube', 'link_url', 'quote_source', 'rating', 'price', 'good', 'bad' );
   foreach ( $metas as $meta ):
     $nonce = 'madeleine_nonce';
 
@@ -464,16 +466,18 @@ function madeleine_upload_video_thumbnail( $image_url, $image_id, $post_id, $sou
 
 
 function madeleine_latest_widget() {
+  $standard_posts = madeleine_standard_posts();
   $args = array(
-    'posts_per_page' => 10
+    'posts_per_page' => 10,
+    'tax_query' => $standard_posts
   );
   $title = 'Latest ';
-  $cat = get_query_var('cat');
-  if ( $cat != '' ):
-    $category = get_category( $cat );
-    $title .= $category->name;
-    $args['cat'] = get_query_var('cat');
-  endif;
+  // $cat = get_query_var('cat');
+  // if ( $cat != '' ):
+  //   $category = get_category( $cat );
+  //   $title .= $category->name;
+  //   $args['cat'] = get_query_var('cat');
+  // endif;
   $query = new WP_Query( $args );
   if ( $query->have_posts() ):
     echo '<section id="latest" class="widget">';
@@ -1092,6 +1096,19 @@ function madeleine_entry_rating( $id, $echo = true ) {
 }
 
 
+
+function madeleine_entry_price( $id, $echo = true ) {
+  $price = get_post_meta( $id, 'price', true );
+  if ( $price ):
+    $div = '<p class="entry-price price-' . floor( $price ) . '"><span>$' . $price . '</span></p>';
+    if ( $echo )
+      echo $div;
+    else
+      return $div;
+  endif;
+}
+
+
 function madeleine_entry_verdict( $id ) {
   $good = get_post_meta( $id, 'good', true );
   $bad = get_post_meta( $id, 'bad', true );
@@ -1118,9 +1135,9 @@ function madeleine_entry_images( $html ) {
 }
 add_filter( 'post_thumbnail_html', 'madeleine_entry_images', 10 );
 add_filter( 'image_send_to_editor', 'madeleine_entry_images', 10 );
+add_filter( 'wp_get_attachment_link', 'madeleine_entry_images', 10 );
 
-
-function nmadeleine_entry_title( $title, $id ) {
+function madeleine_entry_title( $title, $id ) {
   $format = get_post_format( $id );
   if ( $format == 'link' ):
     $link_url =  get_post_meta( get_the_ID(), 'link_url', true );
@@ -1130,7 +1147,7 @@ function nmadeleine_entry_title( $title, $id ) {
   endif;
   return $title;
 }
-add_filter( 'the_title', 'nmadeleine_entry_title', 10, 2 );
+add_filter( 'the_title', 'madeleine_entry_title', 10, 2 );
 
 
 function madeleine_entry_category() {
@@ -1453,9 +1470,14 @@ function madeleine_reviews_menu() {
   $menu .= '<p class="section">Products</p>';
   $menu .= '<ul>' . wp_list_categories( $product_args ) . '</ul>';
   $menu .= '<p class="section">Brands</p>';
-  $menu .= '<ul>';
   $menu .= '<ul>' . wp_list_categories( $brand_args ) . '</ul>';
-  $menu .= '</ul>';
+  $menu .= '<p class="section">Rating</p>';
+  $menu .= '<p id="rating-value" class="slider-value"></p>';
+  $menu .= '<div id="rating"></div>';
+  $menu .= '<p class="section">Price</p>';
+  $menu .= '<p id="price-value" class="slider-value"></p>';
+  $menu .= '<div id="price"></div>';
+  $menu .= '<button id="reviews-filter" class="button"><span>Filter</span></button>';
   $menu .= '</div>';
   $menu = str_replace( 'posts', 'reviews', $menu );
   $menu = str_replace( '(', '<span>', $menu );
@@ -1464,7 +1486,7 @@ function madeleine_reviews_menu() {
 }
 
 
-function madeleine_ajax_request(){
+function madeleine_ajax_request() {
  
    // the first part is a SWTICHBOARD that fires specific functions
    // according to the value of Query Var 'fn'

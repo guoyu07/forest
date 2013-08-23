@@ -5,6 +5,7 @@
       </div>
     </footer>
     <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/madeleine.js"></script>
     <?php if ( is_singular( 'review' ) ): ?>
       <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jump.js"></script>

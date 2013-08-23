@@ -76,6 +76,9 @@ a:hover{ text-decoration: underline;}
 .dropdown .on span{ background: #708491;}
 .dropdown .on{ display: list-item;}
 .dropdown .on a{ color: #444; cursor: default; font-weight: bold;}
+.button { background: #708491; border: none; border-radius: 5px; color: white; cursor: pointer; font: bold 13px/1.15 Bitter, Georgia, serif; display: inline-block; overflow: visible; padding: 0; position: relative; text-align: center; vertical-align: middle;}
+.button:hover{ background: #444;}
+.button span{ display: block; padding: 5px 10px 6px;}
 
 /* Header */
 
@@ -185,16 +188,20 @@ a:hover{ text-decoration: underline;}
 
 .format-quote .entry-title{ font-style: italic; font-weight: normal;}
 .list .format-image .entry-thumbnail:after,
+.format-image .entry-thumbnail:hover a:after,
 .format-video .entry-thumbnail:after{ background: url(image.png) no-repeat center center; content: ' '; display: block; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 1986;}
 .format-video .entry-thumbnail:after{ background-image: url(video.png);}
 
 /* Single */
 
-.single #lead .post{ padding: 20px; width: 640px;}
+.single #lead .post,
+.page #lead .post{ padding: 20px; width: 640px;}
 .single #lead .entry-format{ background: #eaedef url(icons.png) no-repeat 5px -30px; border-radius: 15px; float: left; height: 30px; line-height: 30px; margin-bottom: 20px; padding: 0 20px 0 40px;}
 .single #lead .entry-title,
-.single-attachment .entry-title{ font-size: 28px; line-height: 1.15; margin-bottom: 20px;}
-.single #lead .entry-info{ font-size: 13px; line-height: 30px; margin-bottom: 10px;}
+.single-attachment .entry-title,
+.page #lead .entry-title{ font-size: 28px; line-height: 1.15; margin-bottom: 20px;}
+.single #lead .entry-info,
+.page #lead .entry-info{ font-size: 13px; line-height: 30px; margin-bottom: 10px;}
 .single #lead .entry-format{ margin-right: 10px;}
 .single #lead .entry-comments{ padding-top: 7px;}
 .single #lead .entry-comments a{ margin-left: 20px;}
@@ -274,7 +281,7 @@ a:hover{ text-decoration: underline;}
 #latest .post{ clear: left; height: 15px; font-size: 12px; line-height: 15px; margin-bottom: 5px; overflow: hidden; position: relative;}
 #latest .entry-date{ color: #708491; float: left; left: 0; position: absolute;}
 #latest .entry-title{ display: block; font: normal 12px/15px Arial, sans-serif; left: 35px; position: absolute; width: 265px;}
-#latest .entry-title a{ color: #444 !important;}
+/*#latest .entry-title a{ color: #444 !important;}*/
 
 #popular li{ font: bold 18px/1.15 Bitter, Georgia, serif; min-height: 40px; padding-left: 50px; position: relative;}
 #popular em{ background: #444; display: block; height: 2px; left: 50px; position: absolute; top: 0; width: 0;}
@@ -308,7 +315,7 @@ a:hover{ text-decoration: underline;}
 #comments-title,
 #reply-title{ color: #444; font: bold 24px/1.5 Bitter, Georgia, serif; padding-bottom: 20px;}
 
-.comment-list{ border-bottom: 1px solid #eaedef; margin-bottom: 40px;}
+.comments-list{ border-bottom: 1px solid #eaedef;}
 .comment-article{ border-top: 1px solid #eaedef; clear: left; min-height: 60px; padding: 20px 0;}
 .bypostauthor > .comment-article{ background: lightgoldenrodyellow; border-top: 2px solid #444;}
 .comment-avatar{ float: left; height: 60px; width: 60px;}
@@ -329,7 +336,12 @@ a:hover{ text-decoration: underline;}
 .children .comment-text,
 .children .comment-reply{ font-size: 13px;}
 .children .children .comment-article{ margin-left: 160px;}
+.comments-navigation{ height: 30px; line-height: 30px;}
+.comments-navigation div{ display: inline;}
+.comments-navigation .comments-previous{ float: left;}
+.comments-navigation .comment-next{ float: right;}
 
+#respond{ margin-top: 40px;}
 #commentform{ background: #f2f4f6; border: solid #eaedef; border-width: 1px 0; padding: 20px;}
 #commentform label{ display: block; font: bold 16px/1.5 Bitter, Georgia, serif;}
 .comment-notes,
@@ -346,6 +358,9 @@ a:hover{ text-decoration: underline;}
 .form-submit{ padding-top: 10px;}
 .form-submit #submit{ background: #708491; border: none; border-radius: 40px; color: white; cursor: pointer; font: bold 16px/1 Bitter, Georgia, serif; padding: 10px 20px 12px;}
 
+.comments-list #respond{ border-top: 1px solid #eaedef; margin-top: 0; padding-top: 20px;}
+.comments-list #commentform{ border-bottom: none;}
+
 /* Reviews */
 
 .entry-rating{ background: #708491; color: white; font: bold 24px/60px Bitter, Georgia, serif; height: 60px; text-align: center; width: 60px;}
@@ -358,7 +373,8 @@ a:hover{ text-decoration: underline;}
 .entry-rating.rating-3{ background: #D07F40;}
 .entry-rating.rating-2{ background: #D06B47;}
 .entry-rating.rating-1{ background: #D0574E;}
-.entry-price{ background: #708491; color: white;}
+.entry-price{ margin-top: 10px;}
+.entry-price span{ background: #eaedef; color: #708491; font-size: 12px; padding: 5px;}
 .entry-verdict{ border: solid #eaedef; border-width: 1px 0; padding: 20px 0;}
 .entry-value{ min-height: 120px;}
 .entry-value div{ float: left; margin-left: 40px; width: 220px;}
@@ -372,7 +388,7 @@ a:hover{ text-decoration: underline;}
 .reviews-grid .review .review-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: #afc6d5; padding: 20px; position: absolute; width: 300px;}
 .reviews-grid .review .entry-title{ font-size: 20px; margin-bottom: 5px;}
 .reviews-grid .review .entry-title a{ color: white;}
-.reviews-grid .review .entry-price{ float: right;}
+.reviews-grid .review .entry-price{ }
 .reviews-grid .review .entry-rating{ position: absolute; right: 0; top: 0;}
 .reviews-list .review{ padding-right: 80px;}
 .reviews-list .review .entry-rating{ position: absolute; right: 0; top: 0;}
@@ -402,7 +418,7 @@ a:hover{ text-decoration: underline;}
 #menu .section:first-child{ margin-bottom: 20px;}
 #menu .section a{ display: inline; padding: 0;}
 #menu .section a:hover{ background: no-repeat; text-decoration: underline;}
-#menu span{ float: right; font-size: 12px; line-height: 21px; padding: 2px 5px 1px; position: absolute; right: 0; top: 0;}
+#menu li span{ float: right; font-size: 12px; line-height: 21px; padding: 2px 5px 1px; position: absolute; right: 0; top: 0;}
 #menu .current-cat{ color: white;}
 #menu .current-cat a{ background: #d0574e; color: white;}
 #reviews #lead{ border-left: 1px solid #eaedef; border-right: none; float: right; width: 820px;}
@@ -623,3 +639,43 @@ body.category-business #nav .current-cat a,
   background: linear-gradient(to bottom,  #f8f9fa 0%,#f2f4f6 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f9fa', endColorstr='#f2f4f6',GradientType=0 );
 }
+
+/* jQuery UI */
+
+.ui-slider{
+  background: #f2f4f6;
+  border-radius: 4px;
+  height: 8px;
+  margin: 10px 7px 30px;
+  position: relative;
+}
+
+#menu .ui-slider-range{
+  background: #eaedef;
+  border: none;
+  color: #708491;
+  font-weight: bold;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+#menu .ui-slider-handle{
+  background: #d7dce1;
+  border: none;
+  border-radius: 8px;
+  height: 14px;
+  cursor: pointer;
+  outline: none;
+  margin-left: -7px;
+  padding: 0;
+  position: absolute;
+  top: -3px;
+  width: 14px;
+  z-index: 2;
+}
+
+#menu .ui-slider-handle:hover,
+#menu .ui-state-active{ background: #d0574e;}
+.slider-value{ font-weight: bold;}

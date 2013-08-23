@@ -1,6 +1,6 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-  <p class="entry-format">Link</p>
   <?php madeleine_entry_category(); ?>
+  <p class="entry-format">Link</p>
   <p class="entry-title">
     <?php $link_url = get_post_meta( get_the_ID(), 'link_url', true ); ?>
     <a href="<?php echo $link_url; ?>"><?php the_title(); ?></a>

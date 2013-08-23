@@ -24,5 +24,6 @@
     <?php madeleine_entry_info(); ?>
   </div>
   <?php madeleine_entry_rating( get_the_ID() ); ?>
+  <?php madeleine_entry_price( get_the_ID() ); ?>
   <div style="clear: both;"></div>
 </article>

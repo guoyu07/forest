@@ -30,13 +30,14 @@
                 <div style="clear: both;"></div>
               </div>
             </header>
+
             <?php
             if ( has_post_thumbnail() ):
               if ( $format == 'video' ):
                 madeleine_entry_video();
               elseif ( $format == 'image' ):
                 echo '<div class="entry-thumbnail">';
-                echo wp_get_attachment_link( get_post_thumbnail_id(), 'large', true );
+                echo wp_get_attachment_link( get_post_thumbnail_id(), 'full', true );
                 echo '</div>';
               else:
                 echo '<div class="entry-thumbnail">';
@@ -45,10 +46,12 @@
               endif;
             endif;
             ?>
+
             <div class="entry-content">
               <?php the_content(); ?>
               <?php wp_link_pages( array( 'before' => '<div class="pagination">', 'after' => '</div>', 'pagelink' => '<strong>%</strong>' ) ); ?>
             </div>
+
             <?php if ( is_object_in_taxonomy( get_post_type(), 'post_tag' ) ) : ?>
               <?php $tags_list = get_the_tag_list( '<li>', '</li><li>', '</li>' ); ?>
               <?php if ( $tags_list ): ?>
@@ -58,6 +61,7 @@
                 <div style="clear: left;"></div>
               <?php endif; ?>
             <?php endif; ?>
+
             <?php comments_template( '', true ); ?>
           </article>
         <?php endwhile; ?>
