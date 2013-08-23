@@ -706,12 +706,32 @@ function madeleine_quotes() {
 function madeleine_archive_settings( $query ) {
   $query->set( 'ignore_sticky_posts', 1 );
   $standard_posts = madeleine_standard_posts();
-  if ( ( $query->is_home() ) && $query->is_main_query() )
+  if ( ( $query->is_home() ) && $query->is_main_query() ):
     $query->set( 'tax_query', $standard_posts );
-  if ( $query->is_tag() && $query->is_main_query() )
+  elseif ( $query->is_tag() && $query->is_main_query() ):
     $query->set( 'posts_per_page', -1 );
-  if ( $query->is_tax() && $query->is_main_query() )
+  elseif ( $query->is_post_type_archive( 'review' ) || $query->is_tax() && $query->is_main_query() ):
+    $rating_range = array( get_query_var( 'rating_min'), get_query_var( 'rating_max') );
+    $price_range = array( get_query_var( 'price_min'), get_query_var( 'price_max') );
+    $meta_query = array(
+      'relation' => 'AND',
+      array(
+        'key' => 'rating',
+        'value' => $rating_range,
+        'type' => 'numeric',
+        'compare' => 'BETWEEN'
+      ),
+      array(
+        'key' => 'price',
+        'value' => $price_range,
+        'type' => 'numeric',
+        'compare' => 'BETWEEN'
+      )
+    );
+    $query->set( 'meta_query', $meta_query );
+  elseif ( $query->is_tax() && $query->is_main_query() ):
     $query->set( 'posts_per_page', 12 );
+  endif;
 }
 add_action( 'pre_get_posts', 'madeleine_archive_settings' );
 
@@ -1487,26 +1507,26 @@ function madeleine_reviews_menu() {
 
 
 function madeleine_ajax_request() {
- 
-   // the first part is a SWTICHBOARD that fires specific functions
-   // according to the value of Query Var 'fn'
- 
   switch ( $_REQUEST['fn'] ) {
     case 'madeleine_tabs':
       $output = madeleine_reviews_grid( $_REQUEST['id'] );
     break;
     default:
-      $output = 'No function specified, check your jQuery.ajax() call';
+      $output = 'No function specified, check your jQuery.ajax() call.';
     break;
-  }
- 
-   // at this point, $output contains some sort of valuable data!
-   // Now, convert $output to JSON and echo it to the browser 
-   // That way, we can recapture it with jQuery and run our success function
- 
+  } 
   echo $output;
   die;
- 
 }
 add_action( 'wp_ajax_nopriv_madeleine_ajax', 'madeleine_ajax_request' );
 add_action( 'wp_ajax_madeleine_ajax', 'madeleine_ajax_request' );
+
+
+function add_query_vars_filter( $vars ) {
+  $vars[] = 'rating_min';
+  $vars[] = 'rating_max';
+  $vars[] = 'price_min';
+  $vars[] = 'price_max';
+  return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );

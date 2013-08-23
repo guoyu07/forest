@@ -1,6 +1,8 @@
 <div id="reviews">
   <hgroup class="heading">
     <h1 class="title">
+      <?php echo get_query_var( 'rating_min' ); ?>
+      <?php echo get_query_var( 'rating_max' ); ?>
       <?php $reviews_count = wp_count_posts( 'review' ); ?> 
       <em><?php echo $reviews_count->publish ?> reviews</em>
     </h1>

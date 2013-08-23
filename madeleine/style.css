@@ -363,16 +363,20 @@ a:hover{ text-decoration: underline;}
 
 /* Reviews */
 
-.entry-rating{ background: #708491; color: white; font: bold 24px/60px Bitter, Georgia, serif; height: 60px; text-align: center; width: 60px;}
-.entry-rating.rating-9{ background: #96CA47;}
-.entry-rating.rating-8{ background: #B3CD36;}
-.entry-rating.rating-7{ background: #D1D126;}
-.entry-rating.rating-6{ background: #D0BC2C;}
-.entry-rating.rating-5{ background: #D0A833;}
-.entry-rating.rating-4{ background: #D0943A;}
-.entry-rating.rating-3{ background: #D07F40;}
-.entry-rating.rating-2{ background: #D06B47;}
-.entry-rating.rating-1{ background: #D0574E;}
+.entry-rating,
+.rating{ background: #708491; color: white; font: bold 24px/60px Bitter, Georgia, serif; height: 60px; text-align: center; width: 60px;}
+.rating{ display: inline-block; font-size: 13px; height: 25px; line-height: 25px; width: 25px;}
+.rating-10,
+.rating-9{ background: #96CA47;}
+.rating-8{ background: #B3CD36;}
+.rating-7{ background: #D1D126;}
+.rating-6{ background: #D0BC2C;}
+.rating-5{ background: #D0A833;}
+.rating-4{ background: #D0943A;}
+.rating-3{ background: #D07F40;}
+.rating-2{ background: #D06B47;}
+.rating-1,
+.rating-0{ background: #D0574E;}
 .entry-price{ margin-top: 10px;}
 .entry-price span{ background: #eaedef; color: #708491; font-size: 12px; padding: 5px;}
 .entry-verdict{ border: solid #eaedef; border-width: 1px 0; padding: 20px 0;}
@@ -410,7 +414,7 @@ a:hover{ text-decoration: underline;}
 #jump .on,
 #jump .on:hover{ background: #d0574e; border-top-color: transparent; color: white; font-weight: bold;}
 
-#menu{ border-right: 1px solid #eaedef; float: left; left: 1px; margin: 20px 0 0 19px; padding-right: 19px; position: relative; width: 160px;}
+#menu{ border-right: 1px solid #eaedef; float: left; left: 1px; margin: 20px 0 0 19px; padding: 0 19px 20px 0; position: relative; width: 160px;}
 #menu ul{ margin-bottom: 20px;}
 #menu li{ position: relative;}
 #menu a{ display: block; padding: 2px 5px 1px;}

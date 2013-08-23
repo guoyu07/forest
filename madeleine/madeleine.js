@@ -99,16 +99,20 @@ $(document).ready(function(){
   var price = $('#price');
   var price_value = $('#price-value');
 
+  function RatingValue(a, b) {
+    return '<span class="rating rating-' + a + '">' + a + '</span> - <span class="rating rating-' + b + '">' + b + '</span>';
+  }
+
   rating.slider({
     range: true,
     min: 0,
     max: 10,
     values: [ 0, 10 ],
-    slide: function( event, ui ) {
-      rating_value.text(ui.values[ 0 ] + ' - ' + ui.values[ 1 ]);
+    slide: function(event, ui) {
+      rating_value.html(RatingValue(ui.values[0], ui.values[1]));
     }
   });
-  rating_value.text(rating.slider('values', 0) + ' - ' + rating.slider( 'values', 1));
+  rating_value.html(RatingValue(rating.slider('values', 0), rating.slider('values', 1)));
 
   price.slider({
     range: true,
@@ -116,8 +120,8 @@ $(document).ready(function(){
     max: 2000,
     step: 50,
     values: [ 0, 2000 ],
-    slide: function( event, ui ) {
-      price_value.text('$' + ui.values[ 0 ] + ' - $' + ui.values[ 1 ]);
+    slide: function(event, ui) {
+      price_value.text('$' + ui.values[0] + ' - $' + ui.values[1]);
     }
   });
   price_value.text('$' + price.slider('values', 0) + ' - $' + price.slider( 'values', 1));
