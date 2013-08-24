@@ -147,6 +147,20 @@ function madeleine_tags_list() {
   echo $tags_list;
 }
 
+
+function madeleine_taxonomy_list( $taxonomy ) {
+  $terms = get_categories('hide_empty=0&taxonomy=' . $taxonomy );
+  $list = wp_list_categories('depth=1&echo=0&hide_empty=0&show_count=1&title_li=&taxonomy=' . $taxonomy );
+  foreach( $terms as $term ):
+    $find = 'cat-item-' . $term->term_id . '"';
+    $replace = 'cat-item-' . $term->term_id . '" data-id="' . $term->term_id . '"';
+    $list = str_replace( $find, $replace, $list );
+    $list = str_replace( 'posts', $taxonomy . 's', $list );
+  endforeach;
+  return $list;
+}
+
+
 function madeleine_trending() {
   global $wpdb;
   $term_ids = $wpdb->get_col("
@@ -710,9 +724,34 @@ function madeleine_archive_settings( $query ) {
     $query->set( 'tax_query', $standard_posts );
   elseif ( $query->is_tag() && $query->is_main_query() ):
     $query->set( 'posts_per_page', -1 );
-  elseif ( $query->is_post_type_archive( 'review' ) || $query->is_tax() && $query->is_main_query() ):
-    $rating_range = array( get_query_var( 'rating_min'), get_query_var( 'rating_max') );
-    $price_range = array( get_query_var( 'price_min'), get_query_var( 'price_max') );
+  elseif ( $query->is_post_type_archive( 'review' ) && $query->is_main_query() ):
+    $product = get_query_var( 'product_id' ) != '' ? get_query_var( 'product_id' ) : '';
+    $brand = get_query_var( 'brand_id' ) != '' ? get_query_var( 'brand_id' ) : '';
+    $tax_query = array(
+      'relation' => 'AND'
+    );
+    if ( $product != '' ):
+      $tax_query[] = array(
+        'taxonomy' => 'product',
+        'field' => 'id',
+        'terms' => $product,
+        'operator' => 'IN'
+      );
+    endif;
+    if ( $brand != '' ):
+      $tax_query[] = array(
+        'taxonomy' => 'brand',
+        'field' => 'id',
+        'terms' => $brand,
+        'operator' => 'IN'
+      );
+    endif;
+    $rating_min = get_query_var( 'rating_min' ) != '' ? get_query_var( 'rating_min' ) : 0;
+    $rating_max = get_query_var( 'rating_max' ) != '' ? get_query_var( 'rating_max' ) : 10;
+    $price_min = get_query_var( 'price_min' ) != '' ? get_query_var( 'price_min' ) : 0;
+    $price_max = get_query_var( 'price_max' ) != '' ? get_query_var( 'price_max' ) : 2000;
+    $rating_range = array( $rating_min, $rating_max );
+    $price_range = array( $price_min, $price_max );
     $meta_query = array(
       'relation' => 'AND',
       array(
@@ -728,9 +767,8 @@ function madeleine_archive_settings( $query ) {
         'compare' => 'BETWEEN'
       )
     );
+    $query->set( 'tax_query', $tax_query );
     $query->set( 'meta_query', $meta_query );
-  elseif ( $query->is_tax() && $query->is_main_query() ):
-    $query->set( 'posts_per_page', 12 );
   endif;
 }
 add_action( 'pre_get_posts', 'madeleine_archive_settings' );
@@ -1418,7 +1456,6 @@ function madeleine_reviews_tabs() {
 
 
 function madeleine_reviews_grid( $tax_ID = 'all' ) {
-  $post_ids = array();
   $args = array(
     'post_type' => 'review',
     'posts_per_page' => 6
@@ -1488,9 +1525,9 @@ function madeleine_reviews_menu() {
   $menu = '<div id="menu">';
   $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">All reviews</a></p>';
   $menu .= '<p class="section">Products</p>';
-  $menu .= '<ul>' . wp_list_categories( $product_args ) . '</ul>';
+  $menu .= '<ul id="products">' . madeleine_taxonomy_list( 'product' ) . '</ul>';
   $menu .= '<p class="section">Brands</p>';
-  $menu .= '<ul>' . wp_list_categories( $brand_args ) . '</ul>';
+  $menu .= '<ul id="brands">' . madeleine_taxonomy_list( 'brand' ) . '</ul>';
   $menu .= '<p class="section">Rating</p>';
   $menu .= '<p id="rating-value" class="slider-value"></p>';
   $menu .= '<div id="rating"></div>';
@@ -1506,9 +1543,12 @@ function madeleine_reviews_menu() {
 }
 
 
+// 09 Ajax
+
+
 function madeleine_ajax_request() {
   switch ( $_REQUEST['fn'] ) {
-    case 'madeleine_tabs':
+    case 'madeleine_reviews_tabs':
       $output = madeleine_reviews_grid( $_REQUEST['id'] );
     break;
     default:
@@ -1522,11 +1562,13 @@ add_action( 'wp_ajax_nopriv_madeleine_ajax', 'madeleine_ajax_request' );
 add_action( 'wp_ajax_madeleine_ajax', 'madeleine_ajax_request' );
 
 
-function add_query_vars_filter( $vars ) {
+function madeleine_query_vars( $vars ) {
+  $vars[] = 'product_id';
+  $vars[] = 'brand_id';
   $vars[] = 'rating_min';
   $vars[] = 'rating_max';
   $vars[] = 'price_min';
   $vars[] = 'price_max';
   return $vars;
 }
-add_filter( 'query_vars', 'add_query_vars_filter' );
+add_filter( 'query_vars', 'madeleine_query_vars' );

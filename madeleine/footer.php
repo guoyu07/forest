@@ -6,7 +6,16 @@
     </footer>
     <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/madeleine.js"></script>
+    <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/global.js"></script>
+    <?php if ( is_home() ): ?>
+      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/home.js"></script>
+    <?php endif; ?>
+    <?php if ( is_date() ): ?>
+      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/date.js"></script>
+    <?php endif; ?>
+    <?php if ( is_post_type_archive( 'review' ) ): ?>
+      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/reviews.js"></script>
+    <?php endif; ?>
     <?php if ( is_singular( 'review' ) ): ?>
       <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jump.js"></script>
     <?php endif; ?>

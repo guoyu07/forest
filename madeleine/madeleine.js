@@ -69,7 +69,7 @@ $(document).ready(function(){
     return false;
   });
 
-  // Review tabs
+  // Reviews tabs
 
   var reviews = $('.reviews-grid .review');
   var reviews_tabs = $('#reviews-tabs ul a');
@@ -91,41 +91,6 @@ $(document).ready(function(){
     return false;
   });
 
-  // Reviews filter
-
-  var rating = $('#rating');
-  var rating_value = $('#rating-value');
-
-  var price = $('#price');
-  var price_value = $('#price-value');
-
-  function RatingValue(a, b) {
-    return '<span class="rating rating-' + a + '">' + a + '</span> - <span class="rating rating-' + b + '">' + b + '</span>';
-  }
-
-  rating.slider({
-    range: true,
-    min: 0,
-    max: 10,
-    values: [ 0, 10 ],
-    slide: function(event, ui) {
-      rating_value.html(RatingValue(ui.values[0], ui.values[1]));
-    }
-  });
-  rating_value.html(RatingValue(rating.slider('values', 0), rating.slider('values', 1)));
-
-  price.slider({
-    range: true,
-    min: 0,
-    max: 2000,
-    step: 50,
-    values: [ 0, 2000 ],
-    slide: function(event, ui) {
-      price_value.text('$' + ui.values[0] + ' - $' + ui.values[1]);
-    }
-  });
-  price_value.text('$' + price.slider('values', 0) + ' - $' + price.slider( 'values', 1));
-
   // Popular
 
   var bars = $('#popular li em');
@@ -141,64 +106,6 @@ $(document).ready(function(){
     // $(this).css('width', relative_width);
   });
 
-  // Pinterest
-
-  var pinterest = $('.pinterest');
-  var pins = $('.pinterest .post');
-
-  function Grid(space) {
-    pins.css('position','absolute');
-    var columns = 3;
-    var column = (space / columns);
-    var gutter = 0;
-    var pins_count = pins.size();
-
-    var grid = new Array(columns);
-    $.each(grid, function(j) {
-      grid[j] = 0;
-    });
-    
-    $.each(pins, function() {
-      var lowest = Math.min.apply(null, grid);
-      var lowest_index = grid.indexOf(lowest);
-      var height = $(this).outerHeight();
-      grid[lowest_index] += height;
-      var x = ( lowest_index * column );
-      var y = lowest;
-      if (lowest_index == 0) {
-        $(this).css('border-left', 'none');
-        $(this).css('padding-left', 0);
-        x = 20;
-      } else if (lowest_index == 2) {
-        $(this).css('padding-right', 0);
-      }
-      $(this).css('left', x);
-      $(this).css('top', y);
-    });
-    
-    var biggest = Math.max.apply(null, grid);
-    pinterest.css('height', biggest + 'px');
-  }
-  
-  function Reset() {
-    pins.css('padding-left', 0);
-    pins.css('position', 'static');
-  }
-  
-  function Display(size) {
-    if (size > 980) {
-      pins.css('padding-left', 60);
-      Grid(940);
-    } else if (size > 860) {
-      pins.css('padding-left', 0);
-      Grid(820);
-    } else {
-      Reset();
-    }
-  }
-  
-  Grid(1020);
-
   // Ajax
 
   function UpdateReviews(id) {
@@ -207,13 +114,37 @@ $(document).ready(function(){
       url: 'http://localhost/forest/wp-admin/admin-ajax.php',
       data: {
         'action': 'madeleine_ajax',
-        'fn': 'madeleine_tabs',
+        'fn': 'madeleine_reviews_tabs',
         'id': id
       },
       dataType: 'html',
       success:function(data) {
         $('.loading').hide();
         $('#reviews-result').html(data);
+      },
+      error: function(errorThrown){
+        alert('Oops! An error occured.');
+        console.log(errorThrown);
+      }
+    });
+  }
+
+  function FilterReviews(product, brand, rating_min, rating_max, price_min, price_max) {
+    $.ajax({
+      url: 'http://localhost/forest/wp-admin/admin-ajax.php',
+      data: {
+        'action': 'madeleine_ajax',
+        'fn': 'madeleine_reviews_filter',
+        'product': product,
+        'brand': brand,
+        'rating_min': rating_min,
+        'rating_max': rating_max,
+        'price_min': price_min,
+        'price_max': price_max
+      },
+      dataType: 'html',
+      success:function(data) {
+        window.location.href = '';
       },
       error: function(errorThrown){
         alert('Oops! An error occured.');

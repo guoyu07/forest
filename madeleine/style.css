@@ -326,7 +326,7 @@ a:hover{ text-decoration: underline;}
 #comments .comment-author a{ color: #444;}
 .comment-date{ font-style: italic;}
 .comment-edit{ margin-left: 5px;}
-.comment-awaiting-moderation{ background: lightgoldenrodyellow; color: burlywood; font-style: italic; margin-bottom: 10px; padding: 5px 10px;}
+.comment-awaiting-moderation{ background: lightgoldenrodyellow; background: #f5edeb; color: burlywood; color: #b19790; font-style: italic; margin-bottom: 10px; padding: 5px 10px;}
 .comment-reply{ text-align: right;}
 .children .comment-article{ margin-left: 80px; min-height: 40px; padding: 15px 0;}
 .children .comment-avatar{ height: 40px; width: 40px;}
@@ -395,7 +395,7 @@ a:hover{ text-decoration: underline;}
 .reviews-grid .review .entry-price{ }
 .reviews-grid .review .entry-rating{ position: absolute; right: 0; top: 0;}
 .reviews-list .review{ padding-right: 80px;}
-.reviews-list .review .entry-rating{ position: absolute; right: 0; top: 0;}
+.reviews-list .review .entry-rating{ left: auto; position: absolute; right: 0; top: 0;}
 
 .single-review .review .entry-header{ background: rgba(14, 24, 31, 0.48); left: 0; padding: 40px; position: absolute; top: 70px; width: 940px; z-index: 1986;}
 .single-review .review .entry-title{ color: white; font-size: 40px; line-height: 1.15;}
@@ -467,7 +467,7 @@ a:hover{ text-decoration: underline;}
 
 /* 05 Date */
 
-#date-archive{ height: 40px; line-height: 40px; position: relative; z-index: 1986;}
+#date-archive{ height: 40px; line-height: 40px; position: relative; z-index: 2013;}
 #date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 120px;}
 #date-archive .year{ display: none;}
 #date-archive .year.on{ display: block;}
