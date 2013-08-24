@@ -13,7 +13,7 @@
     <?php if ( is_date() ): ?>
       <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/date.js"></script>
     <?php endif; ?>
-    <?php if ( is_post_type_archive( 'review' ) ): ?>
+    <?php if ( is_post_type_archive( 'review' ) || is_tax() ): ?>
       <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/reviews.js"></script>
     <?php endif; ?>
     <?php if ( is_singular( 'review' ) ): ?>

@@ -59,7 +59,8 @@ a:hover{ text-decoration: underline;}
 .tabs p a:hover{ background: none; text-decoration: underline;}
 .tabs em a{ float: right; letter-spacing: 0; text-transform: none;}
 .section, .widget-title{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 5px; text-transform: uppercase;}
-.loading{ background: rgba(14, 24, 31, 0.86) url(loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%;}
+.loading{ background: rgba(14, 24, 31, 0.86) url(loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 9999;}
+.white.loading{ background-color: rgba(255, 255, 255, 0.86); background-image: url(loading-white.gif);}
 .dots{ float: right; height: 10px; line-height: 10px; text-align: center;}
 .dots span{ background: #d7dce1; border-radius: 5px; display: inline-block; height: 10px; margin-left: 5px; width: 10px;}
 .dots .on{ background: #708491;}
@@ -118,7 +119,7 @@ a:hover{ text-decoration: underline;}
 
 /* Footer */
 
-#footer{ background: #708491; clear: both; color: #d7dce1; height: 400px; padding: 20px 0;}
+#footer{ background: #708491; clear: both; color: #d7dce1; height: 400px; padding: 20px 0;/* position: relative; z-index: 2013;*/}
 #footer a{ color: #d7dce1;}
 
 /* Parts */
@@ -377,8 +378,7 @@ a:hover{ text-decoration: underline;}
 .rating-2{ background: #D06B47;}
 .rating-1,
 .rating-0{ background: #D0574E;}
-.entry-price{ margin-top: 10px;}
-.entry-price span{ background: #eaedef; color: #708491; font-size: 12px; padding: 5px;}
+.entry-price{ background: #eaedef; color: #708491; font-size: 12px; font-weight: bold; padding: 5px 0; text-align: center; width: 60px;}
 .entry-verdict{ border: solid #eaedef; border-width: 1px 0; padding: 20px 0;}
 .entry-value{ min-height: 120px;}
 .entry-value div{ float: left; margin-left: 40px; width: 220px;}
@@ -392,10 +392,10 @@ a:hover{ text-decoration: underline;}
 .reviews-grid .review .review-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: #afc6d5; padding: 20px; position: absolute; width: 300px;}
 .reviews-grid .review .entry-title{ font-size: 20px; margin-bottom: 5px;}
 .reviews-grid .review .entry-title a{ color: white;}
-.reviews-grid .review .entry-price{ }
 .reviews-grid .review .entry-rating{ position: absolute; right: 0; top: 0;}
 .reviews-list .review{ padding-right: 80px;}
 .reviews-list .review .entry-rating{ left: auto; position: absolute; right: 0; top: 0;}
+.reviews-list .review .entry-price{ position: absolute; right: 0; top: 60px;}
 
 .single-review .review .entry-header{ background: rgba(14, 24, 31, 0.48); left: 0; padding: 40px; position: absolute; top: 70px; width: 940px; z-index: 1986;}
 .single-review .review .entry-title{ color: white; font-size: 40px; line-height: 1.15;}
@@ -414,7 +414,7 @@ a:hover{ text-decoration: underline;}
 #jump .on,
 #jump .on:hover{ background: #d0574e; border-top-color: transparent; color: white; font-weight: bold;}
 
-#menu{ border-right: 1px solid #eaedef; float: left; left: 1px; margin: 20px 0 0 19px; padding: 0 19px 20px 0; position: relative; width: 160px;}
+#menu{ border-right: 1px solid #eaedef; float: left; left: 1px; margin: 20px 0 0 19px; padding: 0 19px 80px 0; position: relative; width: 160px;}
 #menu ul{ margin-bottom: 20px;}
 #menu li{ position: relative;}
 #menu a{ display: block; padding: 2px 5px 1px;}
@@ -425,6 +425,9 @@ a:hover{ text-decoration: underline;}
 #menu li span{ float: right; font-size: 12px; line-height: 21px; padding: 2px 5px 1px; position: absolute; right: 0; top: 0;}
 #menu .current-cat{ color: white;}
 #menu .current-cat a{ background: #d0574e; color: white;}
+#reviews-filter{ background: #eaedef; bottom: 0; margin-left: -20px; padding: 10px 20px; position: fixed; width: 160px; z-index: 1986;}
+#reviews-filter .button{ display: block; width: 100%;}
+#reviews-filter .button span{ font-size: 16px; padding: 10px 0 12px;}
 #reviews #lead{ border-left: 1px solid #eaedef; border-right: none; float: right; width: 820px;}
 
 /* 01 Home */

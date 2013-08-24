@@ -67,7 +67,7 @@
     <a href="/forest/type/image">Format</a>
     <a href="/forest/?s=lorem">Search</a>
   </div>
-  <p id="value" style="left: 20px; position: fixed; top: 20px;"></p>
+  <p id="value" style="left: 20px; position: fixed; top: 40px;"></p>
   <header id="header">
     <div class="wrap">
       <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">

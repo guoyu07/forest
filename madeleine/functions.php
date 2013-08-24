@@ -152,8 +152,8 @@ function madeleine_taxonomy_list( $taxonomy ) {
   $terms = get_categories('hide_empty=0&taxonomy=' . $taxonomy );
   $list = wp_list_categories('depth=1&echo=0&hide_empty=0&show_count=1&title_li=&taxonomy=' . $taxonomy );
   foreach( $terms as $term ):
-    $find = 'cat-item-' . $term->term_id . '"';
-    $replace = 'cat-item-' . $term->term_id . '" data-id="' . $term->term_id . '"';
+    $find = 'class="cat-item cat-item-' . $term->term_id;
+    $replace =  ' data-id="' . $term->term_id . '" data-slug="' . $term->slug . '" class="cat-item cat-item-' . $term->term_id;
     $list = str_replace( $find, $replace, $list );
     $list = str_replace( 'posts', $taxonomy . 's', $list );
   endforeach;
@@ -724,7 +724,7 @@ function madeleine_archive_settings( $query ) {
     $query->set( 'tax_query', $standard_posts );
   elseif ( $query->is_tag() && $query->is_main_query() ):
     $query->set( 'posts_per_page', -1 );
-  elseif ( $query->is_post_type_archive( 'review' ) && $query->is_main_query() ):
+  elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax() ) && $query->is_main_query() ):
     $product = get_query_var( 'product_id' ) != '' ? get_query_var( 'product_id' ) : '';
     $brand = get_query_var( 'brand_id' ) != '' ? get_query_var( 'brand_id' ) : '';
     $tax_query = array(
@@ -1158,7 +1158,7 @@ function madeleine_entry_rating( $id, $echo = true ) {
 function madeleine_entry_price( $id, $echo = true ) {
   $price = get_post_meta( $id, 'price', true );
   if ( $price ):
-    $div = '<p class="entry-price price-' . floor( $price ) . '"><span>$' . $price . '</span></p>';
+    $div = '<p class="entry-price price-' . floor( $price ) . '">$' . $price . '</p>';
     if ( $echo )
       echo $div;
     else
@@ -1534,7 +1534,7 @@ function madeleine_reviews_menu() {
   $menu .= '<p class="section">Price</p>';
   $menu .= '<p id="price-value" class="slider-value"></p>';
   $menu .= '<div id="price"></div>';
-  $menu .= '<button id="reviews-filter" class="button"><span>Filter</span></button>';
+  $menu .= '<p id="reviews-filter"><button class="button"><span>Apply filters</span></button></p>';
   $menu .= '</div>';
   $menu = str_replace( 'posts', 'reviews', $menu );
   $menu = str_replace( '(', '<span>', $menu );

@@ -4,13 +4,12 @@ $(document).ready(function(){
 
   var jump = $('#jump');
   var jump_links = $('#jump a');
-  var jump_reference = $('.review .entry-text');
-  var jump_offset = jump_reference.offset();
+  var jump_position = $('.review .entry-text').offset();
   var chapters = $('.chapter');
 
   $(window).scroll(function() {
     var position = $(window).scrollTop();
-    if (position > jump_offset.top) {
+    if (position > jump_position.top) {
       jump.css('position', 'fixed');
     } else {
       jump.css('position', 'absolute');
