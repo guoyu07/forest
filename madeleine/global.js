@@ -13,4 +13,17 @@ $(document).ready(function(){
     });
   });
 
+  // Videos widget
+
+  var videos = $('#videos li');
+  var videos_dots = $('#videos-dots span');
+  videos_dots.first().addClass('on');
+
+  videos_dots.hover( function() {
+    videos_dots.removeClass('on');
+    $(this).addClass('on');
+    videos.hide();
+    videos.eq($(this).index()).show();
+  });
+
 });    

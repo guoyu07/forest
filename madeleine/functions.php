@@ -13,6 +13,9 @@
 // 01 Settings
 
 
+if ( ! isset( $content_width ) ) $content_width = 1020;
+
+
 add_theme_support( 'post-formats', array( 'image', 'video', 'link', 'quote', ) );
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'custom-background' );
@@ -216,11 +219,18 @@ function madeleine_standard_posts() {
 }
 
 
+function madeleine_sticky_posts() {
+  $sticky_posts = get_option( 'sticky_posts' );
+  rsort( $sticky_posts );
+  $sticky_posts = array_slice( $sticky_posts, 0, 5 );
+  return $sticky_posts;
+}
+
 function madeleine_focus() {
-  $posts_list = array( 1, 10, 16, 23, 57 );
+  $sticky_posts = madeleine_sticky_posts();
   $args = array(
     'ignore_sticky_posts' => 1,
-    'post__in' => $posts_list
+    'post__in' => $sticky_posts
   );
   $query = new WP_Query( $args );
   $n = 1;
@@ -228,10 +238,10 @@ function madeleine_focus() {
   while ( $query->have_posts() ) {
     $query->the_post();
     $categories = get_the_category();
+    $top_category = get_category( madeleine_top_category( $categories[0] ) );
     $category_links = '';
-    $class = 'focus';
+    $class = 'focus category-' . $top_category->category_nicename;;
     foreach ( $categories as $category ):
-      $class .= ' category-' . $category->category_nicename;
       $category_links .= '<li><a href="' . get_category_link( $category->cat_ID ) . '">' . $category->name . '</a></li>';
     endforeach;
     echo '<article class="post ' . $class . '" id="focus-' . $n . '">';
@@ -251,7 +261,7 @@ function madeleine_focus() {
   }
   echo '</div>';
   wp_reset_postdata();
-  return $posts_list;
+  return $sticky_posts;
 }
 
 
@@ -476,7 +486,7 @@ function madeleine_upload_video_thumbnail( $image_url, $image_id, $post_id, $sou
 }
 
 
-// 04 Sidebar widgets
+// 04 Widgets
 
 
 function madeleine_latest_widget() {
@@ -502,8 +512,9 @@ function madeleine_latest_widget() {
       $categories = get_the_category( get_the_ID() );
       $category = get_category( madeleine_top_category( $categories[0] ) );
       echo '<li class="post category-' . $category->category_nicename . '">';
+      echo '<a class="entry-title" href="' . get_permalink() . '">';
       echo '<time class="entry-date">' . get_the_date( 'd/m' ) . '</time>';
-      echo '<h3 class="entry-title"><a href="' . get_permalink() . '" title="' . esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ) . '" rel="bookmark">' . get_the_title() . '</a></h3>';
+      echo get_the_title() . '</a>';
       echo '</li>';
     }
     echo '</section>';
@@ -596,7 +607,6 @@ function madeleine_format_widget( $format ) {
     echo '<section class="widget" id="' . $format . 's">';
     echo '<h4 class="widget-title">' . single_cat_title( '', false ) . ' ' . $format . 's</h4>';
     echo '<ul>';
-    $videos = 0;
     while ( $query->have_posts() ) {
       $query->the_post();
       $categories = get_the_category( get_the_ID() );
@@ -607,7 +617,6 @@ function madeleine_format_widget( $format ) {
       elseif ( $format == 'video' ):
         echo '<p class="entry-title">' . get_the_title() . '</p>';
         madeleine_entry_thumbnail( 'medium' );
-        $videos++;
       elseif ( $format == 'link' ):
         echo '<p class="entry-title">' . get_the_title() . '</p>';
       elseif ( $format == 'quote' ):
@@ -620,7 +629,7 @@ function madeleine_format_widget( $format ) {
     echo '<div style="clear: left;"></div>';
     if ( $format == 'video' ):
       echo '<div id="videos-dots" class="dots">';
-      echo str_repeat( '<span></span>', $videos );
+      echo str_repeat( '<span></span>', $query->post_count );
       echo '</div>';
     endif;
     echo '</section>';
@@ -721,10 +730,12 @@ function madeleine_archive_settings( $query ) {
   $query->set( 'ignore_sticky_posts', 1 );
   $standard_posts = madeleine_standard_posts();
   if ( ( $query->is_home() ) && $query->is_main_query() ):
+    $sticky_posts = madeleine_sticky_posts();
     $query->set( 'tax_query', $standard_posts );
+    $query->set( 'post__not_in', $sticky_posts );
   elseif ( $query->is_tag() && $query->is_main_query() ):
     $query->set( 'posts_per_page', -1 );
-  elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax() ) && $query->is_main_query() ):
+  elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax( 'product' ) || $query->is_tax( 'brand' ) ) && $query->is_main_query() ):
     $product = get_query_var( 'product_id' ) != '' ? get_query_var( 'product_id' ) : '';
     $brand = get_query_var( 'brand_id' ) != '' ? get_query_var( 'brand_id' ) : '';
     $tax_query = array(
@@ -774,13 +785,14 @@ function madeleine_archive_settings( $query ) {
 add_action( 'pre_get_posts', 'madeleine_archive_settings' );
 
 
-function madeleine_next_posts() {
+function madeleine_next_posts( $already_posted ) {
   $standard_posts = madeleine_standard_posts();
   $post_ids = array(); 
   $offset = get_option( 'posts_per_page' );
   $args = array(
     'post_type' => 'post',
     'posts_per_page' => 10,
+    'post__not_in' => $already_posted,
     'offset' => $offset,
     'tax_query' => $standard_posts
   );
@@ -807,7 +819,7 @@ function madeleine_next_posts() {
 
 
 function madeleine_category_wheels( $already_posted ) {
-  $cats = get_categories('hide_empty=0&orderby=ID&parent=0');
+  $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
   $standard_posts = madeleine_standard_posts();
   echo '<div class="wheels">';
   foreach( $cats as $cat ):

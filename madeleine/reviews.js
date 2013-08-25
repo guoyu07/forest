@@ -30,24 +30,12 @@ $(document).ready(function(){
     return '<span class="rating rating-' + a + '">' + a + '</span> - <span class="rating rating-' + b + '">' + b + '</span>';
   }
 
-  function CountReviews() {
-    var n = $('#reviews-result .review').length;
-    var title = 'Sorry. No reviews match these parameters.';
-    if (n == 1) {
-      title = '1 review';
-    } else if ( n > 1 ) {
-      title = n + ' reviews';
-    }
-    reviews_title.text(title);
-  }
-
   function LoadReviews(url) {
     console.log(url);
     $('.loading').show();
     $('#reviews-result').load(url + ' #reviews-result', function() {
       history.replaceState(null, null, url);
       $('.loading').hide();
-      CountReviews();
       $('html, body').animate({
           scrollTop: $('#reviews').offset().top
       }, 250);
@@ -87,8 +75,6 @@ $(document).ready(function(){
   }
   console.log(parameters);
 
-  CountReviews();
-
   // Events
 
   products.click( function() {
@@ -116,7 +102,6 @@ $(document).ready(function(){
   });
 
   reviews_button.click( function() {
-    console.log(parameters);
     var url = 'http://localhost/forest/reviews' + ArrayToURL(parameters);
     LoadReviews(url);
     return false;
