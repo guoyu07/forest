@@ -13,13 +13,13 @@ $(document).ready(function(){
   
   if (m) {
     months.addClass('active');
-    var month = $('.month[data-value*="' + m + '"]');
+    var month = $('.month[data-value="' + m + '"]');
     month.addClass('on');
-    var days = $('.days[data-month*="' + m + '"]');
+    var days = $('.days[data-month="' + m + '"]');
     days.show();
     if (d) {
       days.addClass('active');
-      var day = $('.day[data-value*="' + d + '"]');
+      var day = $('.day[data-value="' + d + '"]');
       day.addClass('on');
     }
   }

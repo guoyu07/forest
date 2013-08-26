@@ -1,7 +1,19 @@
 $(document).ready(function(){
 
-  // Popular widget
+  // Latest widget
 
+  var latest_lists = $('#latest ul');
+  var latest_dots = $('#latest-dots span');
+  latest_dots.first().addClass('on');
+
+  latest_dots.click( function() {
+    latest_dots.removeClass('on');
+    $(this).addClass('on');
+    latest_lists.hide();
+    latest_lists.eq($(this).index()).show();
+  });
+
+  // Popular widget
   var popular_bars = $('#popular li em');
   var popular_highest = parseInt(popular_bars.first().data('total'));
 
@@ -19,7 +31,7 @@ $(document).ready(function(){
   var videos_dots = $('#videos-dots span');
   videos_dots.first().addClass('on');
 
-  videos_dots.hover( function() {
+  videos_dots.click( function() {
     videos_dots.removeClass('on');
     $(this).addClass('on');
     videos.hide();

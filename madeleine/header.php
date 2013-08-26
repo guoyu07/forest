@@ -73,7 +73,7 @@
       <a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
         <hgroup>
           <h1 id="title">
-            <?php bloginfo( 'name' ); // echo $_SERVER['REQUEST_URI']; ?>
+            <?php bloginfo( 'name' ); ?>
           </h1>
           <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
         </hgroup>

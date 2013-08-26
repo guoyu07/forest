@@ -164,7 +164,7 @@ function madeleine_taxonomy_list( $taxonomy ) {
 }
 
 
-function madeleine_trending() {
+function madeleine_trending( $limit = 16 ) {
   global $wpdb;
   $term_ids = $wpdb->get_col("
     SELECT term_id, taxonomy FROM $wpdb->term_taxonomy
@@ -174,6 +174,7 @@ function madeleine_trending() {
     AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= $wpdb->posts.post_date");
   if ( count( $term_ids ) > 0 ):
     $tags = array_unique( $term_ids );
+    $tags = array_slice( $tags, 0, $limit );
     foreach ( $tags as $tag ):
       $tag_info = get_tag( $tag );
       echo '<li><a href="' . get_tag_link( $tag ) . '" rel="tag">' . $tag_info->name . '</a></li>';
@@ -225,6 +226,7 @@ function madeleine_sticky_posts() {
   $sticky_posts = array_slice( $sticky_posts, 0, 5 );
   return $sticky_posts;
 }
+
 
 function madeleine_focus() {
   $sticky_posts = madeleine_sticky_posts();
@@ -492,18 +494,21 @@ function madeleine_upload_video_thumbnail( $image_url, $image_id, $post_id, $sou
 function madeleine_latest_widget() {
   $standard_posts = madeleine_standard_posts();
   $args = array(
-    'posts_per_page' => 10,
+    'posts_per_page' => 50,
     'tax_query' => $standard_posts
   );
   $title = 'Latest ';
-  // $cat = get_query_var('cat');
-  // if ( $cat != '' ):
-  //   $category = get_category( $cat );
-  //   $title .= $category->name;
-  //   $args['cat'] = get_query_var('cat');
-  // endif;
+  $posts_per_list = 10;
+  $cat = get_query_var('cat');
+  if ( $cat != '' ):
+    $category = get_category( $cat );
+    $title .= $category->name;
+    $posts_per_list = 10;
+    $args['cat'] = get_query_var('cat');
+  endif;
   $query = new WP_Query( $args );
   if ( $query->have_posts() ):
+    $post_counter = 0;
     echo '<section id="latest" class="widget">';
     echo '<h4 class="widget-title">' . $title . ' posts</h4>';
     echo '<ul>';
@@ -512,11 +517,22 @@ function madeleine_latest_widget() {
       $categories = get_the_category( get_the_ID() );
       $category = get_category( madeleine_top_category( $categories[0] ) );
       echo '<li class="post category-' . $category->category_nicename . '">';
-      echo '<a class="entry-title" href="' . get_permalink() . '">';
+      echo '<a href="' . get_permalink() . '">';
       echo '<time class="entry-date">' . get_the_date( 'd/m' ) . '</time>';
-      echo get_the_title() . '</a>';
-      echo '</li>';
+      echo $category->name;
+      echo ' <span>' . get_the_title() . '</span>';
+      echo '</a></li>';
+      $post_counter++;
+      if ( $post_counter % $posts_per_list == 0 )
+        echo '</ul><ul>';
     }
+    echo '</ul>';
+    $n = ceil( $query->post_count / $posts_per_list );
+    if ( $n > 1 ):
+      echo '<div id="latest-dots" class="dots">';
+      echo str_repeat( '<span></span>', $n );
+      echo '</div>';
+    endif;
     echo '</section>';
   endif;
   wp_reset_postdata();
@@ -1584,3 +1600,11 @@ function madeleine_query_vars( $vars ) {
   return $vars;
 }
 add_filter( 'query_vars', 'madeleine_query_vars' );
+
+
+$template_dir = get_template_directory();
+// require_once( $template_dir .'/framework/init.php' );
+require_once( $template_dir .'/includes/init.php ');
+
+
+?>

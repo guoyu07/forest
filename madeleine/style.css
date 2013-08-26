@@ -61,8 +61,8 @@ a:hover{ text-decoration: underline;}
 .section, .widget-title{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 5px; text-transform: uppercase;}
 .loading{ background: rgba(14, 24, 31, 0.86) url(loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 9999;}
 .white.loading{ background-color: rgba(255, 255, 255, 0.86); background-image: url(loading-white.gif);}
-.dots{ float: right; height: 10px; line-height: 10px; text-align: center;}
-.dots span{ background: #d7dce1; border-radius: 5px; display: inline-block; height: 10px; margin-left: 5px; width: 10px;}
+.dots{ height: 10px; line-height: 10px; text-align: center;}
+.dots span{ background: #d7dce1; border-radius: 5px; cursor: pointer; display: inline-block; height: 10px; margin-left: 5px; width: 10px;}
 .dots .on{ background: #708491;}
 .dropdown{ float: left; margin-left: 5px; position: relative; z-index: 2013;}
 .dropdown ul{ background: #eaedef; left: 0; min-width: 300px; position: absolute; top: -4px;}
@@ -85,8 +85,10 @@ a:hover{ text-decoration: underline;}
 
 #header{ background: white; padding-top: 20px;}
 #logo{ background: url(logo.png) no-repeat 0 0; display: block; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px; padding-left: 80px;}
-#title{ color: #d0574e;font-size: 22px; font-weight: bold; padding-top: 6px;}
-#description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
+#title,
+#footer-title{ color: #d0574e;font-size: 22px; font-weight: bold; padding-top: 6px;}
+#description,
+#footer-description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
 #logo:hover{ text-decoration: none;}
 #header .search-form{ position: absolute; right: 0; top: 15px;}
 #navigation{ border-right: 1px solid #eaedef; clear: left; height: 60px;}
@@ -119,8 +121,18 @@ a:hover{ text-decoration: underline;}
 
 /* Footer */
 
-#footer{ background: #708491; clear: both; color: #d7dce1; height: 400px; padding: 20px 0;/* position: relative; z-index: 2013;*/}
+#footer{ background: #708491; clear: both; color: #b8c2c8; font: 13px/1.5 Bitter, Georgia, serif; min-height: 240px; padding: 40px 0; position: relative; z-index: 2013;}
+#footer section{ float: left; margin-right: 20px; width: 140px;}
 #footer a{ color: #d7dce1;}
+#footer .section{ color: white;}
+#footer li{ margin-top: 5px;}
+#footer .search-form{ float: right; width: 240px;}
+#footer .search-text,
+#footer .search-text:focus{ border-color: white;}
+#footer-logo{ float: right; line-height: 1; margin-top: 30px;}
+#footer-title{ color: white;}
+#footer-description{ color: #d7dce1;}
+#footer-about{ float: right; font: 11px/1.5 Arial, sans-serif; margin-top: 30px; text-align: right;}
 
 /* Parts */
 
@@ -140,6 +152,8 @@ a:hover{ text-decoration: underline;}
 #wp-calendar th{ background: #d7dce1;}
 #wp-calendar td{ border: 1px solid #eaedef;}
 #wp-calendar a{ color: #d0574e; font-weight: bold;}
+#wp-calendar #today{ background: #d0574e; color: white;}
+#wp-calendar #today a{ color: white;}
 .rsswidget img{ vertical-align: bottom;}
 
 /* Post */
@@ -279,10 +293,15 @@ a:hover{ text-decoration: underline;}
 
 /* Widgets */
 
-/*#latest .post{ clear: left; height: 15px; font-size: 11px; line-height: 15px; margin-bottom: 5px; overflow: hidden; position: relative;}*/
-#latest .entry-title{ border-top: 1px solid #eaedef; clear: left; color: #444 !important; display: block; font: normal 11px/15px Arial, sans-serif; height: 15px; overflow: hidden; padding: 4px 0;}
-#latest .entry-title .entry-date{ color: #708491; float: left; font-size: 11px; margin-right: 5px;}
-#latest .entry-title:hover{ background: #eaedef; text-decoration: none;}
+#latest .dots{ position: absolute; right: 0; top: 2px;}
+#latest ul{ display: none;}
+#latest ul:first-of-type{ display: block;}
+#latest a{ border-top: 1px solid #eaedef; clear: left; display: block; font: normal 11px/22px Arial, sans-serif; height: 22px; overflow: hidden;}
+#latest a .entry-date{ color: #708491; float: left; font-size: 11px; margin-right: 5px;}
+#latest a span{ color: #444;}
+#latest a:hover{ background: #eaedef; text-decoration: none;}
+#latest .sticky a{ font-weight: bold;}
+#latest .sticky a .entry-date{ color: #444;}
 
 #popular li{ font: bold 18px/1.15 Bitter, Georgia, serif; min-height: 40px; padding-left: 50px; position: relative;}
 #popular em{ background: #444; display: block; height: 2px; left: 50px; position: absolute; top: 0; width: 0;}
@@ -297,7 +316,6 @@ a:hover{ text-decoration: underline;}
 #links .entry-title{ font-size: 16px;}
 #links li{ margin-bottom: 6px;}
 #links li:last-child{ margin-bottom: 0;}
-.widget #links a{ color: #444;}
 
 #quotes li{ margin-bottom: 10px;}
 #quotes li:last-child{ margin-bottom: 0;}
