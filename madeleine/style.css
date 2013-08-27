@@ -46,7 +46,7 @@ a:hover{ text-decoration: underline;}
 .search-form{ position: relative; width: 240px;}
 .search-text{ background: #f2f4f6; border: 2px solid #d7dce1; border-radius: 15px; height: 18px; line-height: 18px; padding: 4px 20px 4px 30px; width: 186px;}
 .search-text:focus{ border-color: #708491; outline: none;}
-.search-submit{ background: url(search.png) no-repeat 0 0; border: none; cursor: pointer; height: 16px; left: 10px; position: absolute; top: 7px; width: 16px;}
+.search-submit{ background: url(images/search.png) no-repeat 0 0; border: none; cursor: pointer; height: 16px; left: 10px; position: absolute; top: 7px; width: 16px;}
 .content{ padding: 0 20px;}
 .tabs{ background: #f2f4f6; font: italic 11px/30px Bitter, Georgia, serif; height: 30px; letter-spacing: 0.125em; text-transform: uppercase;}
 .tabs li{ display: inline;}
@@ -59,8 +59,8 @@ a:hover{ text-decoration: underline;}
 .tabs p a:hover{ background: none; text-decoration: underline;}
 .tabs em a{ float: right; letter-spacing: 0; text-transform: none;}
 .section, .widget-title{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 5px; text-transform: uppercase;}
-.loading{ background: rgba(14, 24, 31, 0.86) url(loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 9999;}
-.white.loading{ background-color: rgba(255, 255, 255, 0.86); background-image: url(loading-white.gif);}
+.loading{ background: rgba(14, 24, 31, 0.86) url(images/loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 9999;}
+.white.loading{ background-color: rgba(255, 255, 255, 0.86); background-image: url(images/loading-white.gif);}
 .dots{ height: 10px; line-height: 10px; text-align: center;}
 .dots span{ background: #d7dce1; border-radius: 5px; cursor: pointer; display: inline-block; height: 10px; margin-left: 5px; width: 10px;}
 .dots .on{ background: #708491;}
@@ -84,7 +84,7 @@ a:hover{ text-decoration: underline;}
 /* Header */
 
 #header{ background: white; padding-top: 20px;}
-#logo{ background: url(logo.png) no-repeat 0 0; display: block; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px; padding-left: 80px;}
+#logo{ background: url(images/logo.png) no-repeat 0 0; display: block; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px; padding-left: 80px;}
 #title,
 #footer-title{ color: #d0574e;font-size: 22px; font-weight: bold; padding-top: 6px;}
 #description,
@@ -96,11 +96,11 @@ a:hover{ text-decoration: underline;}
 #nav li{ display: inline;}
 #nav a{ border-right: 1px solid #eaedef; border-top: 2px solid #708491; color: #444; float: left; margin: -1px -1px 0 0; padding: 0 10px 0 11px;}
 #nav a:hover{ color: #708491; text-decoration: none;}
-#nav #home{ background: url(home.png) no-repeat 10px 7px; border-top-color: #444; height: 30px; text-indent: -290486px; width: 14px;}
+#nav #home{ background: url(images/home.png) no-repeat 10px 7px; border-top-color: #444; height: 30px; text-indent: -290486px; width: 14px;}
 #nav .images,
 #nav .videos,
 #nav .links,
-#nav .quotes{ background: url(icons.png) no-repeat 0 -31px; border-top-color: transparent; float: right; height: 30px; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
+#nav .quotes{ background: url(images/icons.png) no-repeat 0 -31px; border-top-color: transparent; float: right; height: 30px; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
 #nav .images:hover,
 #nav .videos:hover,
 #nav .links:hover,
@@ -192,7 +192,7 @@ a:hover{ text-decoration: underline;}
 .post .entry-comments{ float: right;}
 .post .entry-comments a{ background: #708491 !important; color: white !important; display: block; float: right; font: bold 11px/1 Bitter, Georgia, serif; height: 16px; line-height: 16px; padding: 0 8px; position: relative;}
 .post .entry-comments a:hover{ text-decoration: none;}
-.entry-comments a:after{ background: url(comments-arrow.png) no-repeat 0 0; content: ' '; display: block; height: 4px; left: 4px; position: absolute; top: 100%; width: 4px;}
+.entry-comments a:after{ background: url(images/comments-arrow.png) no-repeat 0 0; content: ' '; display: block; height: 4px; left: 4px; position: absolute; top: 100%; width: 4px;}
 .entry-comments a .leave-reply{ font: bold 14px/16px Arial, sans-serif;}
 .entry-attachment img{ max-width: 100%;}
 .entry-parent{ margin-bottom: 20px;}
@@ -204,8 +204,8 @@ a:hover{ text-decoration: underline;}
 .format-quote .entry-title{ font-style: italic; font-weight: normal;}
 .format-image .entry-thumbnail:after,
 /*.format-image .entry-thumbnail:hover a:after,*/
-.format-video .entry-thumbnail:after{ background: rgba(112, 132, 145, 0.86) url(image.png) no-repeat center center; border-radius: 30px; content: ' '; display: block; height: 60px; left: 50%; margin: -30px 0 0 -30px; position: absolute; top: 50%; width: 60px; z-index: 1986;}
-.format-video .entry-thumbnail:after{ background-image: url(video.png);}
+.format-video .entry-thumbnail:after{ background: rgba(112, 132, 145, 0.86) url(images/image.png) no-repeat center center; border-radius: 30px; content: ' '; display: block; height: 60px; left: 50%; margin: -30px 0 0 -30px; position: absolute; top: 50%; width: 60px; z-index: 1986;}
+.format-video .entry-thumbnail:after{ background-image: url(images/video.png);}
 .format-image .entry-thumbnail:hover:after,
 .format-video .entry-thumbnail:hover:after{ background-color: #d0574e;}
 
@@ -213,7 +213,7 @@ a:hover{ text-decoration: underline;}
 
 .single #lead .post,
 .page #lead .post{ padding: 20px; width: 640px;}
-.single #lead .entry-format{ background: #eaedef url(icons.png) no-repeat 5px -30px; border-radius: 15px; float: left; height: 30px; line-height: 30px; margin-bottom: 20px; padding: 0 20px 0 40px;}
+.single #lead .entry-format{ background: #eaedef url(images/icons.png) no-repeat 5px -30px; border-radius: 15px; float: left; height: 30px; line-height: 30px; margin-bottom: 20px; padding: 0 20px 0 40px;}
 .single #lead .entry-title,
 .single-attachment .entry-title,
 .page #lead .entry-title{ font-size: 28px; line-height: 1.15; margin-bottom: 20px;}

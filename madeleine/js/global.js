@@ -1,6 +1,6 @@
-$(document).ready(function(){
+jQuery(document).ready(function ($) {
 
-  // Latest widget
+  // Latest posts widget
 
   var latest_lists = $('#latest ul');
   var latest_dots = $('#latest-dots span');
@@ -13,7 +13,7 @@ $(document).ready(function(){
     latest_lists.eq($(this).index()).show();
   });
 
-  // Popular widget
+  // Popular posts widget
   var popular_bars = $('#popular li em');
   var popular_highest = parseInt(popular_bars.first().data('total'));
 

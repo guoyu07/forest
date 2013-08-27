@@ -1,0 +1,10 @@
+.madeleine-metabox-table tr{ border-top: 1px solid #eee;}
+.madeleine-metabox-table th{ padding-left: 0; width: 30%;}
+.madeleine-metabox-table td{ padding-right: 0; vertical-align: top;}
+.madeleine-metabox-table label span{ display: block; color: #999; margin: 5px 0 0 0;}
+.madeleine-metabox-table input,
+.madeleine-metabox-table textarea{ float: left; margin-right: 10px; max-width: 96%; width: 96%;}
+.madeleine-metabox-table input.file{ width: 85%;}
+.madeleine-metabox-table input.button{ margin-right: 0; width: auto;}
+.madeleine-metabox-table input.radio{ float: none; margin-right: 3px; width: auto;}
+.madeleine-metabox-table .radio-label{ margin-right: 10px;}

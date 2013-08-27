@@ -50,20 +50,6 @@
         </p>
       </div>
     </footer>
-    <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/global.js"></script>
-    <?php if ( is_home() ): ?>
-      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/home.js"></script>
-    <?php elseif ( is_date() ): ?>
-      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/date.js"></script>
-    <?php elseif ( is_tag() ): ?>
-      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/pinterest.js"></script>
-    <?php elseif ( is_post_type_archive( 'review' ) || is_tax( 'product' ) || is_tax( 'brand' ) ): ?>
-      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/reviews.js"></script>
-    <?php elseif ( is_singular( 'review' ) ): ?>
-      <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/jump.js"></script>
-    <?php endif; ?>
     <?php wp_footer(); ?>
   </body>
 </html>

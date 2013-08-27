@@ -51,7 +51,7 @@ class madeleine_popular_posts_widget extends WP_Widget {
       "
       SELECT post_id, meta_key, meta_value
       FROM $wpdb->postmeta
-      WHERE meta_key = 'share_total'
+      WHERE meta_key = '_madeleine_share_total'
       ORDER BY CAST(meta_value AS UNSIGNED) DESC
       LIMIT " . $total
     );

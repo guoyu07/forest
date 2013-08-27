@@ -2,7 +2,7 @@
   <?php madeleine_entry_category(); ?>
   <p class="entry-format">Link</p>
   <p class="entry-title">
-    <?php $link_url = get_post_meta( get_the_ID(), 'link_url', true ); ?>
+    <?php $link_url = get_post_meta( get_the_ID(), '_madeleine_link_url', true ); ?>
     <a href="<?php echo $link_url; ?>"><?php the_title(); ?></a>
   </p>
   <div class="entry-summary">

@@ -75,7 +75,7 @@ class madeleine_quotes_widget extends WP_Widget {
         $category = get_category( madeleine_top_category( $categories[0] ) );
         echo '<li class="post format-quote category-' . $category->category_nicename . '">';
         echo '<blockquote class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></blockquote>';
-        echo '<p class="entry-source">' . get_post_meta( get_the_ID(), 'quote_source', true ) . '</p>';
+        echo '<p class="entry-source">' . get_post_meta( get_the_ID(), '_madeleine_quote_source', true ) . '</p>';
         echo '</li>';
       }
       echo '</ul>';
