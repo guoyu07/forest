@@ -12,8 +12,10 @@
 
 // Register the widget
 
-function madeleine_register_images_widget() {
-  register_widget( 'madeleine_images_widget' );
+if ( !function_exists( 'madeleine_register_images_widget' ) ) {
+  function madeleine_register_images_widget() {
+    register_widget( 'madeleine_images_widget' );
+  }
 }
 add_action( 'widgets_init', 'madeleine_register_images_widget' );
 

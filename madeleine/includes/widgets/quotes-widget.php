@@ -12,8 +12,10 @@
 
 // Register the widget
 
-function madeleine_register_quotes_widget() {
-  register_widget( 'madeleine_quotes_widget' );
+if ( !function_exists( 'madeleine_register_quotes_widget' ) ) {
+  function madeleine_register_quotes_widget() {
+    register_widget( 'madeleine_quotes_widget' );
+  }
 }
 add_action( 'widgets_init', 'madeleine_register_quotes_widget' );
 

@@ -12,8 +12,10 @@
 
 // Register the widget
 
-function madeleine_register_latest_posts_widget() {
-  register_widget( 'madeleine_latest_posts_widget' );
+if ( !function_exists( 'madeleine_register_latest_posts_widget' ) ) {
+  function madeleine_register_latest_posts_widget() {
+    register_widget( 'madeleine_latest_posts_widget' );
+  }
 }
 add_action( 'widgets_init', 'madeleine_register_latest_posts_widget' );
 
