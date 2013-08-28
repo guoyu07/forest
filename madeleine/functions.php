@@ -151,7 +151,7 @@ if ( !function_exists( 'madeleine_upload_video_thumbnail' ) ) {
       $upload = wp_upload_bits( $new_filename, null, $image_contents );
 
       if ( $upload['error'] ):
-        $error = new WP_Error( 'thumbnail_upload', __( 'Error uploading image data:' ) . ' ' . $upload['error'] );
+        $error = new WP_Error( 'thumbnail_upload', __( 'Error uploading image data:', 'madeleine' ) . ' ' . $upload['error'] );
         return $error;
       else:
         $filename  = $upload['file'];
@@ -1115,7 +1115,7 @@ if ( !function_exists( 'madeleine_reviews_menu' ) ) {
     $brand_args['taxonomy'] = 'brand';
     $menu = '<div id="menu">';
     $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">' . __( 'All reviews', 'madeleine' ) . '</a></p>';
-    $menu .= '<p class="section">''Products''</p>';
+    $menu .= '<p class="section">' . __( 'Products', 'madeleine' ) . '</p>';
     $menu .= '<ul id="products">' . madeleine_taxonomy_list( 'product' ) . '</ul>';
     $menu .= '<p class="section">' . __( 'Brands', 'madeleine' ) . '</p>';
     $menu .= '<ul id="brands">' . madeleine_taxonomy_list( 'brand' ) . '</ul>';
@@ -1171,8 +1171,8 @@ add_filter( 'query_vars', 'madeleine_query_vars' );
 
 
 $template_dir = get_template_directory();
-// require_once( $template_dir .'/framework/init.php' );
 require_once( $template_dir .'/includes/init.php ');
+require_once( $template_dir .'/settings/init.php' );
 
 
 ?>

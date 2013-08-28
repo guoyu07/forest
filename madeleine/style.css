@@ -83,10 +83,10 @@ a:hover{ text-decoration: underline;}
 
 /* Header */
 
-#header{ background: white; padding-top: 20px;}
-#logo{ background: url(images/logo.png) no-repeat 0 0; display: block; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px; padding-left: 80px;}
+#header{ padding-top: 20px;}
+#logo{ display: block; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px;}
 #title,
-#footer-title{ color: #d0574e;font-size: 22px; font-weight: bold; padding-top: 6px;}
+#footer-title{ color: #d0574e; font-size: 22px; font-weight: bold; padding-top: 6px;}
 #description,
 #footer-description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
 #logo:hover{ text-decoration: none;}
@@ -658,16 +658,6 @@ body.category-business #nav .current-cat a,
 .focus.category-business .focus-text{ border-top-color: #d1d126;}
 
 /* CSS 3 */
-
-#header{
-  background: -moz-linear-gradient(top,  rgb(255,255,255) 0%, rgb(242,244,246) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(255,255,255)), color-stop(100%,rgb(242,244,246)));
-  background: -webkit-linear-gradient(top,  rgb(255,255,255) 0%,rgb(242,244,246) 100%);
-  background: -o-linear-gradient(top,  rgb(255,255,255) 0%,rgb(242,244,246) 100%);
-  background: -ms-linear-gradient(top,  rgb(255,255,255) 0%,rgb(242,244,246) 100%);
-  background: linear-gradient(to bottom,  rgb(255,255,255) 0%,rgb(242,244,246) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f4f6',GradientType=0 );
-}
 
 #trending{
   background: -moz-linear-gradient(top,  #f8f9fa 0%, #f2f4f6 100%);

@@ -3,6 +3,10 @@
 define( 'INCLUDE_DIR', get_template_directory() .'/includes' );
 define( 'INCLUDE_URL', get_template_directory_uri() .'/includes' );
 
+// Load the custom header and custom background functions
+
+require_once( INCLUDE_DIR .'/custom/custom-header.php' );
+
 // Load the meta boxes
 
 require_once( INCLUDE_DIR .'/meta-boxes/meta-functions.php' );
