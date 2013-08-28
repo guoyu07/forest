@@ -12,10 +12,10 @@ function madeleine_share_count() {
   $pinterest = madeleine_pinterest_share_count( $url );
 
   $shares = array(
-    'facebook'=> isset( $facebook) ?  $facebook : null,
-    'twitter'=> isset( $twitter) ?  $twitter : null,
-    'google'=> isset( $google) ?  $google : null,
-    'pinterest'=> isset( $pinterest) ?  $pinterest : null
+    'facebook'=> isset( $facebook) ? $facebook : null,
+    'twitter'=> isset( $twitter) ? $twitter : null,
+    'google'=> isset( $google) ? $google : null,
+    'pinterest'=> isset( $pinterest) ? $pinterest : null
   );
 
   return $shares;

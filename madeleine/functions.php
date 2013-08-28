@@ -33,7 +33,7 @@ add_image_size( 'panorama', 1020, 360, true );
 
 
 $sidebar_arguments = array(
-  'name'          => 'Sidebar',
+  'name'          => __( 'Sidebar', 'madeleine' ),
   'before_widget' => '<section id="%1$s" class="widget %2$s">',
   'after_widget'  => '</section>',
   'before_title'  => '<h4 class="widget-title">',
@@ -644,17 +644,17 @@ if ( !function_exists( 'madeleine_nested_date' ) ) {
     //   $type = 'day';
     // endif;
     $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
-    $years_list = '<li class="select">Select year</li>';
+    $years_list = '<li class="select">' . __( 'Select year', 'madeleine' ) . '</li>';
     echo '<div id="date-archive" data-year="' . $y . '" data-month="' . $m . '" data-day="' . $d . '">';
     foreach( $years as $year ):
       $years_list .= '<li class="year" data-value="' . $year . '"><a href="'. get_year_link( $year ). '">' . $year . '</a></li>';
-      $months_list = '<li class="select">Select month</li>';
+      $months_list = '<li class="select">' . __( 'Select month', 'madeleine' ) . '</li>';
       $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
       foreach( $months as $month ):
         $months_list .= '<li class="month" data-value="' . $month . '""><a href="' . get_month_link( $year, $month ) . '">' . date( 'F', mktime( 0, 0, 0, $month, 1, $year ) ) . '</a></li>';
         echo '<ul class="days" data-year="' . $year . '" data-month="' . $month . '">';
         $days = $wpdb->get_col("SELECT DISTINCT DAY(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date) = '" . $month . "' AND YEAR(post_date) = '".$year."' ORDER BY post_date DESC");
-        echo '<li class="select">Select day</li>';
+        echo '<li class="select">' . __( 'Select day', 'madeleine' ) . '</li>';
         foreach( $days as $day ):
           echo '<li class="day" data-value="' . $day . '"><a href="' . get_day_link( $year, $month, $day ) . '">' . $day . '</a></li>';
         endforeach;
@@ -711,13 +711,13 @@ if ( !function_exists( 'madeleine_entry_content' ) ) {
         endforeach;
         $content = $dom->saveHtml();
         $jump = '<div id="jump">';
-        $jump .= '<em class="section">Jump to</em>';
-        $jump .= '<a class="on" href="#start">Start</a>';
+        $jump .= '<em class="section">' . __( 'Jump to', 'madeleine' ) . '</em>';
+        $jump .= '<a class="on" href="#start">' . __( 'Start', 'madeleine' ) . '</a>';
         foreach( $sections as $section ):
           $jump .= '<a href="#' . strtolower( $section ) . '">' . $section . '</a>';
         endforeach;
-        $jump .= '<a href="#verdict">Verdict</a>';
-        $jump .= '<a href="#comments">Comments</a>';
+        $jump .= '<a href="#verdict">' . __( 'Verdict', 'madeleine' ) . '</a>';
+        $jump .= '<a href="#comments">' . __( 'Comments', 'madeleine' ) . '</a>';
         $jump .= '</div>';
         $content .= $jump;
       endif;
@@ -751,7 +751,7 @@ if ( !function_exists( 'madeleine_entry_caption' ) ) {
   function madeleine_entry_caption( $val, $attr, $content = null ) {
     extract(shortcode_atts(array(
       'id'      => '',
-      'align'   => 'alignnoe',
+      'align'   => 'alignnone',
       'width'   => '',
       'caption' => ''
     ), $attr));
@@ -798,7 +798,7 @@ if ( !function_exists( 'madeleine_entry_comments' ) ) {
       case 'trackback' :
     ?>
     <li class="pingback">
-      <p><?php echo 'Pingback:'; ?> <?php comment_author_link(); ?><?php edit_comment_link( 'Edit', '<span class="comment-edit">', '</span>' ); ?></p>
+      <p><?php _e( 'Pingback:', 'madeleine' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( 'Edit', '<span class="comment-edit">', '</span>' ); ?></p>
     <?php
         break;
       default:
@@ -806,7 +806,7 @@ if ( !function_exists( 'madeleine_entry_comments' ) ) {
     <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
       <article id="comment-<?php comment_ID(); ?>" class="comment-article">
         <?php if ( $comment->comment_approved == '0' ) : ?>
-          <p class="comment-awaiting-moderation"><?php echo 'Your comment is awaiting moderation.'; ?></p>
+          <p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'madeleine' ); ?></p>
         <?php endif; ?>
         <div class="comment-avatar">
           <?php $avatar_size = 60;
@@ -822,7 +822,7 @@ if ( !function_exists( 'madeleine_entry_comments' ) ) {
           </div>
           <div class="comment-text"><?php comment_text(); ?></div>
           <div class="comment-reply">
-            <?php comment_reply_link( array_merge( $args, array( 'reply_text' => 'Reply <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+            <?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'madeleine' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
           </div>
         </div>
       </article>
@@ -840,7 +840,7 @@ if ( !function_exists( 'madeleine_entry_info' ) ) {
     $archive_day   = get_the_time('d'); 
     printf( 'by <strong class="entry-author vcard"><a href="%1$s" title="%2$s" rel="author">%3$s</a></strong> on <time class="entry-date" datetime="%4$s"><a href="%5$s" title="%4$s" rel="bookmark">%6$s</a></time>',
       esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-      esc_attr( sprintf( 'View all posts by %s', get_the_author() ) ),
+      esc_attr( sprintf( __( 'View all posts by %s', 'madeleine' ), get_the_author() ) ),
       get_the_author(),
       esc_attr( get_the_date( 'c' ) ),
       esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ),
@@ -881,13 +881,13 @@ if ( !function_exists( 'madeleine_entry_verdict' ) ) {
   function madeleine_entry_verdict( $id ) {
     $good = get_post_meta( $id, '_madeleine_review_good', true );
     $bad = get_post_meta( $id, '_madeleine_review_bad', true );
-    $lists = array( 'good' => $good, 'bad' => $bad );
+    $lists = array( 'good' => [$good, __( 'Good', 'madeleine' )], 'bad' => [$bad, __( 'Bad', 'madeleine' )] );
     echo '<div class="entry-value">';
     foreach( $lists as $key => $value ):
       echo '<div class="entry-value-' . $key . '">';
-      echo '<h4 class="section">' . ucwords( $key ) . '</h4>';
+      echo '<h4 class="section">' . ucwords( $value[1] ) . '</h4>';
       echo '<ul class="entry-value-list">';
-      $items = explode( "\n", $value );
+      $items = explode( "\n", $value[0] );
       foreach( $items as $item ):
         echo '<li>' . $item . '</li>';
       endforeach;
@@ -945,18 +945,18 @@ if ( !function_exists( 'madeleine_entry_category' ) ) {
 if ( !function_exists( 'madeleine_register_reviews' ) ) {
   function madeleine_register_reviews() {
     register_post_type( 'review', array(
-      'label' => 'Reviews',
+      'label' => __( 'Reviews', 'madeleine' ),
       'labels' => array(
-        'name' => 'Reviews',
-        'singular_name' => 'Review',
-        'all_items' => 'All Reviews',
-        'add_new_item' => 'Add New Review',
-        'edit_item' => 'Edit Review',
-        'new_item' => 'New Review',
-        'view_item' => 'View Review',
-        'search_items' => 'Search Reviews',
-        'not_found' => 'No reviews found',
-        'not_found_in_trash' => 'No reviews found in Trash'
+        'name' => __( 'Reviews', 'madeleine' ),
+        'singular_name' => __( 'Review', 'madeleine' ),
+        'all_items' => __( 'All Reviews', 'madeleine' ),
+        'add_new_item' => __( 'Add New Review', 'madeleine' ),
+        'edit_item' => __( 'Edit Review', 'madeleine' ),
+        'new_item' => __( 'New Review', 'madeleine' ),
+        'view_item' => __( 'View Review', 'madeleine' ),
+        'search_items' => __( 'Search Reviews', 'madeleine' ),
+        'not_found' => __( 'No reviews found', 'madeleine' ),
+        'not_found_in_trash' => __( 'No reviews found in Trash', 'madeleine' )
        ),
       'public' => true,
       'show_ui' => true,
@@ -978,35 +978,35 @@ if ( !function_exists( 'madeleine_register_reviews' ) ) {
       )
     ));
     register_taxonomy( 'product', null, array(
-      'label' => 'Products',
+      'label' => __( 'Products', 'madeleine' ),
       'labels' => array(
-        'name' => 'Products',
-        'singular_name' => 'Product',
-        'all_items' => 'All Products',
-        'edit_item' => 'Edit Product',
-        'view_item' => 'View Product',
-        'update_item' => 'Update Product',
-        'add_new_item' => 'Add New Product',
-        'new_item_name' => 'New Product',
-        'search_items' => 'Search Products',
-        'popular_items' => 'Popular Products',
+        'name' => __( 'Products', 'madeleine' ),
+        'singular_name' => __( 'Product', 'madeleine' ),
+        'all_items' => __( 'All Products', 'madeleine' ),
+        'edit_item' => __( 'Edit Product', 'madeleine' ),
+        'view_item' => __( 'View Product', 'madeleine' ),
+        'update_item' => __( 'Update Product', 'madeleine' ),
+        'add_new_item' => __( 'Add New Product', 'madeleine' ),
+        'new_item_name' => __( 'New Product', 'madeleine' ),
+        'search_items' => __( 'Search Products', 'madeleine' ),
+        'popular_items' => __( 'Popular Products', 'madeleine' ),
       ),
       'hierarchical' => true,
       'sort' => true
     ));
     register_taxonomy( 'brand', null, array(
-      'label' => 'Brands',
+      'label' => __( 'Brands', 'madeleine' ),
       'labels' => array(
-        'name' => 'Brands',
-        'singular_name' => 'Brand',
-        'all_items' => 'All Brands',
-        'edit_item' => 'Edit Brand',
-        'view_item' => 'View Brand',
-        'update_item' => 'Update Brand',
-        'add_new_item' => 'Add New Brand',
-        'new_item_name' => 'New Brand',
-        'search_items' => 'Search Brands',
-        'popular_items' => 'Popular Brands',
+        'name' => __( 'Brands', 'madeleine' ),
+        'singular_name' => __( 'Brand', 'madeleine' ),
+        'all_items' => __( 'All Brands', 'madeleine' ),
+        'edit_item' => __( 'Edit Brand', 'madeleine' ),
+        'view_item' => __( 'View Brand', 'madeleine' ),
+        'update_item' => __( 'Update Brand', 'madeleine' ),
+        'add_new_item' => __( 'Add New Brand', 'madeleine' ),
+        'new_item_name' => __( 'New Brand', 'madeleine' ),
+        'search_items' => __( 'Search Brands', 'madeleine' ),
+        'popular_items' => __( 'Popular Brands', 'madeleine' ),
       ),
       'hierarchical' => true,
       'sort' => true
@@ -1034,7 +1034,7 @@ if ( !function_exists( 'madeleine_reviews_tabs' ) ) {
       $find = 'cat-item-' . $product->term_id . '"';
       $replace = 'cat-item-' . $product->term_id . '" data-id="' . $product->term_id . '"';
       $tabs = str_replace( $find, $replace, $tabs );
-      $tabs = str_replace( 'posts', 'reviews', $tabs );
+      $tabs = str_replace( 'posts', __( 'reviews', 'madeleine' ), $tabs );
     endforeach;
     echo $tabs;
   }
@@ -1088,7 +1088,7 @@ if ( !function_exists( 'madeleine_reviews_breadcrumb' ) ) {
     echo '<div id="category">';
     echo '<div class="wrap">';
     echo '<strong>';
-    echo '<a href="' . get_post_type_archive_link( 'review' ) . '">Reviews</a>';
+    echo '<a href="' . get_post_type_archive_link( 'review' ) . '">' . __( 'Reviews', 'madeleine' ) . '</a>';
     echo '</strong>';
     echo '<ul>';
     wp_list_categories( $args );
@@ -1114,20 +1114,20 @@ if ( !function_exists( 'madeleine_reviews_menu' ) ) {
     $brand_args = $product_args;
     $brand_args['taxonomy'] = 'brand';
     $menu = '<div id="menu">';
-    $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">All reviews</a></p>';
-    $menu .= '<p class="section">Products</p>';
+    $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">' . __( 'All reviews', 'madeleine' ) . '</a></p>';
+    $menu .= '<p class="section">''Products''</p>';
     $menu .= '<ul id="products">' . madeleine_taxonomy_list( 'product' ) . '</ul>';
-    $menu .= '<p class="section">Brands</p>';
+    $menu .= '<p class="section">' . __( 'Brands', 'madeleine' ) . '</p>';
     $menu .= '<ul id="brands">' . madeleine_taxonomy_list( 'brand' ) . '</ul>';
-    $menu .= '<p class="section">Rating</p>';
+    $menu .= '<p class="section">' . __( 'Rating', 'madeleine' ) . '</p>';
     $menu .= '<p id="rating-value" class="slider-value"></p>';
     $menu .= '<div id="rating"></div>';
-    $menu .= '<p class="section">Price</p>';
+    $menu .= '<p class="section">' . __( 'Price', 'madeleine' ) . '</p>';
     $menu .= '<p id="price-value" class="slider-value"></p>';
     $menu .= '<div id="price"></div>';
-    $menu .= '<p id="reviews-filter"><button class="button"><span>Apply filters</span></button></p>';
+    $menu .= '<p id="reviews-filter"><button class="button"><span>' . __( 'Apply filters', 'madeleine' ) . '</span></button></p>';
     $menu .= '</div>';
-    $menu = str_replace( 'posts', 'reviews', $menu );
+    $menu = str_replace( 'posts', __( 'reviews', 'madeleine' ), $menu );
     $menu = str_replace( '(', '<span>', $menu );
     $menu = str_replace( ')', '</span>', $menu );
     echo $menu;
@@ -1145,7 +1145,7 @@ if ( !function_exists( 'madeleine_ajax_request' ) ) {
         $output = madeleine_reviews_grid( $_REQUEST['id'] );
       break;
       default:
-        $output = 'No function specified, check your jQuery.ajax() call.';
+        $output = __( 'No function specified, check your jQuery.ajax() call.', 'madeleine' );
       break;
     } 
     echo $output;

@@ -9,7 +9,7 @@
             <?php $parent = get_post_field( 'post_parent', get_the_ID() ); ?>
             <?php $link = get_permalink( $parent ); ?>
             <p class="entry-parent">
-              <a href="<?php echo $link; ?>">&larr; Back to post</a>
+              <a href="<?php echo $link; ?>"><?php _e( '&larr; Back to post', 'madeleine' ); ?></a>
             </p>
             <header class="entry-header">
               <h1 class="entry-title">

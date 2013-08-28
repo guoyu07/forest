@@ -69,21 +69,21 @@
       <div id="navigation">
         <a href="#" id="today-news">
           <strong>12</strong>
-          <em>news today</em>
+          <em><?php _e( 'news today', 'madeleine' ); ?></em>
         </a>
         <nav id="nav">
           <ul>
-            <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home">Home</a></li>
+            <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home"><?php _e( 'Home', 'madeleine' ); ?></a></li>
             <?php madeleine_categories_list(); ?>
-            <li><a href="<?php echo get_post_type_archive_link( 'review' ); ?>">Reviews</a></li>
-            <li><a class="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>">Quotes</a></li>
-            <li><a class="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>">Links</a></li>
-            <li><a class="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>">Videos</a></li>
-            <li><a class="images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>">Images</a></li>
+            <li><a href="<?php echo get_post_type_archive_link( 'review' ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
+            <li><a class="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>"><?php _e( 'Quotes', 'madeleine' ); ?></a></li>
+            <li><a class="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>"><?php _e( 'Links', 'madeleine' ); ?></a></li>
+            <li><a class="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>"><?php _e( 'Videos', 'madeleine' ); ?></a></li>
+            <li><a class="images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>"><?php _e( 'Images', 'madeleine' ); ?></a></li>
           </ul>
         </nav>
         <div id="trending">
-          <p>Trending</p>
+          <p><?php _e( 'Trending', 'madeleine' ); ?></p>
           <ul>
             <?php madeleine_trending(); ?>
           </ul>

@@ -5,9 +5,9 @@
         <h1 class="title">
           <?php
             $reviews_count = $wp_query->found_posts;
-            $title = $reviews_count . ' reviews';
+            $title = $reviews_count . ' ' . __( 'reviews', 'madeleine' );
             if ( $reviews_count == 1 )
-              $title = '1 review';
+              $title = '1 ' . __( 'review', 'madeleine' );
           ?> 
           <em id="reviews-title"><?php echo $title ?></em>
         </h1>
@@ -23,7 +23,7 @@
     <?php else: ?>
       <hgroup class="heading">
         <h1 class="title">
-          <em id="reviews-title">Sorry. No reviews match these parameters.</em>
+          <em id="reviews-title"><?php _e( 'Sorry. No reviews match these parameters.', 'madeleine' ); ?></em>
         </h1>
       </hgroup> 
     <?php endif; ?>

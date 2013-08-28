@@ -27,14 +27,14 @@ class madeleine_links_widget extends WP_Widget {
   function madeleine_links_widget() {
     $widget_ops = array(
       'classname' => 'madeleine-links-widget',
-      'description' => __('A list of your latest links, with a pagination', 'madeleine')
+      'description' => __( 'A list of your latest links, with a pagination', 'madeleine' )
     );
     $control_ops = array(
       'width' => 300,
       'height' => 350,
       'id_base' => 'madeleine-links-widget'
     );
-    $this->WP_Widget( 'madeleine-links-widget', __('Madeleine Links', 'madeleine'), $widget_ops, $control_ops );
+    $this->WP_Widget( 'madeleine-links-widget', __( 'Madeleine Links', 'madeleine' ), $widget_ops, $control_ops );
   }
 
   // Display the widget
@@ -100,7 +100,7 @@ class madeleine_links_widget extends WP_Widget {
 
     // Setup the default values for the widget
     $defaults = array(
-      'title' => 'Links',
+      'title' => __( 'Links', 'madeleine' ),
       'total' => 6,
     );
     
@@ -111,12 +111,12 @@ class madeleine_links_widget extends WP_Widget {
     ?>
 
     <p>
-      <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'madeleine') ?></label>
+      <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'madeleine' ) ?></label>
       <input class="widefat" type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>">
     </p>
     
     <p>
-      <?php _e('Display a total of', 'madeleine') ?>
+      <?php _e( 'Display a total of', 'madeleine' ) ?>
       <select id="<?php echo $this->get_field_id( 'total' ); ?>" name="<?php echo $this->get_field_name( 'total' ); ?>">
         <?php
         foreach ( $total_values as $value ):

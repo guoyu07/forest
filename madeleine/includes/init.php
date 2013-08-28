@@ -63,7 +63,7 @@ if ( !function_exists( 'madeleine_restrict_manage_posts_format' ) ) {
       'taxonomy'         => 'post_format',
       'hide_empty'       => 0,
       'name'             => 'p_format',
-      'show_option_none' => 'View all formats'
+      'show_option_none' => __( 'View all formats', 'madeleine' )
     ));
   }
 }

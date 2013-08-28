@@ -29,14 +29,14 @@ class madeleine_latest_posts_widget extends WP_Widget {
   function madeleine_latest_posts_widget() {
     $widget_ops = array(
       'classname' => 'madeleine-latest-posts-widget',
-      'description' => __('A list of your latest posts, with a pagination', 'madeleine')
+      'description' => __( 'A list of your latest posts, with a pagination', 'madeleine' )
     );
     $control_ops = array(
       'width' => 300,
       'height' => 350,
       'id_base' => 'madeleine-latest-posts-widget'
     );
-    $this->WP_Widget( 'madeleine-latest-posts-widget', __('Madeleine Latest Posts', 'madeleine'), $widget_ops, $control_ops );
+    $this->WP_Widget( 'madeleine-latest-posts-widget', __( 'Madeleine Latest Posts', 'madeleine' ), $widget_ops, $control_ops );
   }
 
   // Display the widget
@@ -114,7 +114,7 @@ class madeleine_latest_posts_widget extends WP_Widget {
 
     // Setup the default values for the widget
     $defaults = array(
-      'title' => 'Latest posts',
+      'title' => __( 'Latest posts', 'madeleine' ),
       'total' => 50,
       'division' => 10,
     );
@@ -127,12 +127,12 @@ class madeleine_latest_posts_widget extends WP_Widget {
     ?>
 
     <p>
-      <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'madeleine') ?></label>
+      <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'madeleine' ) ?></label>
       <input class="widefat" type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>">
     </p>
     
     <p>
-      <?php _e('Display a total of', 'madeleine') ?>
+      <?php _e( 'Display a total of', 'madeleine' ) ?>
       <select id="<?php echo $this->get_field_id( 'total' ); ?>" name="<?php echo $this->get_field_name( 'total' ); ?>">
         <?php
         foreach ( $total_values as $value ):
@@ -147,7 +147,7 @@ class madeleine_latest_posts_widget extends WP_Widget {
     </p>
     
     <p>
-      <?php _e('Divide the lists every', 'madeleine') ?>
+      <?php _e( 'Divide the lists every', 'madeleine' ) ?>
       <select id="<?php echo $this->get_field_id( 'division' ); ?>" name="<?php echo $this->get_field_name( 'division' ); ?>">
         <?php
         foreach ( $division_values as $value ):

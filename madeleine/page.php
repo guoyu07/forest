@@ -17,12 +17,10 @@
                 <div style="clear: both;"></div>
               </div>
             </header>
-
             <div class="entry-content">
               <?php the_content(); ?>
               <?php wp_link_pages( array( 'before' => '<div class="pagination">', 'after' => '</div>', 'pagelink' => '<strong>%</strong>' ) ); ?>
             </div>
-            
             <?php comments_template( '', true ); ?>
           </article>
         <?php endwhile; ?>

@@ -1,9 +1,9 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
   <?php madeleine_entry_thumbnail( 'medium' ); ?>
   <?php madeleine_entry_category(); ?>
-  <p class="entry-format">Video</p>
+  <p class="entry-format"><?php _e( 'Video', 'madeleine' ); ?></p>
   <h2 class="entry-title">
-    <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+    <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'madeleine' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
   </h2>
   <div class="entry-summary">
     <?php the_excerpt(); ?>

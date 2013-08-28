@@ -4,7 +4,7 @@
     <div id="lead">
       <?php if ( have_posts() ) : ?>
         <hgroup class="heading">
-          <h1 class="title"><em>Links</em></h1>
+          <h1 class="title"><em><?php _e( 'Links', 'madeleine' ); ?></em></h1>
         </hgroup>
         <?php get_template_part( 'layout', 'list' ); ?>
       <?php endif; ?>
