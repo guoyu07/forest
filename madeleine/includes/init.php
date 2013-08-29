@@ -6,6 +6,7 @@ define( 'INCLUDE_URL', get_template_directory_uri() .'/includes' );
 // Load the custom header and custom background functions
 
 require_once( INCLUDE_DIR .'/custom/custom-header.php' );
+require_once( INCLUDE_DIR .'/custom/custom-background.php' );
 
 // Load the meta boxes
 

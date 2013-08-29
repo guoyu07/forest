@@ -24,19 +24,19 @@ function madeleine_header_style() {
   ?>
 
   <style type="text/css" id="madeleine-header-css">
-  <?php if ( !empty( $header_image ) ) : ?>
-    #logo{ background: url(<?php header_image(); ?>) no-repeat center left; padding-left: 80px;}
-  <?php endif; ?>
-
-  <?php if ( !display_header_text() ) : ?>
-    #title,
-    #description{ display: none;}
     <?php if ( !empty( $header_image ) ) : ?>
-      #logo{ padding-left: 0; width: 60px;}
+      #logo{ background: url(<?php echo $header_image; ?>) no-repeat center left; padding-left: 80px;}
     <?php endif; ?>
-  <?php  elseif ( $text_color != get_theme_support( 'custom-header', 'default-text-color' ) ) : ?>
-    #title{ color: #<?php echo esc_attr( $text_color ); ?>;}
-  <?php endif; ?>
+
+    <?php if ( !display_header_text() ) : ?>
+      #title,
+      #description{ display: none;}
+      <?php if ( !empty( $header_image ) ) : ?>
+        #logo{ padding-left: 0; width: 60px;}
+      <?php endif; ?>
+    <?php  elseif ( $text_color != get_theme_support( 'custom-header', 'default-text-color' ) ) : ?>
+      #title{ color: #<?php echo esc_attr( $text_color ); ?>;}
+    <?php endif; ?>
   </style>
   <?php
 }
