@@ -17,8 +17,6 @@ if ( ! isset( $content_width ) ) $content_width = 1020;
 
 add_theme_support( 'post-formats', array( 'image', 'video', 'link', 'quote', ) );
 add_theme_support( 'post-thumbnails' );
-add_theme_support( 'custom-background' );
-add_theme_support( 'custom-header' );
 add_theme_support( 'automatic-feed-links' );
 add_theme_support( 'menus' );
 
@@ -80,6 +78,28 @@ if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
   }
 }
 add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
+
+
+function madeleine_categories_colors() {
+  $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
+  $category_meta = get_option( 'madeleine_category_meta' );
+  $style = '<style>';
+  foreach( $cats as $cat ):
+    if ( isset( $category_meta[$cat->term_id] ) ):
+      $color = $category_meta[$cat->term_id]['color'];
+    else:
+      $color = '#d0574e';
+    endif;
+    $slug = $cat->slug;
+    $style .= '.post.category-' . $slug . ' a,#nav .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' a,body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
+    $style .= '.tabs .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' .on,#category.category-' . $slug . ' strong,.category-' . $slug . ' .entry-category a,#popular .category-' . $slug . ' em,#popular .category-' . $slug . ' strong,.format-image.category-' . $slug . ' .entry-thumbnail:hover:after,.format-video.category-' . $slug . ' .entry-thumbnail:hover:after{ background-color: ' . $color . ';}';
+    $style .= '.quote.category-' . $slug . ',#category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
+    $style .= '#nav .category-' . $slug . ' a,body.category-' . $slug . ',body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .wrap,.focus.category-' . $slug . ' .focus-text{ border-top-color: ' . $color . ';}';
+  endforeach;
+  $style .= '</style>';
+  echo $style;
+}
+add_action( 'wp_head', 'madeleine_categories_colors' );
 
 
 // 02 Common functions

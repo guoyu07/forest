@@ -7,6 +7,7 @@ define( 'INCLUDE_URL', get_template_directory_uri() .'/includes' );
 
 require_once( INCLUDE_DIR .'/custom/custom-header.php' );
 require_once( INCLUDE_DIR .'/custom/custom-background.php' );
+require_once( INCLUDE_DIR .'/custom/custom-categories.php' );
 
 // Load the meta boxes
 
@@ -32,6 +33,7 @@ require_once( INCLUDE_DIR .'/widgets/quotes-widget.php' );
 
 if ( !function_exists( 'madeleine_admin_css' ) ) {
   function madeleine_admin_css() {
+    wp_enqueue_style( 'wp-color-picker' );
     wp_enqueue_style( 'madeleine_admin_css', INCLUDE_URL .'/css/madeleine-admin.css' );
   }
 }
@@ -41,7 +43,8 @@ add_action( 'admin_print_styles', 'madeleine_admin_css' );
 
 if ( !function_exists( 'madeleine_enqueue_admin_scripts' ) ) {
   function madeleine_enqueue_admin_scripts() {
-    wp_register_script( 'madeleine-admin', get_template_directory_uri() . '/includes/js/madeleine-admin.js', 'jquery' );
+    wp_register_script( 'madeleine-admin', get_template_directory_uri() . '/includes/js/madeleine-admin.js' );
+    wp_enqueue_script( 'wp-color-picker' );
     wp_enqueue_script( 'madeleine-admin' );
   }
 }

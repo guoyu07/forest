@@ -1,12 +1,31 @@
-// All custom JS not relating to theme options goes here
-
 jQuery(document).ready(function($) {
 
-/*----------------------------------------------------------------------------------*/
-/*  Display post format meta boxes as needed
-/*----------------------------------------------------------------------------------*/
+  console.log('Ok');
 
-    /* Grab our vars ---------------------------------------------------------------*/
+  // Category colors
+
+  var category_color = $('#madeleine-category-color');
+  var color_choices = $('#madeleine-color-choices li');
+
+  function MadeleinePickColor(color) {
+    category_color.val(color);
+  }
+
+  category_color.wpColorPicker({
+    change: function(event, ui) {
+      MadeleinePickColor( category_color.wpColorPicker('color') );
+    },
+    clear: function() {
+      MadeleinePickColor('');
+    }
+  });
+
+  color_choices.click( function() {
+    category_color.wpColorPicker('color', $(this).data('color'));
+  });
+
+  // Post formats
+
   var quoteOptions = $('#madeleine-quote'),
       quoteTrigger = $('#post-format-quote'),
       linkOptions = $('#madeleine-link'),
@@ -15,12 +34,10 @@ jQuery(document).ready(function($) {
       videoTrigger = $('#post-format-video'),
       group = jQuery('#post-formats-select input');
 
-    /* Hide and show sections as needed --------------------------------------------*/
-    MadeleineHideAll(null); 
+  MadeleineHideAll(null); 
   
   group.change( function() {
     MadeleineHideAll(null);   
-    
     if($(this).val() == 'quote') {
       quoteOptions.css('display', 'block');   
     } else if($(this).val() == 'link') {
@@ -32,7 +49,7 @@ jQuery(document).ready(function($) {
   
   if(quoteTrigger.is(':checked'))
     quoteOptions.css('display', 'block');
-    
+
   if(linkTrigger.is(':checked'))
     linkOptions.css('display', 'block');
     

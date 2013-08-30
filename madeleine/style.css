@@ -509,7 +509,7 @@ a:hover{ text-decoration: underline;}
 
 /* Colors */
 
-.post.category-tech a,
+/*.post.category-tech a,
 #nav .category-tech a:hover,
 .tabs .category-tech a,
 body.category-tech #nav .current-cat a,
@@ -655,7 +655,7 @@ body.category-business #nav .current-cat a,
 body.category-business,
 body.category-business #nav .current-cat a,
 #category.category-business .wrap,
-.focus.category-business .focus-text{ border-top-color: #d1d126;}
+.focus.category-business .focus-text{ border-top-color: #d1d126;}*/
 
 /* CSS 3 */
 
