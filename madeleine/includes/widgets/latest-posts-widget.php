@@ -34,9 +34,9 @@ class madeleine_latest_posts_widget extends WP_Widget {
     $control_ops = array(
       'width' => 300,
       'height' => 350,
-      'id_base' => 'madeleine-latest-posts-widget'
+      'id_base' => 'madeleine_latest_posts_widget'
     );
-    $this->WP_Widget( 'madeleine-latest-posts-widget', __( 'Madeleine Latest Posts', 'madeleine' ), $widget_ops, $control_ops );
+    $this->WP_Widget( 'madeleine_latest_posts_widget', __( 'Madeleine Latest Posts', 'madeleine' ), $widget_ops, $control_ops );
   }
 
   // Display the widget

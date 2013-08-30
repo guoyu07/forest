@@ -32,9 +32,9 @@ class madeleine_links_widget extends WP_Widget {
     $control_ops = array(
       'width' => 300,
       'height' => 350,
-      'id_base' => 'madeleine-links-widget'
+      'id_base' => 'madeleine_links_widget'
     );
-    $this->WP_Widget( 'madeleine-links-widget', __( 'Madeleine Links', 'madeleine' ), $widget_ops, $control_ops );
+    $this->WP_Widget( 'madeleine_links_widget', __( 'Madeleine Links', 'madeleine' ), $widget_ops, $control_ops );
   }
 
   // Display the widget

@@ -34,9 +34,9 @@ class madeleine_quotes_widget extends WP_Widget {
     $control_ops = array(
       'width' => 300,
       'height' => 350,
-      'id_base' => 'madeleine-quotes-widget'
+      'id_base' => 'madeleine_quotes_widget'
     );
-    $this->WP_Widget( 'madeleine-quotes-widget', __( 'Madeleine Quotes', 'madeleine' ), $widget_ops, $control_ops );
+    $this->WP_Widget( 'madeleine_quotes_widget', __( 'Madeleine Quotes', 'madeleine' ), $widget_ops, $control_ops );
   }
 
   // Display the widget

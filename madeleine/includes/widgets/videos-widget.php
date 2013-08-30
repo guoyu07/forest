@@ -34,9 +34,9 @@ class madeleine_videos_widget extends WP_Widget {
     $control_ops = array(
       'width' => 300,
       'height' => 350,
-      'id_base' => 'madeleine-videos-widget'
+      'id_base' => 'madeleine_videos_widget'
     );
-    $this->WP_Widget( 'madeleine-videos-widget', __( 'Madeleine Videos', 'madeleine' ), $widget_ops, $control_ops );
+    $this->WP_Widget( 'madeleine_videos_widget', __( 'Madeleine Videos', 'madeleine' ), $widget_ops, $control_ops );
   }
 
   // Display the widget

@@ -3,24 +3,32 @@
 define( 'INCLUDE_DIR', get_template_directory() .'/includes' );
 define( 'INCLUDE_URL', get_template_directory_uri() .'/includes' );
 
+
 // Load the custom header and custom background functions
+
 
 require_once( INCLUDE_DIR .'/custom/custom-header.php' );
 require_once( INCLUDE_DIR .'/custom/custom-background.php' );
 require_once( INCLUDE_DIR .'/custom/custom-categories.php' );
 
+
 // Load the meta boxes
+
 
 require_once( INCLUDE_DIR .'/meta-boxes/meta-functions.php' );
 require_once( INCLUDE_DIR .'/meta-boxes/post-meta.php' );
 require_once( INCLUDE_DIR .'/meta-boxes/review-meta.php' );
 
+
 // Load the share count plugin
+
 
 require_once( INCLUDE_DIR .'/share-count/get-share-count.php' );
 require_once( INCLUDE_DIR .'/share-count/set-share-count.php' );
 
+
 // Load the widgets
+
 
 require_once( INCLUDE_DIR .'/widgets/latest-posts-widget.php' );
 require_once( INCLUDE_DIR .'/widgets/popular-posts-widget.php' );
@@ -29,7 +37,9 @@ require_once( INCLUDE_DIR .'/widgets/videos-widget.php' );
 require_once( INCLUDE_DIR .'/widgets/links-widget.php' );
 require_once( INCLUDE_DIR .'/widgets/quotes-widget.php' );
 
+
 // Add a stylesheet to the admin area
+
 
 if ( !function_exists( 'madeleine_admin_css' ) ) {
   function madeleine_admin_css() {
@@ -39,7 +49,9 @@ if ( !function_exists( 'madeleine_admin_css' ) ) {
 }
 add_action( 'admin_print_styles', 'madeleine_admin_css' );
 
+
 // Add a custom JS to the admin area
+
 
 if ( !function_exists( 'madeleine_enqueue_admin_scripts' ) ) {
   function madeleine_enqueue_admin_scripts() {
@@ -50,7 +62,9 @@ if ( !function_exists( 'madeleine_enqueue_admin_scripts' ) ) {
 }
 add_action( 'admin_enqueue_scripts', 'madeleine_enqueue_admin_scripts' );
 
+
 // Setup a post format filter
+
 
 if ( !function_exists( 'madeleine_admin_posts_filter' ) ) {
   function madeleine_admin_posts_filter( &$query ) {
@@ -64,6 +78,7 @@ if ( !function_exists( 'madeleine_admin_posts_filter' ) ) {
   }
 }
 add_filter( 'parse_query', 'madeleine_admin_posts_filter' );
+
 
 if ( !function_exists( 'madeleine_restrict_manage_posts_format' ) ) {
   function madeleine_restrict_manage_posts_format() {
