@@ -9,4 +9,5 @@
 .madeleine-metabox-table input.radio{ float: none; margin-right: 3px; width: auto;}
 .madeleine-metabox-table .radio-label{ margin-right: 10px;}
 
+#madeleine-category-color-form{ display: none;}
 #madeleine-color-choices li{ display: inline-block; cursor: pointer; height: 20px; width: 20px;}

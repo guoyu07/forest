@@ -91,7 +91,7 @@ a:hover{ text-decoration: underline;}
 #footer-description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
 #logo:hover{ text-decoration: none;}
 #header .search-form{ position: absolute; right: 0; top: 15px;}
-#navigation{ border-right: 1px solid #eaedef; clear: left; height: 60px;}
+#navigation{ border: 0 solid #eaedef; border-width: 0 1px; clear: left; height: 60px;}
 #nav{ background: white; background: white; border: solid #eaedef; border-width: 1px 0; font: bold 14px/28px Bitter, Georgia, serif; height: 30px;}
 #nav li{ display: inline;}
 #nav a{ border-right: 1px solid #eaedef; border-top: 2px solid #708491; color: #444; float: left; margin: -1px -1px 0 0; padding: 0 10px 0 11px;}
@@ -109,7 +109,7 @@ a:hover{ text-decoration: underline;}
 #nav .videos{ background-position: 0 -61px;}
 #nav .links{ background-position: 0 -91px;}
 #nav .quotes{ background-position: 0 -121px;}
-#today-news{ background: #444; color: white; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; text-align: center; width: 60px;}
+#today-news{ background: #444; color: white; display: none; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; text-align: center; width: 60px;}
 #today-news strong{ display: block; font-size: 30px; padding-top: 6px;}
 #today-news em{ display: block; font-size: 9px; padding-top: 4px;}
 #trending{ background: white; border-bottom: 1px solid #eaedef; height: 27px;}
@@ -325,7 +325,7 @@ a:hover{ text-decoration: underline;}
 #videos .dots{ position: absolute; right: 0; top: 2px;}
 #videos ul{ position: relative;}
 #videos li{ display: none;}
-#videos .entry-title{ margin-bottom: 10px;}
+#videos .entry-title{ margin-top: 10px;}
 #videos li:first-child{ display: block;}
 
 /* Comments */

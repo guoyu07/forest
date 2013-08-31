@@ -5,7 +5,7 @@ function madeleine_category_custom_fields( $tag ) {
   $category_meta = get_option( 'madeleine_category_meta' );
   $colors = ['d0574e', '4d9cd1', '96ca47', 'd1ae4d', '6acdb3', 'd087cb', 'd1d126'];
   ?>
-  <tr>
+  <tr id="madeleine-category-color-form">
       <th scope="row" valign="top"><label for="category-color"><?php _e( 'Color', 'madeleine' ); ?></label></th>
       <td>
           <input id="madeleine-category-color" name="madeleine_category_meta[<?php echo $tag->term_id ?>][color]" value="<?php if ( isset( $category_meta[ $tag->term_id ] ) ) echo $category_meta[ $tag->term_id ]['color']; ?>" type="text" size="40" data-default-color="#d0574e">

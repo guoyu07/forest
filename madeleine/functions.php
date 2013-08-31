@@ -43,9 +43,6 @@ if ( function_exists('register_sidebar') )
   register_sidebar( $sidebar_arguments );
 
 
-
-
-
 if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
   function madeleine_enqueue_scripts() {
     $js_directory = get_template_directory_uri() . '/js/';

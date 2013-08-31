@@ -1,15 +1,29 @@
 jQuery(document).ready(function($) {
 
-  console.log('Ok');
+  console.log('Madeleine Admin JS loaded.');
 
   // Category colors
 
+  var category_parent = $('#edittag #parent');
+  var category_color_form = $('#madeleine-category-color-form');
   var category_color = $('#madeleine-category-color');
   var color_choices = $('#madeleine-color-choices li');
+
+  function MadeleineToggleCategoryColorForm() {
+    if (category_parent.val() == -1) {
+      category_color_form.show();
+    } else {
+      category_color_form.hide();
+    }
+  }
 
   function MadeleinePickColor(color) {
     category_color.val(color);
   }
+
+  category_parent.change( function() {
+    MadeleineToggleCategoryColorForm();
+  });
 
   category_color.wpColorPicker({
     change: function(event, ui) {
@@ -23,6 +37,8 @@ jQuery(document).ready(function($) {
   color_choices.click( function() {
     category_color.wpColorPicker('color', $(this).data('color'));
   });
+
+  MadeleineToggleCategoryColorForm();
 
   // Post formats
 

@@ -76,8 +76,8 @@ class madeleine_videos_widget extends WP_Widget {
         $categories = get_the_category( get_the_ID() );
         $category = get_category( madeleine_top_category( $categories[0] ) );
         echo '<li class="post format-video category-' . $category->category_nicename . '">';
-        echo '<p class="entry-title">' . get_the_title() . '</p>';
         madeleine_entry_thumbnail( 'medium' );
+        echo '<p class="entry-title">' . get_the_title() . '</p>';
         echo '</li>';
       }
       echo '</ul>';
