@@ -61,6 +61,8 @@
                 <div style="clear: left;"></div>
               <?php endif; ?>
             <?php endif; ?>
+            
+            <?php madeleine_entry_share(); ?>
 
             <?php comments_template( '', true ); ?>
           </article>

@@ -27,12 +27,8 @@
         <section>
           <h4 class="section"><?php _e( 'Social', 'madeleine' ); ?></h4>
           <ul>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Google +</a></li>
-            <li><a href="#">Tumblr</a></li>
-            <li><a href="#">YouTube</a></li>
-            <li><a href="#">RSS</a></li>
+            <?php madeleine_social_links(); ?>
+            <li><a href="<?php bloginfo( 'rss2_url' ); ?>"><?php _e( 'RSS', 'madeleine' ); ?></a></li>
             <li><a href="#"><?php _e( 'Email', 'madeleine' ); ?></a></li>
           </ul>
         </section>

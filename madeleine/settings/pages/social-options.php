@@ -2,17 +2,20 @@
 
 function madeleine_default_social_options() {
   $defaults = array(
-    'twitter_account' => '',
-    'facebook_account' => '',
-    'google_plus_account' => '',
-    'youtube_account' => '',
-    'tumblr_account' => '',
-    'twitter_button' => 1,
-    'facebook_button' => 1,
-    'google_plus_button' => 1,
-    'pinterest_button' => 1,
-    'reddit_button' => 1,
-    ''
+    'social_accounts' => array(
+      'twitter_account' => '',
+      'facebook_account' => '',
+      'googleplus_account' => '',
+      'youtube_account' => '',
+      'tumblr_account' => ''
+    ),
+    'social_buttons' => array(
+      'twitter_button' => 1,
+      'facebook_button' => 1,
+      'googleplus_button' => 1,
+      'pinterest_button' => 1,
+      'reddit_button' => 1
+    )
   );
   return apply_filters( 'madeleine_default_social_options', $defaults );
 }
@@ -49,12 +52,12 @@ function madeleine_intialize_social_options() {
   );
   
   add_settings_field( 
-    'google_plus_account',
+    'googleplus_account',
     'Google+',
     'madeleine_social_account_callback',
     'madeleine_social_options_page',
     'social_accounts_section',
-    array( 'google_plus' )
+    array( 'googleplus' )
   );
   
   add_settings_field( 
@@ -101,12 +104,12 @@ function madeleine_intialize_social_options() {
   );
   
   add_settings_field( 
-    'google_plus_button',
+    'googleplus_button',
     'Google +',
     'madeleine_social_button_callback',
     'madeleine_social_options_page',
     'social_buttons_section',
-    array( 'google_plus' )
+    array( 'googleplus' )
   );
   
   add_settings_field( 
@@ -144,12 +147,13 @@ function madeleine_social_accounts_callback() {
 function madeleine_social_account_callback( $args ) {
   // First, we read the social settings collection
   $settings = get_option( 'madeleine_social_options' );
+  $social_accounts = $settings['social_accounts'];
   $key = $args[0] . '_account';
   // Next, we need to make sure the element is defined in the settings. If not, we'll set an empty string.
   $url = '';
-  if( isset( $settings[$key] ) )
-    $url = esc_url( $settings[$key] );
-  echo '<input class="regular-text" type="text" name="madeleine_social_options[' . $key . ']" value="' . $url . '">';
+  if( isset( $social_accounts[$key] ) )
+    $url = esc_url( $social_accounts[$key] );
+  echo '<input class="regular-text" type="text" name="madeleine_social_options[social_accounts][' . $key . ']" value="' . $url . '">';
 }
 
 
@@ -160,10 +164,11 @@ function madeleine_social_buttons_callback() {
 
 function madeleine_social_button_callback( $args ) {
   $settings = get_option( 'madeleine_social_options' );
+  $social_buttons = $settings['social_buttons'];
   $key = $args[0] . '_button';
-  $html = '<label><input type="radio" name="madeleine_social_options[' . $key . ']" value="1"' . checked( 1, $settings[$key], false ) . '>';
+  $html = '<label><input type="radio" name="madeleine_social_options[social_buttons][' . $key . ']" value="1"' . checked( 1, $social_buttons[$key], false ) . '>';
   $html .= '&nbsp;Show</label>&nbsp;';
-  $html .= '<label><input type="radio" name="madeleine_social_options[' . $key . ']" value="0"' . checked( 0, $settings[$key], false ) . '>';
+  $html .= '<label><input type="radio" name="madeleine_social_options[social_buttons][' . $key . ']" value="0"' . checked( 0, $social_buttons[$key], false ) . '>';
   $html .= '&nbsp;Hide</label>';
   echo $html;
 }
@@ -171,15 +176,16 @@ function madeleine_social_button_callback( $args ) {
 
 function madeleine_social_buttons_checkboxes_callback() {
   $settings = get_option( 'madeleine_social_options' );
-  $html = '<label><input type="checkbox" name="madeleine_social_options[facebook_button]" value="1"' . checked( 1, $settings['facebook_button'], false ) . '>';
+  $social_buttons = $settings['social_buttons'];
+  $html = '<label><input type="checkbox" name="madeleine_social_options[social_buttons][facebook_button]" value="1"' . checked( 1, $social_buttons['facebook_button'], false ) . '>';
   $html .= '&nbsp;Facebook</label><br>';
-  $html .= '<label><input type="checkbox" name="madeleine_social_options[twitter_button]" value="1"' . checked( 1, $settings['twitter_button'], false ) . '>';
+  $html .= '<label><input type="checkbox" name="madeleine_social_options[social_buttons][twitter_button]" value="1"' . checked( 1, $social_buttons['twitter_button'], false ) . '>';
   $html .= '&nbsp;Twitter</label><br>';
-  $html .= '<label><input type="checkbox" name="madeleine_social_options[google_plus_button]" value="1"' . checked( 1, $settings['google_plus_button'], false ) . '>';
+  $html .= '<label><input type="checkbox" name="madeleine_social_options[social_buttons][googleplus_button]" value="1"' . checked( 1, $social_buttons['googleplus_button'], false ) . '>';
   $html .= '&nbsp;Google +</label><br>';
-  $html .= '<label><input type="checkbox" name="madeleine_social_options[pinterest_button]" value="1"' . checked( 1, $settings['pinterest_button'], false ) . '>';
+  $html .= '<label><input type="checkbox" name="madeleine_social_options[social_buttons][pinterest_button]" value="1"' . checked( 1, $social_buttons['pinterest_button'], false ) . '>';
   $html .= '&nbsp;Pinterest</label><br>';
-  $html .= '<label><input type="checkbox" name="madeleine_social_options[reddit_button]" value="1"' . checked( 1, $settings['reddit_button'], false ) . '>';
+  $html .= '<label><input type="checkbox" name="madeleine_social_options[social_buttons][reddit_button]" value="1"' . checked( 1, $social_buttons['reddit_button'], false ) . '>';
   $html .= '&nbsp;Reddit</label>';
   echo $html;
 }

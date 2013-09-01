@@ -39,8 +39,30 @@ $sidebar_arguments = array(
 );
 
 
+
 if ( function_exists('register_sidebar') )
   register_sidebar( $sidebar_arguments );
+
+
+// 02 Common functions
+
+
+if ( !function_exists( 'madeleine_social_links' ) ) {
+  function madeleine_social_links() {
+    $social_options = get_option( 'madeleine_social_options' );
+    $social_header = '';
+    if ( isset( $social_options['social_accounts'] ) ):
+      foreach ( $social_options['social_accounts'] as $key => $value) {
+        if ( $value != '' ):
+          $slug = str_replace( '_account', '', $key );
+          $name = ( $slug == 'googleplus' ) ? 'Google +' : ucwords( $slug );
+          $social_header .= '<li><a class="social-' . $slug . '" href="' . $value . '">' . $name . '</a></li>';
+        endif;
+      }
+    endif;
+    echo $social_header;
+  }
+}
 
 
 /**
@@ -91,13 +113,15 @@ if ( !function_exists( 'madeleine_check_url' ) ) {
 }
 
 
-// Output the tracking code
+// Output the analytics tracking code in the footer
 
 
-function madeleine_tracking_code(){
-  $analytics_options = get_option( 'madeleine_analytics_options' );
-  if( array_key_exists( 'tracking_code', $analytics_options ) && $analytics_options['tracking_code'] != '' )
-      echo stripslashes( $analytics_options['tracking_code'] );
+if ( !function_exists( 'madeleine_tracking_code' ) ) {
+  function madeleine_tracking_code(){
+    $analytics_options = get_option( 'madeleine_analytics_options' );
+    if( array_key_exists( 'tracking_code', $analytics_options ) && $analytics_options['tracking_code'] != '' )
+        echo stripslashes( $analytics_options['tracking_code'] );
+  }
 }
 add_action( 'wp_footer', 'madeleine_tracking_code' );
 
@@ -158,9 +182,6 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
   }
 }
 add_action( 'wp_head', 'madeleine_categories_colors' );
-
-
-// 02 Common functions
 
 
 if ( !function_exists( 'madeleine_get_redirect_target' ) ) {
@@ -959,6 +980,53 @@ if ( !function_exists( 'madeleine_entry_info' ) ) {
       esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ),
       get_the_date()
     );
+  }
+}
+
+
+if ( !function_exists( 'madeleine_entry_share' ) ) {
+  function madeleine_entry_share() {
+    $social_options = get_option( 'madeleine_social_options' );
+    $social_buttons = '';
+    $permalink = get_permalink();
+    $permalink = 'http://paulgraham.com/accents.html';
+    $encoded_permalink = urlencode( $permalink );
+    $title = get_the_title();
+    if ( isset( $social_options['social_buttons'] ) ):
+      foreach ( $social_options['social_buttons'] as $key => $value):
+        if ( $value == 1 ):
+          $slug = str_replace( '_button', '', $key );
+          $social_buttons .= '<div class="share">';
+          switch( $slug ):
+            case 'twitter':
+              $social_buttons .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $permalink . '" data-text="' . $title . '">Tweet</a>';
+              $social_buttons .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+              break;
+            case 'facebook':
+              $social_buttons .= '<iframe src="http://www.facebook.com/plugins/like.php?href=' . $encoded_permalink . '&width=128&height=21&colorscheme=light&layout=button_count&action=like&show_faces=false&send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:128px; height:21px;" allowTransparency="true"></iframe>';
+              break;
+            case 'googleplus':
+              $social_buttons .= '<script src="https://apis.google.com/js/plusone.js"></script>';
+              $social_buttons .= '<g:plus action="share" href="' . $encoded_permalink . '" annotation="bubble"></g:plus>';
+              break;
+            case 'pinterest':
+              $social_buttons .= '<a href="http://pinterest.com/pin/create/button/?url=' . $encoded_permalink . '&description=' . $title . '" data-pin-do="buttonPin" data-pin-config="beside"><img src="http://assets.pinterest.com/images/pidgets/pin_it_button.png"></a>';
+              $social_buttons .= '<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>';
+              break;
+            case 'reddit':
+              $social_buttons .= '<script type="text/javascript">reddit_url="' . $permalink . '";</script>';
+              $social_buttons .= '<script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script>';
+              break;
+          endswitch;
+          $social_buttons .= '</div>';
+        endif;
+      endforeach;
+    endif;
+    if ( $social_buttons != '' ):
+      echo '<div class="entry-share">';
+      echo $social_buttons;
+      echo '<div style="clear: left;"></div></div>';
+    endif;
   }
 }
 

@@ -92,6 +92,13 @@ a:hover{ text-decoration: underline;}
 #description,
 #footer-description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
 #logo:hover{ text-decoration: none;}
+#social-header{ height: 30px; position: absolute; right: 260px; top: 15px;}
+#social-header li{ display: inline;}
+#social-header a{ background: #eaedef; float: left; height: 30px; margin-left: 10px; overflow: hidden; text-indent: -290486px; width: 30px;}
+#social-header .social-rss{ background: #ffa545; float: right;}
+#social-header .social-facebook{ background: #627aad;}
+#social-header .social-twitter{ background: #5bd6fe;}
+#social-header .social-googleplus{ background: #e17159;}
 #header .search-form{ position: absolute; right: 0; top: 15px;}
 #navigation{ border: 0 solid #eaedef; border-width: 0 1px; clear: left; height: 60px;}
 #nav{ background: white; background: white; border: solid #eaedef; border-width: 1px 0; font: bold 14px/28px Bitter, Georgia, serif; height: 30px;}
@@ -201,6 +208,8 @@ a:hover{ text-decoration: underline;}
 .entry-parent{ margin-bottom: 20px;}
 .entry-source{ color: #708491;}
 .entry-source:before{ content: '— ';}
+.entry-share{ border: solid #eaedef; border-width: 1px 0; margin-top: 20px; padding-top: 10px;}
+.entry-share .share{ float: left; height: 30px; width: 128px;}
 
 /* Formats */
 
@@ -242,6 +251,7 @@ a:hover{ text-decoration: underline;}
 .list .sticky .entry-summary{ font-size: 15px;}
 .list .sticky .entry-info{ clear: right;}
 .list .review .entry-rating{ left: 0; position: absolute; top: 0;}
+.list .review .entry-price{ left: 0; position: absolute; top: 60px;}
 
 .grid{ float: left; padding: 0 19px 0 20px; width: 640px;}
 .grid .post{ border: 0 solid #eaedef; border-top-width: 1px; float: left; padding: 20px 19px 20px 20px; width: 300px;}
