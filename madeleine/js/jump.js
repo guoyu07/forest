@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
   $(window).scroll(function() {
     var position = $(window).scrollTop();
     var jump_offset = $('.review .entry-text').offset();
-    $('#value').text(jump_offset.top);
+    // $('#value').text(jump_offset.top);
     if (position > jump_offset.top) {
       jump.css('position', 'fixed');
     } else {

@@ -43,6 +43,65 @@ if ( function_exists('register_sidebar') )
   register_sidebar( $sidebar_arguments );
 
 
+/**
+ * Redirect the RSS feed
+ * Credit: Feedburner Feedsmith Plugin
+ */
+
+
+if( !preg_match( "/feedburner|feedvalidator/i", $_SERVER['HTTP_USER_AGENT'] ) ):
+  add_action( 'template_redirect', 'madeleine_feed_redirect' );
+  add_action( 'init', 'madeleine_check_url' );
+endif;
+
+
+if ( !function_exists( 'madeleine_feed_redirect' ) ) {
+  function madeleine_feed_redirect() {
+    global $wp, $feed, $withcomments;
+    $analytics_options = get_option( 'madeleine_analytics_options' );
+    if ( array_key_exists( 'feedburner_url', $analytics_options ) && $analytics_options['feedburner_url'] != '' ):
+      if ( is_feed() && $feed != 'comments-rss2' && !is_single() && $wp->query_vars['category_name'] == '' && ( $withcomments != 1 ) ):
+        if( function_exists('status_header') ) status_header( 302 );
+        header( "Location:" . trim( $analytics_options['feedburner_url'] ) );
+        header( "HTTP/1.1 302 Temporary Redirect" );
+        exit();
+      endif;
+    endif;
+  }
+}
+
+
+if ( !function_exists( 'madeleine_check_url' ) ) {
+  function madeleine_check_url() {
+    $analytics_options = get_option( 'madeleine_analytics_options' );
+    if( array_key_exists( 'feedburner_url', $analytics_options ) && $analytics_options['feedburner_url'] != '' ):
+      switch( basename($_SERVER['PHP_SELF']) ):
+        case 'wp-rss.php':
+        case 'wp-rss2.php':
+        case 'wp-atom.php':
+        case 'wp-rdf.php':
+          if( function_exists('status_header') ) status_header( 302 );
+          header( "Location:" . trim( $analytics_options['feedburner_url'] ) );
+          header( "HTTP/1.1 302 Temporary Redirect" );
+          exit();
+          break;
+      endswitch;
+    endif;
+  }
+}
+
+
+// Output the tracking code
+
+
+function madeleine_tracking_code(){
+  $analytics_options = get_option( 'madeleine_analytics_options' );
+  if( array_key_exists( 'tracking_code', $analytics_options ) && $analytics_options['tracking_code'] != '' )
+      echo stripslashes( $analytics_options['tracking_code'] );
+}
+add_action( 'wp_footer', 'madeleine_tracking_code' );
+
+
 if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
   function madeleine_enqueue_scripts() {
     $js_directory = get_template_directory_uri() . '/js/';
@@ -77,24 +136,26 @@ if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
 add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
 
 
-function madeleine_categories_colors() {
-  $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
-  $category_meta = get_option( 'madeleine_category_meta' );
-  $style = '<style>';
-  foreach( $cats as $cat ):
-    if ( isset( $category_meta[$cat->term_id] ) ):
-      $color = $category_meta[$cat->term_id]['color'];
-    else:
-      $color = '#d0574e';
-    endif;
-    $slug = $cat->slug;
-    $style .= '.post.category-' . $slug . ' a,#nav .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' a,body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
-    $style .= '.tabs .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' .on,#category.category-' . $slug . ' strong,.category-' . $slug . ' .entry-category a,#popular .category-' . $slug . ' em,#popular .category-' . $slug . ' strong,.format-image.category-' . $slug . ' .entry-thumbnail:hover:after,.format-video.category-' . $slug . ' .entry-thumbnail:hover:after{ background-color: ' . $color . ';}';
-    $style .= '.quote.category-' . $slug . ',#category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
-    $style .= '#nav .category-' . $slug . ' a,body.category-' . $slug . ',body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .wrap,.focus.category-' . $slug . ' .focus-text{ border-top-color: ' . $color . ';}';
-  endforeach;
-  $style .= '</style>';
-  echo $style;
+if ( !function_exists( 'madeleine_categories_colors' ) ) {
+  function madeleine_categories_colors() {
+    $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
+    $category_meta = get_option( 'madeleine_category_meta' );
+    $style = '<style>';
+    foreach( $cats as $cat ):
+      if ( isset( $category_meta[$cat->term_id] ) ):
+        $color = $category_meta[$cat->term_id]['color'];
+      else:
+        $color = '#d0574e';
+      endif;
+      $slug = $cat->slug;
+      $style .= '.post.category-' . $slug . ' a,#nav .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' a,body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
+      $style .= '.tabs .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' .on,#category.category-' . $slug . ' strong,.category-' . $slug . ' .entry-category a,#popular .category-' . $slug . ' em,#popular .category-' . $slug . ' strong,.format-image.category-' . $slug . ' .entry-thumbnail:hover:after,.format-video.category-' . $slug . ' .entry-thumbnail:hover:after{ background-color: ' . $color . ';}';
+      $style .= '.quote.category-' . $slug . ',#category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
+      $style .= '#nav .category-' . $slug . ' a,body.category-' . $slug . ',body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .wrap,.focus.category-' . $slug . ' .focus-text{ border-top-color: ' . $color . ';}';
+    endforeach;
+    $style .= '</style>';
+    echo $style;
+  }
 }
 add_action( 'wp_head', 'madeleine_categories_colors' );
 
@@ -245,7 +306,7 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
       $replace = 'category-' . $cat->slug . ' ';
       $nav = str_replace( $find, $replace, $nav );
     endforeach;
-    echo $nav;
+    return $nav;
   }
 }
 
@@ -344,41 +405,46 @@ if ( !function_exists( 'madeleine_sticky_posts' ) ) {
 
 if ( !function_exists( 'madeleine_focus' ) ) {
   function madeleine_focus() {
-    $sticky_posts = madeleine_sticky_posts();
-    $args = array(
-      'ignore_sticky_posts' => 1,
-      'post__in' => $sticky_posts
-    );
-    $query = new WP_Query( $args );
-    $n = 1;
-    echo '<div id="focus">';
-    while ( $query->have_posts() ) {
-      $query->the_post();
-      $categories = get_the_category();
-      $top_category = get_category( madeleine_top_category( $categories[0] ) );
-      $category_links = '';
-      $class = 'focus category-' . $top_category->category_nicename;;
-      foreach ( $categories as $category ):
-        $category_links .= '<li><a href="' . get_category_link( $category->cat_ID ) . '">' . $category->name . '</a></li>';
-      endforeach;
-      echo '<article class="post ' . $class . '" id="focus-' . $n . '">';
-      if ( $n == 1 )
-        madeleine_entry_thumbnail( 'focus' );
-      elseif ( $n == 5 )
-        madeleine_entry_thumbnail( 'tall' );
-      else
-        madeleine_entry_thumbnail( 'wide' );
-      echo '<div class="focus-text">';
-      echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
-      echo '<ul class="entry-category">' . $category_links . '</ul>';
-      echo '<p class="entry-excerpt">' . get_the_excerpt() . '</p>';
+    $home_options = get_option( 'madeleine_home_options' );
+    if ( $home_options['focus_status'] == 1 ):
+      $sticky_posts = madeleine_sticky_posts();
+      $args = array(
+        'ignore_sticky_posts' => 1,
+        'post__in' => $sticky_posts
+      );
+      $query = new WP_Query( $args );
+      $n = 1;
+      echo '<div id="focus">';
+      while ( $query->have_posts() ) {
+        $query->the_post();
+        $categories = get_the_category();
+        $top_category = get_category( madeleine_top_category( $categories[0] ) );
+        $category_links = '';
+        $class = 'focus category-' . $top_category->category_nicename;;
+        foreach ( $categories as $category ):
+          $category_links .= '<li><a href="' . get_category_link( $category->cat_ID ) . '">' . $category->name . '</a></li>';
+        endforeach;
+        echo '<article class="post ' . $class . '" id="focus-' . $n . '">';
+        if ( $n == 1 )
+          madeleine_entry_thumbnail( 'focus' );
+        elseif ( $n == 5 )
+          madeleine_entry_thumbnail( 'tall' );
+        else
+          madeleine_entry_thumbnail( 'wide' );
+        echo '<div class="focus-text">';
+        echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+        echo '<ul class="entry-category">' . $category_links . '</ul>';
+        echo '<p class="entry-excerpt">' . get_the_excerpt() . '</p>';
+        echo '</div>';
+        echo '</article>';
+        $n++;
+      }
       echo '</div>';
-      echo '</article>';
-      $n++;
-    }
-    echo '</div>';
-    wp_reset_postdata();
-    return $sticky_posts;
+      wp_reset_postdata();
+      return $sticky_posts;
+    else:
+      return array();
+    endif;
   }
 }
 
@@ -412,8 +478,11 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
     $standard_posts = madeleine_standard_posts();
     if ( ( $query->is_home() ) && $query->is_main_query() ):
       $sticky_posts = madeleine_sticky_posts();
+      $home_options = get_option( 'madeleine_home_options' );
+      $grid_number = ( isset( $home_options['grid_number'] ) ) ? $home_options['grid_number'] : 6;
       $query->set( 'tax_query', $standard_posts );
       $query->set( 'post__not_in', $sticky_posts );
+      $query->set( 'posts_per_page', $grid_number );
     elseif ( $query->is_tag() && $query->is_main_query() ):
       $query->set( 'posts_per_page', -1 );
     elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax( 'product' ) || $query->is_tax( 'brand' ) ) && $query->is_main_query() ):
@@ -469,44 +538,61 @@ add_action( 'pre_get_posts', 'madeleine_archive_settings' );
 
 if ( !function_exists( 'madeleine_next_posts' ) ) {
   function madeleine_next_posts( $already_posted ) {
-    $standard_posts = madeleine_standard_posts();
-    $post_ids = array(); 
-    $offset = get_option( 'posts_per_page' );
-    $args = array(
-      'post_type' => 'post',
-      'posts_per_page' => 10,
-      'post__not_in' => $already_posted,
-      'offset' => $offset,
-      'tax_query' => $standard_posts
-    );
-    $query = new WP_Query( $args );
-    echo '<div class="board">';
-    while ( $query->have_posts() ) {
-      $query->the_post();
-      $categories = get_the_category( get_the_ID() );
-      $category = get_category( madeleine_top_category( $categories[0] ) );
-      echo '<div ';
-      post_class();
-      echo '>';
-      madeleine_entry_thumbnail( 'thumbnail' );
-      echo '<ul class="entry-category"><li>' . get_the_category_list( '</li><li>' ) . '</li></ul>';
-      echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+    $home_options = get_option( 'madeleine_home_options' );
+    if ( $home_options['next_status'] == 1 ):
+      $next_number = ( isset( $home_options['next_number'] ) ) ? $home_options['next_number'] : 10;
+      $standard_posts = madeleine_standard_posts();
+      $post_ids = array(); 
+      $offset = get_option( 'posts_per_page' );
+      $args = array(
+        'post_type' => 'post',
+        'posts_per_page' => $next_number,
+        'post__not_in' => $already_posted,
+        'offset' => $offset,
+        'tax_query' => $standard_posts
+      );
+      $query = new WP_Query( $args );
+      echo '<div class="board">';
+      while ( $query->have_posts() ) {
+        $query->the_post();
+        $categories = get_the_category( get_the_ID() );
+        $category = get_category( madeleine_top_category( $categories[0] ) );
+        echo '<div ';
+        post_class();
+        echo '>';
+        madeleine_entry_thumbnail( 'thumbnail' );
+        echo '<ul class="entry-category"><li>' . get_the_category_list( '</li><li>' ) . '</li></ul>';
+        echo '<h2 class="entry-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
+        echo '</div>';
+        $post_ids[] = get_the_ID();
+      }
       echo '</div>';
-      $post_ids[] = get_the_ID();
-    }
-    echo '</div>';
-    echo '<div style="clear: left;"></div>';
-    wp_reset_postdata();
-    return $post_ids;
+      echo '<div style="clear: left;"></div>';
+      wp_reset_postdata();
+      return $post_ids;
+    else:
+      return array();
+    endif;
   }
 }
 
 
 if ( !function_exists( 'madeleine_category_wheels' ) ) {
   function madeleine_category_wheels( $already_posted ) {
+    $home_options = get_option( 'madeleine_home_options' );
+    $categories_as_tabs = ( isset( $home_options['category_tabs_status'] ) ) ? $home_options['category_tabs_status'] : 1;
     $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
     $standard_posts = madeleine_standard_posts();
-    echo '<div class="wheels">';
+    if ( $categories_as_tabs ):
+      echo '<div id="wheel-tabs" class="wheels" data-display="tabs">';
+      echo '<div class="tabs">';
+      echo '<p>' . __( 'Categories', 'madeleine' ) . '</p>';
+      echo '<ul>' . madeleine_categories_list() . '</ul>';
+      echo '<em><a id="wheel-link" href="#">' . __( 'View all', 'madeleine' ) . ' <span></span> &rarr;</a></em>';
+      echo '</div>';
+    else:
+      echo '<div id="wheel-list" class="wheels" data-display="list">';
+    endif;
     foreach( $cats as $cat ):
       $args = array(
         'cat' => $cat->term_id,
@@ -516,7 +602,17 @@ if ( !function_exists( 'madeleine_category_wheels' ) ) {
         'tax_query' => $standard_posts
       );
       $query = new WP_Query( $args );
-      echo '<div class="wheel category-' . $cat->category_nicename . '">';
+      if ( ! $categories_as_tabs ):
+        $category_link = get_category_link( $cat->term_id );
+        echo '<div class="tabs">';
+        echo '<ul>';
+        echo '<li class="category-' . $cat->slug . '"><a class="on" href="' . $category_link . '">' . $cat->name . '</a></li>';
+        echo '</ul>';
+        echo '<strong>' . $cat->description . '</strong>';
+        echo '<em><a id="wheel-link" href="' . $category_link . '">' . __( 'View all', 'madeleine' ) . ' <span>' . $cat->name . '</span> &rarr;</a></em>';
+        echo '</div>';
+      endif;
+      echo '<div id="' . $cat->slug . '" class="wheel category-' . $cat->category_nicename . '">';
       while ( $query->have_posts() ) {
         $query->the_post();
         $categories = get_the_category( get_the_ID() );
@@ -535,11 +631,11 @@ if ( !function_exists( 'madeleine_category_wheels' ) ) {
         echo '<p class="entry-summary">'. get_the_excerpt() . '</p>';
         echo '</div>';
       }
+      echo '<div style="clear: both;"></div>';
       echo '</div>';
       wp_reset_postdata();
     endforeach;
     echo '</div>';
-    echo '<div style="clear: both;"></div>';
   }
 }
 
@@ -1045,24 +1141,34 @@ if ( !function_exists( 'madeleine_products_list' ) ) {
 
 if ( !function_exists( 'madeleine_reviews_tabs' ) ) {
   function madeleine_reviews_tabs() {
+    $reviews_link = get_post_type_archive_link( 'review' );
+    $tabs = '<div id="reviews-tabs" class="tabs">';
+    $tabs .= '<p><a href="' . $reviews_link . '">' . __( 'Reviews', 'madeleine' ) . '</a></p>';
+    $tabs .= '<ul>';
+    $tabs .= '<li data-id="all"><a href="' . $reviews_link . '">' . __( 'All', 'madeleine' ) . '</a></li>';
+    $tabs .= wp_list_categories('depth=1&echo=0&hide_empty=0&orderby=ID&title_li=&taxonomy=product');
+    $tabs .= '</ul>';
+    $tabs .= '<em><a id="reviews-link" href="' . $reviews_link . '">' . __( 'View all', 'madeleine' ) . ' <span>' . __( 'Reviews', 'madeleine' ) . '</span> &rarr;</a></em>';
+    $tabs .= '</div>';
     $products = get_categories('hide_empty=0&orderby=ID&taxonomy=product');
-    $tabs = wp_list_categories('depth=1&echo=0&hide_empty=0&orderby=ID&title_li=&taxonomy=product');
     foreach( $products as $product ):
       $find = 'cat-item-' . $product->term_id . '"';
       $replace = 'cat-item-' . $product->term_id . '" data-id="' . $product->term_id . '"';
       $tabs = str_replace( $find, $replace, $tabs );
       $tabs = str_replace( 'posts', __( 'reviews', 'madeleine' ), $tabs );
     endforeach;
-    echo $tabs;
+    return $tabs;
   }
 }
 
 
 if ( !function_exists( 'madeleine_reviews_grid' ) ) {
   function madeleine_reviews_grid( $tax_ID = 'all' ) {
+    $home_options = get_option( 'madeleine_home_options' );
+    $reviews_number = ( isset( $home_options['reviews_number'] ) ) ? $home_options['reviews_number'] : 10;
     $args = array(
       'post_type' => 'review',
-      'posts_per_page' => 6
+      'posts_per_page' => $reviews_number
     );
     if ( $tax_ID != 'all' ):
       $args['tax_query'] = array(
@@ -1089,6 +1195,20 @@ if ( !function_exists( 'madeleine_reviews_grid' ) ) {
     $grid .= '<div style="clear: left;"></div>';
     wp_reset_postdata();
     return $grid;
+  }
+}
+
+
+if ( !function_exists( 'madeleine_reviews_home' ) ) {
+  function madeleine_reviews_home() {
+    $home_options = get_option( 'madeleine_home_options' );
+    if ( $home_options['reviews_status'] == 1 ):
+      $reviews_home = madeleine_reviews_tabs();
+      $reviews_home .= '<div class="reviews-grid"><div id="reviews-result">';
+      $reviews_home .= madeleine_reviews_grid();
+      $reviews_home .= '</div><div id="reviews-loading" class="loading"></div></div>';
+      echo $reviews_home;
+    endif;
   }
 }
 

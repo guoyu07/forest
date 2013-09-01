@@ -15,7 +15,7 @@
         <section>
           <h4 class="section"><?php _e( 'Categories', 'madeleine' ); ?></h4>
           <ul>
-            <?php madeleine_categories_list(); ?>
+            <?php echo madeleine_categories_list(); ?>
           </ul>
         </section>
         <section>

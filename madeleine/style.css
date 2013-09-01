@@ -51,12 +51,14 @@ a:hover{ text-decoration: underline;}
 .tabs{ background: #f2f4f6; font: italic 11px/30px Bitter, Georgia, serif; height: 30px; letter-spacing: 0.125em; text-transform: uppercase;}
 .tabs li{ display: inline;}
 .tabs p,
-.tabs a{ float: left; padding: 0 15px;}
+.tabs a,
+.tabs strong{ float: left; padding: 0 15px;}
 .tabs p{ background: #444; color: white;}
 .tabs p a{ background: none; color: white; float: none; padding: 0;}
 .tabs a:hover,
 .tabs .on{ background: #708491; color: white !important; text-decoration: none;}
 .tabs p a:hover{ background: none; text-decoration: underline;}
+.tabs strong{ font-size: 13px; font-style: normal; font-weight: normal; letter-spacing: 0; text-transform: none;}
 .tabs em a{ float: right; letter-spacing: 0; text-transform: none;}
 .section, .widget-title{ color: #708491; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 5px; text-transform: uppercase;}
 .loading{ background: rgba(14, 24, 31, 0.86) url(images/loading.gif) no-repeat center center; display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 9999;}
@@ -144,9 +146,10 @@ a:hover{ text-decoration: underline;}
 
 #sidebar{ border-left: 1px solid #eaedef; float: right; font-size: 12px; margin: 20px 19px 0 0; padding-left: 19px; position: relative; right: 1px; width: 300px;}
 .widget{ border-bottom: 1px solid #eaedef; margin-bottom: 20px; padding-bottom: 20px; position: relative;}
+.widget:last-child{ border-bottom: none; margin-bottom: 0;}
 #wp-calendar{ width: 100%;}
 .widget_calendar{ border-bottom: none;}
-#wp-calendar caption{ background: #eaedef;}
+#wp-calendar caption{ background: #eaedef; color: #708491; font: italic 13px/1.15 Bitter, Georgia, serif; padding: 10px;}
 #wp-calendar th,
 #wp-calendar td{ padding: 4px 0; text-align: center;}
 #wp-calendar th{ background: #d7dce1;}
@@ -260,8 +263,8 @@ a:hover{ text-decoration: underline;}
 .board .entry-category li{ display: block;}
 .board .entry-category a{ font-size: 10px; padding: 0 4px 1px;}
 
-.wheel{ clear: both; display: none;}
-.wheel:first-child{ display: block;}
+.wheels{ border-top: 1px solid #eaedef;}
+.wheel{ border-bottom: 1px solid #eaedef; clear: both;}
 .wheel .post{ clear: none; float: left; padding: 20px; position: relative; width: 300px;}
 .wheel .entry-thumbnail{ margin-bottom: 10px;}
 .wheel .entry-comments{ margin: 0 0 10px 10px;}
@@ -506,156 +509,6 @@ a:hover{ text-decoration: underline;}
 #date-archive .active .select{ display: none;}
 
 #date-archive button{ float: right;}
-
-/* Colors */
-
-/*.post.category-tech a,
-#nav .category-tech a:hover,
-.tabs .category-tech a,
-body.category-tech #nav .current-cat a,
-#category.category-tech .current-cat a{ color: #d0574e;}
-.tabs .category-tech a:hover,
-.tabs .category-tech .on,
-#category.category-tech strong,
-.category-tech .entry-category a,
-#popular .category-tech em,
-#popular .category-tech strong,
-.format-image.category-tech .entry-thumbnail:hover:after,
-.format-video.category-tech .entry-thumbnail:hover:after{ background-color: #d0574e;}
-.quote.category-tech,
-#category.category-tech strong:after{ border-left-color: #d0574e;}
-#nav .category-tech a,
-body.category-tech,
-body.category-tech #nav .current-cat a,
-#category.category-tech .wrap,
-.focus.category-tech .focus-text{ border-top-color: #d0574e;}
-
-.post.category-social-media a,
-#nav .category-social-media a:hover,
-.tabs .category-social-media a,
-body.category-social-media #nav .current-cat a,
-#category.category-social-media .current-cat a{ color: #4d9cd1;}
-.tabs .category-social-media a:hover,
-.tabs .category-social-media .on,
-#category.category-social-media strong,
-.category-social-media .entry-category a,
-#popular .category-social-media em,
-#popular .category-social-media strong,
-.format-image.category-social-media .entry-thumbnail:hover:after,
-.format-video.category-social-media .entry-thumbnail:hover:after{ background-color: #4d9cd1;}
-.quote.category-social-media,
-#category.category-social-media strong:after{ border-left-color: #4d9cd1;}
-#nav .category-social-media a,
-body.category-social-media,
-body.category-social-media #nav .current-cat a,
-#category.category-social-media .wrap,
-.focus.category-social-media .focus-text{ border-top-color: #4d9cd1;}
-
-.post.category-mobile a,
-#nav .category-mobile a:hover,
-.tabs .category-mobile a,
-body.category-mobile #nav .current-cat a,
-#category.category-mobile .current-cat a{ color: #96ca47;}
-.tabs .category-mobile a:hover,
-.tabs .category-mobile .on,
-#category.category-mobile strong,
-.category-mobile .entry-category a,
-#popular .category-mobile em,
-#popular .category-mobile strong,
-.format-image.category-mobile .entry-thumbnail:hover:after,
-.format-video.category-mobile .entry-thumbnail:hover:after{ background-color: #96ca47;}
-.quote.category-mobile,
-#category.category-mobile strong:after{ border-left-color: #96ca47;}
-#nav .category-mobile a,
-body.category-mobile,
-body.category-mobile #nav .current-cat a,
-#category.category-mobile .wrap,
-.focus.category-mobile .focus-text{ border-top-color: #96ca47;}
-
-.post.category-coding a,
-#nav .category-coding a:hover,
-.tabs .category-coding a,
-body.category-coding #nav .current-cat a,
-#category.category-coding .current-cat a{ color: #d1ae4d;}
-.tabs .category-coding a:hover,
-.tabs .category-coding .on,
-#category.category-coding strong,
-.category-coding .entry-category a,
-#popular .category-coding em,
-#popular .category-coding strong,
-.format-image.category-coding .entry-thumbnail:hover:after,
-.format-video.category-coding .entry-thumbnail:hover:after{ background-color: #d1ae4d;}
-.quote.category-coding,
-#category.category-coding strong:after{ border-left-color: #d1ae4d;}
-#nav .category-coding a,
-body.category-coding,
-body.category-coding #nav .current-cat a,
-#category.category-coding .wrap,
-.focus.category-coding .focus-text{ border-top-color: #d1ae4d;}
-
-.post.category-design a,
-#nav .category-design a:hover,
-.tabs .category-design a,
-body.category-design #nav .current-cat a,
-#category.category-design .current-cat a{ color: #6acdb3;}
-.tabs .category-design a:hover,
-.tabs .category-design .on,
-#category.category-design strong,
-.category-design .entry-category a,
-#popular .category-design em,
-#popular .category-design strong,
-.format-image.category-design .entry-thumbnail:hover:after,
-.format-video.category-design .entry-thumbnail:hover:after{ background-color: #6acdb3;}
-.quote.category-design,
-#category.category-design strong:after{ border-left-color: #6acdb3;}
-#nav .category-design a,
-body.category-design,
-body.category-design #nav .current-cat a,
-#category.category-design .wrap,
-.focus.category-design .focus-text{ border-top-color: #6acdb3;}
-
-.post.category-gaming a,
-#nav .category-gaming a:hover,
-.tabs .category-gaming a,
-body.category-gaming #nav .current-cat a,
-#category.category-gaming .current-cat a{ color: #d087cb;}
-.tabs .category-gaming a:hover,
-.tabs .category-gaming .on,
-#category.category-gaming strong,
-.category-gaming .entry-category a,
-#popular .category-gaming em,
-#popular .category-gaming strong,
-.format-image.category-gaming .entry-thumbnail:hover:after,
-.format-video.category-gaming .entry-thumbnail:hover:after{ background-color: #d087cb;}
-.quote.category-gaming,
-#category.category-gaming strong:after{ border-left-color: #d087cb;}
-#nav .category-gaming a,
-body.category-gaming,
-body.category-gaming #nav .current-cat a,
-#category.category-gaming .wrap,
-.focus.category-gaming .focus-text{ border-top-color: #d087cb;}
-
-
-.post.category-business a,
-#nav .category-business a:hover,
-.tabs .category-business a,
-body.category-business #nav .current-cat a,
-#category.category-business .current-cat a{ color: #c0c75b; color: #d1d126;}
-.tabs .category-business a:hover,
-.tabs .category-business .on,
-#category.category-business strong,
-.category-business .entry-category a,
-#popular .category-business em,
-#popular .category-business strong,
-.format-image.category-business .entry-thumbnail:hover:after,
-.format-video.category-business .entry-thumbnail:hover:after{ background-color: #d1d126;}
-.quote.category-business,
-#category.category-business strong:after{ border-left-color: #d1d126;}
-#nav .category-business a,
-body.category-business,
-body.category-business #nav .current-cat a,
-#category.category-business .wrap,
-.focus.category-business .focus-text{ border-top-color: #d1d126;}*/
 
 /* CSS 3 */
 

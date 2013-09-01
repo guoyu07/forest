@@ -11,3 +11,26 @@
 
 #madeleine-category-color-form{ display: none;}
 #madeleine-color-choices li{ display: inline-block; cursor: pointer; height: 20px; width: 20px;}
+
+#madeleine-settings{ margin-top: 20px;}
+#madeleine-settings-header{ background: #f2f4f6; border: 1px solid #eaedef; border-radius: 10px 10px 0 0; padding: 20px; padding-bottom: 0;}
+#madeleine-settings-header h2{ padding: 0;}
+#madeleine-settings-header #madeleine-settings-title{ background: url(../../images/logo.png) no-repeat center left; font: bold 20px/58px Bitter, Georgia, serif; height: 60px; margin-bottom: 20px; padding-left: 80px;}
+#madeleine-settings-header h2.nav-tab-wrapper{ border-bottom: none; margin-top: 20px;}
+#madeleine-settings-header h2 .nav-tab{ border-color: transparent; color: #708491; float: left; font: normal 13px/1 Bitter, Georgia, serif; margin: 0 5px -1px 0; padding: 12px 15px;}
+#madeleine-settings-header h2 .nav-tab:hover{ background: #eaedef;}
+#madeleine-settings-header h2 .nav-tab-active,
+#madeleine-settings-header h2 .nav-tab-active:hover{ background: #fff; border-color: #eaedef; border-bottom-color: transparent; color: #444; font-weight: bold;}
+#madeleine-settings-form{ border: solid #eaedef; border-radius: 0 0 10px 10px; border-width: 0 1px 1px; padding: 20px;}
+#madeleine-settings-form h3{ border-top: 1px solid #eaedef; color: #708491; font: italic 18px/1.15 Bitter, Georgia, serif; margin: 0; padding-top: 20px;}
+#madeleine-settings-form h3:first-of-type{ border-top: none; padding-top: 0;}
+#madeleine-settings-form .form-table{ margin: 0 0 20px; width: 70%;}
+#madeleine-settings-form .form-table tr{ background: #f2f4f6;}
+#madeleine-settings-form .form-table th,
+#madeleine-settings-form .form-table td{ border-top: 1px solid #d7dce1; color: #708491;}
+#madeleine-settings-form .form-table th{ background: #eaedef; color: #708491; font-weight: bold;}
+#madeleine-settings-form .form-table tr:hover th,
+#madeleine-settings-form .form-table tr:hover td{ color: #444;}
+#madeleine-settings-form .form-table tr:hover input,
+#madeleine-settings-form .form-table tr:hover textarea{ border-color: #444;}
+#madeleine-settings-form .form-table label{ cursor: pointer; margin-right: 10px;}
