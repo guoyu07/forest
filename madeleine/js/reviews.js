@@ -1,5 +1,10 @@
 jQuery(document).ready(function ($) {
 
+  // Defaults
+
+  var maximum_rating = $('#reviews #menu').data('maximum-rating');
+  var maximum_price = $('#reviews #menu').data('maximum-price');
+
   // Functions
 
   function URLToArray(query) {
@@ -27,7 +32,9 @@ jQuery(document).ready(function ($) {
   }
 
   function RatingValue(a, b) {
-    return '<span class="rating rating-' + a + '">' + a + '</span> - <span class="rating rating-' + b + '">' + b + '</span>';
+    var a_range = a * 10 / maximum_rating;
+    var b_range = b * 10 / maximum_rating;
+    return '<span class="rating rating-' + a_range + '">' + a + '</span> - <span class="rating rating-' + b_range + '">' + b + '</span>';
   }
 
   function LoadReviews(url) {
@@ -56,9 +63,9 @@ jQuery(document).ready(function ($) {
   var price_value = $('#price-value');
 
   var rating_min = (parameters['rating_min'] != undefined) ? parameters['rating_min'] : 0;
-  var rating_max = (parameters['rating_max'] != undefined) ? parameters['rating_max'] : 10;
+  var rating_max = (parameters['rating_max'] != undefined) ? parameters['rating_max'] : maximum_rating;
   var price_min = (parameters['price_min'] != undefined) ? parameters['price_min'] : 0;
-  var price_max = (parameters['price_max'] != undefined) ? parameters['price_max'] : 2000;
+  var price_max = (parameters['price_max'] != undefined) ? parameters['price_max'] : maximum_price;
 
   if ( parameters['product_id'] != '' )
     $('#products li[data-id="' + parameters['product_id'] + '"').addClass('current-cat');
@@ -110,7 +117,8 @@ jQuery(document).ready(function ($) {
   rating.slider({
     range: true,
     min: 0,
-    max: 10,
+    max: rating_max,
+    step: maximum_rating / 10,
     values: [ rating_min, rating_max ],
     slide: function(event, ui) {
       rating_value.html(RatingValue(ui.values[0], ui.values[1]));
@@ -123,7 +131,7 @@ jQuery(document).ready(function ($) {
   price.slider({
     range: true,
     min: 0,
-    max: 2000,
+    max: price_max,
     step: 50,
     values: [ price_min, price_max ],
     slide: function(event, ui) {

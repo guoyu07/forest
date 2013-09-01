@@ -52,13 +52,14 @@ add_action( 'admin_init', 'madeleine_initialize_reviews_options' );
 
 
 function madeleine_rating_callback() {
-  echo '<p>Choose the maximum rating value for the reviews.</p>';
+  echo '<p>Choose the maximum rating value for the reviews. You will need to make sure that each review has a rating <strong>between 0 and this maximum value</strong>.<br>
+  For example, if the maximum rating is set at 10, you can enter values like 9.4, 5.6, 7.1, but not 11.4.</p>';
 }
 
 
 function madeleine_maximum_rating_callback() {
   $settings = get_option( 'madeleine_reviews_options' );
-  $numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 50, 100];
+  $numbers = [10, 20, 50, 100];
   $html = '<select name="madeleine_reviews_options[maximum_rating]">';
   foreach ($numbers as $number ):
     $html .= '<option value="' . $number . '"' . selected( $number, $settings['maximum_rating'], false ) . '>' . $number . '</option>';

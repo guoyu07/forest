@@ -160,11 +160,36 @@ if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
 add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
 
 
+if ( !function_exists( 'madeleine_custom_colors' ) ) {
+  function madeleine_custom_colors() {
+    $main_color = get_option( 'madeleine_main_color' );
+    $reviews_color = get_option( 'madeleine_reviews_color' );
+    $custom_css = '<style id="madeleine-custom-colors" type="text/css">';
+    if ( isset( $main_color ) && $main_color != '' ):
+      $custom_css .= 'body{ border-top-color: ' . $main_color . ';}';
+      $custom_css .= '#wp-calendar a,.entry-title a,#category .current-cat a{ color: ' . $main_color . ';}';
+      $custom_css .= '#wp-calendar #today,.post .entry-category a,.format-image .entry-thumbnail:hover:after,.format-video .entry-thumbnail:hover:after,#category strong{ background-color: ' . $main_color . ';}';
+      $custom_css .= '#category strong:after{ border-left-color: ' . $main_color . ';}';
+    endif;
+    if ( isset( $reviews_color ) && $reviews_color != '' ):
+      $custom_css .= '.review .entry-title a,#nav .reviews:hover{ color: ' . $reviews_color . ';}';
+      $custom_css .= '.review .entry-category a,.single-review #category strong{ background-color: ' . $reviews_color . ';}';
+      $custom_css .= '#jump .on,#jump .on:hover,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
+      $custom_css .= '#nav .reviews{ border-top-color: ' . $reviews_color . ';}';
+      $custom_css .= '.single-review #category strong:after{ border-left-color: ' . $reviews_color . ';}';
+    endif;
+    $custom_css .= '</style>';
+    echo $custom_css;
+  }
+}
+add_action( 'wp_print_styles', 'madeleine_custom_colors' );
+
+
 if ( !function_exists( 'madeleine_categories_colors' ) ) {
   function madeleine_categories_colors() {
     $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
     $category_meta = get_option( 'madeleine_category_meta' );
-    $style = '<style>';
+    $style = '<style id="madeleine-categories-colors" type="text/css">';
     foreach( $cats as $cat ):
       if ( isset( $category_meta[$cat->term_id] ) ):
         $color = $category_meta[$cat->term_id]['color'];
@@ -181,7 +206,21 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
     echo $style;
   }
 }
-add_action( 'wp_head', 'madeleine_categories_colors' );
+add_action( 'wp_print_styles', 'madeleine_categories_colors' );
+
+
+if ( !function_exists( 'madeleine_custom_css' ) ) {
+  function madeleine_custom_css() {
+    $css_options = get_option( 'madeleine_css_options' );
+    if ( isset( $css_options['custom_code'] ) && $css_options['custom_code'] != '' ):
+      $custom_css = '<style id="madeleine-custom-css" type="text/css">';
+      $custom_css .= $css_options['custom_code'];
+      $custom_css .= '</style>';
+      echo $custom_css;
+    endif;
+  }
+}
+add_action( 'wp_print_styles', 'madeleine_custom_css' );
 
 
 if ( !function_exists( 'madeleine_get_redirect_target' ) ) {
@@ -507,6 +546,9 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
     elseif ( $query->is_tag() && $query->is_main_query() ):
       $query->set( 'posts_per_page', -1 );
     elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax( 'product' ) || $query->is_tax( 'brand' ) ) && $query->is_main_query() ):
+      $reviews_options = get_option( 'madeleine_reviews_options' );
+      $maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
+      $maximum_price = ( isset( $reviews_options['maximum_price'] ) ) ? $reviews_options['maximum_price'] : 2000;
       $product = get_query_var( 'product_id' ) != '' ? get_query_var( 'product_id' ) : '';
       $brand = get_query_var( 'brand_id' ) != '' ? get_query_var( 'brand_id' ) : '';
       $tax_query = array(
@@ -529,9 +571,9 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
         );
       endif;
       $rating_min = get_query_var( 'rating_min' ) != '' ? get_query_var( 'rating_min' ) : 0;
-      $rating_max = get_query_var( 'rating_max' ) != '' ? get_query_var( 'rating_max' ) : 10;
+      $rating_max = get_query_var( 'rating_max' ) != '' ? get_query_var( 'rating_max' ) : $maximum_rating;
       $price_min = get_query_var( 'price_min' ) != '' ? get_query_var( 'price_min' ) : 0;
-      $price_max = get_query_var( 'price_max' ) != '' ? get_query_var( 'price_max' ) : 2000;
+      $price_max = get_query_var( 'price_max' ) != '' ? get_query_var( 'price_max' ) : $maximum_price;
       $rating_range = array( $rating_min, $rating_max );
       $price_range = array( $price_min, $price_max );
       $meta_query = array(
@@ -1033,8 +1075,11 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
 
 if ( !function_exists( 'madeleine_entry_rating' ) ) {
   function madeleine_entry_rating( $id, $echo = true ) {
+    $reviews_options = get_option( 'madeleine_reviews_options' );
+    $maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
     $rating = get_post_meta( $id, '_madeleine_review_rating', true );
-    $div = '<div class="entry-rating rating-' . floor( $rating ) . '">' . $rating . '</div>';
+    $range = floor( $rating * 10 / $maximum_rating );
+    $div = '<div class="entry-rating rating-' . $range . '">' . $rating . '</div>';
     if ( $echo )
       echo $div;
     else
@@ -1306,6 +1351,9 @@ if ( !function_exists( 'madeleine_reviews_breadcrumb' ) ) {
 
 if ( !function_exists( 'madeleine_reviews_menu' ) ) {
   function madeleine_reviews_menu() {
+    $reviews_options = get_option( 'madeleine_reviews_options' );
+    $maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
+    $maximum_price = ( isset( $reviews_options['maximum_price'] ) ) ? $reviews_options['maximum_price'] : 2000;
     $reviews_count = wp_count_posts( 'review' );
     $product_args = array(
       'depth' => 1,
@@ -1318,7 +1366,7 @@ if ( !function_exists( 'madeleine_reviews_menu' ) ) {
     );
     $brand_args = $product_args;
     $brand_args['taxonomy'] = 'brand';
-    $menu = '<div id="menu">';
+    $menu = '<div id="menu" data-maximum-rating="' . $maximum_rating . '" data-maximum-price="' . $maximum_price . '">';
     $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">' . __( 'All reviews', 'madeleine' ) . '</a></p>';
     $menu .= '<p class="section">' . __( 'Products', 'madeleine' ) . '</p>';
     $menu .= '<ul id="products">' . madeleine_taxonomy_list( 'product' ) . '</ul>';

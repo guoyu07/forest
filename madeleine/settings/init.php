@@ -9,6 +9,7 @@ define( 'SETTINGS_DIR', get_template_directory() .'/settings' );
 require_once( SETTINGS_DIR .'/custom/custom-header.php' );
 require_once( SETTINGS_DIR .'/custom/custom-background.php' );
 require_once( SETTINGS_DIR .'/custom/custom-categories.php' );
+require_once( SETTINGS_DIR .'/custom/custom-colors.php' );
 
 
 /**
@@ -77,15 +78,6 @@ function madeleine_theme_settings() {
     'madeleine_css_options_page',
     create_function( null, 'madeleine_settings_display( "css_options" );' )
   );
-  
-  add_submenu_page(
-    'madeleine_settings_page',
-    __( 'Input Examples', 'madeleine' ),
-    __( 'Input Examples', 'madeleine' ),
-    'update_core',
-    'madeleine_input_examples_page',
-    create_function( null, 'madeleine_settings_display( "input_examples" );' )
-  );
 }
 add_action( 'admin_menu', 'madeleine_theme_settings' );
 
@@ -107,10 +99,10 @@ function madeleine_settings_display( $active_tab = '' ) {
         $active_tab = 'reviews_options';
       elseif ( $active_tab == 'css_options' ):
         $active_tab = 'css_options';
-      elseif ( $active_tab == 'other_options' ):
-        $active_tab = 'other_options';
-      elseif ( $active_tab == 'input_examples' ):
-        $active_tab = 'input_examples';
+      elseif ( $active_tab == 'header_and_background_options' ):
+        $active_tab = 'header_and_background_options';
+      elseif ( $active_tab == 'colors_options' ):
+        $active_tab = 'colors_options';
       else:
         $active_tab = 'home_options';
       endif;
@@ -121,8 +113,8 @@ function madeleine_settings_display( $active_tab = '' ) {
         <a href="?page=madeleine_settings_page&tab=analytics_options" class="nav-tab <?php echo $active_tab == 'analytics_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Feedburner &amp; Analytics', 'madeleine' ); ?></a>
         <a href="?page=madeleine_settings_page&tab=reviews_options" class="nav-tab <?php echo $active_tab == 'reviews_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a>
         <a href="?page=madeleine_settings_page&tab=css_options" class="nav-tab <?php echo $active_tab == 'css_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Custom CSS', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=other_options" class="nav-tab <?php echo $active_tab == 'other_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Header &amp; Background', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=input_examples" class="nav-tab <?php echo $active_tab == 'input_examples' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Input Examples', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_settings_page&tab=header_and_background_options" class="nav-tab <?php echo $active_tab == 'header_and_background_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Header &amp; Background', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_settings_page&tab=colors_options" class="nav-tab <?php echo $active_tab == 'colors_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Colors', 'madeleine' ); ?></a>
         <div style="clear: left;"></div>
       </h2>
     </div>
@@ -144,20 +136,28 @@ function madeleine_settings_display( $active_tab = '' ) {
         elseif( $active_tab == 'css_options' ):
           settings_fields( 'madeleine_css_options_group' );
           do_settings_sections( 'madeleine_css_options_page' );
-        elseif( $active_tab == 'other_options' ):
+        elseif( $active_tab == 'header_and_background_options' ):
           $html = '<h3>Header</h3>';
-          $html .= '<p>You can customize the <strong>header logo, title, subtitle, and color</strong> on the <a href="' . get_admin_url() . '/themes.php?page=custom-header">Custom Header</a> page or use the <a href="' . get_admin_url() . '/customize.php">WordPress Customizer</a>.</p>';
+          $html .= '<p>You can customize the <strong>header logo, title, subtitle, and color</strong> on the <a href="' . get_admin_url() . '/themes.php?page=custom-header">Custom Header</a> page or use the <a href="' . get_admin_url() . 'customize.php">WordPress Customizer</a>.</p>';
           $html .= '<h3>Background</h3>';
-          $html .= '<p>You can customize the <strong>background image, color, position, repeat, and attachment</strong> on the <a href="' . get_admin_url() . '/themes.php?page=custom-background">Custom Background</a>  or use the <a href="' . get_admin_url() . '/customize.php">WordPress Customizer</a>.</p>';
+          $html .= '<p>You can customize the <strong>background image, color, position, repeat, and attachment</strong> on the <a href="' . get_admin_url() . '/themes.php?page=custom-background">Custom Background</a>  or use the <a href="' . get_admin_url() . 'customize.php">WordPress Customizer</a>.</p>';
           echo $html;
-        elseif( $active_tab == 'input_examples' ):
-          settings_fields( 'madeleine_input_examples_group' );
-          do_settings_sections( 'madeleine_input_examples_page' );
+        elseif( $active_tab == 'colors_options' ):
+          $html = '<h3>Category colors</h3>';
+          $html .= '<p>If a category is a <strong>top-level category</strong> (i.e. it has no parent category), you can set a color for that category and its children.<br>
+           Just go to the <a href="' . get_admin_url() . 'edit-tags.php?taxonomy=category">Categories main page</a> and browse to a category\'s edit page to choose a color.</p>';
+          $html .= '<h3>Main color</h3>';
+          $html .= '<p>The Main color is the default color for categories, as well as the color of various elements of the website (calendar, top border, entry titles...).<br>
+          You can set it in the <a href="' . get_admin_url() . 'customize.php">WordPress Customizer</a></p>';
+          $html .= '<h3>Reviews color</h3>';
+          $html .= '<p>The Reviews section of the website has also its own color.<br>
+          You can set it in the <a href="' . get_admin_url() . 'customize.php">WordPress Customizer</a></p>';
+          echo $html;
         else:
           settings_fields( 'madeleine_home_options_group' );
           do_settings_sections( 'madeleine_home_options_page' );
         endif;
-        if ( $active_tab != 'other_options' )
+        if ( $active_tab != 'header_and_background_options' && $active_tab != 'colors_options' )
           submit_button();
       ?>
     </form>
@@ -174,7 +174,7 @@ require_once( SETTINGS_DIR .'/pages/social-options.php' );
 require_once( SETTINGS_DIR .'/pages/analytics-options.php' );
 require_once( SETTINGS_DIR .'/pages/reviews-options.php' );
 require_once( SETTINGS_DIR .'/pages/css-options.php' );
-require_once( SETTINGS_DIR .'/pages/examples-options.php' );
+// require_once( SETTINGS_DIR .'/pages/examples-options.php' );
 
 
 ?>

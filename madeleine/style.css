@@ -88,9 +88,10 @@ a:hover{ text-decoration: underline;}
 #header{ padding-top: 20px;}
 #logo{ display: block; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; margin-bottom: 20px;}
 #title,
-#footer-title{ color: #d0574e; font-size: 22px; font-weight: bold; padding-top: 6px;}
+#footer-title{ font-size: 22px; font-weight: bold; padding-top: 6px;}
 #description,
 #footer-description{ color: #708491; font-size: 16px; font-style: italic; padding-top: 4px;}
+#title{ color: #d0574e;}
 #logo:hover{ text-decoration: none;}
 #social-header{ height: 30px; position: absolute; right: 260px; top: 15px;}
 #social-header li{ display: inline;}
@@ -426,7 +427,7 @@ a:hover{ text-decoration: underline;}
 .reviews-grid .review .entry-rating{ position: absolute; right: 0; top: 0;}
 .reviews-list .review{ padding-right: 80px;}
 .reviews-list .review .entry-rating{ left: auto; position: absolute; right: 0; top: 0;}
-.reviews-list .review .entry-price{ position: absolute; right: 0; top: 60px;}
+.reviews-list .review .entry-price{ left: auto; position: absolute; right: 0; top: 60px;}
 
 .single-review .review .entry-header{ background: rgba(14, 24, 31, 0.48); left: 0; padding: 40px; position: absolute; top: 70px; width: 940px; z-index: 1986;}
 .single-review .review .entry-title{ color: white; font-size: 40px; line-height: 1.15;}

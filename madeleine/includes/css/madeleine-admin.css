@@ -21,13 +21,13 @@
 #madeleine-settings-header h2 .nav-tab:hover{ background: #eaedef;}
 #madeleine-settings-header h2 .nav-tab-active,
 #madeleine-settings-header h2 .nav-tab-active:hover{ background: #fff; border-color: #eaedef; border-bottom-color: transparent; color: #444; font-weight: bold;}
-#madeleine-settings-form{ border: solid #eaedef; border-radius: 0 0 10px 10px; border-width: 0 1px 1px; padding: 20px;}
+#madeleine-settings-form{ border: solid #eaedef; border-radius: 0 0 10px 10px; border-width: 0 1px 1px; font-size: 14px; line-height: 1.5; padding: 20px;}
 #madeleine-settings-form h3{ border-top: 1px solid #eaedef; color: #708491; font: italic 18px/1.15 Bitter, Georgia, serif; margin: 0; padding-top: 20px;}
 #madeleine-settings-form h3:first-of-type{ border-top: none; padding-top: 0;}
 #madeleine-settings-form .form-table{ margin: 0 0 20px; width: 70%;}
 #madeleine-settings-form .form-table tr{ background: #f2f4f6;}
 #madeleine-settings-form .form-table th,
-#madeleine-settings-form .form-table td{ border-top: 1px solid #d7dce1; color: #708491;}
+#madeleine-settings-form .form-table td{ border: 1px solid #d7dce1; color: #708491;}
 #madeleine-settings-form .form-table th{ background: #eaedef; color: #708491; font-weight: bold;}
 #madeleine-settings-form .form-table tr:hover th,
 #madeleine-settings-form .form-table tr:hover td{ color: #444;}

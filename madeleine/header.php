@@ -65,7 +65,7 @@
           <ul>
             <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home"><?php _e( 'Home', 'madeleine' ); ?></a></li>
             <?php echo madeleine_categories_list(); ?>
-            <li><a href="<?php echo get_post_type_archive_link( 'review' ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
+            <li><a class="reviews" href="<?php echo get_post_type_archive_link( 'review' ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
             <li><a class="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>"><?php _e( 'Quotes', 'madeleine' ); ?></a></li>
             <li><a class="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>"><?php _e( 'Links', 'madeleine' ); ?></a></li>
             <li><a class="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>"><?php _e( 'Videos', 'madeleine' ); ?></a></li>

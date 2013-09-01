@@ -23,7 +23,7 @@ function madeleine_header_style() {
     return;
   ?>
 
-  <style type="text/css" id="madeleine-header-css">
+  <style id="madeleine-header-css" type="text/css">
     <?php if ( !empty( $header_image ) ) : ?>
       #logo{ background: url(<?php echo $header_image; ?>) no-repeat center left; padding-left: 80px;}
     <?php endif; ?>
@@ -45,7 +45,7 @@ function madeleine_header_style() {
 function madeleine_admin_header_style() {
   $header_image = get_header_image();
   ?>
-  <style type="text/css" id="madeleine-admin-header-css">
+  <style id="madeleine-admin-header-css" type="text/css">
   .appearance_page_custom-header #headimg{ height: 60px; padding: 20px 0;}
   #headimg .home-link{ background: url(<?php echo $header_image; ?>) no-repeat center left; display: block; float: left; height: 60px;}
   #headimg h1,
