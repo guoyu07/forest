@@ -51,8 +51,8 @@
           <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
         </hgroup>
       </a>
-      <ul id="social-header">
-        <li><a class="social-rss" href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
+      <ul id="social-icons">
+        <li class="social-rss"><a href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
         <?php madeleine_social_links(); ?>
       </ul>
       <?php get_search_form(); ?>

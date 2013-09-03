@@ -1,6 +1,7 @@
 <?php
 
 define( 'SETTINGS_DIR', get_template_directory() .'/settings' );
+define( 'SETTINGS_URL', get_template_directory_uri() .'/settings' );
 
 
 // Load the custom header, custom background and custom categories functions
@@ -18,6 +19,8 @@ require_once( SETTINGS_DIR .'/custom/custom-colors.php' );
  */
 function madeleine_theme_settings() {
 
+  $icon = SETTINGS_URL . '/images/icon.png';
+
   // add_menu_page(
   //   'Madeleine Theme',           // The title to be displayed in the browser window for this page.
   //   'Madeleine',                 // The text to be displayed for this menu item
@@ -26,16 +29,17 @@ function madeleine_theme_settings() {
   //   'madeleine_settings_display' // The name of the function to call when rendering this menu's page
   // );
 
-  add_theme_page(
+  add_object_page(
     'Madeleine Theme Settings',     // The title to be displayed in the browser window for this page.
-    'Madeleine Settings',           // The text to be displayed for this menu item
+    'Madeleine',                    // The text to be displayed for this menu item
     'update_core',                  // Which type of users can see this menu item
-    'madeleine_settings_page',      // The unique ID - that is, the slug - for this menu item
-    'madeleine_settings_display'    // The name of the function to call when rendering this menu's page
+    'madeleine_home_options_page',      // The unique ID - that is, the slug - for this menu item
+    'madeleine_settings_display',   // The name of the function to call when rendering this menu's page
+    $icon
   );
   
   add_submenu_page(
-    'madeleine_settings_page',        // The ID of the top-level menu page to which this submenu item belongs
+    'madeleine_home_options_page',        // The ID of the top-level menu page to which this submenu item belongs
     __( 'Home Options', 'madeleine' ),        // The value used to populate the browser's title bar when the menu page is active
     __( 'Home Options', 'madeleine' ),        // The label of this submenu item displayed in the menu
     'update_core',                    // What roles are able to access this submenu item
@@ -44,7 +48,7 @@ function madeleine_theme_settings() {
   );
   
   add_submenu_page(
-    'madeleine_settings_page',
+    'madeleine_home_options_page',
     __( 'Social Features', 'madeleine' ),
     __( 'Social Features', 'madeleine' ),
     'update_core',
@@ -53,7 +57,7 @@ function madeleine_theme_settings() {
   );
   
   add_submenu_page(
-    'madeleine_settings_page',
+    'madeleine_home_options_page',
     __( 'Feedburner and Analytics', 'madeleine' ),
     __( 'Feedburner and Analytics', 'madeleine' ),
     'update_core',
@@ -62,7 +66,7 @@ function madeleine_theme_settings() {
   );
   
   add_submenu_page(
-    'madeleine_settings_page',
+    'madeleine_home_options_page',
     __( 'Reviews', 'madeleine' ),
     __( 'Reviews', 'madeleine' ),
     'update_core',
@@ -71,12 +75,30 @@ function madeleine_theme_settings() {
   );
   
   add_submenu_page(
-    'madeleine_settings_page',
+    'madeleine_home_options_page',
     __( 'Custom CSS', 'madeleine' ),
     __( 'Custom CSS', 'madeleine' ),
     'update_core',
     'madeleine_css_options_page',
     create_function( null, 'madeleine_settings_display( "css_options" );' )
+  );
+  
+  add_submenu_page(
+    'madeleine_home_options_page',
+    __( 'Header & Background', 'madeleine' ),
+    __( 'Header & Background', 'madeleine' ),
+    'update_core',
+    'madeleine_header_and_background_options_page',
+    create_function( null, 'madeleine_settings_display( "header_and_background_options" );' )
+  );
+  
+  add_submenu_page(
+    'madeleine_home_options_page',
+    __( 'Colors', 'madeleine' ),
+    __( 'Colors', 'madeleine' ),
+    'update_core',
+    'madeleine_colors_options_page',
+    create_function( null, 'madeleine_settings_display( "colors_options" );' )
   );
 }
 add_action( 'admin_menu', 'madeleine_theme_settings' );
@@ -108,13 +130,13 @@ function madeleine_settings_display( $active_tab = '' ) {
       endif;
       ?>
       <h2 class="nav-tab-wrapper">
-        <a href="?page=madeleine_settings_page&tab=home_options" class="nav-tab <?php echo $active_tab == 'home_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Home Options', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=social_options" class="nav-tab <?php echo $active_tab == 'social_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Social features', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=analytics_options" class="nav-tab <?php echo $active_tab == 'analytics_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Feedburner &amp; Analytics', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=reviews_options" class="nav-tab <?php echo $active_tab == 'reviews_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=css_options" class="nav-tab <?php echo $active_tab == 'css_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Custom CSS', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=header_and_background_options" class="nav-tab <?php echo $active_tab == 'header_and_background_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Header &amp; Background', 'madeleine' ); ?></a>
-        <a href="?page=madeleine_settings_page&tab=colors_options" class="nav-tab <?php echo $active_tab == 'colors_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Colors', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_home_options_page" class="nav-tab <?php echo $active_tab == 'home_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Home Options', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_social_options_page" class="nav-tab <?php echo $active_tab == 'social_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Social Features', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_analytics_options_page" class="nav-tab <?php echo $active_tab == 'analytics_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Feedburner &amp; Analytics', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_reviews_options_page" class="nav-tab <?php echo $active_tab == 'reviews_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_css_options_page" class="nav-tab <?php echo $active_tab == 'css_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Custom CSS', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_header_and_background_options_page" class="nav-tab <?php echo $active_tab == 'header_and_background_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Header &amp; Background', 'madeleine' ); ?></a>
+        <a href="?page=madeleine_colors_options_page" class="nav-tab <?php echo $active_tab == 'colors_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Colors', 'madeleine' ); ?></a>
         <div style="clear: left;"></div>
       </h2>
     </div>

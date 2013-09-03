@@ -50,17 +50,47 @@ if ( function_exists('register_sidebar') )
 if ( !function_exists( 'madeleine_social_links' ) ) {
   function madeleine_social_links() {
     $social_options = get_option( 'madeleine_social_options' );
-    $social_header = '';
+    $social_links = '';
     if ( isset( $social_options['social_accounts'] ) ):
       foreach ( $social_options['social_accounts'] as $key => $value) {
         if ( $value != '' ):
           $slug = str_replace( '_account', '', $key );
-          $name = ( $slug == 'googleplus' ) ? 'Google +' : ucwords( $slug );
-          $social_header .= '<li><a class="social-' . $slug . '" href="' . $value . '">' . $name . '</a></li>';
+          $name = ucwords( $slug );
+          switch( $slug ):
+            case 'twitter':
+              $social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . $value . '">' . $name . '</a>';
+              $social_links .= '<div class="social-window"><a href="https://twitter.com/' . $value . '" class="twitter-follow-button" data-show-count="false">Follow @' . $value . '</a></div>';
+              $social_links .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+              break;
+            case 'facebook':
+              $social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . $value . '">' . $name . '</a>';
+              $social_links .= '<div class="social-window"><iframe src="//www.facebook.com/plugins/likebox.php?href=' . $value . '&amp;width=300&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="background:white; border:none; overflow:hidden; width:300px; height:62px;" allowTransparency="true"></iframe></div>';
+              break;
+            case 'googleplus':
+              $social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . $value . '">Google +</a>';
+              $social_links .= '<div class="social-window">';
+              $social_links .= '<div class="g-person" data-href="//plus.google.com/' . $value . '" data-rel="author"></div>';
+              $social_links .= '<script type="text/javascript">';
+              $social_links .= "(function() {";
+              $social_links .= "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;";
+              $social_links .= "po.src = 'https://apis.google.com/js/plusone.js';";
+              $social_links .= "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);";
+              $social_links .= "})();";
+              $social_links .= '</script>';
+              $social_links .= '</div>';
+              break;
+            case 'tumblr':
+              $social_links .= '<li class="social-' . $slug . '"><a href="http://' . $value . '.tumblr.com">' . $name . '</a>';
+              break;
+            case 'youtube':
+              $social_links .= '<li class="social-' . $slug . '"><a href="http://www.youtube.com/' . $value . '">' . $name . '</a>';
+              break;
+          endswitch;
+          $social_links .= '</li>';
         endif;
       }
     endif;
-    echo $social_header;
+    echo $social_links;
   }
 }
 

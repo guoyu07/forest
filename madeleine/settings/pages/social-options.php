@@ -6,8 +6,8 @@ function madeleine_default_social_options() {
       'twitter_account' => '',
       'facebook_account' => '',
       'googleplus_account' => '',
-      'youtube_account' => '',
-      'tumblr_account' => ''
+      'tumblr_account' => '',
+      'youtube_account' => ''
     ),
     'social_buttons' => array(
       'twitter_button' => 1,
@@ -61,21 +61,21 @@ function madeleine_intialize_social_options() {
   );
   
   add_settings_field( 
-    'youtube_account',
-    'YouTube',
-    'madeleine_social_account_callback',
-    'madeleine_social_options_page',
-    'social_accounts_section',
-    array( 'youtube' )
-  );
-  
-  add_settings_field( 
     'tumblr_account',
     'Tumblr',
     'madeleine_social_account_callback',
     'madeleine_social_options_page',
     'social_accounts_section',
     array( 'tumblr' )
+  );
+  
+  add_settings_field( 
+    'youtube_account',
+    'YouTube',
+    'madeleine_social_account_callback',
+    'madeleine_social_options_page',
+    'social_accounts_section',
+    array( 'youtube' )
   );
   
   add_settings_section(
@@ -152,7 +152,7 @@ function madeleine_social_account_callback( $args ) {
   // Next, we need to make sure the element is defined in the settings. If not, we'll set an empty string.
   $url = '';
   if( isset( $social_accounts[$key] ) )
-    $url = esc_url( $social_accounts[$key] );
+    $url = $social_accounts[$key];
   echo '<input class="regular-text" type="text" name="madeleine_social_options[social_accounts][' . $key . ']" value="' . $url . '">';
 }
 
