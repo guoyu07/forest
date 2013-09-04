@@ -4,12 +4,12 @@ jQuery(document).ready(function ($) {
 
   var pinterest = $('.pinterest');
   var pins = $('.pinterest .post');
+  var viewport = window.innerWidth;
 
-  function Grid(space) {
+  function Grid(space, gutter) {
     pins.css('position','absolute');
     var columns = 3;
     var column = (space / columns);
-    var gutter = 0;
     var pins_count = pins.size();
 
     var grid = new Array(columns);
@@ -24,10 +24,11 @@ jQuery(document).ready(function ($) {
       grid[lowest_index] += height;
       var x = ( lowest_index * column );
       var y = lowest;
+      $(this).css('padding', gutter);
       if (lowest_index == 0) {
         $(this).css('border-left', 'none');
         $(this).css('padding-left', 0);
-        x = 20;
+        x = gutter;
       } else if (lowest_index == 2) {
         $(this).css('padding-right', 0);
       }
@@ -40,22 +41,35 @@ jQuery(document).ready(function ($) {
   }
   
   function Reset() {
-    pins.css('padding-left', 0);
+    // pins.css('padding-left', 0);
     pins.css('position', 'static');
   }
   
   function Display(size) {
-    if (size > 980) {
-      pins.css('padding-left', 60);
-      Grid(940);
-    } else if (size > 860) {
-      pins.css('padding-left', 0);
-      Grid(820);
+    if (size > 1020) {
+      Grid(1020, 20);
+    } else if (size > 960) {
+      Grid(960, 15);
+    } else if (size > 900) {
+      Grid(900, 10);
+    } else if (size > 750) {
+      Grid(750, 10);
     } else {
       Reset();
     }
   }
+
+  // Grid(1020, 20);
+  // Grid(960, 15);
   
-  Grid(1020);
+  Display(window.innerWidth);
+  // alert(viewport.width);
+  
+  var resize_timer;
+  $(window).resize(function() {
+    var new_viewport = window.innerWidth;
+    clearTimeout(resize_timer);
+    resize_timer = setTimeout(Display(new_viewport), 100);
+  });
 
 });    

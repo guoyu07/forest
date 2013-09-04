@@ -113,6 +113,7 @@ a:hover{ text-decoration: underline;}
 #social-icons .social-youtube a{ background-color: #cd332d; background-position: -120px 0;}
 #social-icons .social-rss{ float: right;}
 #social-icons .social-rss a{ background-color: #f47c44; background-position: -150px 0;}
+#social-links .social-window{ display: none;}
 #header .search-form{ position: absolute; right: 0; top: 15px;}
 #navigation{ border: 0 solid #eaedef; border-width: 0 1px; clear: left; height: 60px;}
 #nav{ background: white; background: white; border: solid #eaedef; border-width: 1px 0; font: bold 14px/28px Bitter, Georgia, serif; height: 30px;}
@@ -307,7 +308,7 @@ a:hover{ text-decoration: underline;}
 .wheel .post:nth-child(4) .entry-thumbnail{ display: none;}
 
 .pinterest{ min-height: 600px; position: relative;}
-.pinterest .post{ border: solid #eaedef; border-width: 0 0 1px 1px; padding: 20px 19px 20px 20px; width: 300px;}
+.pinterest .post{ border: solid #eaedef; border-width: 0 0 1px 1px; padding: 20px; width: 300px;}
 .pinterest .entry-format{ line-height: 20px;}
 .pinterest .entry-title{ font-size: 18px; margin-bottom: 10px;}
 .pinterest .entry-thumbnail{ margin-bottom: 10px;}
@@ -478,12 +479,12 @@ a:hover{ text-decoration: underline;}
 /* 01 Home */
 
 #focus{ height: 480px; position: relative; width: 1020px;}
-.focus{ position: absolute;}
-#focus-1{ left: 0; top: 0;}
+.focus{ height: 160px; overflow: hidden; position: absolute; width: 340px;}
+#focus-1{ height: 320px; left: 0; top: 0; width: 680px;}
 #focus-2{ right: 0; top: 0;}
 #focus-3{ bottom: 0; left: 0;}
 #focus-4{ bottom: 0; left: 340px;}
-#focus-5{ bottom: 0; right: 0;}
+#focus-5{ bottom: 0; height: 320px; right: 0;}
 .focus-text{ background: rgba(14, 24, 31, 0.48); border-top: 1px solid #c33; bottom: 0; left: 0; padding: 20px; position: absolute; width: 300px;}
 #focus-1 .focus-text{ font-size: 16px; width: 640px;}
 #focus-1 .entry-title{ font-size: 32px;}
@@ -585,3 +586,183 @@ a:hover{ text-decoration: underline;}
 #menu .ui-slider-handle:hover,
 #menu .ui-state-active{ background: #d0574e;}
 .slider-value{ font-weight: bold;}
+
+/* Responsiveness */
+
+@media only screen and (max-width: 1020px) {
+  body{ background: red !important;}
+  /* Layout */
+  .wrap,
+  #full,
+  #focus{ width: 960px;}
+  #lead{ width: 640px;}
+  #sidebar{ margin: 15px 14px 0 0; padding-left: 14px; width: 290px;}
+  #footer section{ margin-right: 15px;}
+  /* Home */
+  #focus{ height: 450px;}
+  .focus{ height: 150px; width: 320px;}
+  .focus-text{ width: 280px;}
+  #focus-1{ height: 300px; width: 640px;}
+  #focus-1 .focus-text{ width: 600px;}
+  #focus-4{ left: 320px;}
+  #focus-5{ height: 300px;}
+  /* Lists */
+  .list{ padding: 15px;}
+  .list .entry-thumbnail{ margin-right: 15px;}
+  .grid{ padding: 0 14px 0 15px; width: 610px;}
+  .grid .post{ padding: 15px 14px 15px 15px; width: 290px;}
+  .board{ padding: 0 15px 15px;}
+  .board .post{ margin-top: 15px; width: 290px;}
+  .board .post:nth-child(2n-1){ margin-right: 30px;}
+  .wheel .post{ padding: 15px; width: 290px;}
+  .wheel .entry-title{ width: 290px;}
+  .wheel .entry-summary{ width: 290px;}
+  .wheel .post:nth-child(1),
+  .wheel .post:nth-child(5){ width: 610px;}
+  .wheel .post:nth-child(2){ padding-left: 14px;}
+  .wheel .post:nth-child(3),
+  .wheel .post:nth-child(4){ padding-right: 14px;}
+  .wheel .post:nth-child(5){ padding-left: 14px;}
+  .wheel .post:nth-child(1) .entry-thumbnail,
+  .wheel .post:nth-child(5) .entry-thumbnail{ margin-left: 15px;}
+  .reviews-grid .review{ height: 300px; width: 320px;}
+  .reviews-grid .review .review-text{ padding: 15px; width: 290px;}
+  /* Sidebar */
+  .widget{ margin-bottom: 15px; padding-bottom: 15px;}
+  #images li{ height: 96px; width: 96px;}
+  /* Single */
+  .single #lead .post, .page #lead .post{ padding: 15px; width: 610px;}
+  .entry-share .share{ width: 120px;}
+  #commentform{ padding: 15px;}
+  #commentform textarea{ max-width: 561px; min-width: 561px; width: 561px;}
+  /* Pinterest */
+  .pinterest .post{ padding: 15px 14px 15px 15px; width: 290px;}
+  /* Heading */
+  .heading{ margin: 0 15px;}
+  /* Reviews */
+  #reviews #lead{ width: 770px;}
+  #menu{ margin: 15px 0 0 14px; padding: 0 14px 80px 0;}
+  #menu .section:first-child{ margin-bottom: 15px;}
+  #reviews-filter{ margin-left: -15px; width: 150px;}
+  .single-review .review .entry-header{ padding: 30px; width: 900px;}
+}
+
+@media only screen and (max-width: 960px) {
+  body{ background: blue !important;}
+  /* Layout */
+  .wrap,
+  #full,
+  #focus{ width: 900px;}
+  #lead{ width: 600px;}
+  #sidebar{ margin: 10px 9px 0 0; padding-left: 9px; width: 280px;}
+  #footer section{ margin-right: 10px;}
+  /* Home */
+  #focus{ height: 420px;}
+  .focus{ height: 140px; width: 300px;}
+  .focus-text{ padding: 15px; width: 270px;}
+  #focus-1{ height: 280px; width: 600px;}
+  #focus-1 .focus-text{ width: 570px;}
+  #focus-4{ left: 300px;}
+  #focus-5{ height: 280px;}
+  /* Lists */
+  .list{ padding: 10px;}
+  .list .entry-thumbnail{ margin-right: 10px;}
+  .grid{ padding: 0 9px 0 10px; width: 580px;}
+  .grid .post{ padding: 10px 9px 10px 10px; width: 280px;}
+  .board{ padding: 0 10px 10px;}
+  .board .post{ margin-top: 10px; width: 280px;}
+  .board .post:nth-child(2n-1){ margin-right: 20px;}
+  .wheel .post{ padding: 10px; width: 280px;}
+  .wheel .entry-title{ width: 280px;}
+  .wheel .entry-summary{ width: 280px;}
+  .wheel .post:nth-child(1),
+  .wheel .post:nth-child(5){ width: 580px;}
+  .wheel .post:nth-child(2){ padding-left: 9px;}
+  .wheel .post:nth-child(3),
+  .wheel .post:nth-child(4){ padding-right: 9px;}
+  .wheel .post:nth-child(5){ padding-left: 9px;}
+  .wheel .post:nth-child(1) .entry-thumbnail,
+  .wheel .post:nth-child(5) .entry-thumbnail{ margin-left: 10px;}
+  .reviews-grid .review{ height: 280px; width: 300px;}
+  .reviews-grid .review .review-text{ padding: 10px; width: 280px;}
+  /* Sidebar */
+  .widget{ margin-bottom: 10px; padding-bottom: 10px;}
+  #images li{ height: 93px; width: 93px;}
+  /* Single */
+  .single #lead .post, .page #lead .post{ padding: 10px; width: 580px;}
+  .entry-share .share{ width: 110px;}
+  #commentform{ padding: 10px;}
+  #commentform textarea{ max-width: 536px; min-width: 536px; width: 536px;}
+  /* Pinterest */
+  .pinterest .post{ padding: 10px 9px 10px 10px; width: 280px;}
+  /* Heading */
+  .heading{ margin: 0 10px;}
+  /* Reviews */
+  #reviews #lead{ width: 720px;}
+  #menu{ margin: 10px 0 0 9px; padding: 0 9px 80px 0;}
+  #menu .section:first-child{ margin-bottom: 10px;}
+  #reviews-filter{ margin-left: -10px; width: 140px;}
+  .single-review .review .entry-header{ padding: 20px; width: 860px;}
+}
+
+@media only screen and (max-width: 900px) {
+  body{ background: green !important;}
+  /* Layout */
+  .wrap,
+  #full,
+  #focus{ width: 680px;}
+  #lead{ border-right: none; float: none; width: auto;}
+  #sidebar{ margin: 10px 9px 0 0; padding-left: 9px; width: 280px;}
+  #footer section{ margin-right: 10px;}
+  /* Home */
+  #focus{ height: 351px;}
+  .focus{ height: 117px; width: 250px;}
+  .focus-text{ padding: 10px; width: 230px;}
+  #focus-1{ height: 234px; width: 500px;}
+  #focus-1 .entry-title{ font-size: 24px;}
+  #focus-1 .focus-text{ width: 480px;}
+  #focus-4{ left: 250px;}
+  #focus-5{ height: 234px;}
+  #focus-5 .entry-title{ font-size: 20px;}
+  .focus .entry-title{ font-size: 16px;}
+  .focus .entry-excerpt{ font-size: 12px;}
+  /* Lists */
+  .list{ padding: 20px;}
+  .list .entry-thumbnail{ margin-right: 20px;}
+  .grid{ padding: 0 19px 0 20px; width: auto;}
+  .grid .post{ padding: 20px 19px 20px 20px; width: 300px;}
+  .board{ padding: 0 20px 20px;}
+  .board .post{ margin-top: 20px; width: 300px;}
+  .board .post:nth-child(2n-1){ margin-right: 20px;}
+  .wheel .post{ padding: 20px; width: 300px;}
+  .wheel .entry-title{ width: 300px;}
+  .wheel .entry-summary{ width: 300px;}
+  .wheel .post:nth-child(1),
+  .wheel .post:nth-child(5){ width: 580px;}
+  .wheel .post:nth-child(2){ padding-left: 19px;}
+  .wheel .post:nth-child(3),
+  .wheel .post:nth-child(4){ padding-right: 19px;}
+  .wheel .post:nth-child(5){ padding-left: 19px;}
+  .wheel .post:nth-child(1) .entry-thumbnail,
+  .wheel .post:nth-child(5) .entry-thumbnail{ margin-left: 20px;}
+  .reviews-grid .review{ height: 300px; width: 300px;}
+  .reviews-grid .review .review-text{ padding: 20px; width: 300px;}
+  /* Sidebar */
+  .widget{ margin-bottom: 20px; padding-bottom: 20px;}
+  #images li{ height: 93px; width: 93px;}
+  /* Single */
+  .single #lead .post, .page #lead .post{ padding: 20px; width: 580px;}
+  .entry-share .share{ width: 110px;}
+  #commentform{ padding: 20px;}
+  #commentform textarea{ max-width: 536px; min-width: 536px; width: 536px;}
+  /* Pinterest */
+  .pinterest .post{ padding: 20px 19px 20px 20px; width: 300px;}
+  /* Heading */
+  .heading{ margin: 0 20px;}
+  /* Reviews */
+  #reviews #lead{ width: 720px;}
+  #menu{ margin: 20px 0 0 19px; padding: 0 19px 80px 0;}
+  #menu .section:first-child{ margin-bottom: 20px;}
+  #reviews-filter{ margin-left: -20px; width: 140px;}
+  .single-review .review .entry-header{ padding: 20px; width: 860px;}
+}

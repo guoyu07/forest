@@ -26,7 +26,7 @@
         </section>
         <section>
           <h4 class="section"><?php _e( 'Social', 'madeleine' ); ?></h4>
-          <ul>
+          <ul id="social-links">
             <?php madeleine_social_links(); ?>
             <li><a href="<?php bloginfo( 'rss2_url' ); ?>"><?php _e( 'RSS', 'madeleine' ); ?></a></li>
             <li><a href="#"><?php _e( 'Email', 'madeleine' ); ?></a></li>
