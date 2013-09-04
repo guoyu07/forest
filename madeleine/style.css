@@ -97,7 +97,7 @@ a:hover{ text-decoration: underline;}
 #social-icons li{ float: left; height: 30px; margin-left: 10px; overflow: hidden; position: relative;}
 #social-icons li:hover{ overflow: visible;}
 #social-icons a{ background: url(images/social-icons.png); display: block; height: 30px; overflow: hidden; text-indent: -290486px; width: 30px;}
-#social-icons .social-window{ left: -155px; padding: 20px; padding-bottom: 15px; position: absolute; top: 30px;  z-index: 1986;}
+#social-icons .social-window{ left: -155px; padding: 20px; padding-bottom: 15px; position: absolute; top: 30px;  z-index: 2014;}
 #social-icons .social-twitter a,
 #social-icons .social-twitter .social-window{ background-color: #00aced;}
 #social-icons .social-twitter .social-window{ height: 20px; left: auto; padding: 5px 10px 5px 5px; right: 30px; top: 0;}
@@ -115,7 +115,7 @@ a:hover{ text-decoration: underline;}
 #social-icons .social-rss a{ background-color: #f47c44; background-position: -150px 0;}
 #social-links .social-window{ display: none;}
 #header .search-form{ position: absolute; right: 0; top: 15px;}
-#navigation{ border: 0 solid #eaedef; border-width: 0 1px; clear: left; height: 60px;}
+#navigation{ border: 0 solid #eaedef; /*border-width: 0 1px;*/ clear: left; height: 60px;}
 #nav{ background: white; background: white; border: solid #eaedef; border-width: 1px 0; font: bold 14px/28px Bitter, Georgia, serif; height: 30px;}
 #nav li{ display: inline;}
 #nav a{ border-right: 1px solid #eaedef; border-top: 2px solid #708491; color: #444; float: left; margin: -1px -1px 0 0; padding: 0 10px 0 11px;}
@@ -124,7 +124,7 @@ a:hover{ text-decoration: underline;}
 #nav .images,
 #nav .videos,
 #nav .links,
-#nav .quotes{ background: url(images/icons.png) no-repeat 0 -31px; border-top-color: transparent; float: right; height: 30px; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
+#nav .quotes{ background: url(images/icons.png) no-repeat 0 -31px; border-top-color: transparent; float: right; height: 30px; margin-right: 0; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
 #nav .images:hover,
 #nav .videos:hover,
 #nav .links:hover,
@@ -229,6 +229,8 @@ a:hover{ text-decoration: underline;}
 /* Formats */
 
 .format-quote .entry-title{ font-style: italic; font-weight: normal;}
+.format-image .entry-thumbnail,
+.format-video .entry-thumbnail{ max-width: 300px;}
 .format-image .entry-thumbnail:after,
 /*.format-image .entry-thumbnail:hover a:after,*/
 .format-video .entry-thumbnail:after{ background: rgba(112, 132, 145, 0.86) url(images/image.png) no-repeat center center; border-radius: 30px; content: ' '; display: block; height: 60px; left: 50%; margin: -30px 0 0 -30px; position: absolute; top: 50%; width: 60px; z-index: 1986;}
@@ -590,7 +592,7 @@ a:hover{ text-decoration: underline;}
 /* Responsiveness */
 
 @media only screen and (max-width: 1020px) {
-  body{ background: red !important;}
+  /*body{ background: red !important;}*/
   /* Layout */
   .wrap,
   #full,
@@ -648,7 +650,7 @@ a:hover{ text-decoration: underline;}
 }
 
 @media only screen and (max-width: 960px) {
-  body{ background: blue !important;}
+  /*body{ background: blue !important;}*/
   /* Layout */
   .wrap,
   #full,
@@ -706,26 +708,34 @@ a:hover{ text-decoration: underline;}
 }
 
 @media only screen and (max-width: 900px) {
-  body{ background: green !important;}
+  /*body{ background: green !important;}*/
   /* Layout */
   .wrap,
   #full,
   #focus{ width: 680px;}
+  #navigation{ overflow: hidden;}
   #lead{ border-right: none; float: none; width: auto;}
-  #sidebar{ margin: 10px 9px 0 0; padding-left: 9px; width: 280px;}
-  #footer section{ margin-right: 10px;}
+  #sidebar{ border-left: none; float: none; margin: 0; padding: 0; right: 0; width: auto;}
+  #footer section{ margin-bottom: 20px; margin-right: 10px; width: 160px;}
+  #footer .search-form{ clear: both; float: none;}
+  #footer-logo{ float: none;}
+  #footer-about{ float: none; text-align: left;}
+  /* Header */
+  #social-icons{ float: right; padding-top: 15px; position: static;}
+  #header .search-form{ clear: both; float: none; margin-bottom: 20px; position: relative; top: 0; width: auto;}
+  #header .search-text{ width: 626px;}
   /* Home */
-  #focus{ height: 351px;}
-  .focus{ height: 117px; width: 250px;}
-  .focus-text{ padding: 10px; width: 230px;}
-  #focus-1{ height: 234px; width: 500px;}
-  #focus-1 .entry-title{ font-size: 24px;}
-  #focus-1 .focus-text{ width: 480px;}
-  #focus-4{ left: 250px;}
-  #focus-5{ height: 234px;}
-  #focus-5 .entry-title{ font-size: 20px;}
-  .focus .entry-title{ font-size: 16px;}
-  .focus .entry-excerpt{ font-size: 12px;}
+  #focus{ height: auto; position: relative; width: auto;}
+  .focus{ float: left; height: 160px; overflow: hidden; position: relative; width: 340px;}
+  #focus-1{ height: 320px; left: 0; top: 0; width: 680px;}
+  #focus-2{ right: 0; top: 0;}
+  #focus-3{ bottom: 0; left: 0;}
+  #focus-4{ bottom: 0; left: 0;}
+  #focus-5{ bottom: 0; height: 160px; right: 0;}
+  .focus-text{ padding: 20px; width: 300px;}
+  #focus-1 .focus-text{ font-size: 16px; width: 640px;}
+  #focus-5 .entry-title{ font-size: 18px;}
+  #focus-5 .entry-excerpt{ display: none;}
   /* Lists */
   .list{ padding: 20px;}
   .list .entry-thumbnail{ margin-right: 20px;}
@@ -734,35 +744,49 @@ a:hover{ text-decoration: underline;}
   .board{ padding: 0 20px 20px;}
   .board .post{ margin-top: 20px; width: 300px;}
   .board .post:nth-child(2n-1){ margin-right: 20px;}
-  .wheel .post{ padding: 20px; width: 300px;}
-  .wheel .entry-title{ width: 300px;}
-  .wheel .entry-summary{ width: 300px;}
+  .wheel .post{ border-bottom: 1px solid #eaedef; float: none; min-height: 150px; padding: 20px; width: auto;}
+  .wheel .entry-thumbnail{ float: right; margin-left: 20px;}
+  .wheel .entry-title{ width: auto;}
+  .wheel .entry-summary{ width: auto;}
   .wheel .post:nth-child(1),
-  .wheel .post:nth-child(5){ width: 580px;}
-  .wheel .post:nth-child(2){ padding-left: 19px;}
+  .wheel .post:nth-child(5){ width: auto;}
+  .wheel .post:nth-child(2){ border-left: none; float: none; padding-left: 20px;}
   .wheel .post:nth-child(3),
-  .wheel .post:nth-child(4){ padding-right: 19px;}
-  .wheel .post:nth-child(5){ padding-left: 19px;}
+  .wheel .post:nth-child(4){ border-right: none; padding-right: 20px; right: 0;}
+  .wheel .post:nth-child(5){ border: none; float: none; padding-left: 20px;}
   .wheel .post:nth-child(1) .entry-thumbnail,
   .wheel .post:nth-child(5) .entry-thumbnail{ margin-left: 20px;}
-  .reviews-grid .review{ height: 300px; width: 300px;}
+  .wheel .post:nth-child(4) .entry-thumbnail{ display: block;}
+  .reviews-grid{ height: 320px; overflow: hidden;}
+  .reviews-grid .review{ height: 320px; width: 340px;}
   .reviews-grid .review .review-text{ padding: 20px; width: 300px;}
   /* Sidebar */
-  .widget{ margin-bottom: 20px; padding-bottom: 20px;}
+  .widget{ float: none; margin: 20px; width: auto;}
   #images li{ height: 93px; width: 93px;}
   /* Single */
-  .single #lead .post, .page #lead .post{ padding: 20px; width: 580px;}
-  .entry-share .share{ width: 110px;}
+  .single #lead .post, .page #lead .post{ padding: 20px; width: auto;}
+  .entry-share .share{ width: 128px;}
   #commentform{ padding: 20px;}
   #commentform textarea{ max-width: 536px; min-width: 536px; width: 536px;}
   /* Pinterest */
-  .pinterest .post{ padding: 20px 19px 20px 20px; width: 300px;}
+  .pinterest .post{ float: left; padding: 20px 19px 20px 20px; position: static; width: 300px;}
+  .pinterest .post:nth-child(2n){ float: right;}
   /* Heading */
   .heading{ margin: 0 20px;}
+  .tabs p{ display: none;}
+  .tabs em{ display: none;}
   /* Reviews */
-  #reviews #lead{ width: 720px;}
-  #menu{ margin: 20px 0 0 19px; padding: 0 19px 80px 0;}
+  #reviews #lead{ border-left: none; float: none; width: auto;}
+  #menu{ border-right: none; float: none; left: 0; margin: 20px 0 0 19px; padding: 0 19px 0 0; width: auto;}
   #menu .section:first-child{ margin-bottom: 20px;}
-  #reviews-filter{ margin-left: -20px; width: 140px;}
-  .single-review .review .entry-header{ padding: 20px; width: 860px;}
+  #reviews-filter{ margin-left: 0; position: static; width: auto;}
+  .single-review .review .entry-header{ padding: 20px; top: 44px; width: 640px;}
+  .single-review .review .entry-title{ font-size: 30px;}
+  .single-review .review .entry-summary{ font-size: 16px; min-height: 52px;}
+}
+
+@media only screen and (max-width: 680px) {
+  .wrap,
+  #full,
+  #focus{ margin: 0 20px; width: auto;}
 }

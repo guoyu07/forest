@@ -41,7 +41,7 @@ jQuery(document).ready(function ($) {
   }
   
   function Reset() {
-    // pins.css('padding-left', 0);
+    pins.css('padding', '20px 19px 20px 20px');
     pins.css('position', 'static');
   }
   
@@ -52,8 +52,6 @@ jQuery(document).ready(function ($) {
       Grid(960, 15);
     } else if (size > 900) {
       Grid(900, 10);
-    } else if (size > 750) {
-      Grid(750, 10);
     } else {
       Reset();
     }

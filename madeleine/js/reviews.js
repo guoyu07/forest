@@ -147,11 +147,29 @@ jQuery(document).ready(function ($) {
   $(window).scroll(function() {
     var menu_bottom = $('#menu').offset().top + $('#menu').innerHeight();
     var view_bottom = $(window).scrollTop() + $(window).height();
-    if ((menu_bottom <= view_bottom)) {
-      reviews_filter.css('position', 'absolute');
+    var viewport = window.innerWidth;
+    if (viewport > 900) {
+      if ((menu_bottom <= view_bottom)) {
+        reviews_filter.css('position', 'absolute');
+      } else {
+        reviews_filter.css('position', 'fixed');
+      }
     } else {
-      reviews_filter.css('position', 'fixed');
+      reviews_filter.css('position', 'static');
     }
+  });
+
+  var reviews_resize_timer;
+  $(window).resize(function() {
+    var new_viewport = window.innerWidth;
+    clearTimeout(reviews_resize_timer);
+    reviews_resize_timer = setTimeout(function() {
+      if (new_viewport > 900) {
+        reviews_filter.css('position', 'absolute');
+      } else {
+        reviews_filter.css('position', 'static');
+      }
+    }, 100);
   });
 
 });    

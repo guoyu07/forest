@@ -12,6 +12,7 @@
           <em id="reviews-title"><?php echo $title ?></em>
         </h1>
       </hgroup> 
+      <?php madeleine_reviews_menu(); ?>
       <div id="lead">
         <div class="list reviews-list">
           <?php while ( have_posts() ) : the_post(); ?>
@@ -26,9 +27,9 @@
           <em id="reviews-title"><?php _e( 'Sorry. No reviews match these parameters.', 'madeleine' ); ?></em>
         </h1>
       </hgroup> 
+      <?php madeleine_reviews_menu(); ?>
     <?php endif; ?>
   </div>
-  <?php madeleine_reviews_menu(); ?>
   <div class="loading white"></div>
   <div style="clear: both;"></div>
 </div>

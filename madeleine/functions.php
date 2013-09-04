@@ -529,6 +529,7 @@ if ( !function_exists( 'madeleine_focus' ) ) {
         echo '</article>';
         $n++;
       }
+      echo '<div style="clear: left;"></div>';
       echo '</div>';
       wp_reset_postdata();
       return $sticky_posts;
