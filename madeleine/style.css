@@ -25,7 +25,7 @@ html{ min-width: 320px; overflow-x: hidden; overflow-y: scroll;}
 body{ border-top: 2px solid #d0574e; color: #444; font: 14px/1.5 Arial, sans-serif;}
 a{ color: #708491; cursor: pointer; text-decoration: none;}
 a:hover{ text-decoration: underline;}
-input, textarea{ box-shadow: none;}
+textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 
 .wrap{ margin: 0 auto; position: relative; width: 1020px;}
 .heading{ border-bottom: 1px solid #eaedef; color: #708491; font: 24px/1.15 Bitter, Georgia, serif; margin: 0 20px; padding: 20px 0;}
@@ -92,6 +92,7 @@ input, textarea{ box-shadow: none;}
 .icon-menu{ background-position: 0 -210px;}
 .icon-dropdown{ background-position: 0 -240px;}
 .icon-dropdown-grey{ background-position: 0 -270px;}
+.icon-close{ background-position: 0 -300px;}
 
 /* Header */
 
@@ -134,7 +135,7 @@ input, textarea{ box-shadow: none;}
 #nav .nav-home{ border-top-color: #444; /*height: 30px;*/ overflow: hidden; padding: 0 2px 0 4px; text-indent: -290486px; width: 30px;}
 #nav .nav-format{ border-top-color: transparent; /*height: 30px;*/ margin-right: 0; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
 #nav .nav-format:hover{ border-top-color: #708491;}
-#nav-menu{ background-color: #eaedef; color: #708491; display: none; font: bold 18px/28px Bitter, Georgia, serif; height: 30px; padding: 10px; text-align: left;}
+#nav-icon{ background-color: #eaedef; color: #708491; display: none; font: bold 18px/28px Bitter, Georgia, serif; height: 30px; padding: 10px; text-align: left;}
 #today-news{ background: #444; color: white; display: none; float: left; font-family: Bitter, Georgia, serif; height: 60px; line-height: 1; text-align: center; width: 60px;}
 #today-news strong{ display: block; font-size: 30px; padding-top: 6px;}
 #today-news em{ display: block; font-size: 9px; padding-top: 4px;}
@@ -457,7 +458,7 @@ input, textarea{ box-shadow: none;}
 .single-review .review .entry-content{ width: auto;}
 .single-review .review .entry-rating{ font-size: 48px; height: 120px; left: 0; line-height: 120px; position: absolute; top: 20px; width: 120px;}
 
-#jump{ background: white; margin-left: -165px; position: absolute; top: 20px; width: 150px;}
+#jump{ background: white; border-bottom: 1px solid #eaedef; margin-left: -165px; position: absolute; top: 20px; width: 150px;}
 #jump .section{ display: block; margin-bottom: 10px;}
 #jump a{ border-top: 1px solid #eaedef; display: block; font-size: 13px; line-height: 1.15; padding: 5px 5px  6px; position: relative;}
 #jump a:hover{ background: #eaedef; text-decoration: none;}
@@ -475,9 +476,12 @@ input, textarea{ box-shadow: none;}
 #menu li span{ float: right; font-size: 12px; line-height: 21px; padding: 2px 5px 1px; position: absolute; right: 0; top: 0;}
 #menu .current-cat{ color: white;}
 #menu .current-cat a{ background: #d0574e; color: white;}
+#menu-icon{ background: #d0574e; color: white; display: none; font: bold 18px/28px Bitter, Georgia, serif; line-height: 30px; padding: 10px 15px;}
+#menu-icon .icon{ float: right; margin-right: 0;}
 #reviews-filter{ background: #eaedef; bottom: 0; margin-left: -20px; padding: 10px 20px; position: fixed; width: 160px; z-index: 1986;}
 #reviews-filter .button{ display: block; width: 100%;}
 #reviews-filter .button span{ font-size: 16px; padding: 10px 0 12px;}
+/*#reviews .heading{ margin-left: 220px;}*/
 #reviews #lead{ border-left: 1px solid #eaedef; border-right: none; float: right; width: 820px;}
 
 /* 01 Home */
@@ -514,7 +518,7 @@ input, textarea{ box-shadow: none;}
 
 /* 03 Tag */
 
-
+#tags em{ float: left;}
 
 /* 04 Author */
 
@@ -523,11 +527,11 @@ input, textarea{ box-shadow: none;}
 /* 05 Date */
 
 #date-archive{ height: 40px; line-height: 40px; position: relative; z-index: 2013;}
-#date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 120px;}
+#date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 160px;}
 #date-archive .year{ display: none;}
 #date-archive .year.on{ display: block;}
-#date-archive .months{ display: none; left: 140px; width: 200px;}
-#date-archive .days{ display: none; left: 360px; width: 200px;}
+#date-archive .months{ display: none; left: 180px; width: 210px;}
+#date-archive .days{ display: none; left: 410px;}
 #date-archive .month{ display: none;}
 #date-archive .day{ display: none;}
 #date-archive .select{ color: #ccc; cursor: pointer; font-size: 16px; font-style: italic; padding-left: 10px;}
@@ -540,6 +544,9 @@ input, textarea{ box-shadow: none;}
 #date-archive .active .select{ display: none;}
 
 #date-archive button{ float: right;}
+#date-archive .icon{ display: none; float: right; margin: 5px 0 0;}
+#date-archive .on .icon{ display: block;}
+#date-archive .open .on .icon{ display: none;}
 
 /* CSS 3 */
 
@@ -719,7 +726,8 @@ input, textarea{ box-shadow: none;}
   #focus{ width: 680px;}
   #navigation{ overflow: hidden;}
   #nav a{ border-bottom: 1px solid #eaedef;}
-  #nav .nav-format{ border-bottom: none;}
+  #nav .nav-format{ border-bottom: none; padding-right: 10px; text-indent: 0; vertical-align: top; width: auto;}
+  #nav .nav-format .icon{ display: inline-block; float: none;}
   #nav .nav-quotes{ clear: left;}
   #lead{ border-right: none; float: none; width: auto;}
   #sidebar{ border-left: none; float: none; margin: 0; padding: 0; right: 0; width: auto;}
@@ -788,7 +796,7 @@ input, textarea{ box-shadow: none;}
   .tabs em{ display: none;}
   /* Reviews */
   #reviews #lead{ border-left: none; float: none; width: auto;}
-  #menu{ border-right: none; float: none; left: 0; margin: 20px 0 0 19px; padding: 0 19px 0 0; width: auto;}
+  #menu{ border-right: none; float: none; left: 0; margin: 0; padding: 20px 20px 0; width: auto;}
   #menu .section:first-child{ margin-bottom: 20px;}
   #reviews-filter{ margin-left: 0; position: static; width: auto;}
   .single-review .review .entry-header{ padding: 20px; top: 44px; width: 640px;}
@@ -822,19 +830,31 @@ input, textarea{ box-shadow: none;}
   #footer{ font-size: 16px;}
   #footer .wrap{ margin: 0 20px;}
   #footer section{ float: none; margin-right: 0;}
-  #nav{ border: none; display: none;}
+  #nav-menu{ display: none;}
+  #nav{ border: none;}
   #nav .nav-home,
   #nav a,
   #nav .nav-format{ border-bottom: none; display: block; float: none; font-size: 18px; height: 30px; line-height: 30px; margin: 0; padding: 10px 15px; text-align: left; text-indent: 0; width: auto;}
   #nav .nav-home{ padding-left: 0;}
   #nav .nav-format{ border-top-color: #708491; padding-left: 0;}
+  #nav .nav-format .icon{ float: left;}
   #nav .icon{ margin-left: 10px;}
-  #nav-menu{ display: block;}
-  #trending{ display: none;}
+  #nav-icon{ display: block;}
+  #trending{ padding: 0; text-align: left;}
+  #trending,
+  #trending a{ border-top: 1px solid #eaedef;}
+  #trending p,
+  #trending a{ display: block; float: none; font-size: 16px; margin-left: 0; padding: 10px 15px;}
+  #trending li{ display: block;}
   /* Entry */
   .entry-title{ font-size: 24px;}
   .entry-info{ font-size: 14px;}
   .entry-share .share{ float: none; width: auto;}
+  .entry-format,
+  .entry-category,
+  .entry-tags,
+  .board .entry-category a{ font-size: 14px;}
+  .board .entry-category a{ padding: 2px 6px;}
   /* Home */
   #focus{ height: auto; position: relative; width: auto;}
   .focus{ float: none; height: auto; overflow: hidden; position: relative; width: auto;}
@@ -868,10 +888,14 @@ input, textarea{ box-shadow: none;}
   .list .entry-thumbnail{ float: none; margin: 0 0 10px;}
   .list .entry-title{ font-size: 24px;}
   .list .entry-summary{ font-size: 16px;}
+  .pinterest .post{ border-left: none; float: none; width: auto;}
+  .pinterest .post:nth-child(2n){ float: none;}
+  .pinterest .entry-title{ font-size: 24px;}
+  .pinterest .entry-summary{ font-size: 16px;}
   /* Sidebar */
   #sidebar{ font-size: 14px;}
-  #latest a{ font-size: 14px; height: auto; line-height: 1.5; padding: 5px 0;}
-  #latest a .entry-date{ font-size: 14px;}
+  #latest a{ font-size: 14px; height: auto; line-height: 1.15; padding: 10px 0 9px;}
+  #latest a .entry-date{ font-size: 14px; margin-bottom: 1px;}
   #links .entry-title{ font-size: 20px;}
   #quotes .entry-title{ font-size: 20px;}
   #quotes p{ font-size: 16px;}
@@ -888,8 +912,27 @@ input, textarea{ box-shadow: none;}
   #category li a{ float: none; padding: 0;}
   #category li a{ display: block;}
   #category strong .icon{ display: block; float: right;}
+  /* Date */
+  #date-archive ul,
+  #date-archive .months,
+  #date-archive .days{ left: 0; position: relative; width: 100%;}
+  #date-archive .select .icon{ display: block; margin-right: 10px;}
+  /* Tags */
+  #tags em{ display: none;}
+  #tags .dropdown{ float: none; margin-left: 0;}
+  #tags .dropdown ul{ min-width: 0; position: static;}
   /* Reviews */
-  #menu{ display: none;}
+  #menu{ display: none; padding: 0; padding-top: 20px;}
+  #menu-icon{ display: block;}
+  #menu a{ border-top: 1px solid #eaedef; display: block; line-height: 30px; padding: 10px 15px;}
+  #menu .section{ padding: 0 15px;}
+  #menu .section a{ border-top: none; display: block;}
+  #menu li span{ font-size: 16px; line-height: 30px; padding: 10px 15px 0;}
+  #menu-sliders{ display: none;}
+  .slider-value{ font-size: 16px; line-height: 30px; padding: 0 15px 10px;}
+  .slider-value .rating{ font-size: 16px; height: 30px; width: 30px;}
+  .ui-slider{ margin: 10px 22px 30px;}
+  .reviews-list .review{ padding-right: 0;}
   .single-review .review .entry-header{ background: #0e181f; position: static; width: auto;}
   .single-review .review .entry-text{ padding-left: 20px;}
   #jump{ left: 0; margin-left: 0; width: 100%;}

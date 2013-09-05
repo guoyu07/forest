@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
       history.replaceState(null, null, url);
       $('.loading').hide();
       $('html, body').animate({
-          scrollTop: $('#reviews').offset().top
+          scrollTop: $('#reviews-result').offset().top
       }, 250);
     });
   }
@@ -55,6 +55,8 @@ jQuery(document).ready(function ($) {
   var reviews_title = $('#reviews-title');
   var reviews_filter = $('#reviews-filter');
   var reviews_button = $('#reviews-filter button');
+  var reviews_icon = $('#menu-icon');
+  var reviews_menu = $('#reviews #menu');
   var products = $('#products a');
   var brands = $('#brands a');
   var rating = $('#rating');
@@ -84,6 +86,11 @@ jQuery(document).ready(function ($) {
 
   // Events
 
+  reviews_icon.click( function() {
+    reviews_menu.toggle();
+    return false;
+  });
+
   products.click( function() {
     var id = $(this).parent().data('id');
     products.parent().removeClass('current-cat');
@@ -109,7 +116,7 @@ jQuery(document).ready(function ($) {
   });
 
   reviews_button.click( function() {
-    var url = 'http://localhost/forest/reviews' + ArrayToURL(parameters);
+    var url = 'http://192.168.0.6/forest/reviews' + ArrayToURL(parameters);
     LoadReviews(url);
     return false;
   });
@@ -164,8 +171,11 @@ jQuery(document).ready(function ($) {
     var new_viewport = window.innerWidth;
     clearTimeout(reviews_resize_timer);
     reviews_resize_timer = setTimeout(function() {
-      if (new_viewport > 900) {
-        reviews_filter.css('position', 'absolute');
+      if (new_viewport > 680) {
+        reviews_menu.show();
+        if (new_viewport > 900) {
+          reviews_filter.css('position', 'absolute');
+        }
       } else {
         reviews_filter.css('position', 'static');
       }

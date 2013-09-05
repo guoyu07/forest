@@ -2,8 +2,8 @@ jQuery(document).ready(function ($) {
 
   // Nav menu
 
-  var nav_icon = $('#nav-menu');
-  var nav_menu = $('#nav');
+  var nav_icon = $('#nav-icon');
+  var nav_menu = $('#nav-menu');
 
   nav_icon.click( function() {
     nav_menu.toggle();
@@ -16,16 +16,6 @@ jQuery(document).ready(function ($) {
 
   category_icon.click( function() {
     category_menu.toggle();
-    return false;
-  });
-
-  // Reviews menu
-
-  var reviews_icon = $('#reviews .heading .icon');
-  var reviews_menu = $('#reviews #menu');
-
-  reviews_icon.click( function() {
-    reviews_menu.toggle();
     return false;
   });
 
@@ -65,6 +55,18 @@ jQuery(document).ready(function ($) {
     $(this).addClass('on');
     videos.hide();
     videos.eq($(this).index()).show();
+  });
+
+  var global_resize_timer;
+  $(window).resize(function() {
+    var new_viewport = window.innerWidth;
+    clearTimeout(global_resize_timer);
+    global_resize_timer = setTimeout(function() {
+      if (new_viewport > 680) {
+        nav_menu.show();
+        category_menu.show();
+      }
+    }, 100);
   });
 
 });    

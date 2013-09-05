@@ -204,7 +204,7 @@ if ( !function_exists( 'madeleine_custom_colors' ) ) {
     if ( isset( $reviews_color ) && $reviews_color != '' ):
       $custom_css .= '.review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
       $custom_css .= '.review .entry-category a,.single-review #category strong{ background-color: ' . $reviews_color . ';}';
-      $custom_css .= '#jump .on,#jump .on:hover,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
+      $custom_css .= '#jump .on,#jump .on:hover,#menu-icon,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
       $custom_css .= '#nav .nav-reviews{ border-top-color: ' . $reviews_color . ';}';
       $custom_css .= '.single-review #category strong:after{ border-left-color: ' . $reviews_color . ';}';
     endif;
@@ -404,7 +404,9 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
 if ( !function_exists( 'madeleine_tags_list' ) ) {
   function madeleine_tags_list() {
     $tags = get_tags();
-    $tags_list = '<div id="tags" class="dropdown">';
+    $tags_list = '<div id="tags">';
+    $tags_list .= '<em>' . __( 'Tag:', 'madeleine' ) . '</em>';
+    $tags_list .= '<div class="dropdown">';
     $tags_list .= '<ul>';
     $current_tag = get_query_var( 'tag' );
     foreach ( $tags as $tag ) {
@@ -416,6 +418,7 @@ if ( !function_exists( 'madeleine_tags_list' ) ) {
       $tags_list .= '<a href="' . $tag_link . '" class="' . $tag->slug . '">' . $tag->name . '<span>' . $tag->count . '</span></a>';
     }
     $tags_list .= '</ul>';
+    $tags_list .= '</div>';
     $tags_list .= '</div>';
     echo $tags_list;
   }
@@ -854,19 +857,19 @@ if ( !function_exists( 'madeleine_nested_date' ) ) {
     //   $type = 'day';
     // endif;
     $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
-    $years_list = '<li class="select">' . __( 'Select year', 'madeleine' ) . '</li>';
+    $years_list = '<li class="select"><span class="icon icon-close"></span>' . __( 'Select year', 'madeleine' ) . '</li>';
     echo '<div id="date-archive" data-year="' . $y . '" data-month="' . $m . '" data-day="' . $d . '">';
     foreach( $years as $year ):
-      $years_list .= '<li class="year" data-value="' . $year . '"><a href="'. get_year_link( $year ). '">' . $year . '</a></li>';
-      $months_list = '<li class="select">' . __( 'Select month', 'madeleine' ) . '</li>';
+      $years_list .= '<li class="year" data-value="' . $year . '"><a href="'. get_year_link( $year ). '"><span class="icon icon-dropdown"></span>' . $year . '</a></li>';
+      $months_list = '<li class="select"><span class="icon icon-close"></span>' . __( 'Select month', 'madeleine' ) . '</li>';
       $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
       foreach( $months as $month ):
-        $months_list .= '<li class="month" data-value="' . $month . '""><a href="' . get_month_link( $year, $month ) . '">' . date( 'F', mktime( 0, 0, 0, $month, 1, $year ) ) . '</a></li>';
+        $months_list .= '<li class="month" data-value="' . $month . '""><a href="' . get_month_link( $year, $month ) . '"><span class="icon icon-dropdown"></span>' . date( 'F', mktime( 0, 0, 0, $month, 1, $year ) ) . '</a></li>';
         echo '<ul class="days" data-year="' . $year . '" data-month="' . $month . '">';
         $days = $wpdb->get_col("SELECT DISTINCT DAY(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date) = '" . $month . "' AND YEAR(post_date) = '".$year."' ORDER BY post_date DESC");
-        echo '<li class="select">' . __( 'Select day', 'madeleine' ) . '</li>';
+        echo '<li class="select"><span class="icon icon-close"></span>' . __( 'Select day', 'madeleine' ) . '</li>';
         foreach( $days as $day ):
-          echo '<li class="day" data-value="' . $day . '"><a href="' . get_day_link( $year, $month, $day ) . '">' . $day . '</a></li>';
+          echo '<li class="day" data-value="' . $day . '"><a href="' . get_day_link( $year, $month, $day ) . '"><span class="icon icon-dropdown"></span>' . $day . '</a></li>';
         endforeach;
         echo '</ul>';
       endforeach;
@@ -1403,18 +1406,21 @@ if ( !function_exists( 'madeleine_reviews_menu' ) ) {
     );
     $brand_args = $product_args;
     $brand_args['taxonomy'] = 'brand';
-    $menu = '<div id="menu" data-maximum-rating="' . $maximum_rating . '" data-maximum-price="' . $maximum_price . '">';
+    $menu = '<a id="menu-icon"><span class="icon icon-dropdown"></span>Menu</a>';
+    $menu .= '<div id="menu" data-maximum-rating="' . $maximum_rating . '" data-maximum-price="' . $maximum_price . '">';
     $menu .= '<p class="section"><a href="' . get_post_type_archive_link( 'review' ) . '">' . __( 'All reviews', 'madeleine' ) . '</a></p>';
     $menu .= '<p class="section">' . __( 'Products', 'madeleine' ) . '</p>';
     $menu .= '<ul id="products">' . madeleine_taxonomy_list( 'product' ) . '</ul>';
     $menu .= '<p class="section">' . __( 'Brands', 'madeleine' ) . '</p>';
     $menu .= '<ul id="brands">' . madeleine_taxonomy_list( 'brand' ) . '</ul>';
-    $menu .= '<p class="section">' . __( 'Rating', 'madeleine' ) . '</p>';
+    $menu .= '<div id="menu-sliders">';
+    $menu .= '<p class="section section-price">' . __( 'Rating', 'madeleine' ) . '</p>';
     $menu .= '<p id="rating-value" class="slider-value"></p>';
     $menu .= '<div id="rating"></div>';
-    $menu .= '<p class="section">' . __( 'Price', 'madeleine' ) . '</p>';
+    $menu .= '<p class="section section-price">' . __( 'Price', 'madeleine' ) . '</p>';
     $menu .= '<p id="price-value" class="slider-value"></p>';
     $menu .= '<div id="price"></div>';
+    $menu .= '</div>';
     $menu .= '<p id="reviews-filter"><button class="button"><span>' . __( 'Apply filters', 'madeleine' ) . '</span></button></p>';
     $menu .= '</div>';
     $menu = str_replace( 'posts', __( 'reviews', 'madeleine' ), $menu );
