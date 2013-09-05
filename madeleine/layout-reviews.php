@@ -10,6 +10,7 @@
               $title = '1 ' . __( 'review', 'madeleine' );
           ?> 
           <em id="reviews-title"><?php echo $title ?></em>
+          <span class="icon icon-dropdown-grey"></span>
         </h1>
       </hgroup> 
       <?php madeleine_reviews_menu(); ?>
@@ -25,6 +26,7 @@
       <hgroup class="heading">
         <h1 class="title">
           <em id="reviews-title"><?php _e( 'Sorry. No reviews match these parameters.', 'madeleine' ); ?></em>
+          <span class="icon icon-dropdown-grey"></span>
         </h1>
       </hgroup> 
       <?php madeleine_reviews_menu(); ?>

@@ -3,7 +3,7 @@
         <section>
           <h4 class="section"><?php _e( 'Navigation', 'madeleine' ); ?></h4>
           <ul>
-            <li><a id="home" href="<?php echo esc_url( home_url() ); ?>"><?php _e( 'Home', 'madeleine' ); ?></a></li>
+            <li><a href="<?php echo esc_url( home_url() ); ?>"><?php _e( 'Home', 'madeleine' ); ?></a></li>
             <li><a href="<?php echo esc_url( get_post_type_archive_link( 'review' ) ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
             <li><a href="<?php echo esc_url( get_post_format_link( 'image' ) ); ?>"><?php _e( 'Images', 'madeleine' ); ?></a></li>
             <li><a href="<?php echo esc_url( get_post_format_link( 'video' ) ); ?>"><?php _e( 'Videos', 'madeleine' ); ?></a></li>

@@ -2,7 +2,7 @@
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo( 'charset' ); ?>">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php
   	/*
   	 * Print the <title> tag based on what is being viewed.
@@ -51,6 +51,7 @@
           <h2 id="description"><?php bloginfo( 'description' ); ?></h2>
         </hgroup>
       </a>
+      <br>
       <ul id="social-icons">
         <li class="social-rss"><a href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
         <?php madeleine_social_links(); ?>
@@ -61,22 +62,25 @@
           <strong>12</strong>
           <em><?php _e( 'news today', 'madeleine' ); ?></em>
         </a>
+        <a id="nav-menu"><span class="icon icon-menu"></span>Navigation</a>
         <nav id="nav">
           <ul>
-            <li><a id="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home"><?php _e( 'Home', 'madeleine' ); ?></a></li>
+            <li><a class="nav-home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home"><span class="icon icon-home"></span><?php _e( 'Home', 'madeleine' ); ?></a></li>
             <?php echo madeleine_categories_list(); ?>
-            <li><a class="reviews" href="<?php echo get_post_type_archive_link( 'review' ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
-            <li><a class="quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>"><?php _e( 'Quotes', 'madeleine' ); ?></a></li>
-            <li><a class="links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>"><?php _e( 'Links', 'madeleine' ); ?></a></li>
-            <li><a class="videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>"><?php _e( 'Videos', 'madeleine' ); ?></a></li>
-            <li><a class="images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>"><?php _e( 'Images', 'madeleine' ); ?></a></li>
+            <li><a class="nav-reviews" href="<?php echo get_post_type_archive_link( 'review' ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
+            <li><a class="nav-format nav-quotes" href="<?php echo esc_url( home_url( '/' ) . '/type/quote' ); ?>"><span class="icon icon-quotes"></span><?php _e( 'Quotes', 'madeleine' ); ?></a></li>
+            <li><a class="nav-format nav-links" href="<?php echo esc_url( home_url( '/' ) . '/type/link' ); ?>"><span class="icon icon-links"></span><?php _e( 'Links', 'madeleine' ); ?></a></li>
+            <li><a class="nav-format nav-videos" href="<?php echo esc_url( home_url( '/' ) . '/type/video' ); ?>"><span class="icon icon-videos"></span><?php _e( 'Videos', 'madeleine' ); ?></a></li>
+            <li><a class="nav-format nav-images" href="<?php echo esc_url( home_url( '/' ) . '/type/image' ); ?>"><span class="icon icon-images"></span><?php _e( 'Images', 'madeleine' ); ?></a></li>
           </ul>
+          <div style="clear: left;"></div>
         </nav>
         <div id="trending">
           <p><?php _e( 'Trending', 'madeleine' ); ?></p>
           <ul>
             <?php madeleine_trending(); ?>
           </ul>
+          <div style="clear: left;"></div>
         </div>
       </div>
     </div>

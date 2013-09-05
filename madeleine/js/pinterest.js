@@ -63,11 +63,11 @@ jQuery(document).ready(function ($) {
   Display(window.innerWidth);
   // alert(viewport.width);
   
-  var resize_timer;
+  var pinterest_resize_timer;
   $(window).resize(function() {
     var new_viewport = window.innerWidth;
-    clearTimeout(resize_timer);
-    resize_timer = setTimeout(Display(new_viewport), 100);
+    clearTimeout(pinterest_resize_timer);
+    pinterest_resize_timer = setTimeout(Display(new_viewport), 100);
   });
 
 });    

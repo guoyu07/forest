@@ -36,9 +36,7 @@
               <?php wp_link_pages( array( 'before' => '<div class="pagination">', 'after' => '</div>', 'pagelink' => '<strong>%</strong>' ) ); ?>
             </div>
             <div id="verdict" class="entry-verdict chapter">
-              <div class="entry-rating">
-                <?php madeleine_entry_rating( get_the_ID() ); ?>
-              </div>
+              <?php madeleine_entry_rating( get_the_ID() ); ?>
               <?php madeleine_entry_verdict( get_the_ID() ); ?>
             </div>
             <?php comments_template( '', true ); ?>

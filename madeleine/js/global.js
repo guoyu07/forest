@@ -1,5 +1,34 @@
 jQuery(document).ready(function ($) {
 
+  // Nav menu
+
+  var nav_icon = $('#nav-menu');
+  var nav_menu = $('#nav');
+
+  nav_icon.click( function() {
+    nav_menu.toggle();
+  });
+
+  // Category menu
+
+  var category_icon = $('#category strong .icon');
+  var category_menu = $('#category ul');
+
+  category_icon.click( function() {
+    category_menu.toggle();
+    return false;
+  });
+
+  // Reviews menu
+
+  var reviews_icon = $('#reviews .heading .icon');
+  var reviews_menu = $('#reviews #menu');
+
+  reviews_icon.click( function() {
+    reviews_menu.toggle();
+    return false;
+  });
+
   // Latest posts widget
 
   var latest_lists = $('#latest ul');

@@ -202,10 +202,10 @@ if ( !function_exists( 'madeleine_custom_colors' ) ) {
       $custom_css .= '#category strong:after{ border-left-color: ' . $main_color . ';}';
     endif;
     if ( isset( $reviews_color ) && $reviews_color != '' ):
-      $custom_css .= '.review .entry-title a,#nav .reviews:hover{ color: ' . $reviews_color . ';}';
+      $custom_css .= '.review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
       $custom_css .= '.review .entry-category a,.single-review #category strong{ background-color: ' . $reviews_color . ';}';
       $custom_css .= '#jump .on,#jump .on:hover,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
-      $custom_css .= '#nav .reviews{ border-top-color: ' . $reviews_color . ';}';
+      $custom_css .= '#nav .nav-reviews{ border-top-color: ' . $reviews_color . ';}';
       $custom_css .= '.single-review #category strong:after{ border-left-color: ' . $reviews_color . ';}';
     endif;
     $custom_css .= '</style>';
@@ -683,6 +683,7 @@ if ( !function_exists( 'madeleine_category_wheels' ) ) {
       echo '<p>' . __( 'Categories', 'madeleine' ) . '</p>';
       echo '<ul>' . madeleine_categories_list() . '</ul>';
       echo '<em><a id="wheel-link" href="#">' . __( 'View all', 'madeleine' ) . ' <span></span> &rarr;</a></em>';
+      echo '<div style="clear: left;"></div>';
       echo '</div>';
     else:
       echo '<div id="wheel-list" class="wheels" data-display="list">';
@@ -704,6 +705,7 @@ if ( !function_exists( 'madeleine_category_wheels' ) ) {
         echo '</ul>';
         echo '<strong>' . $cat->description . '</strong>';
         echo '<em><a id="wheel-link" href="' . $category_link . '">' . __( 'View all', 'madeleine' ) . ' <span>' . $cat->name . '</span> &rarr;</a></em>';
+        echo '<div style="clear: left;"></div>';
         echo '</div>';
       endif;
       echo '<div id="' . $cat->slug . '" class="wheel category-' . $cat->category_nicename . '">';
@@ -750,6 +752,7 @@ if ( !function_exists( 'madeleine_category_breadcrumb' ) ) {
     echo '<div id="category" class="category-' . $slug . '">';
     echo '<div class="wrap">';
     echo '<strong>';
+    echo '<span class="icon icon-dropdown"></span>';
     echo '<a href="' . esc_url( $link ) . '">' . $title . '</a>';
     echo '</strong>';
     echo '<ul>';
@@ -1151,6 +1154,7 @@ if ( !function_exists( 'madeleine_entry_verdict' ) ) {
       echo '</ul>';
       echo '</div>';
     endforeach;
+    echo '<p style="clear: left;"></p>';
     echo '</div>';
   }
 }
@@ -1293,6 +1297,7 @@ if ( !function_exists( 'madeleine_reviews_tabs' ) ) {
     $tabs .= wp_list_categories('depth=1&echo=0&hide_empty=0&orderby=ID&title_li=&taxonomy=product');
     $tabs .= '</ul>';
     $tabs .= '<em><a id="reviews-link" href="' . $reviews_link . '">' . __( 'View all', 'madeleine' ) . ' <span>' . __( 'Reviews', 'madeleine' ) . '</span> &rarr;</a></em>';
+    $tabs .= '<div style="clear: left;"></div>';
     $tabs .= '</div>';
     $products = get_categories('hide_empty=0&orderby=ID&taxonomy=product');
     foreach( $products as $product ):
@@ -1369,6 +1374,7 @@ if ( !function_exists( 'madeleine_reviews_breadcrumb' ) ) {
     echo '<div id="category">';
     echo '<div class="wrap">';
     echo '<strong>';
+    echo '<span class="icon icon-dropdown"></span>';
     echo '<a href="' . get_post_type_archive_link( 'review' ) . '">' . __( 'Reviews', 'madeleine' ) . '</a>';
     echo '</strong>';
     echo '<ul>';
