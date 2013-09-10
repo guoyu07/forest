@@ -47,35 +47,44 @@ class madeleine_popular_posts_widget extends WP_Widget {
     $title = apply_filters('widget_title', $instance['title'] );
     $total = $instance['total'];
 
-    global $wpdb;
-    $latest_ids = join(',', madeleine_latest_posts() ); 
-    $populars = $wpdb->get_results( 
-      "
-      SELECT post_id, meta_key, meta_value
-      FROM $wpdb->postmeta
-      WHERE meta_key = '_madeleine_share_total'
-      ORDER BY CAST(meta_value AS UNSIGNED) DESC
-      LIMIT " . $total
-    );
-    if ( $populars ):
-      echo $before_widget;
-      echo '<div id="popular">';
-      echo $before_title . $title . $after_title;
-      echo '<ul>';
-      foreach ( $populars as $popular ):
-        $id = $popular->post_id;
-        $categories = get_the_category( $id );
-        $category = get_category( madeleine_top_category( $categories[0] ) );
-        echo '<li class="post category-' . $category->category_nicename . '">';
-        echo '<em data-total="' . $popular->meta_value . '"></em>';
-        echo '<strong><span>' . $popular->meta_value . '</span></strong> ';
-        echo '<a href="' . get_permalink( $id ) . '">' . get_the_title( $id ) . '</a>';
-        echo '</li>';
-      endforeach;
-      echo '</ul>';
-      echo '<div style="clear: left;"></div>';
-      echo '</div>';
-     echo $after_widget;
+    $popularity_options = get_option( 'madeleine_popularity_options' );
+    if ( isset( $popularity_options['popularity_status'] ) && $popularity_options['popularity_status'] == 1 ):
+      $latest_ids = madeleine_latest_posts(); 
+      $standard_posts = madeleine_standard_posts(); // Get only standard format for the posts
+      $args = array(
+        'post_type' => 'post',
+        'posts_per_page' => $total,
+        'post__in' => $latest_ids,
+        'meta_key' => '_madeleine_share_total',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC',
+        'tax_query' => $standard_posts
+      );
+      $query = new WP_Query( $args );
+      if ( $query->have_posts() ):
+        echo $before_widget;
+        echo '<div id="popular">';
+        echo $before_title . $title . $after_title;
+        echo '<ul>';
+        while ( $query->have_posts() ) {
+          $query->the_post();
+          $categories = get_the_category();
+          $category = get_category( madeleine_top_category( $categories[0] ) );
+          $share_total = get_post_meta( get_the_ID(), '_madeleine_share_total', true );
+          $share_number = $share_total;
+          if ( $share_number > 10000 )
+            $share_number = floor( $share_number / 1000 ) . 'K';
+          echo '<li class="post category-' . $category->category_nicename . '">';
+          echo '<em data-total="' . $share_total . '"></em>';
+          echo '<strong><span>' . $share_number . '</span></strong> ';
+          echo '<a href="' . get_permalink() . '">' . get_the_title() . '</a>';
+          echo '</li>';
+        }
+        echo '</ul>';
+        echo '<div style="clear: left;"></div>';
+        echo '</div>';
+       echo $after_widget;
+      endif;
     endif;
   }
 

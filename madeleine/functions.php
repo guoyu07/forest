@@ -1068,7 +1068,7 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
     $social_options = get_option( 'madeleine_social_options' );
     $social_buttons = '';
     $permalink = get_permalink();
-    $permalink = 'http://paulgraham.com/accents.html';
+    $permalink = 'http://yahoo.tumblr.com/post/60332693287/introducing-our-new-logo';
     $encoded_permalink = urlencode( $permalink );
     $title = get_the_title();
     if ( isset( $social_options['social_buttons'] ) ):

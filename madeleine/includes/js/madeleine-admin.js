@@ -2,6 +2,8 @@ jQuery(document).ready(function($) {
 
   console.log('Madeleine Admin JS loaded.');
 
+  // Popularity plugin
+
   // Category colors
 
   var category_parent = $('#edittag #parent');
@@ -42,40 +44,40 @@ jQuery(document).ready(function($) {
 
   // Post formats
 
-  var quoteOptions = $('#madeleine-quote'),
-      quoteTrigger = $('#post-format-quote'),
-      linkOptions = $('#madeleine-link'),
-      linkTrigger = $('#post-format-link'),
-      videoOptions = $('#madeleine-video'),
-      videoTrigger = $('#post-format-video'),
-      group = jQuery('#post-formats-select input');
-
-  MadeleineHideAll(null); 
+  var quote_panel = $('#madeleine-quote'),
+  var quote_button = $('#post-format-quote'),
+  var link_panel = $('#madeleine-link'),
+  var link_button = $('#post-format-link'),
+  var video_panel = $('#madeleine-video'),
+  var video_button = $('#post-format-video'),
+  var formats_group = $('#post-formats-select input');
+    
+  function MadeleineHideAll() {
+    video_panel.css('display', 'none');
+    quote_panel.css('display', 'none');
+    link_panel.css('display', 'none');
+  }
   
-  group.change( function() {
+  formats_group.change( function() {
     MadeleineHideAll(null);   
-    if($(this).val() == 'quote') {
-      quoteOptions.css('display', 'block');   
+    if ($(this).val() == 'quote') {
+      quote_panel.css('display', 'block');   
     } else if($(this).val() == 'link') {
-      linkOptions.css('display', 'block');
+      link_panel.css('display', 'block');
     } else if($(this).val() == 'video') {
-      videoOptions.css('display', 'block');
+      video_panel.css('display', 'block');
     }
   });
   
-  if(quoteTrigger.is(':checked'))
-    quoteOptions.css('display', 'block');
+  if (quote_button.is(':checked'))
+    quote_panel.css('display', 'block');
 
-  if(linkTrigger.is(':checked'))
-    linkOptions.css('display', 'block');
+  if (link_button.is(':checked'))
+    link_panel.css('display', 'block');
     
-  if(videoTrigger.is(':checked'))
-    videoOptions.css('display', 'block');
-    
-  function MadeleineHideAll() {
-    videoOptions.css('display', 'none');
-    quoteOptions.css('display', 'none');
-    linkOptions.css('display', 'none');
-  }
+  if (video_button.is(':checked'))
+    video_panel.css('display', 'block');
+
+  MadeleineHideAll(null); 
   
 });
