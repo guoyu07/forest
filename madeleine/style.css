@@ -1,4 +1,5 @@
 /*
+
 Theme Name: Madeleine
 Theme URI: http://jgthms.com
 Author: JT
@@ -9,9 +10,16 @@ License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: dark, light, white, black, gray, one-column, two-columns, left-sidebar, right-sidebar, fixed-width, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
 Text Domain: madeleine
+
 */
 
 @import url(http://fonts.googleapis.com/css?family=Bitter:400,700,400italic);
+
+
+/**
+ * 01 Reset
+ *
+*/
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{ margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{ display: block; }
@@ -21,11 +29,25 @@ blockquote, q{ quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after{ content: ''; content: none; }
 table{ border-collapse: collapse; border-spacing: 0; }
 
+
+/**
+ * 02 Basic HTML tags
+ *
+*/
+
 html{ min-width: 320px; overflow-x: hidden; overflow-y: scroll;}
 body{ border-top: 2px solid #d0574e; color: #444; font: 14px/1.5 Arial, sans-serif;}
 a{ color: #708491; cursor: pointer; text-decoration: none;}
 a:hover{ text-decoration: underline;}
 textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
+
+
+/**
+ * 03 General CSS Classes
+ *
+ * Styles used throughout the website.
+ * 
+*/
 
 .wrap{ margin: 0 auto; position: relative; width: 1020px;}
 .heading{ border-bottom: 1px solid #eaedef; color: #708491; font: 24px/1.15 Bitter, Georgia, serif; margin: 0 20px; padding: 20px 0;}
@@ -50,7 +72,7 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .search-text{ background: white; border: 2px solid #d7dce1; border-radius: 15px; height: 18px; line-height: 18px; padding: 4px 20px 4px 30px; width: 186px;}
 .search-text:focus{ border-color: #708491; outline: none;}
 .search-submit{ background: url(images/search.png) no-repeat 0 0; border: none; cursor: pointer; height: 16px; left: 10px; position: absolute; top: 7px; width: 16px;}
-.content{ padding: 0 20px;}
+.no-search-results{ padding: 0 20px;}
 .tabs{ background: #f2f4f6; font: italic 11px/30px Bitter, Georgia, serif; height: 30px; letter-spacing: 0.125em; text-transform: uppercase;}
 .tabs li{ display: inline;}
 .tabs p,
@@ -95,7 +117,13 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .icon-dropdown-grey{ background-position: 0 -270px;}
 .icon-close{ background-position: 0 -300px;}
 
-/* Header */
+
+/**
+ * 04 Header and Footer
+ *
+ * Styles for the header (including the navigation bar) and the footer, available on all pages.
+ * 
+*/
 
 #header{ padding-top: 20px;}
 #header br{ display: none;}
@@ -147,8 +175,6 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #trending a{ color: #708491; float: left; font-size: 11px; line-height: 1.5; margin-left: 10px;}
 #trending p{ color: #444; font-weight: bold;}
 
-/* Footer */
-
 #footer{ background: #708491; clear: both; color: #b8c2c8; font: 13px/1.5 Bitter, Georgia, serif; min-height: 240px; padding: 40px 0; position: relative; z-index: 2013;}
 #footer section{ float: left; margin-right: 20px; width: 140px;}
 #footer a{ color: #d7dce1;}
@@ -162,44 +188,120 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #footer-description{ color: #d7dce1;}
 #footer-about{ clear: right; float: right; font: 11px/1.5 Arial, sans-serif; margin-top: 30px; text-align: right;}
 
-/* Parts */
+
+/**
+ * 05 Parts
+ *
+ * The main parts of the website's layout.
+ * 
+*/
 
 #main .wrap{ background: white;}
 #full{ float: left; width: 1020px;}
 #lead{ border-right: 1px solid #eaedef; float: left; width: 680px;}
 
-/* Sidebar */
 
-#sidebar{ border-left: 1px solid #eaedef; float: right; font-size: 12px; margin: 20px 19px 0 0; padding-left: 19px; position: relative; right: 1px; width: 300px;}
-.widget{ border-bottom: 1px solid #eaedef; margin-bottom: 20px; padding-bottom: 20px; position: relative;}
-.widget:last-child{ border-bottom: none; margin-bottom: 0;}
-#wp-calendar{ width: 100%;}
-.widget_calendar{ border-bottom: none;}
-#wp-calendar caption{ background: #eaedef; color: #708491; font: italic 13px/1.15 Bitter, Georgia, serif; padding: 10px;}
-#wp-calendar th,
-#wp-calendar td{ padding: 4px 0; text-align: center;}
-#wp-calendar th{ background: #d7dce1;}
-#wp-calendar td{ border: 1px solid #eaedef;}
-#wp-calendar a{ color: #d0574e; font-weight: bold;}
-#wp-calendar #today{ background: #d0574e; color: white;}
-#wp-calendar #today a{ color: white;}
-.rsswidget img{ vertical-align: bottom;}
+/**
+ * 06 Default WordPress WYSIWYG styles
+ *
+ * These are the styles applied by WP when using the admin editor.
+ * For example, when choosing an alignment for an image, WP adds the corresponding .align class.
+ * 
+*/
 
-/* Post */
+.entry-content img {}
+.alignleft,
+img.alignleft{ display: inline; float: left; margin: 0 1em 1em 0;}
+.alignright,
+img.alignright{ display: inline; float: right; margin: 0 0 1em 1em;}
+.aligncenter,
+img.aligncenter{ clear: both; display: block; margin-left: auto; margin-right: auto; text-align: center;}
+.alignnone,
+img.alignnone{}
+
+.wp-caption{}
+.wp-caption img{}
+.wp-caption p.wp-caption-text{}
+
+.wp-smiley{}
+
+blockquote.left{}
+blockquote.right{}
+
+.gallery dl{}
+.gallery dt{}
+.gallery dd{}
+.gallery dl a{}
+.gallery dl img{}
+.gallery-caption{}
+
+.size-full{}
+.size-large{}
+.size-medium{}
+.size-thumbnail{}
+
+
+/**
+ * 07 Content styles
+ *
+ * Styles for the main content of a post/page/review.
+ * These styles are replicated in the editor-style.css file, used in the admin editor.
+ * 
+*/
+
+.entry-content h2,
+.entry-content h3,
+.entry-content h4,
+.entry-content h5,
+.entry-content h6{ clear: both; font: bold 24px/1.15 Bitter, Georgia, serif; margin: 1em 0;}
+.entry-content h3{ font-size: 22px;}
+.entry-content h4{ font-size: 20px;}
+.entry-content h5{ font-size: 18px;}
+.entry-content h6{ font-size: 16px;}
+.entry-content p,
+.entry-content blockquote,
+.entry-content pre,
+.entry-content ul,
+.entry-content ol{ margin: 1em 0;}
+.entry-content ul{ list-style: disc inside;}
+.entry-content ol{ list-style: decimal inside;}
+.entry-content blockquote{ border-left: 5px solid #eaedef; color: #708491; font-style: italic; margin: 0; padding-left: 10px;}
+.entry-content dt{ font-weight: bold;}
+.entry-content dd{ margin-left: 20px;}
+.entry-content img{ max-width: 100%;}
+.entry-content figcaption{ color: #708491; font: italic 11px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; text-align: center;}
+.entry-content table{ width: 100%;}
+.entry-content tr:nth-child(2n){ background: #f2f4f6;}
+.entry-content th,
+.entry-content td{ border: 1px solid #eaedef; padding: 5px;}
+.entry-content th{ background: #eaedef; font-weight: bold;}
+.entry-content td{}
+.entry-content pre,
+.entry-content code{ background: #eaedef; font-family: monospace;}
+.entry-content pre{ color: #708491; font-size: 14px; padding: 1em;}
+.entry-content pre p{ margin: 0;}
+.entry-content textarea,
+.entry-content input[type="text"],
+.entry-content input[type="password"]{ background: #eaedef; border: 1px solid #d7dce1; padding: 6px 8px;}
+.entry-content textarea{ min-height: 100px; padding: 2%; width: 96%;}
+.entry-content input[type="submit"],
+.entry-content input[type="reset"]{ background: #708491; border: none; border-radius: 5px; color: white; cursor: pointer; font: bold 13px/1.15 Bitter, Georgia, serif; display: inline-block; overflow: visible; padding: 5px 10px 6px; position: relative; text-align: center; vertical-align: middle;}
+.entry-content input[type="submit"]:hover,
+.entry-content input[type="reset"]:hover{ background: #444;}
+.entry-content acronym,
+.entry-content abbr{ border-bottom: 1px dotted #444; cursor: help;}
+
+
+/**
+ * 08 Post styles
+ *
+ * Styles for a post's elements: title, info, thumbnail, category, tags...
+ * 
+*/
 
 .post{ position: relative;}
 .post-edit-link{ background: #444; color: white !important; display: none; font-size: 11px; left: 100%; padding: 2px 4px; position: absolute; top: 0; white-space: nowrap; z-index: 1986;}
 .post:hover .post-edit-link{ display: inline;}
-.aligncenter{ text-align: center;}
-.alignleft { display: inline; float: left; margin-right: 1em;}
-.alignright { display: inline; float: right; margin-left: 1em;}
-.aligncenter { clear: both; display: block; margin-left: auto; margin-right: auto;}
-
-.entry-content h2{ font: bold 24px/1.15 Bitter, Georgia, serif;}
-.entry-content p{ margin: 1em 0;}
-.entry-content img{ max-width: 100%;}
-.entry-content figcaption{ color: #708491; font: italic 11px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; text-align: center;}
-.entry-content .size-medium{ }
 
 .entry-format{ color: #708491 !important; font: italic 10px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; margin-bottom: 5px; text-transform: uppercase;}
 .entry-title{ color: #444; font: bold 18px/1.15 Bitter, Georgia, serif;}
@@ -230,7 +332,13 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .entry-share{ border: solid #eaedef; border-width: 1px 0; margin-top: 20px; padding-top: 10px;}
 .entry-share .share{ float: left; height: 30px; width: 128px;}
 
-/* Formats */
+
+/**
+ * 09 Post Formats
+ *
+ * Defines styles for the different post formats; images, videos, quotes, and links.
+ * 
+*/
 
 .format-quote .entry-title{ font-style: italic; font-weight: normal;}
 /*.format-image .entry-thumbnail,
@@ -242,7 +350,14 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .format-image .entry-thumbnail:hover:after,
 .format-video .entry-thumbnail:hover:after{ background-color: #d0574e;}
 
-/* Single */
+
+/**
+ * 10 Single
+ * Template: single.php
+ *
+ * Defines styles for the single.php template, used to display a single post, a single page, or a single attachment
+ * 
+*/
 
 .single #lead .post,
 .page #lead .post{ padding: 20px; width: 640px;}
@@ -259,7 +374,18 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 
 .single-attachment .attachment{ padding: 20px;}
 
-/* Layouts */
+
+/**
+ * 11 Post layouts
+ *
+ * Defines the styles of lists of posts.
+ * - list: the default layout for post lists. Used in category.php, author.php
+ * - grid: used on the homepage
+ * - board: used on the homepage, right below the grid. Has no excerpt. Just the square thumbnail, the title, and the category.
+ * - wheel: used on the homepage in the category tabs. Displays 5 posts in a circle layout.
+ * - pinterest: used in tag.php. Uses jQuery to create a Pinterest-like grid of all the posts.
+ * 
+*/
 
 .list{ padding: 20px;}
 .list .post{ border-bottom: 1px solid #eaedef; margin-bottom: 20px; padding-bottom: 20px;}
@@ -325,7 +451,30 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .pinterest .format-link .entry-title,
 .pinterest .format-quote .entry-title{ clear: both;}
 
-/* Widgets */
+
+/**
+ * 12 Sidebar
+ * Template: sidebar.php
+ * 
+ * The sidebar's layout, including its widgets.
+ * 
+*/
+
+#sidebar{ border-left: 1px solid #eaedef; float: right; font-size: 12px; margin: 20px 19px 0 0; padding-left: 19px; position: relative; right: 1px; width: 300px;}
+
+.widget{ border-bottom: 1px solid #eaedef; margin-bottom: 20px; padding-bottom: 20px; position: relative;}
+.widget:last-child{ border-bottom: none; margin-bottom: 0;}
+#wp-calendar{ width: 100%;}
+.widget_calendar{ border-bottom: none;}
+#wp-calendar caption{ background: #eaedef; color: #708491; font: italic 13px/1.15 Bitter, Georgia, serif; padding: 10px;}
+#wp-calendar th,
+#wp-calendar td{ padding: 4px 0; text-align: center;}
+#wp-calendar th{ background: #d7dce1;}
+#wp-calendar td{ border: 1px solid #eaedef;}
+#wp-calendar a{ color: #d0574e; font-weight: bold;}
+#wp-calendar #today{ background: #d0574e; color: white;}
+#wp-calendar #today a{ color: white;}
+.rsswidget img{ vertical-align: bottom;}
 
 #latest .dots{ position: absolute; right: 0; top: 2px;}
 #latest ul{ display: none;}
@@ -362,7 +511,14 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #videos .entry-title{ margin-top: 10px;}
 #videos li:first-child{ display: block;}
 
-/* Comments */
+
+/**
+ * 13 Comments
+ * Template: comments.php
+ *
+ * Defines the style of the comments list and the comment form, called by the single.php template.
+ * 
+*/
 
 #comments{ clear: left; margin-top: 40px;}
 #comments-title,
@@ -414,7 +570,16 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .comments-list #respond{ border-top: 1px solid #eaedef; margin-top: 0; padding-top: 20px;}
 .comments-list #commentform{ border-bottom: none;}
 
-/* Reviews */
+
+/**
+ * 14 Reviews
+ *
+ * The reviews are a custom post type available in the Madeleine theme.
+ * They appear on the bottom of the homepage and also have their dedicated archive and single page.
+ * The reviews archive contains a menu to filter the reviews by product, brand, rating, and price.
+ * The rating and price filters use jQuery UI sliders that are styled here.
+ * 
+*/
 
 .entry-rating,
 .rating{ background: #708491; color: white; font: bold 24px/60px Bitter, Georgia, serif; height: 60px; text-align: center; width: 60px;}
@@ -485,7 +650,24 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 /*#reviews .heading{ margin-left: 220px;}*/
 #reviews #lead{ border-left: 1px solid #eaedef; border-right: none; float: right; width: 820px;}
 
-/* 01 Home */
+.ui-slider{ background: #f2f4f6; border-radius: 4px; height: 8px; margin: 10px 7px 30px; position: relative;}
+#menu .ui-slider-range{ background: #eaedef; border: none; color: #708491; font-weight: bold; height: 100%; position: absolute; top: 0; z-index: 1;}
+#menu .ui-slider-handle{ background: #d7dce1; border: none; border-radius: 8px; height: 14px; cursor: pointer; outline: none; margin-left: -7px; padding: 0; position: absolute; top: -3px; width: 14px; z-index: 2;}
+
+#menu .ui-slider-handle:hover,
+#menu .ui-state-active{ background: #d0574e;}
+.slider-value{ font-weight: bold;}
+
+
+/**
+ * 15 Home
+ * Template: index.php
+ * 
+ * Elements that only appear on the homepage, such as the Focus area, which appears right below the navigation bar.
+ * It displays the 5 latest published sticky posts.
+ * If less than 5 sticky posts are published, or if the Focus feature is disabled (through the Customize menu), the Focus area will not appear.
+ * 
+*/
 
 #focus{ height: 480px; position: relative; width: 1020px;}
 .focus{ height: 160px; overflow: hidden; position: absolute; width: 340px;}
@@ -505,7 +687,15 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #focus-1 .entry-excerpt,
 #focus-5 .entry-excerpt{ display: block;}
 
-/* 02 Category */
+
+/**
+ * 16 Category
+ * Template: category.php
+ * 
+ * The archive for one category or sub-category.
+ * It displays the posts in a "list" layout and adds a category breadcrumb right below the navigation bar.
+ * 
+*/
 
 #category{ font-family: Bitter, Georgia, serif; height: 30px; line-height: 30px;}
 #category .wrap{ background: #444;}
@@ -517,15 +707,39 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #category li a{ color: white; float: left; padding: 0 10px;}
 #category .current-cat a{ background: white; color: #d0574e;}
 
-/* 03 Tag */
+
+/**
+ * 17 Tags
+ * Template: tag.php
+ * 
+ * The archive for one tag.
+ * It displays the posts in a "pinterest" layout and adds a dropdown of all the tags available, along with their post count.
+ * 
+*/
 
 #tags em{ float: left;}
 
-/* 04 Author */
+
+/**
+ * 18 Author
+ * Template: author.php
+ * 
+ * The archive for an author.
+ * It displays the posts in a "list" layout and adds a heading with the author's name, avatar, and description (if provided).
+ * 
+*/
 
 #author-avatar{ float: left; margin-right: 20px;}
 
-/* 05 Date */
+
+/**
+ * 19 Date
+ * Template: date.php
+ * 
+ * The archive for a date, whether it's a year, a month, or a particular day.
+ * Displays a list of posts for that date, along with a custom date archive selector.
+ * 
+*/
 
 #date-archive{ height: 40px; line-height: 40px; position: relative; z-index: 2013;}
 #date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 160px;}
@@ -549,7 +763,13 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #date-archive .on .icon{ display: block;}
 #date-archive .open .on .icon{ display: none;}
 
-/* CSS 3 */
+
+/**
+ * 20 CSS 3
+ *
+ * Special CSS 3 styles.
+ * 
+*/
 
 #trending{
   background: -moz-linear-gradient(top,  #f8f9fa 0%, #f2f4f6 100%);
@@ -561,47 +781,15 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f9fa', endColorstr='#f2f4f6',GradientType=0 );
 }
 
-/* jQuery UI */
 
-.ui-slider{
-  background: #f2f4f6;
-  border-radius: 4px;
-  height: 8px;
-  margin: 10px 7px 30px;
-  position: relative;
-}
-
-#menu .ui-slider-range{
-  background: #eaedef;
-  border: none;
-  color: #708491;
-  font-weight: bold;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 1;
-}
-
-#menu .ui-slider-handle{
-  background: #d7dce1;
-  border: none;
-  border-radius: 8px;
-  height: 14px;
-  cursor: pointer;
-  outline: none;
-  margin-left: -7px;
-  padding: 0;
-  position: absolute;
-  top: -3px;
-  width: 14px;
-  z-index: 2;
-}
-
-#menu .ui-slider-handle:hover,
-#menu .ui-state-active{ background: #d0574e;}
-.slider-value{ font-weight: bold;}
-
-/* Responsiveness */
+/**
+ * 21 Responsiveness
+ *
+ * The default layout is optimized for a browser width superior to 1020 pixels.
+ * If the browser width is smaller than 1020px, the layout will adjust itself to make sure that the website is displayed properly.
+ * If the browser width is smaller than 680px, the mobile view will be activated. It's optimized for smartphones and tablets.
+ * 
+*/
 
 @media only screen and (max-width: 1020px) {
   /*body{ background: red !important;}*/

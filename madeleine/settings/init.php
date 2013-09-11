@@ -9,8 +9,8 @@ define( 'SETTINGS_URL', get_template_directory_uri() .'/settings' );
 
 require_once( SETTINGS_DIR .'/custom/custom-header.php' );
 require_once( SETTINGS_DIR .'/custom/custom-background.php' );
+require_once( SETTINGS_DIR .'/custom/custom-settings.php' );
 require_once( SETTINGS_DIR .'/custom/custom-categories.php' );
-require_once( SETTINGS_DIR .'/custom/custom-colors.php' );
 
 
 /**
