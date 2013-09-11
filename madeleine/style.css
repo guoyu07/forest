@@ -35,15 +35,16 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .subtitle{ font-size: 17px; line-height: 1.25; margin-top: 10px;}
 .pagination{ clear: left; font: bold 16px/30px Bitter, Georgia, serif; height: 30px; padding: 20px 0; position: relative; text-align: center;}
 .pagination a,
-.pagination strong{ background: #eaedef; border-radius: 4px; display: inline-block; height: 30px; margin: 0 5px; min-width: 30px;}
-.pagination strong{ background: #444; color: white;}
-.pagination a strong{ background: none; color: #708491; display: inline; height: auto; margin: 0; min-width: 0;}
+.pagination span{ background: #eaedef; border-radius: 4px; display: inline-block; height: 30px; min-width: 30px;}
+.pagination span{ background: #444; color: white;}
+/*.pagination a strong{ background: none; color: #708491; display: inline; height: auto; margin: 0; min-width: 0;}*/
 .pagination a:hover{ background: #708491; color: white; text-decoration: none;}
-.pagination a:hover strong{ color: white;}
-.pagination .page-nav{ font-size: 20px; line-height: 26px; margin: 0; position: absolute; top: 20pxt;}
-.pagination .page-first{ left: 0;}
+/*.pagination a:hover strong{ color: white;}*/
+.pagination .prev,
+.pagination .next{ font-size: 14px; margin: 0; padding: 0 10px;}
+.pagination .prev{ left: 0;}
 .pagination .page-previous{ left: 40px;}
-.pagination .page-last{ right: 0;}
+.pagination .next{ right: 0;}
 .pagination .page-next{ right: 40px;}
 .search-form{ position: relative; width: 240px;}
 .search-text{ background: white; border: 2px solid #d7dce1; border-radius: 15px; height: 18px; line-height: 18px; padding: 4px 20px 4px 30px; width: 186px;}
@@ -159,7 +160,7 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #footer-logo{ float: right; line-height: 1; margin-top: 30px;}
 #footer-title{ color: white;}
 #footer-description{ color: #d7dce1;}
-#footer-about{ float: right; font: 11px/1.5 Arial, sans-serif; margin-top: 30px; text-align: right;}
+#footer-about{ clear: right; float: right; font: 11px/1.5 Arial, sans-serif; margin-top: 30px; text-align: right;}
 
 /* Parts */
 

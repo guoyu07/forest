@@ -22,6 +22,50 @@ if ( !function_exists( 'madeleine_theme_settings' ) ) {
 
     $icon = SETTINGS_URL . '/images/icon.png';
 
+    add_theme_page(
+      __( 'Madeleine Popular Posts plugin', 'madeleine' ),
+      __( 'Madeleine Popular Posts plugin', 'madeleine' ),
+      'update_core',
+      'madeleine_popularity_options_page',
+      'madeleine_popularity_options_display'
+    );
+  }
+}
+add_action( 'admin_menu', 'madeleine_theme_settings' );
+
+
+if ( !function_exists( 'madeleine_popularity_options_display' ) ) {
+  function madeleine_popularity_options_display() {
+    ?>
+    <div id="madeleine-settings" class="wrap">
+      <div id="madeleine-settings-header">
+        <h2 id="madeleine-settings-title"><?php _e( 'Popular Posts plugin', 'madeleine' ); ?></h2>
+        <?php settings_errors(); ?>
+      </div>
+
+      <form id="madeleine-settings-form" method="post" action="options.php">
+        <?php
+          settings_fields( 'madeleine_popularity_options_group' );
+          do_settings_sections( 'madeleine_popularity_options_page' );
+          submit_button();
+        ?>
+      </form>
+    </div>
+    <?php
+  }
+}
+
+
+/**
+ * This function introduces the theme settings into the 'Appearance' menu and into a top-level 
+ * 'Madeleine Theme' menu.
+ */
+
+/*if ( !function_exists( 'madeleine_theme_settings' ) ) {
+  function madeleine_theme_settings() {
+
+    $icon = SETTINGS_URL . '/images/icon.png';
+
     // add_menu_page(
     //   'Madeleine Theme',           // The title to be displayed in the browser window for this page.
     //   'Madeleine',                 // The text to be displayed for this menu item
@@ -29,6 +73,14 @@ if ( !function_exists( 'madeleine_theme_settings' ) ) {
     //   'madeleine_settings',        // The unique ID - that is, the slug - for this menu item
     //   'madeleine_settings_display' // The name of the function to call when rendering this menu's page
     // );
+
+    add_theme_page(
+      __( 'Popular Posts plugin', 'madeleine' ),
+      __( 'Popular Posts plugin', 'madeleine' ),
+      'update_core',
+      'madeleine_popularity_options_page',
+      create_function( null, 'madeleine_settings_display( "popularity_options" );' )
+    );
 
     add_object_page(
       'Madeleine Theme Settings',     // The title to be displayed in the browser window for this page.
@@ -112,10 +164,11 @@ if ( !function_exists( 'madeleine_theme_settings' ) ) {
     );
   }
 }
-add_action( 'admin_menu', 'madeleine_theme_settings' );
+// add_action( 'admin_menu', 'madeleine_theme_settings' );
+*/
 
 
-if ( !function_exists( 'madeleine_settings_display' ) ) {
+/*if ( !function_exists( 'madeleine_settings_display' ) ) {
   function madeleine_settings_display( $active_tab = '' ) {
     ?>
     <div id="madeleine-settings" class="wrap">
@@ -204,17 +257,17 @@ if ( !function_exists( 'madeleine_settings_display' ) ) {
     </div>
   <?php
   }
-}
+}*/
 
 
 // Load the different settings pages
 
 
-require_once( SETTINGS_DIR .'/pages/home-options.php' );
-require_once( SETTINGS_DIR .'/pages/social-options.php' );
-require_once( SETTINGS_DIR .'/pages/analytics-options.php' );
-require_once( SETTINGS_DIR .'/pages/reviews-options.php' );
-require_once( SETTINGS_DIR .'/pages/css-options.php' );
+// require_once( SETTINGS_DIR .'/pages/home-options.php' );
+// require_once( SETTINGS_DIR .'/pages/social-options.php' );
+// require_once( SETTINGS_DIR .'/pages/analytics-options.php' );
+// require_once( SETTINGS_DIR .'/pages/reviews-options.php' );
+// require_once( SETTINGS_DIR .'/pages/css-options.php' );
 require_once( SETTINGS_DIR .'/pages/popularity-options.php' );
 // require_once( SETTINGS_DIR .'/pages/examples-options.php' );
 

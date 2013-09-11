@@ -2,8 +2,6 @@ jQuery(document).ready(function($) {
 
   console.log('Madeleine Admin JS loaded.');
 
-  // Popularity plugin
-
   // Category colors
 
   var category_parent = $('#edittag #parent');
@@ -44,12 +42,12 @@ jQuery(document).ready(function($) {
 
   // Post formats
 
-  var quote_panel = $('#madeleine-quote'),
-  var quote_button = $('#post-format-quote'),
-  var link_panel = $('#madeleine-link'),
-  var link_button = $('#post-format-link'),
-  var video_panel = $('#madeleine-video'),
-  var video_button = $('#post-format-video'),
+  var quote_panel = $('#madeleine-quote');
+  var quote_button = $('#post-format-quote');
+  var link_panel = $('#madeleine-link');
+  var link_button = $('#post-format-link');
+  var video_panel = $('#madeleine-video');
+  var video_button = $('#post-format-video');
   var formats_group = $('#post-formats-select input');
     
   function MadeleineHideAll() {

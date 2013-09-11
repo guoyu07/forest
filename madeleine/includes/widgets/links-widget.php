@@ -12,8 +12,10 @@
 
 // Register the widget
 
-function madeleine_register_links_widget() {
-  register_widget( 'madeleine_links_widget' );
+if ( !function_exists( 'madeleine_register_links_widget' ) ) {
+  function madeleine_register_links_widget() {
+    register_widget( 'madeleine_links_widget' );
+  }
 }
 add_action( 'widgets_init', 'madeleine_register_links_widget' );
 

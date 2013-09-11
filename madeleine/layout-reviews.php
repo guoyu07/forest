@@ -18,7 +18,7 @@
             <?php while ( have_posts() ) : the_post(); ?>
               <?php get_template_part( 'content', 'review' ); ?>
             <?php endwhile; ?>
-            <?php madeleine_pagination(); ?>
+            <?php madeleine_reviews_pagination( $wp_query ); ?>
           </div>
         <?php else: ?>
           <hgroup class="heading">

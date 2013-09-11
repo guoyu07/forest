@@ -49,7 +49,7 @@ if ( function_exists('register_sidebar') )
 
 if ( !function_exists( 'madeleine_social_links' ) ) {
   function madeleine_social_links() {
-    $social_options = get_option( 'madeleine_social_options' );
+    $social_options = get_option( 'madeleine_options_social' );
     $social_links = '';
     if ( isset( $social_options['social_accounts'] ) ):
       foreach ( $social_options['social_accounts'] as $key => $value) {
@@ -80,10 +80,10 @@ if ( !function_exists( 'madeleine_social_links' ) ) {
               $social_links .= '</div>';
               break;
             case 'tumblr':
-              $social_links .= '<li class="social-' . $slug . '"><a href="http://' . $value . '.tumblr.com">' . $name . '</a>';
+              $social_links .= '<li class="social-' . $slug . '"><a href="' . $value . '">' . $name . '</a>';
               break;
             case 'youtube':
-              $social_links .= '<li class="social-' . $slug . '"><a href="http://www.youtube.com/' . $value . '">' . $name . '</a>';
+              $social_links .= '<li class="social-' . $slug . '"><a href="' . $value . '">' . $name . '</a>';
               break;
           endswitch;
           $social_links .= '</li>';
@@ -110,7 +110,7 @@ endif;
 if ( !function_exists( 'madeleine_feed_redirect' ) ) {
   function madeleine_feed_redirect() {
     global $wp, $feed, $withcomments;
-    $analytics_options = get_option( 'madeleine_analytics_options' );
+    $analytics_options = get_option( 'madeleine_options_analytics' );
     if ( array_key_exists( 'feedburner_url', $analytics_options ) && $analytics_options['feedburner_url'] != '' ):
       if ( is_feed() && $feed != 'comments-rss2' && !is_single() && $wp->query_vars['category_name'] == '' && ( $withcomments != 1 ) ):
         if( function_exists('status_header') ) status_header( 302 );
@@ -125,19 +125,21 @@ if ( !function_exists( 'madeleine_feed_redirect' ) ) {
 
 if ( !function_exists( 'madeleine_check_url' ) ) {
   function madeleine_check_url() {
-    $analytics_options = get_option( 'madeleine_analytics_options' );
-    if( array_key_exists( 'feedburner_url', $analytics_options ) && $analytics_options['feedburner_url'] != '' ):
-      switch( basename($_SERVER['PHP_SELF']) ):
-        case 'wp-rss.php':
-        case 'wp-rss2.php':
-        case 'wp-atom.php':
-        case 'wp-rdf.php':
-          if( function_exists('status_header') ) status_header( 302 );
-          header( "Location:" . trim( $analytics_options['feedburner_url'] ) );
-          header( "HTTP/1.1 302 Temporary Redirect" );
-          exit();
-          break;
-      endswitch;
+    $analytics_options = get_option( 'madeleine_options_analytics' );
+    if( isset( $analytics_options ) ):
+      if( $analytics_options['feedburner_url'] != '' ):
+        switch( basename($_SERVER['PHP_SELF']) ):
+          case 'wp-rss.php':
+          case 'wp-rss2.php':
+          case 'wp-atom.php':
+          case 'wp-rdf.php':
+            if( function_exists('status_header') ) status_header( 302 );
+            header( "Location:" . trim( $analytics_options['feedburner_url'] ) );
+            header( "HTTP/1.1 302 Temporary Redirect" );
+            exit();
+            break;
+        endswitch;
+      endif;
     endif;
   }
 }
@@ -148,9 +150,11 @@ if ( !function_exists( 'madeleine_check_url' ) ) {
 
 if ( !function_exists( 'madeleine_tracking_code' ) ) {
   function madeleine_tracking_code(){
-    $analytics_options = get_option( 'madeleine_analytics_options' );
+    $analytics_options = get_option( 'madeleine_options_analytics' );
+    if( isset( $analytics_options ) ):
     if( array_key_exists( 'tracking_code', $analytics_options ) && $analytics_options['tracking_code'] != '' )
         echo stripslashes( $analytics_options['tracking_code'] );
+    endif;
   }
 }
 add_action( 'wp_footer', 'madeleine_tracking_code' );
@@ -192,16 +196,18 @@ add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
 
 if ( !function_exists( 'madeleine_custom_colors' ) ) {
   function madeleine_custom_colors() {
-    $main_color = get_option( 'madeleine_main_color' );
-    $reviews_color = get_option( 'madeleine_reviews_color' );
+    $colors_options = get_option( 'madeleine_options_colors' );
+    $reviews_options = get_option( 'madeleine_options_reviews' );
     $custom_css = '<style id="madeleine-custom-colors" type="text/css">';
-    if ( isset( $main_color ) && $main_color != '' ):
+    if ( isset( $colors_options['main_color'] ) && $colors_options['main_color'] != '' ):
+      $main_color = $colors_options['main_color'];
       $custom_css .= 'body{ border-top-color: ' . $main_color . ';}';
       $custom_css .= '#wp-calendar a,.entry-title a,#category .current-cat a{ color: ' . $main_color . ';}';
       $custom_css .= '#wp-calendar #today,.post .entry-category a,.format-image .entry-thumbnail:hover:after,.format-video .entry-thumbnail:hover:after,#category strong{ background-color: ' . $main_color . ';}';
       $custom_css .= '#category strong:after{ border-left-color: ' . $main_color . ';}';
     endif;
-    if ( isset( $reviews_color ) && $reviews_color != '' ):
+    if ( isset( $reviews_options['color'] ) && $reviews_options['color'] != '' ):
+      $reviews_color = $reviews_options['color'];
       $custom_css .= '.review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
       $custom_css .= '.review .entry-category a,.single-review #category strong{ background-color: ' . $reviews_color . ';}';
       $custom_css .= '#jump .on,#jump .on:hover,#menu-icon,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
@@ -241,7 +247,7 @@ add_action( 'wp_print_styles', 'madeleine_categories_colors' );
 
 if ( !function_exists( 'madeleine_custom_css' ) ) {
   function madeleine_custom_css() {
-    $css_options = get_option( 'madeleine_css_options' );
+    $css_options = get_option( 'madeleine_options_css' );
     if ( isset( $css_options['custom_code'] ) && $css_options['custom_code'] != '' ):
       $custom_css = '<style id="madeleine-custom-css" type="text/css">';
       $custom_css .= $css_options['custom_code'];
@@ -498,7 +504,7 @@ if ( !function_exists( 'madeleine_sticky_posts' ) ) {
 
 if ( !function_exists( 'madeleine_focus' ) ) {
   function madeleine_focus() {
-    $home_options = get_option( 'madeleine_home_options' );
+    $home_options = get_option( 'madeleine_options_home' );
     if ( $home_options['focus_status'] == 1 ):
       $sticky_posts = madeleine_sticky_posts();
       $args = array(
@@ -572,7 +578,7 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
     $standard_posts = madeleine_standard_posts();
     if ( ( $query->is_home() ) && $query->is_main_query() ):
       $sticky_posts = madeleine_sticky_posts();
-      $home_options = get_option( 'madeleine_home_options' );
+      $home_options = get_option( 'madeleine_options_home' );
       $grid_number = ( isset( $home_options['grid_number'] ) ) ? $home_options['grid_number'] : 6;
       $query->set( 'tax_query', $standard_posts );
       $query->set( 'post__not_in', $sticky_posts );
@@ -580,7 +586,7 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
     elseif ( $query->is_tag() && $query->is_main_query() ):
       $query->set( 'posts_per_page', -1 );
     elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax( 'product' ) || $query->is_tax( 'brand' ) ) && $query->is_main_query() ):
-      $reviews_options = get_option( 'madeleine_reviews_options' );
+      $reviews_options = get_option( 'madeleine_options_reviews' );
       $maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
       $maximum_price = ( isset( $reviews_options['maximum_price'] ) ) ? $reviews_options['maximum_price'] : 2000;
       $product = get_query_var( 'product_id' ) != '' ? get_query_var( 'product_id' ) : '';
@@ -635,7 +641,7 @@ add_action( 'pre_get_posts', 'madeleine_archive_settings' );
 
 if ( !function_exists( 'madeleine_next_posts' ) ) {
   function madeleine_next_posts( $already_posted ) {
-    $home_options = get_option( 'madeleine_home_options' );
+    $home_options = get_option( 'madeleine_options_home' );
     if ( $home_options['next_status'] == 1 ):
       $next_number = ( isset( $home_options['next_number'] ) ) ? $home_options['next_number'] : 10;
       $standard_posts = madeleine_standard_posts();
@@ -676,7 +682,7 @@ if ( !function_exists( 'madeleine_next_posts' ) ) {
 
 if ( !function_exists( 'madeleine_category_wheels' ) ) {
   function madeleine_category_wheels( $already_posted ) {
-    $home_options = get_option( 'madeleine_home_options' );
+    $home_options = get_option( 'madeleine_options_home' );
     $categories_as_tabs = ( isset( $home_options['category_tabs_status'] ) ) ? $home_options['category_tabs_status'] : 1;
     $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
     $standard_posts = madeleine_standard_posts();
@@ -767,32 +773,67 @@ if ( !function_exists( 'madeleine_category_breadcrumb' ) ) {
 }
 
 
+// if ( !function_exists( 'madeleine_pagination' ) ) {
+//   function madeleine_pagination( $pages = '', $range = 2 ) {
+//     global $paged;
+//     $showitems = ( $range * 2 ) + 1;
+//     if ( empty( $paged ) )
+//       $paged = 1;
+
+//     if ( $pages == '' ):
+//       global $wp_query;
+//       $pages = $wp_query->max_num_pages;
+//       if ( !$pages )
+//         $pages = 1;
+//     endif;
+
+//     if ( 1 != $pages ) {
+//       echo '<div class="pagination">';
+//       if ( $paged > 2 && $paged > $range+1 && $showitems < $pages ) echo '<a href="' . get_pagenum_link( 1 ) . '" class="page-nav page-first">&laquo;</a>';
+//       if ( $paged > 1 && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $paged - 1 ) . '" class="page-nav page-previous">&lsaquo;</a>';
+//       for ( $i=1; $i <= $pages; $i++ ):
+//         if ( 1 != $pages &&(  !( $i >= $paged+$range+1 || $i <= $paged-$range-1 ) || $pages <= $showitems  ) )
+//           echo ( $paged == $i )? "<strong>".$i."</strong>":'<a href="' . get_pagenum_link( $i ) . '">' . $i . '</a>';
+//       endfor;
+//       if ( $paged < $pages && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $paged + 1 ) . '" class="page-nav page-next">&rsaquo;</a>';  
+//       if ( $paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $pages ) . '" class="page-nav page-last">&raquo;</a>';
+//       echo "</div>\n";
+//     }
+//   }
+// }
+
+
 if ( !function_exists( 'madeleine_pagination' ) ) {
-  function madeleine_pagination( $pages = '', $range = 2 ) {
-    global $paged;
-    $showitems = ( $range * 2 ) + 1;
-    if ( empty( $paged ) )
-      $paged = 1;
+  function madeleine_pagination() {
+    global $wp_query;
+    $big = 999999999; // need an unlikely integer
+    echo '<div class="pagination">';
+    echo paginate_links(
+      array(
+        'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+        'format' => '?paged=%#%',
+        'current' => max( 1, get_query_var('paged') ),
+        'total' => $wp_query->max_num_pages
+      )
+    );
+    echo '</div>';
+  }
+}
 
-    if ( $pages == '' ):
-      global $wp_query;
-      $pages = $wp_query->max_num_pages;
-      if ( !$pages )
-        $pages = 1;
-    endif;
 
-    if ( 1 != $pages ) {
-      echo '<div class="pagination">';
-      if ( $paged > 2 && $paged > $range+1 && $showitems < $pages ) echo '<a href="' . get_pagenum_link( 1 ) . '" class="page-nav page-first">&laquo;</a>';
-      if ( $paged > 1 && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $paged - 1 ) . '" class="page-nav page-previous">&lsaquo;</a>';
-      for ( $i=1; $i <= $pages; $i++ ):
-        if ( 1 != $pages &&(  !( $i >= $paged+$range+1 || $i <= $paged-$range-1 ) || $pages <= $showitems  ) )
-          echo ( $paged == $i )? "<strong>".$i."</strong>":'<a href="' . get_pagenum_link( $i ) . '">' . $i . '</a>';
-      endfor;
-      if ( $paged < $pages && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $paged + 1 ) . '" class="page-nav page-next">&rsaquo;</a>';  
-      if ( $paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages ) echo '<a href="' . get_pagenum_link( $pages ) . '" class="page-nav page-last">&raquo;</a>';
-      echo "</div>\n";
-    }
+if ( !function_exists( 'madeleine_reviews_pagination' ) ) {
+  function madeleine_reviews_pagination( $query ) {
+    $big = 999999999; // need an unlikely integer
+    echo '<div class="pagination">';
+    echo paginate_links(
+      array(
+        'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+        'format' => '?paged=%#%',
+        'current' => max( 1, get_query_var('paged') ),
+        'total' => $query->max_num_pages
+      )
+    );
+    echo '</div>';
   }
 }
 
@@ -1065,7 +1106,7 @@ if ( !function_exists( 'madeleine_entry_info' ) ) {
 
 if ( !function_exists( 'madeleine_entry_share' ) ) {
   function madeleine_entry_share() {
-    $social_options = get_option( 'madeleine_social_options' );
+    $social_options = get_option( 'madeleine_options_social' );
     $social_buttons = '';
     $permalink = get_permalink();
     $permalink = 'http://yahoo.tumblr.com/post/60332693287/introducing-our-new-logo';
@@ -1078,7 +1119,7 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
           $social_buttons .= '<div class="share">';
           switch( $slug ):
             case 'twitter':
-              $social_buttons .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $permalink . '" data-text="' . $title . '">Tweet</a>';
+              $social_buttons .= '<a href="//twitter.com/share" class="twitter-share-button" data-url="' . $permalink . '" data-text="' . $title . '">Tweet</a>';
               $social_buttons .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
               break;
             case 'facebook':
@@ -1112,7 +1153,7 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
 
 if ( !function_exists( 'madeleine_entry_rating' ) ) {
   function madeleine_entry_rating( $id, $echo = true ) {
-    $reviews_options = get_option( 'madeleine_reviews_options' );
+    $reviews_options = get_option( 'madeleine_options_reviews' );
     $maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
     $rating = get_post_meta( $id, '_madeleine_review_rating', true );
     $range = floor( $rating * 10 / $maximum_rating );
@@ -1316,7 +1357,7 @@ if ( !function_exists( 'madeleine_reviews_tabs' ) ) {
 
 if ( !function_exists( 'madeleine_reviews_grid' ) ) {
   function madeleine_reviews_grid( $tax_ID = 'all' ) {
-    $home_options = get_option( 'madeleine_home_options' );
+    $home_options = get_option( 'madeleine_options_home' );
     $reviews_number = ( isset( $home_options['reviews_number'] ) ) ? $home_options['reviews_number'] : 10;
     $args = array(
       'post_type' => 'review',
@@ -1353,7 +1394,7 @@ if ( !function_exists( 'madeleine_reviews_grid' ) ) {
 
 if ( !function_exists( 'madeleine_reviews_home' ) ) {
   function madeleine_reviews_home() {
-    $home_options = get_option( 'madeleine_home_options' );
+    $home_options = get_option( 'madeleine_options_home' );
     if ( $home_options['reviews_status'] == 1 ):
       $reviews_home = madeleine_reviews_tabs();
       $reviews_home .= '<div class="reviews-grid"><div id="reviews-result">';
@@ -1391,7 +1432,7 @@ if ( !function_exists( 'madeleine_reviews_breadcrumb' ) ) {
 
 if ( !function_exists( 'madeleine_reviews_menu' ) ) {
   function madeleine_reviews_menu() {
-    $reviews_options = get_option( 'madeleine_reviews_options' );
+    $reviews_options = get_option( 'madeleine_options_reviews' );
     $maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
     $maximum_price = ( isset( $reviews_options['maximum_price'] ) ) ? $reviews_options['maximum_price'] : 2000;
     $reviews_count = wp_count_posts( 'review' );
