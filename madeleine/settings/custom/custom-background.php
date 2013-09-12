@@ -30,12 +30,12 @@ if ( !function_exists( 'madeleine_background_style' ) ) {
       $repeat = get_theme_mod( 'background_repeat', 'repeat' );
 
       if ( ! in_array( $repeat, array( 'no-repeat', 'repeat-x', 'repeat-y', 'repeat' ) ) )
-          $repeat = 'repeat';
+          $repeat = 'repeat-x';
       $repeat = " background-repeat: $repeat;";
 
       $position = get_theme_mod( 'background_position_x', 'left' );
       if ( ! in_array( $position, array( 'center', 'right', 'left' ) ) )
-          $position = 'left';
+          $position = 'center';
       $position = " background-position: top $position;";
 
       $attachment = get_theme_mod( 'background_attachment', 'scroll' );

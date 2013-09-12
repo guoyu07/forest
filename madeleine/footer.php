@@ -4,11 +4,8 @@
           <h4 class="section"><?php _e( 'Navigation', 'madeleine' ); ?></h4>
           <ul>
             <li><a href="<?php echo esc_url( home_url() ); ?>"><?php _e( 'Home', 'madeleine' ); ?></a></li>
-            <li><a href="<?php echo esc_url( get_post_type_archive_link( 'review' ) ); ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a></li>
-            <li><a href="<?php echo esc_url( get_post_format_link( 'image' ) ); ?>"><?php _e( 'Images', 'madeleine' ); ?></a></li>
-            <li><a href="<?php echo esc_url( get_post_format_link( 'video' ) ); ?>"><?php _e( 'Videos', 'madeleine' ); ?></a></li>
-            <li><a href="<?php echo esc_url( get_post_format_link( 'quote' ) ); ?>"><?php _e( 'Quotes', 'madeleine' ); ?></a></li>
-            <li><a href="<?php echo esc_url( get_post_format_link( 'link' ) ); ?>"><?php _e( 'Links', 'madeleine' ); ?></a></li>
+            <?php madeleine_format_list(); ?>
+            <?php madeleine_reviews_link(); ?>
             <li><a href="<?php echo esc_url( get_page_link( 2 ) ); ?>"><?php _e( 'About', 'madeleine' ); ?></a></li>
           </ul>
         </section>

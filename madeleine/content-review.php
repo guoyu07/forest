@@ -1,5 +1,4 @@
 <article id="post-<?php the_ID(); ?>" class="post review">
-  <?php edit_post_link(); ?>
   <?php madeleine_entry_thumbnail( 'medium' ); ?>
   <?php $product_list = get_the_term_list( get_the_ID(), 'product', '<li>' ,'</li><li>', '</li>' ); ?>
   <?php $brand_list = get_the_term_list( get_the_ID(), 'brand', '<li>' ,'</li><li>', '</li>' ); ?>
