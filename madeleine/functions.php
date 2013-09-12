@@ -1,13 +1,15 @@
 <?php
 
-/*
-01 Settings
-02 Common functions
-03 Archives
-04 Post
-05 Review
-06 Ajax
+
+/**
+ * 01 Settings
+ * 02 Common functions
+ * 03 Archives
+ * 04 Entry
+ * 05 Review
+ * 06 Ajax
 */
+
 
 // 01 Settings
 
@@ -46,6 +48,12 @@ if ( function_exists('register_sidebar') )
 
 // 02 Common functions
 
+
+/**
+ * Displays a list of your social accounts.
+ * This list appears as icons in the header and as a simple list in the footer.
+ *
+ */
 
 if ( !function_exists( 'madeleine_social_links' ) ) {
   function madeleine_social_links() {
@@ -96,10 +104,9 @@ if ( !function_exists( 'madeleine_social_links' ) ) {
 
 
 /**
- * Redirect the RSS feed
- * Credit: Feedburner Feedsmith Plugin
+ * Redirects the main feed to the Feedburner (if provided).
+ *
  */
-
 
 if( !preg_match( "/feedburner|feedvalidator/i", $_SERVER['HTTP_USER_AGENT'] ) ):
   add_action( 'template_redirect', 'madeleine_feed_redirect' );
@@ -145,8 +152,10 @@ if ( !function_exists( 'madeleine_check_url' ) ) {
 }
 
 
-// Output the analytics tracking code in the footer
-
+/**
+ * Outputs the analytics tracking code in the footer (if provided).
+ *
+ */
 
 if ( !function_exists( 'madeleine_tracking_code' ) ) {
   function madeleine_tracking_code(){
@@ -159,6 +168,11 @@ if ( !function_exists( 'madeleine_tracking_code' ) ) {
 }
 add_action( 'wp_footer', 'madeleine_tracking_code' );
 
+
+/**
+ * Outputs the different scripts needed in the <head>.
+ *
+ */
 
 if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
   function madeleine_enqueue_scripts() {
@@ -194,6 +208,13 @@ if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
 add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
 
 
+/**
+ * Outputs a stylesheet in the <head> with the different colors set in the WP Customizer:
+ * - the main website color
+ * - the reviews color
+ *
+ */
+
 if ( !function_exists( 'madeleine_custom_colors' ) ) {
   function madeleine_custom_colors() {
     $colors_options = get_option( 'madeleine_options_colors' );
@@ -221,6 +242,14 @@ if ( !function_exists( 'madeleine_custom_colors' ) ) {
 add_action( 'wp_print_styles', 'madeleine_custom_colors' );
 
 
+/**
+ * Outputs a stylesheet in the <head> with the different category colors.
+ * Only a top-level category can have its own color.
+ * The children categories will inherit the parent category color.
+ * To set a category color, just use the color picker in a category's edit page.
+ *
+ */
+
 if ( !function_exists( 'madeleine_categories_colors' ) ) {
   function madeleine_categories_colors() {
     $cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
@@ -245,6 +274,12 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
 add_action( 'wp_print_styles', 'madeleine_categories_colors' );
 
 
+/**
+ * Outputs the custom CSS in the <head>.
+ * The custom CSS code is defined in the WP Customizer.
+ *
+ */
+
 if ( !function_exists( 'madeleine_custom_css' ) ) {
   function madeleine_custom_css() {
     $css_options = get_option( 'madeleine_options_css' );
@@ -259,6 +294,14 @@ if ( !function_exists( 'madeleine_custom_css' ) ) {
 add_action( 'wp_print_styles', 'madeleine_custom_css' );
 
 
+/**
+ * Get the final destination of an HTML redirect.
+ * Used to retrieve the Dailymotion thumbnail.
+ *
+ * @param string $destination
+ * @return string
+ */
+
 if ( !function_exists( 'madeleine_get_redirect_target' ) ) {
   function madeleine_get_redirect_target( $destination ) {
     $headers = get_headers( $destination, 1 );
@@ -266,6 +309,13 @@ if ( !function_exists( 'madeleine_get_redirect_target' ) ) {
   }
 }
 
+
+/**
+ * Get the video ID of a YouTube URL.
+ * 
+ * @param string $url
+ * @return string or null
+ */
 
 if ( !function_exists( 'madeleine_get_youtube_id' ) ) {
   function madeleine_get_youtube_id( $url ) {
@@ -278,6 +328,13 @@ if ( !function_exists( 'madeleine_get_youtube_id' ) ) {
 }
 
 
+/**
+ * Get the video ID of a Vimeo URL.
+ * 
+ * @param string $url
+ * @return string or null
+ */
+
 if ( !function_exists( 'madeleine_get_vimeo_id' ) ) {
   function madeleine_get_vimeo_id( $url ) {
     if ( preg_match('/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/', $url, $match) ):
@@ -289,6 +346,13 @@ if ( !function_exists( 'madeleine_get_vimeo_id' ) ) {
 }
 
 
+/**
+ * Get the video ID of a Dailymotion URL.
+ * 
+ * @param string $url
+ * @return string or null
+ */
+
 if ( !function_exists( 'madeleine_get_dailymotion_id' ) ) {
   function madeleine_get_dailymotion_id( $url ) {
     if ( preg_match('/^.+dailymotion.com\/((video|hub)\/([^_]+))?[^#]*(#video=([^_&]+))?/', $url, $match) ):
@@ -299,6 +363,16 @@ if ( !function_exists( 'madeleine_get_dailymotion_id' ) ) {
   }
 }
 
+
+/**
+ * Uploads the video thumbnail for YouTube, Vimeo, and Dailymotion.
+ * 
+ * @param string $image_id
+ * @param string $image_url
+ * @param integer $post_id the ID of the post to which the thumbnail will be attached.
+ * @param string $source the video website the thumbnail comes from.
+ * @return integer
+ */
 
 if ( !function_exists( 'madeleine_upload_video_thumbnail' ) ) {
   function madeleine_upload_video_thumbnail( $image_id, $image_url, $post_id, $source ) {
@@ -351,6 +425,15 @@ if ( !function_exists( 'madeleine_upload_video_thumbnail' ) ) {
 }
 
 
+/**
+ * Retrieves the top-level category of any post.
+ * If a post belongs to a second-level category, this function will find the top-level category ID.
+ * This function is used to define the color of a post by retrieving the top-level category's color.
+ *
+ * @param integer $cat_ID
+ * @return integer
+ */
+
 if ( !function_exists( 'madeleine_top_category' ) ) {
   function madeleine_top_category( $cat_ID = null ) {
     if ( isset( $cat_ID ) ):
@@ -377,6 +460,13 @@ if ( !function_exists( 'madeleine_top_category' ) ) {
 }
 
 
+/**
+ * Adds the top-level category class to the body classes.
+ * 
+ * @param string $classes
+ * @return string
+ */
+
 if ( !function_exists( 'madeleine_body_class' ) ) {
   function madeleine_body_class( $classes ) {
     if ( is_category() ):
@@ -389,6 +479,12 @@ if ( !function_exists( 'madeleine_body_class' ) ) {
 }
 add_filter( 'body_class', 'madeleine_body_class' );
 
+
+/**
+ * Returns an HTML list of all top-level categories.
+ * 
+ * @return string
+ */
 
 if ( !function_exists( 'madeleine_categories_list' ) ) {
   function madeleine_categories_list() {
@@ -406,6 +502,11 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
   }
 }
 
+
+/**
+ * Displays an HTML list of all tags.
+ *
+ */
 
 if ( !function_exists( 'madeleine_tags_list' ) ) {
   function madeleine_tags_list() {
@@ -431,6 +532,13 @@ if ( !function_exists( 'madeleine_tags_list' ) ) {
 }
 
 
+/**
+ * Returns a list of all terms for one taxonomy.
+ * 
+ * @param integer $taxonomy
+ * @return string
+ */
+
 if ( !function_exists( 'madeleine_taxonomy_list' ) ) {
   function madeleine_taxonomy_list( $taxonomy ) {
     $terms = get_categories('hide_empty=0&taxonomy=' . $taxonomy );
@@ -445,6 +553,12 @@ if ( !function_exists( 'madeleine_taxonomy_list' ) ) {
   }
 }
 
+
+/**
+ * Displays a list of the most popular tags in the last 30 days.
+ * 
+ * @param integer $limit
+ */
 
 if ( !function_exists( 'madeleine_trending' ) ) {
   function madeleine_trending( $limit = 16 ) {
@@ -466,6 +580,13 @@ if ( !function_exists( 'madeleine_trending' ) ) {
   }
 }
 
+
+/**
+ * Returns an array of standard posts.
+ * This function is used in a WP Query to filter out all post formats.
+ *
+ * @return array
+ */
 
 if ( !function_exists( 'madeleine_standard_posts' ) ) {
   function madeleine_standard_posts() {
@@ -492,6 +613,13 @@ if ( !function_exists( 'madeleine_standard_posts' ) ) {
 }
 
 
+/**
+ * Returns an array of sticky posts.
+ * This function is used in a WP Query to filter out all non-sticky posts.
+ *
+ * @return array
+ */
+
 if ( !function_exists( 'madeleine_sticky_posts' ) ) {
   function madeleine_sticky_posts() {
     $sticky_posts = get_option( 'sticky_posts' );
@@ -501,6 +629,13 @@ if ( !function_exists( 'madeleine_sticky_posts' ) ) {
   }
 }
 
+
+/**
+ * Displays a list of the 5 latest sticky posts on the homepage.
+ * Returns an array of these sticky posts' IDs to prevent the homepage from displaying them twice.
+ * 
+ * @return array
+ */
 
 if ( !function_exists( 'madeleine_focus' ) ) {
   function madeleine_focus() {
@@ -549,6 +684,13 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 }
 
 
+/**
+ * Returns an array of post IDs from the last month.
+ * This function is used by the Popular Posts widget to only display last month's popular posts.
+ * 
+ * @return array
+ */
+
 if ( !function_exists( 'madeleine_latest_posts' ) ) {
   function madeleine_latest_posts() {
     global $wpdb;
@@ -571,6 +713,13 @@ if ( !function_exists( 'madeleine_latest_posts' ) ) {
 
 // 03 Archives
 
+
+/**
+ * Defines the query arguments for the homepage, the tag archive, and the reviews archive.
+ * 
+ * @param object $query
+ * @return object
+ */
 
 if ( !function_exists( 'madeleine_archive_settings' ) ) {
   function madeleine_archive_settings( $query ) {
@@ -639,6 +788,16 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
 add_action( 'pre_get_posts', 'madeleine_archive_settings' );
 
 
+/**
+ * Displays a list of posts on the homepage, after the grid.
+ * Each post has a square thumbnail, a title, and a category list.
+ * The number of next posts is defined by a setting in the WP Customizer.
+ * Returns an array of these sticky posts' IDs to prevent the homepage from displaying them twice.
+ * 
+ * @param array $already_posted an array of posts already posted to prevent duplicates.
+ * @return array
+ */
+
 if ( !function_exists( 'madeleine_next_posts' ) ) {
   function madeleine_next_posts( $already_posted ) {
     $home_options = get_option( 'madeleine_options_home' );
@@ -679,6 +838,14 @@ if ( !function_exists( 'madeleine_next_posts' ) ) {
   }
 }
 
+
+/**
+ * Displays a list of 5 posts per category on the homepage.
+ * The categories can be displayed as tabs or one after the other.
+ * This option is defined by a setting in the WP Customizer.
+ * 
+ * @param array $already_posted
+ */
 
 if ( !function_exists( 'madeleine_category_wheels' ) ) {
   function madeleine_category_wheels( $already_posted ) {
@@ -745,6 +912,12 @@ if ( !function_exists( 'madeleine_category_wheels' ) ) {
 }
 
 
+/**
+ * Displays a category breadcrumb on the category archives.
+ * It displays the top-level category as well as its children.
+ *
+ */
+
 if ( !function_exists( 'madeleine_category_breadcrumb' ) ) {
   function madeleine_category_breadcrumb() {
     $top_category_ID = madeleine_top_category();
@@ -803,6 +976,11 @@ if ( !function_exists( 'madeleine_category_breadcrumb' ) ) {
 // }
 
 
+/**
+ * Displays the pagination for post archives.
+ *
+ */
+
 if ( !function_exists( 'madeleine_pagination' ) ) {
   function madeleine_pagination() {
     global $wp_query;
@@ -820,6 +998,11 @@ if ( !function_exists( 'madeleine_pagination' ) ) {
   }
 }
 
+
+/**
+ * Displays the pagination for reviews.
+ *
+ */
 
 if ( !function_exists( 'madeleine_reviews_pagination' ) ) {
   function madeleine_reviews_pagination( $query ) {
@@ -879,6 +1062,12 @@ if ( !function_exists( 'madeleine_date_archive' ) ) {
 }
 
 
+/**
+ * Displays a 3-part dropdown menu on the date archive page.
+ * Year, month, and day, each have a dropdown menu to filter the date archive.
+ *
+ */
+
 if ( !function_exists( 'madeleine_nested_date' ) ) {
   function madeleine_nested_date() {
     global $wpdb;
@@ -926,8 +1115,14 @@ if ( !function_exists( 'madeleine_nested_date' ) ) {
 }
 
 
-// 04 Post
+// 04 Entry
 
+/**
+ * Changes the excerpt "more" text
+ * 
+ * @param string $text
+ * @return string
+ */
 
 if ( !function_exists( 'madeleine_entry_excerpt_more' ) ) {
   function madeleine_entry_excerpt_more( $text ) {
@@ -936,6 +1131,13 @@ if ( !function_exists( 'madeleine_entry_excerpt_more' ) ) {
 }
 add_filter( 'excerpt_more', 'madeleine_entry_excerpt_more' );
 
+
+/**
+ * Changes the excerpt length depending on if the post has a thumbnail or not.
+ * 
+ * @param integer $length
+ * @return integer
+ */
 
 if ( !function_exists( 'madeleine_entry_excerpt_length' ) ) {
   function madeleine_entry_excerpt_length( $length ) {
@@ -948,6 +1150,13 @@ if ( !function_exists( 'madeleine_entry_excerpt_length' ) ) {
 }
 add_filter( 'excerpt_length', 'madeleine_entry_excerpt_length' );
 
+
+/**
+ * Adds a "jump" menu on a review's single page
+ * 
+ * @param string $content
+ * @return string
+ */
 
 if ( !function_exists( 'madeleine_entry_content' ) ) {
   function madeleine_entry_content( $content ) {
@@ -982,6 +1191,13 @@ if ( !function_exists( 'madeleine_entry_content' ) ) {
 add_filter( 'the_content', 'madeleine_entry_content' );
 
 
+/**
+ * Adds a category class to the post class
+ * 
+ * @param string $classes
+ * @return string
+ */
+
 if ( !function_exists( 'madeleine_entry_post_class' ) ) {
   function madeleine_entry_post_class( $classes ) {
     $top_category_ID = madeleine_top_category();
@@ -993,6 +1209,12 @@ if ( !function_exists( 'madeleine_entry_post_class' ) ) {
 add_filter( 'post_class', 'madeleine_entry_post_class' );
 
 
+/**
+ * Adds a permalink to a post's thumbnail
+ * 
+ * @param string $size
+ */
+
 if ( !function_exists( 'madeleine_entry_thumbnail' ) ) {
   function madeleine_entry_thumbnail( $size = 'thumbnail' ) {
     if ( has_post_thumbnail() )
@@ -1001,16 +1223,28 @@ if ( !function_exists( 'madeleine_entry_thumbnail' ) ) {
 }
 
 
+/**
+ * Changes a post's caption to a more HTML5 friendly code
+ * 
+ * @param string $val
+ * @param array $attr
+ * @param string $content
+ * @return string
+ */
+
 if ( !function_exists( 'madeleine_entry_caption' ) ) {
   function madeleine_entry_caption( $val, $attr, $content = null ) {
-    extract(shortcode_atts(array(
-      'id'      => '',
-      'align'   => 'alignnone',
-      'width'   => '',
-      'caption' => ''
-    ), $attr));
+    extract(
+      shortcode_atts(
+        array(
+          'id'      => '',
+          'align'   => 'alignnone',
+          'width'   => '',
+          'caption' => ''
+        ),
+      $attr)
+    );
     
-    // No caption, no dice... But why width? 
     if ( 1 > (int) $width || empty($caption) )
       return $val;
    
@@ -1026,6 +1260,11 @@ if ( !function_exists( 'madeleine_entry_caption' ) ) {
 }
 add_filter( 'img_caption_shortcode', 'madeleine_entry_caption', 10, 3 );
 
+
+/**
+ * Displays an embed video player for YouTube, Vimeo, or Dailymotion.
+ *
+ */
 
 if ( !function_exists( 'madeleine_entry_video' ) ) {
   function madeleine_entry_video() {
@@ -1043,6 +1282,14 @@ if ( !function_exists( 'madeleine_entry_video' ) ) {
   }
 }
 
+
+/**
+ * Outputs the HTML for each comment.
+ * 
+ * @param object $comment
+ * @param array $args
+ * @param integer $depth
+ */
 
 if ( !function_exists( 'madeleine_entry_comments' ) ) {
   function madeleine_entry_comments( $comment, $args, $depth ) {
@@ -1087,6 +1334,11 @@ if ( !function_exists( 'madeleine_entry_comments' ) ) {
 }
 
 
+/**
+ * Displays the info of an entry.
+ *
+ */
+
 if ( !function_exists( 'madeleine_entry_info' ) ) {
   function madeleine_entry_info() {
     $archive_year  = get_the_time('Y'); 
@@ -1103,6 +1355,12 @@ if ( !function_exists( 'madeleine_entry_info' ) ) {
   }
 }
 
+
+/**
+ * Displays the share buttons for each post.
+ * Each button's presence is defined by a setting in the WP Customizer.
+ *
+ */
 
 if ( !function_exists( 'madeleine_entry_share' ) ) {
   function madeleine_entry_share() {
@@ -1151,6 +1409,14 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
 }
 
 
+/**
+ * Displays (or returns) a square box for a review's rating.
+ * The background color of the box depends on the rating's value.
+ *
+ * @param integer $id The ID of the review.
+ * @param boolean $echo
+ */
+
 if ( !function_exists( 'madeleine_entry_rating' ) ) {
   function madeleine_entry_rating( $id, $echo = true ) {
     $reviews_options = get_option( 'madeleine_options_reviews' );
@@ -1166,6 +1432,12 @@ if ( !function_exists( 'madeleine_entry_rating' ) ) {
 }
 
 
+/**
+ * Displays (or returns) an HTML element for a review's price.
+ *
+ * @param integer $id The ID of the review.
+ * @param boolean $echo
+ */
 
 if ( !function_exists( 'madeleine_entry_price' ) ) {
   function madeleine_entry_price( $id, $echo = true ) {
@@ -1180,6 +1452,13 @@ if ( !function_exists( 'madeleine_entry_price' ) ) {
   }
 }
 
+
+/**
+ * Displays the HTML of a reviews's verdict.
+ * It displays the review's rating and a list of pros and cons.
+ *
+ * @param integer $id The ID of the review.
+ */
 
 if ( !function_exists( 'madeleine_entry_verdict' ) ) {
   function madeleine_entry_verdict( $id ) {
@@ -1204,6 +1483,13 @@ if ( !function_exists( 'madeleine_entry_verdict' ) ) {
 }
 
 
+/**
+ * Removes the width and height parameters of the <img> tags.
+ * It makes the max-width CSS property work.
+ *
+ * @param string $html
+ */
+
 if ( !function_exists( 'madeleine_entry_images' ) ) {
   function madeleine_entry_images( $html ) {
      $html = preg_replace( '/(width|height)="\d*"\s/', "", $html );
@@ -1214,6 +1500,14 @@ add_filter( 'post_thumbnail_html', 'madeleine_entry_images', 10 );
 add_filter( 'image_send_to_editor', 'madeleine_entry_images', 10 );
 add_filter( 'wp_get_attachment_link', 'madeleine_entry_images', 10 );
 
+
+/**
+ * Modifies the entry title for links and quotes.
+ * 
+ * @param string $title
+ * @param integer $id
+ * @return string
+ */
 
 if ( !function_exists( 'madeleine_entry_title' ) ) {
   function madeleine_entry_title( $title, $id ) {
@@ -1232,6 +1526,11 @@ if ( !function_exists( 'madeleine_entry_title' ) ) {
 add_filter( 'the_title', 'madeleine_entry_title', 10, 2 );
 
 
+/**
+ * Displays an entry's categories list.
+ *
+ */
+
 if ( !function_exists( 'madeleine_entry_category' ) ) {
   function madeleine_entry_category() {
     $category_list = get_the_category_list( '</li><li>' );
@@ -1246,6 +1545,12 @@ if ( !function_exists( 'madeleine_entry_category' ) ) {
 
 // 05 Reviews
 
+
+/**
+ * Register the reviews custom post type and
+ * the product and brand taxonomies.
+ *
+ */
 
 if ( !function_exists( 'madeleine_register_reviews' ) ) {
   function madeleine_register_reviews() {
@@ -1323,6 +1628,11 @@ if ( !function_exists( 'madeleine_register_reviews' ) ) {
 add_action( 'init', 'madeleine_register_reviews' );
 
 
+/**
+ * Displays a list of the product taxonomy terms.
+ *
+ */
+
 if ( !function_exists( 'madeleine_products_list' ) ) {
   function madeleine_products_list() {
     $nav = wp_list_categories('depth=1 &hide_empty=0&orderby=ID&title_li=&taxonomy=product');
@@ -1330,6 +1640,13 @@ if ( !function_exists( 'madeleine_products_list' ) ) {
   }
 }
 
+
+/**
+ * Displays a list of the product taxonomy terms as tabs.
+ * It's displayed on the homepage.
+ *
+ * @return string 
+ */
 
 if ( !function_exists( 'madeleine_reviews_tabs' ) ) {
   function madeleine_reviews_tabs() {
@@ -1354,6 +1671,13 @@ if ( !function_exists( 'madeleine_reviews_tabs' ) ) {
   }
 }
 
+
+/**
+ * Displays a grid of reviews on the homepage.
+ * 
+ * @param string $tax_ID
+ * @return string
+ */
 
 if ( !function_exists( 'madeleine_reviews_grid' ) ) {
   function madeleine_reviews_grid( $tax_ID = 'all' ) {
@@ -1392,6 +1716,11 @@ if ( !function_exists( 'madeleine_reviews_grid' ) ) {
 }
 
 
+/**
+ * Displays a grid of reviews on the homepage depending on the WP Customizer setting.
+ *
+ */
+
 if ( !function_exists( 'madeleine_reviews_home' ) ) {
   function madeleine_reviews_home() {
     $home_options = get_option( 'madeleine_options_home' );
@@ -1405,6 +1734,11 @@ if ( !function_exists( 'madeleine_reviews_home' ) ) {
   }
 }
 
+
+/**
+ * Displays a breadcrumb with the product taxonomy terms.
+ *
+ */
 
 if ( !function_exists( 'madeleine_reviews_breadcrumb' ) ) {
   function madeleine_reviews_breadcrumb() {
@@ -1429,6 +1763,11 @@ if ( !function_exists( 'madeleine_reviews_breadcrumb' ) ) {
   }
 }
 
+
+/**
+ * Displays a menu for the reviews to filter them by product, brand, rating, and/or price.
+ *
+ */
 
 if ( !function_exists( 'madeleine_reviews_menu' ) ) {
   function madeleine_reviews_menu() {
@@ -1475,6 +1814,11 @@ if ( !function_exists( 'madeleine_reviews_menu' ) ) {
 // 06 Ajax
 
 
+/**
+ * Provides a callback function for Ajax request.
+ *
+ */
+
 if ( !function_exists( 'madeleine_ajax_request' ) ) {
   function madeleine_ajax_request() {
     switch ( $_REQUEST['fn'] ) {
@@ -1492,6 +1836,13 @@ if ( !function_exists( 'madeleine_ajax_request' ) ) {
 add_action( 'wp_ajax_nopriv_madeleine_ajax', 'madeleine_ajax_request' );
 add_action( 'wp_ajax_madeleine_ajax', 'madeleine_ajax_request' );
 
+
+/**
+ * Adds HTML GET parameters for the reviews.
+ * 
+ * @param array $vars
+ * @return array
+ */
 
 if ( !function_exists( 'madeleine_query_vars' ) ) {
   function madeleine_query_vars( $vars ) {

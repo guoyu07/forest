@@ -290,6 +290,7 @@ blockquote.right{}
 .entry-content input[type="reset"]:hover{ background: #444;}
 .entry-content acronym,
 .entry-content abbr{ border-bottom: 1px dotted #444; cursor: help;}
+.entry-content hr{ border: none; border-top: 1px solid #eaedef;}
 
 
 /**
