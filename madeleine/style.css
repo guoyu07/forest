@@ -59,9 +59,7 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 .pagination a,
 .pagination span{ background: #eaedef; border-radius: 4px; display: inline-block; height: 30px; min-width: 30px;}
 .pagination span{ background: #444; color: white;}
-/*.pagination a strong{ background: none; color: #708491; display: inline; height: auto; margin: 0; min-width: 0;}*/
 .pagination a:hover{ background: #708491; color: white; text-decoration: none;}
-/*.pagination a:hover strong{ color: white;}*/
 .pagination .prev,
 .pagination .next{ font-size: 14px; margin: 0; padding: 0 10px;}
 .pagination .prev{ left: 0;}
@@ -124,6 +122,24 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
  * Styles for the header (including the navigation bar) and the footer, available on all pages.
  * 
 */
+
+#top-menu{ background: #eaedef; float: left; font-size: 11px; white-space: nowrap; width: 100%;}
+#top-menu a{ display: block; padding: 3px 5px;}
+#top-menu a:hover{ background: #444; text-decoration: none;}
+/* First level */
+#top-menu ul{ position: relative;}
+#top-menu ul li{ float: left; position: relative;}
+#top-menu ul li:hover{ background: #708491;}
+#top-menu ul li:hover a{ color: white;}
+#top-menu ul li:hover ul{ display: block;}
+#top-menu ul li:hover ul ul{ display: none;}
+/* Second level */
+#top-menu ul ul{ background: #708491; display: none; left: 0; position: absolute; top: 100%; z-index: 1986;}
+#top-menu ul ul li{ display: block; float: none;}
+#top-menu ul ul li:hover ul{ display: block;}
+#top-menu ul ul a{ color: white; padding: 2px 20px 2px 10px;}
+/* Third level */
+#top-menu ul ul ul{ left: 100%; top: 0;}
 
 #header{ padding-top: 20px;}
 #header br{ display: none;}
@@ -291,6 +307,7 @@ blockquote.right{}
 .entry-content acronym,
 .entry-content abbr{ border-bottom: 1px dotted #444; cursor: help;}
 .entry-content hr{ border: none; border-top: 1px solid #eaedef;}
+.entry-content cite{ font-style: italic;}
 
 
 /**

@@ -1,0 +1,82 @@
+@import url(http://fonts.googleapis.com/css?family=Bitter:400,700,400italic);
+
+
+html .mceContentBody{ font-size: 100%; max-width: 680px;}
+body, h1{ color: #444; font: 14px/1.5 Arial, sans-serif;}
+
+
+img {}
+.alignleft,
+img.alignleft{ display: inline; float: left; margin: 0 1em 1em 0;}
+.alignright,
+img.alignright{ display: inline; float: right; margin: 0 0 1em 1em;}
+.aligncenter,
+img.aligncenter{ clear: both; display: block; margin-left: auto; margin-right: auto; text-align: center;}
+.alignnone,
+img.alignnone{}
+
+.wp-caption{}
+.wp-caption img{}
+.wp-caption p.wp-caption-text{}
+
+.wp-smiley{}
+
+blockquote.left{}
+blockquote.right{}
+
+.gallery dl{}
+.gallery dt{}
+.gallery dd{}
+.gallery dl a{}
+.gallery dl img{}
+.gallery-caption{}
+
+.size-full{}
+.size-large{}
+.size-medium{}
+.size-thumbnail{}
+
+
+h2,
+h3,
+h4,
+h5,
+h6{ clear: both; font: bold 24px/1.15 Bitter, Georgia, serif; margin: 1em 0;}
+h3{ font-size: 22px;}
+h4{ font-size: 20px;}
+h5{ font-size: 18px;}
+h6{ font-size: 16px;}
+p,
+blockquote,
+pre,
+ul,
+ol{ margin: 1em 0;}
+ul{ list-style: disc inside;}
+ol{ list-style: decimal inside;}
+blockquote{ border-left: 5px solid #eaedef; color: #708491; font-style: italic; margin: 0; padding-left: 10px;}
+dt{ font-weight: bold;}
+dd{ margin-left: 20px;}
+img{ max-width: 100%;}
+figcaption{ color: #708491; font: italic 11px/1.5 Bitter, Georgia, serif; letter-spacing: .125em; text-align: center;}
+table{ width: 100%;}
+tr:nth-child(2n){ background: #f2f4f6;}
+th,
+td{ border: 1px solid #eaedef; padding: 5px;}
+th{ background: #eaedef; font-weight: bold;}
+td{}
+pre,
+code{ background: #eaedef; font-family: monospace;}
+pre{ color: #708491; font-size: 14px; padding: 1em;}
+pre p{ margin: 0;}
+textarea,
+input[type="text"],
+input[type="password"]{ background: #eaedef; border: 1px solid #d7dce1; padding: 6px 8px;}
+textarea{ min-height: 100px; padding: 2%; width: 96%;}
+input[type="submit"],
+input[type="reset"]{ background: #708491; border: none; border-radius: 5px; color: white; cursor: pointer; font: bold 13px/1.15 Bitter, Georgia, serif; display: inline-block; overflow: visible; padding: 5px 10px 6px; position: relative; text-align: center; vertical-align: middle;}
+input[type="submit"]:hover,
+input[type="reset"]:hover{ background: #444;}
+acronym,
+abbr{ border-bottom: 1px dotted #444; cursor: help;}
+hr{ border: none; border-top: 1px solid #eaedef;}
+
