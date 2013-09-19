@@ -36,7 +36,7 @@ class madeleine_images_widget extends WP_Widget {
 			'height' => 350,
 			'id_base' => 'madeleine_images_widget'
 		);
-		$this->WP_Widget( 'madeleine_images_widget', __( 'Madeleine Images', 'madeleine' ), $widget_ops, $control_ops );
+		$this->WP_Widget( 'madeleine_images_widget', 'Madeleine Images', $widget_ops, $control_ops );
 	}
 
 	// Display the widget

@@ -262,7 +262,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		$wp_customize->add_control(
 			'madeleine_social_twitter_account',
 			array(
-				'label'			=> __( 'Twitter username (haxokeno)', 'madeleine' ),
+				'label'			=> __( 'Twitter username (like "haxokeno")', 'madeleine' ),
 				'section'		=> 'madeleine_social_accounts_section',
 				'settings'	=> 'madeleine_options_social[social_accounts][twitter_account]',
 				'priority'	=> 10,

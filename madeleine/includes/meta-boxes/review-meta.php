@@ -3,6 +3,8 @@
 
 if ( !function_exists( 'madeleine_add_review_meta_boxes' ) ) {
 	function madeleine_add_review_meta_boxes() {
+		$reviews_options = get_option( 'madeleine_options_reviews' );
+		$maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
 		$meta_box = array(
 			'id' => 'review',
 			'title' => __( 'Review settings', 'madeleine' ),
@@ -13,14 +15,14 @@ if ( !function_exists( 'madeleine_add_review_meta_boxes' ) ) {
 			 'fields' => array(
 				array(
 					'name' => __( 'Rating', 'madeleine' ),
-					'help' => __( 'Choose a number between 0 and 10, like 8.6.', 'madeleine' ),
+					'help' => sprintf( __( 'Choose a number between 0 and %s, like 8.6.', 'madeleine' ), $maximum_rating ),
 					'id' => '_madeleine_review_rating',
 					'type' => 'text',
 					'default' => ''
 				),
 				array(
 					'name' => __( 'Price', 'madeleine' ),
-					'help' => __( 'Type the price of the product, like 299. The Dollar sign &#36; will be automatically added.', 'madeleine' ),
+					'help' => __( 'Type the price of the product, like 299.', 'madeleine' ),
 					'id' => '_madeleine_review_price',
 					'type' => 'text',
 					'default' => ''

@@ -2,7 +2,7 @@
 	<?php madeleine_entry_category(); ?>
 	<p class="entry-format"><?php _e( 'Quote', 'madeleine' ); ?></p>
 	<blockquote class="entry-title">
-		<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'madeleine' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+		<a href="<?php echo esc_url( get_permalink() ); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'madeleine' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</blockquote>
 	<div class="entry-source">
 		<?php echo get_post_meta( get_the_ID(), '_madeleine_quote_source', true ); ?>

@@ -1,0 +1,694 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Madeleine FR v1.0\n"
+"POT-Creation-Date: 2013-09-16 03:46+0100\n"
+"PO-Revision-Date: 2013-09-16 03:48+0100\n"
+"Last-Translator: Haxokeno <contact@haxokeno.com>\n"
+"Language-Team: haxokeno <contact@haxokeno.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: attachment.php:12
+msgid "Back to post"
+msgstr "Revenir au billet"
+
+#: comments.php:3
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+"Ce billet est protégé par mot de passe. Entrez le mot de passe pour "
+"visualiser les commentaires."
+
+#: comments.php:10
+msgid "One comment"
+msgstr "Un commentaire"
+
+#: comments.php:10
+#, php-format
+msgid "%1$s comments"
+msgstr "%1$s commentaires"
+
+#: comments.php:16 comments.php:27
+msgid "&larr; Older Comments"
+msgstr "&larr; Commentaires précédénts"
+
+#: comments.php:17 comments.php:28
+msgid "Newer Comments &rarr;"
+msgstr "Commentaires suivants &rarr;"
+
+#: comments.php:33
+msgid "Comments are closed."
+msgstr "Les commentaires sont fermés."
+
+#: content-image.php:4
+msgid "Image"
+msgstr "Image"
+
+#: content-image.php:6 content-link.php:17 content-quote.php:5
+#: content-review.php:12 content-video.php:6 content.php:14 layout-board.php:6
+#, php-format
+msgid "Permalink to %s"
+msgstr "Permalien vers %s"
+
+#: content-link.php:3
+msgid "Link"
+msgstr "Lien"
+
+#: content-page.php:7
+msgid "Pages:"
+msgstr "Pages :"
+
+#: content-quote.php:3 includes/meta-boxes/post-meta.php:67
+msgid "Quote"
+msgstr "Citation"
+
+#: content-video.php:4
+msgid "Video"
+msgstr "Vidéo"
+
+#: footer.php:4
+msgid "Navigation"
+msgstr "Navigation"
+
+#: footer.php:6 header.php:57
+msgid "Home"
+msgstr "Accueil"
+
+#: footer.php:15 functions.php:959
+msgid "Categories"
+msgstr "Catégories"
+
+#: footer.php:21 header.php:65
+msgid "Trending"
+msgstr "Populaire"
+
+#: footer.php:27
+msgid "Social"
+msgstr "Social"
+
+#: footer.php:30
+msgid "RSS"
+msgstr "RSS"
+
+#: footer.php:31
+msgid "Email"
+msgstr "Email"
+
+#: footer.php:42
+#, php-format
+msgid "Powered by %s"
+msgstr "Propulsé par %s"
+
+#: functions.php:39
+msgid "Sidebar"
+msgstr "Sidebar"
+
+#: functions.php:414
+msgid "Error uploading image data:"
+msgstr "Erreur en téléchargeant les données de l'image :"
+
+#: functions.php:527
+msgid "Tag:"
+msgstr "Mot-clé :"
+
+#: functions.php:642 functions.php:1644 functions.php:1646 functions.php:1741
+#: functions.php:1746 functions.php:1841
+msgid "Reviews"
+msgstr "Tests"
+
+#: functions.php:961 functions.php:984 functions.php:1746
+msgid "View all"
+msgstr "Voir tous"
+
+#: functions.php:1165
+msgid "Select year"
+msgstr "Choisir l'année"
+
+#: functions.php:1169
+msgid "Select month"
+msgstr "Choisir le mois"
+
+#: functions.php:1175
+msgid "Select day"
+msgstr "Choisir le jour"
+
+#: functions.php:1258
+msgid "Jump to"
+msgstr "Aller à"
+
+#: functions.php:1259
+msgid "Start"
+msgstr "Début"
+
+#: functions.php:1263
+msgid "Verdict"
+msgstr "Verdict"
+
+#: functions.php:1264
+msgid "Comments"
+msgstr "Commentaires"
+
+#: functions.php:1383
+msgid "Pingback:"
+msgstr "Pingback :"
+
+#: functions.php:1391
+msgid "Your comment is awaiting moderation."
+msgstr "Votre commentaire est en attente de modération."
+
+#: functions.php:1407
+msgid "Reply &darr;"
+msgstr "Répondre &darr;"
+
+#: functions.php:1430
+#, php-format
+msgid "View all posts by %s"
+msgstr "Voir tous les billets de %s"
+
+#: functions.php:1547 includes/meta-boxes/review-meta.php:31
+msgid "Good"
+msgstr "Plus"
+
+#: functions.php:1547 includes/meta-boxes/review-meta.php:38
+msgid "Bad"
+msgstr "Moins"
+
+#: functions.php:1647
+msgid "Review"
+msgstr "Test"
+
+#: functions.php:1648
+msgid "All Reviews"
+msgstr "Tous les tests"
+
+#: functions.php:1649
+msgid "Add New Review"
+msgstr "Ajouter un nouveau test"
+
+#: functions.php:1650
+msgid "Edit Review"
+msgstr "Editer le test"
+
+#: functions.php:1651
+msgid "New Review"
+msgstr "Nouveau test"
+
+#: functions.php:1652
+msgid "View Review"
+msgstr "Voir le test"
+
+#: functions.php:1653
+msgid "Search Reviews"
+msgstr "Chercher parmis les tests"
+
+#: functions.php:1654
+msgid "No reviews found"
+msgstr "Pas de test trouvé"
+
+#: functions.php:1655
+msgid "No reviews found in Trash"
+msgstr "Pas de test trouvé dans la corbeille"
+
+#: functions.php:1677 functions.php:1679 functions.php:1876
+msgid "Products"
+msgstr "Produits"
+
+#: functions.php:1680
+msgid "Product"
+msgstr "Produit"
+
+#: functions.php:1681
+msgid "All Products"
+msgstr "Tous les produtis"
+
+#: functions.php:1682
+msgid "Edit Product"
+msgstr "Editer le produit"
+
+#: functions.php:1683
+msgid "View Product"
+msgstr "Voir le produit"
+
+#: functions.php:1684
+msgid "Update Product"
+msgstr "Mettre à jour le produit"
+
+#: functions.php:1685
+msgid "Add New Product"
+msgstr "Ajouter un nouveau produit"
+
+#: functions.php:1686
+msgid "New Product"
+msgstr "Nouveau produit"
+
+#: functions.php:1687
+msgid "Search Products"
+msgstr "Chercher parmi les produits"
+
+#: functions.php:1688
+msgid "Popular Products"
+msgstr "Produits populaires"
+
+#: functions.php:1694 functions.php:1696 functions.php:1878
+msgid "Brands"
+msgstr "Marques"
+
+#: functions.php:1697
+msgid "Brand"
+msgstr "Marque"
+
+#: functions.php:1698
+msgid "All Brands"
+msgstr "Toutes les marques"
+
+#: functions.php:1699
+msgid "Edit Brand"
+msgstr "Editer la marque"
+
+#: functions.php:1700
+msgid "View Brand"
+msgstr "Voir la marque"
+
+#: functions.php:1701
+msgid "Update Brand"
+msgstr "Mettre à jour la marque"
+
+#: functions.php:1702
+msgid "Add New Brand"
+msgstr "Ajouter une nouvelle marque"
+
+#: functions.php:1703
+msgid "New Brand"
+msgstr "Nouvelle marque"
+
+#: functions.php:1704
+msgid "Search Brands"
+msgstr "Chercher parmi les marques"
+
+#: functions.php:1705
+msgid "Popular Brands"
+msgstr "Marques populaires"
+
+#: functions.php:1743
+msgid "All"
+msgstr "Tous"
+
+#: functions.php:1754 functions.php:1890 layout-reviews.php:10
+msgid "reviews"
+msgstr "tests"
+
+#: functions.php:1875
+msgid "All reviews"
+msgstr "Tous les tests"
+
+#: functions.php:1881 includes/meta-boxes/review-meta.php:17
+msgid "Rating"
+msgstr "Note"
+
+#: functions.php:1884 includes/meta-boxes/review-meta.php:24
+msgid "Price"
+msgstr "Prix"
+
+#: functions.php:1888
+msgid "Apply filters"
+msgstr "Appliquer"
+
+#: layout-reviews.php:12
+msgid "review"
+msgstr "test"
+
+#: layout-reviews.php:26
+msgid "Sorry. No reviews match these parameters."
+msgstr "Désolé. Aucun test ne correspond à vos critères."
+
+#: search.php:8 searchform.php:2
+msgid "Search"
+msgstr "Chercher"
+
+#: search.php:15
+msgid "Nothing found for"
+msgstr "Rien trouvé pour"
+
+#: search.php:19
+msgid "Try another search"
+msgstr "Essayer une nouvelle recherche"
+
+#: search.php:21
+msgid "Or browse the most popular tags:"
+msgstr "Ou bien parcourir les mot-clés les plus populaires :"
+
+#: taxonomy-post_format-post-format-image.php:7
+#: includes/widgets/images-widget.php:105
+msgid "Images"
+msgstr "Images"
+
+#: taxonomy-post_format-post-format-link.php:7
+#: includes/widgets/links-widget.php:105
+msgid "Links"
+msgstr "Liens"
+
+#: taxonomy-post_format-post-format-quote.php:7
+#: includes/widgets/quotes-widget.php:106
+msgid "Quotes"
+msgstr "Citations"
+
+#: taxonomy-post_format-post-format-video.php:7
+#: includes/widgets/videos-widget.php:111
+msgid "Videos"
+msgstr "Vidéos"
+
+#: includes/init.php:49
+msgid "Top Menu"
+msgstr "Menu du haut"
+
+#: includes/init.php:50
+msgid "Footer Menu"
+msgstr "Menu du pied-de-page"
+
+#: includes/init.php:125
+msgid "View all formats"
+msgstr "Voir tous les formats"
+
+#: includes/meta-boxes/post-meta.php:8
+msgid "Video settings"
+msgstr "Paramètres vidéo"
+
+#: includes/meta-boxes/post-meta.php:9
+msgid ""
+"Choose a video to display. Just type the URL of a video and it will "
+"automatically fetch the correct embed code and the thumbnail."
+msgstr ""
+"Choisissez une vidéo à afficher. Entrez tout simplement l'adresse de la "
+"vidéo. Le code HTML et l'image miniature seront automatiquement ajoutés."
+
+#: includes/meta-boxes/post-meta.php:15
+#: settings/custom/custom-settings.php:345
+msgid "YouTube URL"
+msgstr "URL YouTube"
+
+#: includes/meta-boxes/post-meta.php:16
+msgid "Paste a video URL like http://www.youtube.com/watch?v=fDUKt_XgfJ4"
+msgstr ""
+"Coller l'adresse d'une vidéo, comme http://www.youtube.com/watch?"
+"v=fDUKt_XgfJ4"
+
+#: includes/meta-boxes/post-meta.php:22
+msgid "Vimeo URL"
+msgstr "URL Vimeo"
+
+#: includes/meta-boxes/post-meta.php:23 includes/meta-boxes/post-meta.php:30
+msgid "Paste a video URL"
+msgstr "Collez l'adresse d'une vidéo"
+
+#: includes/meta-boxes/post-meta.php:29
+msgid "Dailymotion URL"
+msgstr "URL Dailymotion"
+
+#: includes/meta-boxes/post-meta.php:41
+msgid "Link settings"
+msgstr "Paramètres du lien"
+
+#: includes/meta-boxes/post-meta.php:42
+msgid "Type a link to display."
+msgstr "Entrez un lien à afficher."
+
+#: includes/meta-boxes/post-meta.php:48
+msgid "URL"
+msgstr "URL"
+
+#: includes/meta-boxes/post-meta.php:49
+msgid "The URL of your link, like http://codex.wordpress.org/"
+msgstr "L'URL de votre lien, comme http://codex.wordpress.org/"
+
+#: includes/meta-boxes/post-meta.php:60
+msgid "Quote settings"
+msgstr "Paramètres de citation"
+
+#: includes/meta-boxes/post-meta.php:61
+msgid ""
+"Type or paste a quote to display, and add the source or the author of the "
+"quote."
+msgstr ""
+"Entrez ou collez une citation à afficher, et ajoutez la source ou l'auteur "
+"de la citation."
+
+#: includes/meta-boxes/post-meta.php:68
+msgid "The content of your quote."
+msgstr "Le contenu de la citation."
+
+#: includes/meta-boxes/post-meta.php:74
+msgid "Source"
+msgstr "Source"
+
+#: includes/meta-boxes/post-meta.php:75
+msgid "The source or author of the quote."
+msgstr "La source ou l'auteur de la citation."
+
+#: includes/meta-boxes/review-meta.php:10
+msgid "Review settings"
+msgstr "Paramètres du test"
+
+#: includes/meta-boxes/review-meta.php:11
+msgid "Choose the review settings."
+msgstr "Choisissez les paramètres du test."
+
+#: includes/meta-boxes/review-meta.php:18
+#, php-format
+msgid "Choose a number between 0 and %s, like 8.6."
+msgstr "Choisissez un nombre entre 0 et %s, comme 8.6"
+
+#: includes/meta-boxes/review-meta.php:25
+msgid "Type the price of the product, like 299."
+msgstr "Entrez le prix du produit, comme 299."
+
+#: includes/meta-boxes/review-meta.php:32
+msgid ""
+"The pros of the product you'reviewing. It will be displayed as a list. Just "
+"add a new line to add a new list item."
+msgstr ""
+"Les avantages du produit dont vous faites le test. Ils seront affichés en "
+"tant que liste. Ajoutez simplement une nouvelle ligne pour ajouter un nouvel "
+"élément de liste."
+
+#: includes/meta-boxes/review-meta.php:39
+msgid ""
+"The cons of the product you'reviewing. It will be displayed as a list. Just "
+"add a new line to add a new list item."
+msgstr ""
+"Les inconvénients du produit dont vous faites le test. Ils seront affichés "
+"en tant que liste. Ajoutez simplement une nouvelle ligne pour ajouter un "
+"nouvel élément de liste."
+
+#: includes/widgets/images-widget.php:32
+msgid "A grid of your latest images"
+msgstr "Une grille de vos images les plus récentes"
+
+#: includes/widgets/images-widget.php:116
+#: includes/widgets/latest-posts-widget.php:130
+#: includes/widgets/links-widget.php:116
+#: includes/widgets/popular-posts-widget.php:117
+#: includes/widgets/quotes-widget.php:117
+#: includes/widgets/videos-widget.php:122
+msgid "Title:"
+msgstr "Titre :"
+
+#: includes/widgets/images-widget.php:121
+#: includes/widgets/latest-posts-widget.php:135
+#: includes/widgets/links-widget.php:121
+#: includes/widgets/popular-posts-widget.php:122
+#: includes/widgets/quotes-widget.php:122
+#: includes/widgets/videos-widget.php:127
+msgid "Display a total of"
+msgstr "Afficher un total de"
+
+#: includes/widgets/latest-posts-widget.php:32
+msgid "A list of your latest posts, with a pagination"
+msgstr "Une liste de vos billets les plus récents, avec une pagination"
+
+#: includes/widgets/latest-posts-widget.php:117
+msgid "Latest posts"
+msgstr "Les derniers billets publiés"
+
+#: includes/widgets/latest-posts-widget.php:150
+msgid "Divide the lists every"
+msgstr "Diviser la liste tous les"
+
+#: includes/widgets/links-widget.php:32
+msgid "A list of your latest links"
+msgstr "Une liste de vos derniers liens"
+
+#: includes/widgets/popular-posts-widget.php:32
+msgid "A list of your popular posts"
+msgstr "Une liste de vos billets populaires"
+
+#: includes/widgets/popular-posts-widget.php:106
+msgid "Popular posts"
+msgstr "Billets populaires"
+
+#: includes/widgets/quotes-widget.php:32
+msgid "A list of your latest quotes"
+msgstr "Une liste de vos dernières citations"
+
+#: includes/widgets/videos-widget.php:32
+msgid "A list of your latest videos, with a pagination"
+msgstr "Une liste de vos dernières vidéos, avec une pagination"
+
+#: settings/init.php:43
+msgid "Popular Posts plugin"
+msgstr "Plugin des Billets Populaires"
+
+#: settings/custom/custom-categories.php:10
+#: settings/custom/custom-settings.php:427
+msgid "Color"
+msgstr "Couleur"
+
+#: settings/custom/custom-categories.php:13
+msgid ""
+"Enter a color for this category or select one by clicking on one of the "
+"following colors:"
+msgstr ""
+"Entrez une couleur pour cette catégorie ou bien choisissez-en une en "
+"cliquant sur l'une des couleurs suivantes :"
+
+#: settings/custom/custom-settings.php:39
+msgid "Main Color"
+msgstr "Couleur principale"
+
+#: settings/custom/custom-settings.php:55
+msgid "Home options"
+msgstr "Options de l'accueil"
+
+#: settings/custom/custom-settings.php:57
+msgid "Change the display of the homepage"
+msgstr "Modifier l'affichage de la page d'accueil"
+
+#: settings/custom/custom-settings.php:73
+msgid "Focus status"
+msgstr "Statut du Focus"
+
+#: settings/custom/custom-settings.php:97
+msgid "Grid number"
+msgstr "Nombre pour la Grille"
+
+#: settings/custom/custom-settings.php:125
+msgid "Next posts status"
+msgstr "Statut des billets suivants"
+
+#: settings/custom/custom-settings.php:149
+msgid "Next posts number"
+msgstr "Nombre de billets suivants"
+
+#: settings/custom/custom-settings.php:177
+msgid "Category tabs"
+msgstr "Onglets de catégorie"
+
+#: settings/custom/custom-settings.php:201
+msgid "Reviews status"
+msgstr "Statut des Tests"
+
+#: settings/custom/custom-settings.php:225
+msgid "Reviews number"
+msgstr "Nombre de Tests"
+
+#: settings/custom/custom-settings.php:247
+msgid "Social accounts"
+msgstr "Profils sociaux"
+
+#: settings/custom/custom-settings.php:249
+msgid "Add your social accounts"
+msgstr "Ajoutez vos profils sociaux"
+
+#: settings/custom/custom-settings.php:265
+msgid "Twitter username (like \"haxokeno\")"
+msgstr "Nom Twitter (comme \"haxokeno\")"
+
+#: settings/custom/custom-settings.php:285
+msgid "Facebook page URL"
+msgstr "URL de la page Facebook"
+
+#: settings/custom/custom-settings.php:305
+msgid "Google Plus URL"
+msgstr "URL du profil Google Plus"
+
+#: settings/custom/custom-settings.php:325
+msgid "Tumblr URL"
+msgstr "URL du Tumblr"
+
+#: settings/custom/custom-settings.php:362
+msgid "Social buttons"
+msgstr "Boutons de partage sociaux"
+
+#: settings/custom/custom-settings.php:364
+msgid "Add social buttons to the Single page"
+msgstr "Ajoutez des boutons de partage sur la page du billet"
+
+#: settings/custom/custom-settings.php:407
+msgid "Reviews options"
+msgstr "Paramètres des Tests"
+
+#: settings/custom/custom-settings.php:409
+msgid "Change the reviews color, rating range, and price range"
+msgstr ""
+"Modifiez la couleur des Tests, l'étendue des notes et l'étendue des prix"
+
+#: settings/custom/custom-settings.php:447
+msgid "Maximum rating"
+msgstr "Note maximale"
+
+#: settings/custom/custom-settings.php:473
+msgid "Maximum price"
+msgstr "Prix maximal"
+
+#: settings/custom/custom-settings.php:503
+msgid "Feedburner & Analytics"
+msgstr "Feedburner & Analytics"
+
+#: settings/custom/custom-settings.php:505
+msgid "Add your Feedburner URL and your analytics script"
+msgstr "Ajoutez votre URL Feedburner et votre script d'analytics"
+
+#: settings/custom/custom-settings.php:521
+msgid "Feedburner URL"
+msgstr "URL Feedburner"
+
+#: settings/custom/custom-settings.php:543
+msgid "Tracking code (e.g. Google Analytics)"
+msgstr "Code de tracking (ex: Google Analytics)"
+
+#: settings/custom/custom-settings.php:560
+msgid "Custom CSS"
+msgstr "CSS personnalisée"
+
+#: settings/custom/custom-settings.php:562
+msgid "Add your own CSS code"
+msgstr "Ajoutez votre code CSS"
+
+#: settings/custom/custom-settings.php:580
+msgid "CSS code"
+msgstr "Code CSS"
+
+#: settings/pages/popularity-options.php:20
+msgid "Description"
+msgstr "Description"
+
+#: settings/pages/popularity-options.php:27
+msgid "Status"
+msgstr "Statut"
+
+#: settings/pages/popularity-options.php:35
+msgid "Reset"
+msgstr "Mettre à zéro"
+
+#~ msgid "A list of your latest links, with a pagination"
+#~ msgstr "Une liste de vos derniers liens, avec une pagination"
+
+#~ msgid "A list of your latest quotes, with a pagination"
+#~ msgstr "Une liste de vos dernières citations"

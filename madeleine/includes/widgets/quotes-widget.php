@@ -29,14 +29,14 @@ class madeleine_quotes_widget extends WP_Widget {
 	function madeleine_quotes_widget() {
 		$widget_ops = array(
 			'classname' => 'madeleine-quotes-widget',
-			'description' => __( 'A list of your latest quotes, with a pagination', 'madeleine' )
+			'description' => __( 'A list of your latest quotes', 'madeleine' )
 		);
 		$control_ops = array(
 			'width' => 300,
 			'height' => 350,
 			'id_base' => 'madeleine_quotes_widget'
 		);
-		$this->WP_Widget( 'madeleine_quotes_widget', __( 'Madeleine Quotes', 'madeleine' ), $widget_ops, $control_ops );
+		$this->WP_Widget( 'madeleine_quotes_widget', 'Madeleine Quotes', $widget_ops, $control_ops );
 	}
 
 	// Display the widget

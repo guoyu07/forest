@@ -39,7 +39,7 @@
 					<h2 id="footer-description"><?php bloginfo( 'description' ); ?></h2>
 				</hgroup>
 				<p id="footer-about">
-					<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'madeleine' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'madeleine' ); ?>"><?php printf( __( 'Powered by %s', 'madeleine' ), 'WordPress' ); ?></a>.<br>
+					<a href="<?php echo esc_url( 'http://wordpress.org/' ); ?>"><?php printf( __( 'Powered by %s', 'madeleine' ), 'WordPress' ); ?></a>.<br>
 					Theme <a href="#">Madeleine</a> available on Theme Forest.<br>
 					&copy; 2013 The Magazine Theme. All rights reserved.
 				</p>

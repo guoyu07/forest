@@ -19,38 +19,44 @@
  */
 
 
+if ( !function_exists( 'madeleine_theme_setup' ) ) {
+	function madeleine_theme_setup() {
+		load_theme_textdomain( 'madeleine', get_template_directory() . '/languages' );
 
-if ( ! isset( $content_width ) ) $content_width = 1020;
+		if ( ! isset( $content_width ) ) $content_width = 1020;
 
+		add_theme_support( 'post-formats', array( 'image', 'video', 'link', 'quote', ) );
+		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'automatic-feed-links' );
+		add_theme_support( 'menus' );
 
-add_theme_support( 'post-formats', array( 'image', 'video', 'link', 'quote', ) );
-add_theme_support( 'post-thumbnails' );
-add_theme_support( 'automatic-feed-links' );
-add_theme_support( 'menus' );
-
-
-add_image_size( 'thumbnail', 100, 100, true );
-add_image_size( 'medium', 300, 150, true );
-add_image_size( 'large', 640, 230, true );
-add_image_size( 'tall', 340, 320, true );
-add_image_size( 'focus', 680, 320, true );
-add_image_size( 'wide', 340, 160, true );
-add_image_size( 'panorama', 1020, 360, true );
-
-
-$sidebar_arguments = array(
-	'name'					=> __( 'Sidebar', 'madeleine' ),
-	'before_widget'	=> '<section id="%1$s" class="widget %2$s">',
-	'after_widget'	=> '</section>',
-	'before_title'	=> '<h4 class="widget-title">',
-	'after_title'		=> '</h4>'
-);
+		add_image_size( 'thumbnail', 100, 100, true );
+		add_image_size( 'medium', 300, 150, true );
+		add_image_size( 'large', 640, 230, true );
+		add_image_size( 'tall', 340, 320, true );
+		add_image_size( 'focus', 680, 320, true );
+		add_image_size( 'wide', 340, 160, true );
+		add_image_size( 'panorama', 1020, 360, true );
+	}
+}
+add_action( 'after_setup_theme', 'madeleine_theme_setup' );
 
 
-
-if ( function_exists('register_sidebar') )
-	register_sidebar( $sidebar_arguments );
-
+if ( !function_exists( 'madeleine_widgets_setup' ) ) {
+	function madeleine_widgets_setup() {
+		$sidebar_arguments = array(
+			'name'					=> __( 'Sidebar', 'madeleine' ),
+			'before_widget'	=> '<section id="%1$s" class="widget %2$s">',
+			'after_widget'	=> '</section>',
+			'before_title'	=> '<h4 class="widget-title">',
+			'after_title'		=> '</h4>'
+		);
+		
+		if ( function_exists('register_sidebar') )
+			register_sidebar( $sidebar_arguments );
+	}
+}
+add_action( 'widgets_init', 'madeleine_widgets_setup' );
 
 
 /**
@@ -592,7 +598,7 @@ if ( !function_exists( 'madeleine_format_list' ) ) {
 				);
 				$query = new WP_Query( $args );
 				if ( $query->have_posts() )
-					echo '<li><a href="' . esc_url( get_post_format_link( $format ) ) . '">' . ucwords( $format ) . 's</a></li>';
+					echo '<li><a href="' . esc_url( get_post_format_link( $format ) ) . '" title="' . esc_attr( ucwords( $format ) ) . 's">' . ucwords( $format ) . 's</a></li>';
 			endforeach;
 		endif;
 	}
@@ -622,7 +628,7 @@ if ( !function_exists( 'madeleine_format_icons' ) ) {
 				);
 				$query = new WP_Query( $args );
 				if ( $query->have_posts() )
-					echo '<li><a class="nav-format nav-' . $format . 's" href="' . esc_url( get_post_format_link( $format ) ) . '"><span class="icon icon-' . $format . 's"></span>' . ucwords( $format ) . 's</a></li>';
+					echo '<li><a class="nav-format nav-' . $format . 's" href="' . esc_url( get_post_format_link( $format ) ) . '" title="' . esc_attr( ucwords( $format ) ) . 's"><span class="icon icon-' . $format . 's"></span>' . ucwords( $format ) . 's</a></li>';
 			endforeach;
 		endif;
 	}
@@ -1407,7 +1413,7 @@ if ( !function_exists( 'madeleine_entry_comments' ) ) {
 					</div>
 					<div class="comment-text"><?php comment_text(); ?></div>
 					<div class="comment-reply">
-						<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'madeleine' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+						<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply &darr;', 'madeleine' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 					</div>
 				</div>
 			</article>
@@ -1919,7 +1925,7 @@ if ( !function_exists( 'madeleine_ajax_request' ) ) {
 				$output = madeleine_reviews_grid( $_REQUEST['id'] );
 			break;
 			default:
-				$output = __( 'No function specified, check your jQuery.ajax() call.', 'madeleine' );
+				$output = 'No function specified, check your jQuery.ajax() call.';
 			break;
 		} 
 		echo $output;

@@ -24,8 +24,8 @@ if ( !function_exists( 'madeleine_theme_settings' ) ) {
 	function madeleine_theme_settings() {
 
 		add_theme_page(
-			__( 'Madeleine Popular Posts plugin', 'madeleine' ),
-			__( 'Madeleine Popular Posts plugin', 'madeleine' ),
+			'Madeleine Popular Posts plugin',
+			'Madeleine Popular Posts plugin',
 			'update_core',
 			'madeleine_popularity_options_page',
 			'madeleine_popularity_options_display'

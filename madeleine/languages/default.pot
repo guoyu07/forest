@@ -1,0 +1,668 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Madeleine v1.0\n"
+"POT-Creation-Date: 2013-09-16 03:46+0100\n"
+"PO-Revision-Date: 2013-09-16 03:46+0100\n"
+"Last-Translator: Haxokeno <contact@haxokeno.com>\n"
+"Language-Team: haxokeno\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: attachment.php:12
+msgid "Back to post"
+msgstr ""
+
+#: comments.php:3
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#: comments.php:10
+msgid "One comment"
+msgstr ""
+
+#: comments.php:10
+#, php-format
+msgid "%1$s comments"
+msgstr ""
+
+#: comments.php:16 comments.php:27
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:17 comments.php:28
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:33
+msgid "Comments are closed."
+msgstr ""
+
+#: content-image.php:4
+msgid "Image"
+msgstr ""
+
+#: content-image.php:6 content-link.php:17 content-quote.php:5
+#: content-review.php:12 content-video.php:6 content.php:14 layout-board.php:6
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+
+#: content-link.php:3
+msgid "Link"
+msgstr ""
+
+#: content-page.php:7
+msgid "Pages:"
+msgstr ""
+
+#: content-quote.php:3 includes/meta-boxes/post-meta.php:67
+msgid "Quote"
+msgstr ""
+
+#: content-video.php:4
+msgid "Video"
+msgstr ""
+
+#: footer.php:4
+msgid "Navigation"
+msgstr ""
+
+#: footer.php:6 header.php:57
+msgid "Home"
+msgstr ""
+
+#: footer.php:15 functions.php:959
+msgid "Categories"
+msgstr ""
+
+#: footer.php:21 header.php:65
+msgid "Trending"
+msgstr ""
+
+#: footer.php:27
+msgid "Social"
+msgstr ""
+
+#: footer.php:30
+msgid "RSS"
+msgstr ""
+
+#: footer.php:31
+msgid "Email"
+msgstr ""
+
+#: footer.php:42
+#, php-format
+msgid "Powered by %s"
+msgstr ""
+
+#: functions.php:39
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:414
+msgid "Error uploading image data:"
+msgstr ""
+
+#: functions.php:527
+msgid "Tag:"
+msgstr ""
+
+#: functions.php:642 functions.php:1644 functions.php:1646 functions.php:1741
+#: functions.php:1746 functions.php:1841
+msgid "Reviews"
+msgstr ""
+
+#: functions.php:961 functions.php:984 functions.php:1746
+msgid "View all"
+msgstr ""
+
+#: functions.php:1165
+msgid "Select year"
+msgstr ""
+
+#: functions.php:1169
+msgid "Select month"
+msgstr ""
+
+#: functions.php:1175
+msgid "Select day"
+msgstr ""
+
+#: functions.php:1258
+msgid "Jump to"
+msgstr ""
+
+#: functions.php:1259
+msgid "Start"
+msgstr ""
+
+#: functions.php:1263
+msgid "Verdict"
+msgstr ""
+
+#: functions.php:1264
+msgid "Comments"
+msgstr ""
+
+#: functions.php:1383
+msgid "Pingback:"
+msgstr ""
+
+#: functions.php:1391
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: functions.php:1407
+msgid "Reply &darr;"
+msgstr ""
+
+#: functions.php:1430
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: functions.php:1547 includes/meta-boxes/review-meta.php:31
+msgid "Good"
+msgstr ""
+
+#: functions.php:1547 includes/meta-boxes/review-meta.php:38
+msgid "Bad"
+msgstr ""
+
+#: functions.php:1647
+msgid "Review"
+msgstr ""
+
+#: functions.php:1648
+msgid "All Reviews"
+msgstr ""
+
+#: functions.php:1649
+msgid "Add New Review"
+msgstr ""
+
+#: functions.php:1650
+msgid "Edit Review"
+msgstr ""
+
+#: functions.php:1651
+msgid "New Review"
+msgstr ""
+
+#: functions.php:1652
+msgid "View Review"
+msgstr ""
+
+#: functions.php:1653
+msgid "Search Reviews"
+msgstr ""
+
+#: functions.php:1654
+msgid "No reviews found"
+msgstr ""
+
+#: functions.php:1655
+msgid "No reviews found in Trash"
+msgstr ""
+
+#: functions.php:1677 functions.php:1679 functions.php:1876
+msgid "Products"
+msgstr ""
+
+#: functions.php:1680
+msgid "Product"
+msgstr ""
+
+#: functions.php:1681
+msgid "All Products"
+msgstr ""
+
+#: functions.php:1682
+msgid "Edit Product"
+msgstr ""
+
+#: functions.php:1683
+msgid "View Product"
+msgstr ""
+
+#: functions.php:1684
+msgid "Update Product"
+msgstr ""
+
+#: functions.php:1685
+msgid "Add New Product"
+msgstr ""
+
+#: functions.php:1686
+msgid "New Product"
+msgstr ""
+
+#: functions.php:1687
+msgid "Search Products"
+msgstr ""
+
+#: functions.php:1688
+msgid "Popular Products"
+msgstr ""
+
+#: functions.php:1694 functions.php:1696 functions.php:1878
+msgid "Brands"
+msgstr ""
+
+#: functions.php:1697
+msgid "Brand"
+msgstr ""
+
+#: functions.php:1698
+msgid "All Brands"
+msgstr ""
+
+#: functions.php:1699
+msgid "Edit Brand"
+msgstr ""
+
+#: functions.php:1700
+msgid "View Brand"
+msgstr ""
+
+#: functions.php:1701
+msgid "Update Brand"
+msgstr ""
+
+#: functions.php:1702
+msgid "Add New Brand"
+msgstr ""
+
+#: functions.php:1703
+msgid "New Brand"
+msgstr ""
+
+#: functions.php:1704
+msgid "Search Brands"
+msgstr ""
+
+#: functions.php:1705
+msgid "Popular Brands"
+msgstr ""
+
+#: functions.php:1743
+msgid "All"
+msgstr ""
+
+#: functions.php:1754 functions.php:1890 layout-reviews.php:10
+msgid "reviews"
+msgstr ""
+
+#: functions.php:1875
+msgid "All reviews"
+msgstr ""
+
+#: functions.php:1881 includes/meta-boxes/review-meta.php:17
+msgid "Rating"
+msgstr ""
+
+#: functions.php:1884 includes/meta-boxes/review-meta.php:24
+msgid "Price"
+msgstr ""
+
+#: functions.php:1888
+msgid "Apply filters"
+msgstr ""
+
+#: layout-reviews.php:12
+msgid "review"
+msgstr ""
+
+#: layout-reviews.php:26
+msgid "Sorry. No reviews match these parameters."
+msgstr ""
+
+#: search.php:8 searchform.php:2
+msgid "Search"
+msgstr ""
+
+#: search.php:15
+msgid "Nothing found for"
+msgstr ""
+
+#: search.php:19
+msgid "Try another search"
+msgstr ""
+
+#: search.php:21
+msgid "Or browse the most popular tags:"
+msgstr ""
+
+#: taxonomy-post_format-post-format-image.php:7
+#: includes/widgets/images-widget.php:105
+msgid "Images"
+msgstr ""
+
+#: taxonomy-post_format-post-format-link.php:7
+#: includes/widgets/links-widget.php:105
+msgid "Links"
+msgstr ""
+
+#: taxonomy-post_format-post-format-quote.php:7
+#: includes/widgets/quotes-widget.php:106
+msgid "Quotes"
+msgstr ""
+
+#: taxonomy-post_format-post-format-video.php:7
+#: includes/widgets/videos-widget.php:111
+msgid "Videos"
+msgstr ""
+
+#: includes/init.php:49
+msgid "Top Menu"
+msgstr ""
+
+#: includes/init.php:50
+msgid "Footer Menu"
+msgstr ""
+
+#: includes/init.php:125
+msgid "View all formats"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:8
+msgid "Video settings"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:9
+msgid ""
+"Choose a video to display. Just type the URL of a video and it will "
+"automatically fetch the correct embed code and the thumbnail."
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:15
+#: settings/custom/custom-settings.php:345
+msgid "YouTube URL"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:16
+msgid "Paste a video URL like http://www.youtube.com/watch?v=fDUKt_XgfJ4"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:22
+msgid "Vimeo URL"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:23 includes/meta-boxes/post-meta.php:30
+msgid "Paste a video URL"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:29
+msgid "Dailymotion URL"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:41
+msgid "Link settings"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:42
+msgid "Type a link to display."
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:48
+msgid "URL"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:49
+msgid "The URL of your link, like http://codex.wordpress.org/"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:60
+msgid "Quote settings"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:61
+msgid ""
+"Type or paste a quote to display, and add the source or the author of the "
+"quote."
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:68
+msgid "The content of your quote."
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:74
+msgid "Source"
+msgstr ""
+
+#: includes/meta-boxes/post-meta.php:75
+msgid "The source or author of the quote."
+msgstr ""
+
+#: includes/meta-boxes/review-meta.php:10
+msgid "Review settings"
+msgstr ""
+
+#: includes/meta-boxes/review-meta.php:11
+msgid "Choose the review settings."
+msgstr ""
+
+#: includes/meta-boxes/review-meta.php:18
+#, php-format
+msgid "Choose a number between 0 and %s, like 8.6."
+msgstr ""
+
+#: includes/meta-boxes/review-meta.php:25
+msgid "Type the price of the product, like 299."
+msgstr ""
+
+#: includes/meta-boxes/review-meta.php:32
+msgid ""
+"The pros of the product you'reviewing. It will be displayed as a list. Just "
+"add a new line to add a new list item."
+msgstr ""
+
+#: includes/meta-boxes/review-meta.php:39
+msgid ""
+"The cons of the product you'reviewing. It will be displayed as a list. Just "
+"add a new line to add a new list item."
+msgstr ""
+
+#: includes/widgets/images-widget.php:32
+msgid "A grid of your latest images"
+msgstr ""
+
+#: includes/widgets/images-widget.php:116
+#: includes/widgets/latest-posts-widget.php:130
+#: includes/widgets/links-widget.php:116
+#: includes/widgets/popular-posts-widget.php:117
+#: includes/widgets/quotes-widget.php:117
+#: includes/widgets/videos-widget.php:122
+msgid "Title:"
+msgstr ""
+
+#: includes/widgets/images-widget.php:121
+#: includes/widgets/latest-posts-widget.php:135
+#: includes/widgets/links-widget.php:121
+#: includes/widgets/popular-posts-widget.php:122
+#: includes/widgets/quotes-widget.php:122
+#: includes/widgets/videos-widget.php:127
+msgid "Display a total of"
+msgstr ""
+
+#: includes/widgets/latest-posts-widget.php:32
+msgid "A list of your latest posts, with a pagination"
+msgstr ""
+
+#: includes/widgets/latest-posts-widget.php:117
+msgid "Latest posts"
+msgstr ""
+
+#: includes/widgets/latest-posts-widget.php:150
+msgid "Divide the lists every"
+msgstr ""
+
+#: includes/widgets/links-widget.php:32
+msgid "A list of your latest links"
+msgstr ""
+
+#: includes/widgets/popular-posts-widget.php:32
+msgid "A list of your popular posts"
+msgstr ""
+
+#: includes/widgets/popular-posts-widget.php:106
+msgid "Popular posts"
+msgstr ""
+
+#: includes/widgets/quotes-widget.php:32
+msgid "A list of your latest quotes"
+msgstr ""
+
+#: includes/widgets/videos-widget.php:32
+msgid "A list of your latest videos, with a pagination"
+msgstr ""
+
+#: settings/init.php:43
+msgid "Popular Posts plugin"
+msgstr ""
+
+#: settings/custom/custom-categories.php:10
+#: settings/custom/custom-settings.php:427
+msgid "Color"
+msgstr ""
+
+#: settings/custom/custom-categories.php:13
+msgid ""
+"Enter a color for this category or select one by clicking on one of the "
+"following colors:"
+msgstr ""
+
+#: settings/custom/custom-settings.php:39
+msgid "Main Color"
+msgstr ""
+
+#: settings/custom/custom-settings.php:55
+msgid "Home options"
+msgstr ""
+
+#: settings/custom/custom-settings.php:57
+msgid "Change the display of the homepage"
+msgstr ""
+
+#: settings/custom/custom-settings.php:73
+msgid "Focus status"
+msgstr ""
+
+#: settings/custom/custom-settings.php:97
+msgid "Grid number"
+msgstr ""
+
+#: settings/custom/custom-settings.php:125
+msgid "Next posts status"
+msgstr ""
+
+#: settings/custom/custom-settings.php:149
+msgid "Next posts number"
+msgstr ""
+
+#: settings/custom/custom-settings.php:177
+msgid "Category tabs"
+msgstr ""
+
+#: settings/custom/custom-settings.php:201
+msgid "Reviews status"
+msgstr ""
+
+#: settings/custom/custom-settings.php:225
+msgid "Reviews number"
+msgstr ""
+
+#: settings/custom/custom-settings.php:247
+msgid "Social accounts"
+msgstr ""
+
+#: settings/custom/custom-settings.php:249
+msgid "Add your social accounts"
+msgstr ""
+
+#: settings/custom/custom-settings.php:265
+msgid "Twitter username (like \"haxokeno\")"
+msgstr ""
+
+#: settings/custom/custom-settings.php:285
+msgid "Facebook page URL"
+msgstr ""
+
+#: settings/custom/custom-settings.php:305
+msgid "Google Plus URL"
+msgstr ""
+
+#: settings/custom/custom-settings.php:325
+msgid "Tumblr URL"
+msgstr ""
+
+#: settings/custom/custom-settings.php:362
+msgid "Social buttons"
+msgstr ""
+
+#: settings/custom/custom-settings.php:364
+msgid "Add social buttons to the Single page"
+msgstr ""
+
+#: settings/custom/custom-settings.php:407
+msgid "Reviews options"
+msgstr ""
+
+#: settings/custom/custom-settings.php:409
+msgid "Change the reviews color, rating range, and price range"
+msgstr ""
+
+#: settings/custom/custom-settings.php:447
+msgid "Maximum rating"
+msgstr ""
+
+#: settings/custom/custom-settings.php:473
+msgid "Maximum price"
+msgstr ""
+
+#: settings/custom/custom-settings.php:503
+msgid "Feedburner & Analytics"
+msgstr ""
+
+#: settings/custom/custom-settings.php:505
+msgid "Add your Feedburner URL and your analytics script"
+msgstr ""
+
+#: settings/custom/custom-settings.php:521
+msgid "Feedburner URL"
+msgstr ""
+
+#: settings/custom/custom-settings.php:543
+msgid "Tracking code (e.g. Google Analytics)"
+msgstr ""
+
+#: settings/custom/custom-settings.php:560
+msgid "Custom CSS"
+msgstr ""
+
+#: settings/custom/custom-settings.php:562
+msgid "Add your own CSS code"
+msgstr ""
+
+#: settings/custom/custom-settings.php:580
+msgid "CSS code"
+msgstr ""
+
+#: settings/pages/popularity-options.php:20
+msgid "Description"
+msgstr ""
+
+#: settings/pages/popularity-options.php:27
+msgid "Status"
+msgstr ""
+
+#: settings/pages/popularity-options.php:35
+msgid "Reset"
+msgstr ""
