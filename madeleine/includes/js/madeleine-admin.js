@@ -76,6 +76,19 @@ jQuery(document).ready(function($) {
   if (video_button.is(':checked'))
     video_panel.css('display', 'block');
 
-  MadeleineHideAll(null); 
+  MadeleineHideAll(null);
+
+  // Popular Posts
+
+  var unschedule_checkbox = $('#madeleine-unschedule');
+  var unschedule_message = $('#madeleine-unschedule-message');
+
+  unschedule_checkbox.change(function(){
+    if ($(this).is(':checked')) {
+      unschedule_message.slideDown();
+    } else {
+      unschedule_message.slideUp();
+    }
+  });
   
 });

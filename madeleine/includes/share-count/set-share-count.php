@@ -1,13 +1,7 @@
 <?php
 
 if ( !function_exists( 'madeleine_get_share_count' ) ) {
-	function madeleine_get_share_count() {
-		$url = 'http://yahoo.tumblr.com/post/60332693287/introducing-our-new-logo';
-		$url = 'http://chrome.blogspot.fr/2013/09/a-new-breed-of-chrome-apps.html';
-		$url = 'http://www.engadget.com/2013/09/02/microsoft-will-acquire-nokias-devices-and-services-business/';
-		$url = 'http://jacoboneal.com/car-engine/';
-		$url = 'http://yahoo.tumblr.com/post/60332693287/introducing-our-new-logo';
-
+	function madeleine_get_share_count( $url ) {
 		$facebook = madeleine_facebook_share_count( $url );
 		$twitter = madeleine_twitter_share_count( $url );
 		$google = madeleine_google_share_count( $url );
@@ -32,7 +26,7 @@ if ( !function_exists( 'madeleine_save_share_count' ) ) {
 		global $post;
 		if ( $post_id == '' )
 			$post_id = $post->ID;
-		$shares = madeleine_get_share_count();
+		$shares = madeleine_get_share_count( get_permalink( $post_id ) );
 		$total = array_sum( $shares );
 		update_post_meta( $post_id, '_madeleine_share_counts', $shares );
 		update_post_meta( $post_id, '_madeleine_share_total', $total );
@@ -43,11 +37,12 @@ if ( !function_exists( 'madeleine_save_share_count' ) ) {
 
 if ( !function_exists( 'madeleine_schedule_share_count' ) ) {
 	function madeleine_schedule_share_count( $post_id ) {
-		$popularity_options = get_option( 'madeleine_popularity_options' );
+		$popularity_options = get_option( 'madeleine_options_popularity' );
 		if ( isset( $popularity_options['popularity_status'] ) && $popularity_options['popularity_status'] == 1 ):
 			$schedule = wp_get_schedule( 'madeleine_share_count_event', array( '$post_id' => $post_id ) );
 			$post = get_post( $post_id );
-			if ( $schedule == false && $post->post_status == 'publish' )
+			$format = get_post_format( $post_id );
+			if ( $schedule == false && $post->post_status == 'publish' && $format == false )
 				wp_schedule_event( current_time ( 'timestamp' ), 'daily', 'madeleine_share_count_event', array( '$post_id' => $post_id ) );
 		endif;
 	}

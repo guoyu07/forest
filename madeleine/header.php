@@ -30,6 +30,7 @@
 
 <body <?php body_class(); ?>>
 	<?php if ( has_nav_menu( 'top-menu') ) : ?>
+		<a id="top-icon"><span class="icon icon-menu"></span>Top Menu</a>
 		<?php wp_nav_menu( array( 'container_id' => 'top-menu', 'menu_class' => 'menu wrap', 'theme_location' => 'top-menu' ) ); ?>
 		<div style="clear: left;"></div>
 	<?php endif; ?>

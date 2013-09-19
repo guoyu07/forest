@@ -35,3 +35,8 @@
 #madeleine-settings-form .form-table tr:hover input,
 #madeleine-settings-form .form-table tr:hover textarea{ border-color: #444;}
 #madeleine-settings-form .form-table label{ cursor: pointer; margin-right: 10px;}
+
+/* Popular Posts */
+
+.madeleine-warning{ background: #d0574e; border-radius: 3px; color: white; margin: 4px 0; padding: 5px 10px;}
+#madeleine-unschedule-message{ display: none;}

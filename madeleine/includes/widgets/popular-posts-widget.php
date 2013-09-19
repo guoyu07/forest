@@ -47,14 +47,14 @@ class madeleine_popular_posts_widget extends WP_Widget {
 		$title = apply_filters('widget_title', $instance['title'] );
 		$total = $instance['total'];
 
-		$popularity_options = get_option( 'madeleine_popularity_options' );
+		$popularity_options = get_option( 'madeleine_options_popularity' );
 		if ( isset( $popularity_options['popularity_status'] ) && $popularity_options['popularity_status'] == 1 ):
 			$latest_ids = madeleine_latest_posts(); 
 			$standard_posts = madeleine_standard_posts(); // Get only standard format for the posts
 			$args = array(
 				'post_type' => 'post',
 				'posts_per_page' => $total,
-				'post__in' => $latest_ids,
+				// 'post__in' => $latest_ids, TESTDRIVE
 				'meta_key' => '_madeleine_share_total',
 				'orderby' => 'meta_value_num',
 				'order' => 'DESC',

@@ -58,6 +58,11 @@ class madeleine_latest_posts_widget extends WP_Widget {
 			$category = get_category( $cat );
 			$title .= ' in ' . $category->name;
 			$args['cat'] = get_query_var('cat');
+		elseif ( is_single() ):
+			$single_categories = get_the_category( get_the_ID() );
+			$single_category = madeleine_top_category( $single_categories[0]->term_id );
+			$title .= ' in ' . $single_categories[0]->name;
+			$args['cat'] = $single_category;
 		endif;
 		$query = new WP_Query( $args );
 		if ( $query->have_posts() ):

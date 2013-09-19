@@ -251,9 +251,9 @@ if ( !function_exists( 'madeleine_custom_colors' ) ) {
 		if ( isset( $reviews_options['color'] ) && $reviews_options['color'] != '' ):
 			$reviews_color = $reviews_options['color'];
 			$custom_css .= '.review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
-			$custom_css .= '.review .entry-category a,.single-review #category strong{ background-color: ' . $reviews_color . ';}';
+			$custom_css .= '.review .entry-category a,.single-review #category strong, #reviews-tabs a:hover, #reviews-tabs .on{ background-color: ' . $reviews_color . ';}';
 			$custom_css .= '#jump .on,#jump .on:hover,#menu-icon,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
-			$custom_css .= '#nav .nav-reviews{ border-top-color: ' . $reviews_color . ';}';
+			$custom_css .= '#nav .nav-reviews, .reviews-grid .review .review-text{ border-top-color: ' . $reviews_color . ';}';
 			$custom_css .= '.single-review #category strong:after{ border-left-color: ' . $reviews_color . ';}';
 		endif;
 		$custom_css .= '</style>';
@@ -766,7 +766,8 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 					else
 						madeleine_entry_thumbnail( 'wide' );
 					echo '<div class="focus-text">';
-					echo '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '">' . get_the_title() . '</a></h2>';
+					echo '<a class="entry-permalink" href="' . esc_url( get_permalink() ) . '"></a>';
+					echo '<h2 class="entry-title">' . get_the_title() . '</h2>';
 					echo '<ul class="entry-category">' . $category_links . '</ul>';
 					echo '<p class="entry-excerpt">' . get_the_excerpt() . '</p>';
 					echo '</div>';
@@ -1797,10 +1798,10 @@ if ( !function_exists( 'madeleine_reviews_grid' ) ) {
 			$query->the_post();
 			$grid .= '<div class="review">';
 			$grid .= '<a href="' . esc_url( get_permalink() ) . '" class="entry-thumbnail">' . get_the_post_thumbnail( null, 'tall' ) . '</a>';
-			$grid .= '<div class="review-text">';
-			$grid .= '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '">' . get_the_title() . '</a></h2>';
+			$grid .= '<a class="review-text" href="' . esc_url( get_permalink() ) . '">';
+			$grid .= '<h2 class="entry-title">' . get_the_title() . '</h2>';
 			$grid .= '<p class="entry-summary">' . get_the_excerpt() . '</p>';
-			$grid .= '</div>';
+			$grid .= '</a>';
 			$grid .= madeleine_entry_rating( get_the_ID(), false );
 			$grid .= '</div>';
 		}

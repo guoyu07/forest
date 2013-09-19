@@ -74,10 +74,10 @@ if ( !function_exists( 'madeleine_popularity_status_callback' ) ) {
 	function madeleine_popularity_status_callback( $args ) {
 		$settings = get_option( 'madeleine_options_popularity' );
 		$key = 'popularity_status';
-		$html = '<label><input type="radio" name="madeleine_popularity_options[' . $key . ']" value="1"' . checked( 1, $settings[$key], false ) . '>&nbsp;';
+		$html = '<label><input type="radio" name="madeleine_options_popularity[' . $key . ']" value="1"' . checked( 1, $settings[$key], false ) . '>&nbsp;';
 		$html .= 'Enabled';
 		$html .= '</label>';
-		$html .= '<label><input type="radio" name="madeleine_popularity_options[' . $key . ']" value="0"' . checked( 0, $settings[$key], false ) . '>&nbsp;';
+		$html .= '<label><input type="radio" name="madeleine_options_popularity[' . $key . ']" value="0"' . checked( 0, $settings[$key], false ) . '>&nbsp;';
 		$html .= 'Disabled';
 		$html .= '</label>';
 		echo $html;
@@ -88,10 +88,11 @@ if ( !function_exists( 'madeleine_popularity_status_callback' ) ) {
 if ( !function_exists( 'madeleine_popularity_reset_callback' ) ) {
 	function madeleine_popularity_reset_callback() {
 		$key = 'popularity_reset';
-		$html = '<label><input type="checkbox" name="madeleine_popularity_options[' . $key . ']" value="1">&nbsp;';
+		$html = '<label><input id="madeleine-unschedule" type="checkbox" name="madeleine_options_popularity[' . $key . ']" value="1">&nbsp;';
 		$html .= 'Unschedule all events?';
 		$html .= '</label>';
-		$html .= '<br>By checking this box and saving your changes, the form will <strong>clear all scheduled events for every post</strong>.<br>It means that it won\'t retrieve any share count anymore. You will have to re-enable the plugin <strong>and</strong> save any post for which you want to enable the share count.';
+		$html .= '<p id="madeleine-unschedule-message" class="madeleine-warning">This action is non-reversible so please be sure to understand how it works.</p>';
+		$html .= '<p>By checking this box and saving your changes, the form will <strong>clear all scheduled events for every post</strong>.<br>It means that it won\'t retrieve any share count anymore. You will have to re-enable the plugin <strong>and</strong> save any post for which you want to enable the share count event.</p>';
 		echo $html;
 	}
 }
@@ -102,9 +103,10 @@ if ( !function_exists( 'madeleine_popularity_reset_callback' ) ) {
 * The $hook parameter is required, so that the events can be identified.
 * @param string $hook Action hook, the execution of which will be unscheduled.
 */
+
 if ( !function_exists( 'madeleine_unschedule_hook' ) ) {
 	function madeleine_unschedule_hook( $hook ) { 
-		$crons = _get_cron_array(); 
+		$crons = _get_cron_array();
 		foreach( $crons as $timestamp => $args ):
 			unset( $crons[$timestamp][$hook] ); 
 			if ( empty( $crons[$timestamp] ) )
@@ -115,8 +117,34 @@ if ( !function_exists( 'madeleine_unschedule_hook' ) ) {
 }
 
 
+if ( !function_exists( 'madeleine_unschedule_old_events' ) ) {
+	function madeleine_unschedule_old_events() { 
+		$crons = _get_cron_array();
+		$scheduled_posts = array();
+		foreach( $crons as $timestamp ):
+			$event_timestamp = key( $crons );
+			if ( array_key_exists( 'madeleine_share_count_event', $timestamp ) ):
+				foreach( $timestamp['madeleine_share_count_event'] as $random ):
+					$scheduled_posts[] = $random['args']['$post_id'];
+				endforeach;
+			endif;
+		endforeach;
+		if ( !empty( $scheduled_posts ) ):
+			foreach( $scheduled_posts as $scheduled_post ):
+				if ( get_post_time( 'U', false, $scheduled_post ) < strtotime( '-1 month' ) ):
+					$next_timestamp = wp_next_scheduled( 'madeleine_share_count_event', array( '$post_id' => $scheduled_post ) );
+					if ( $next_timestamp )
+						wp_unschedule_event( $next_timestamp, 'madeleine_share_count_event', array( '$post_id' => $scheduled_post ) );
+				endif;
+			endforeach;
+		endif;
+	}
+}
+
+
 if ( !function_exists( 'madeleine_popularity_options_callback' ) ) {
 	function madeleine_popularity_options_callback( $input ) {
+		wp_schedule_event( current_time ( 'timestamp' ), 'daily', 'madeleine_unschedule_old_events' );
 		if ( isset( $input['popularity_reset'] ) ):
 			if ( $input['popularity_reset'] == 1 )
 				madeleine_unschedule_hook( 'madeleine_share_count_event' );

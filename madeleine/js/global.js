@@ -1,5 +1,14 @@
 jQuery(document).ready(function ($) {
 
+  // Top menu
+
+  var top_icon = $('#top-icon');
+  var top_menu = $('#top-menu');
+
+  top_icon.click( function() {
+    top_menu.toggle();
+  });
+
   // Nav menu
 
   var nav_icon = $('#nav-icon');
@@ -38,9 +47,9 @@ jQuery(document).ready(function ($) {
 
   $.each(popular_bars, function() {
     var total = $(this).data('total');
-    var relative_width = (250 * total) / popular_highest;
+    var relative_width = (100 * total) / popular_highest;
     $(this).stop().animate({
-      width: relative_width
+      width: relative_width + '%'
     });
   });
 

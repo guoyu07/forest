@@ -122,23 +122,25 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
  * 
 */
 
+#top-icon{ background-color: #eaedef; color: #708491; display: none; font: bold 18px/28px Bitter, Georgia, serif; height: 30px; padding: 10px; text-align: left;}
 #top-menu{ background: #eaedef; float: left; font-size: 11px; white-space: nowrap; width: 100%;}
 #top-menu a{ display: block; padding: 3px 5px;}
-#top-menu a:hover{ background: #444; text-decoration: none;}
+#top-menu a:hover{ background: white; text-decoration: none;}
 /* First level */
 #top-menu ul{ position: relative;}
 #top-menu ul li{ float: left; position: relative;}
-#top-menu ul li:hover{ background: #708491;}
-#top-menu ul li:hover a{ color: white;}
+#top-menu ul li:hover{ background: white;}
+#top-menu ul li:hover a{ color: #444;}
 #top-menu ul li:hover ul{ display: block;}
 #top-menu ul li:hover ul ul{ display: none;}
 /* Second level */
-#top-menu ul ul{ background: #708491; display: none; left: 0; position: absolute; top: 100%; z-index: 1986;}
+#top-menu ul ul{ background: white; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.125); display: none; left: 0; padding: 5px 0; position: absolute; top: 100%; z-index: 1986;}
 #top-menu ul ul li{ display: block; float: none;}
 #top-menu ul ul li:hover ul{ display: block;}
-#top-menu ul ul a{ color: white; padding: 2px 20px 2px 10px;}
+#top-menu ul ul a{ padding: 2px 20px 2px 10px;}
+#top-menu ul ul a:hover{ background: #eaedef;}
 /* Third level */
-#top-menu ul ul ul{ left: 100%; top: 0;}
+#top-menu ul ul ul{ left: 100%; padding: 0; top: 0;}
 
 #header{ padding-top: 20px;}
 #header br{ display: none;}
@@ -511,9 +513,9 @@ blockquote.right{}
 #latest .sticky a{ font-weight: bold;}
 #latest .sticky a .entry-date{ color: #444;}
 
-#popular li{ font: bold 18px/1.15 Bitter, Georgia, serif; min-height: 40px; padding-left: 50px; position: relative;}
-#popular em{ background: #444; display: block; height: 2px; left: 50px; position: absolute; top: 0; width: 0;}
-#popular strong{ background: #444; color: white; float: left; height: 100%; left: 0; margin-right: 10px; position: absolute; text-align: center; top: 0; width: 50px;}
+#popular li{ font: bold 18px/1.15 Bitter, Georgia, serif; margin-left: 50px; min-height: 40px; position: relative;}
+#popular em{ background: #444; display: block; height: 2px; left: 0; position: absolute; top: 0; width: 0%;}
+#popular strong{ background: #444; color: white; float: left; height: 100%; left: -50px; margin-right: 10px; position: absolute; text-align: center; top: 0; width: 50px;}
 #popular span{ display: inline-block; padding-top: 10px;}
 #popular a{ display: block; padding: 10px 0 10px 10px;}
 #popular a:hover{ background: #eaedef; text-decoration: none;}
@@ -641,12 +643,14 @@ blockquote.right{}
 .entry-value-bad .section{ color: #D0574E;}
 
 .review .entry-summary{ font-size: 16px;}
+
 .reviews-grid{ position: relative;}
 .reviews-grid .review{ float: left; height: 320px; position: relative; width: 340px;}
-.reviews-grid .review .review-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: #afc6d5; padding: 20px; position: absolute; width: 300px;}
-.reviews-grid .review .entry-title{ font-size: 20px; margin-bottom: 5px;}
-.reviews-grid .review .entry-title a{ color: white;}
+.reviews-grid .review .review-text{ background: rgba(14, 24, 31, 0.48); border-top: 1px solid #afc6d5; bottom: 0; color: #afc6d5; display: block; padding: 20px; position: absolute; width: 300px;}
+.reviews-grid .review .entry-title{ color: white; font-size: 20px; margin-bottom: 5px;}
 .reviews-grid .review .entry-rating{ position: absolute; right: 0; top: 0;}
+.reviews-grid .review:hover .review-text{ border-top-width: 3px; text-decoration: none;}
+
 .reviews-list .review{ padding-right: 80px;}
 .reviews-list .review .entry-rating{ left: auto; position: absolute; right: 0; top: 0;}
 .reviews-list .review .entry-price{ left: auto; position: absolute; right: 0; top: 60px;}
@@ -713,16 +717,17 @@ blockquote.right{}
 #focus-3{ bottom: 0; left: 0;}
 #focus-4{ bottom: 0; left: 340px;}
 #focus-5{ bottom: 0; height: 320px; right: 0;}
-.focus .entry-permalink{ display: block;}
+.focus .entry-permalink{ display: block; height: 100%; left: 0; position: absolute; top: 0; width: 100%;}
 .focus-text{ background: rgba(14, 24, 31, 0.48); border-top: 1px solid #c33; bottom: 0; left: 0; padding: 20px; position: absolute; width: 300px;}
 #focus-1 .focus-text{ font-size: 16px; width: 640px;}
 #focus-1 .entry-title{ font-size: 32px;}
 #focus-5 .entry-title{ font-size: 24px;}
-.focus .entry-title a{ color: white !important;}
+.focus .entry-title{ color: white !important;}
 .focus .entry-category{ position: absolute; right: 0; top: 0;}
 .focus .entry-excerpt{ color: #afc6d5; display: none; padding-top: 10px;}
 #focus-1 .entry-excerpt,
 #focus-5 .entry-excerpt{ display: block;}
+.focus:hover .focus-text{ border-top-width: 3px;}
 
 
 /**
@@ -816,6 +821,30 @@ blockquote.right{}
   background: -ms-linear-gradient(top,  #f8f9fa 0%,#f2f4f6 100%);
   background: linear-gradient(to bottom,  #f8f9fa 0%,#f2f4f6 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f9fa', endColorstr='#f2f4f6',GradientType=0 );
+}
+
+a{
+  transition: background 250ms ease-out, color 250ms ease-out;
+  -moz-transition: background 250ms ease-out, color 250ms ease-out;
+  -ms-transition: background 250ms ease-out, color 250ms ease-out;
+  -o-transition: background 250ms ease-out, color 250ms ease-out;
+  -webkit-transition: background 250ms ease-out, color 250ms ease-out;
+}
+
+.entry-thumbnail:after{
+  transition: background 250ms ease-out;
+  -moz-transition: background 250ms ease-out;
+  -ms-transition: background 250ms ease-out;
+  -o-transition: background 250ms ease-out;
+  -webkit-transition: background 250ms ease-out;
+}
+
+.focus-text, .review-text{
+  transition: border 100ms ease-out;
+  -moz-transition: border 100ms ease-out;
+  -ms-transition: border 100ms ease-out;
+  -o-transition: border 100ms ease-out;
+  -webkit-transition: border 100ms ease-out;
 }
 
 
@@ -954,7 +983,6 @@ blockquote.right{}
   #nav a{ border-bottom: 1px solid #eaedef;}
   #nav .nav-format{ border-bottom: none; padding-right: 10px; text-indent: 0; vertical-align: top; width: auto;}
   #nav .nav-format .icon{ display: inline-block; float: none;}
-  #nav .nav-quotes{ clear: left;}
   #lead{ border-right: none; float: none; width: auto;}
   #sidebar{ border-left: none; float: none; margin: 0; padding: 0; right: 0; width: auto;}
   #footer section{ margin-bottom: 20px; margin-right: 10px; width: 160px;}
@@ -1056,7 +1084,18 @@ blockquote.right{}
   #footer{ font-size: 16px;}
   #footer .wrap{ margin: 0 20px;}
   #footer section{ float: none; margin-right: 0;}
+  #top-icon{ display: block;}
+  #top-menu{ background: white; border-bottom: 1px solid #eaedef; display: none; font-size: 16px;}
+  #top-menu a{ border-top: 1px solid #eaedef; padding: 10px 15px;}
+  #top-menu a:hover{ background: #eaedef;}
+  #top-menu ul li{ display: block; float: none;}
+  #top-menu ul li:hover ul ul{ display: block;}
+  #top-menu ul ul{ display: block; box-shadow: none; padding: 0; position: static;}
+  #top-menu ul ul a{ padding: 10px 15px 10px 25px;}
+  #top-menu ul ul ul a{ padding-left: 35px;}
+  #nav-icon{ display: block;}
   #nav-menu{ display: none;}
+  #nav
   #nav{ border: none;}
   #nav .nav-home,
   #nav a,
@@ -1065,7 +1104,6 @@ blockquote.right{}
   #nav .nav-format{ border-top-color: #708491; padding-left: 0;}
   #nav .nav-format .icon{ float: left;}
   #nav .icon{ margin-left: 10px;}
-  #nav-icon{ display: block;}
   #trending{ padding: 0; text-align: left;}
   #trending,
   #trending a{ border-top: 1px solid #eaedef;}
