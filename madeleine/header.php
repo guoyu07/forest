@@ -29,6 +29,13 @@
 </head>
 
 <body <?php body_class(); ?>>
+	<?php
+		echo get_template_directory() . '<br>';
+		echo get_template_directory_uri() . '<br>';
+		echo get_theme_root() . '<br>';
+		echo get_theme_root_uri() . '<br>';
+		echo dirname( __FILE__ ) . '<br>';
+	?>
 	<?php if ( has_nav_menu( 'top-menu') ) : ?>
 		<a id="top-icon"><span class="icon icon-menu"></span>Top Menu</a>
 		<?php wp_nav_menu( array( 'container_id' => 'top-menu', 'menu_class' => 'menu wrap', 'theme_location' => 'top-menu' ) ); ?>

@@ -7,6 +7,7 @@
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php $format = get_post_format(); ?>
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+						<?php edit_post_link(); ?>
 						<header class="entry-header">
 							<?php if ( is_object_in_taxonomy( get_post_type(), 'category' ) ) : ?>
 								<?php $category_list = get_the_category_list( '</li><li>' ); ?>

@@ -6,6 +6,8 @@ Author: Haxokeno
 Author URI: http://haxokeno.com
 Description: The Magazine Theme
 Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: light, white, blue, two-columns, right-sidebar, fixed-width, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, post-formats, sticky-post, theme-options, translation-ready
 Text Domain: madeleine
 
@@ -320,7 +322,7 @@ blockquote.right{}
 
 .post,
 .page{ position: relative;}
-.post-edit-link{ background: #444; color: white !important; display: none; font-size: 11px; left: 100%; padding: 2px 4px; position: absolute; top: 0; white-space: nowrap; z-index: 1986;}
+.post-edit-link{ background: #444; color: white !important; display: none; font-size: 11px; padding: 2px 4px; position: absolute; right: 100%; top: 20px; white-space: nowrap; z-index: 1986;}
 .post:hover .post-edit-link,
 .page:hover .post-edit-link{ display: inline;}
 

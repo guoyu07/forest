@@ -1805,7 +1805,9 @@ if ( !function_exists( 'madeleine_reviews_grid' ) ) {
 			$grid .= madeleine_entry_rating( get_the_ID(), false );
 			$grid .= '</div>';
 		}
-		$grid .= '<div style="clear: left;"></div>';
+		if ( $grid != '' ):
+			$grid .= '<div style="clear: left;"></div>';
+		endif;
 		wp_reset_postdata();
 		return $grid;
 	}
@@ -1821,11 +1823,14 @@ if ( !function_exists( 'madeleine_reviews_home' ) ) {
 	function madeleine_reviews_home() {
 		$home_options = get_option( 'madeleine_options_home' );
 		if ( $home_options['reviews_status'] == 1 ):
-			$reviews_home = madeleine_reviews_tabs();
-			$reviews_home .= '<div class="reviews-grid"><div id="reviews-result">';
-			$reviews_home .= madeleine_reviews_grid();
-			$reviews_home .= '</div><div id="reviews-loading" class="loading"></div></div>';
-			echo $reviews_home;
+			$reviews_grid = madeleine_reviews_grid();
+			if ( $reviews_grid != '' ):
+				$reviews_home = madeleine_reviews_tabs();
+				$reviews_home .= '<div class="reviews-grid"><div id="reviews-result">';
+				$reviews_home .= madeleine_reviews_grid();
+				$reviews_home .= '</div><div id="reviews-loading" class="loading"></div></div>';
+				echo $reviews_home;
+			endif;
 		endif;
 	}
 }
