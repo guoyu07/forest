@@ -283,10 +283,10 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
 				$color = '#d0574e';
 			endif;
 			$slug = $cat->slug;
-			$style .= '.post.category-' . $slug . ' a,#nav .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' a,body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
-			$style .= '.tabs .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' .on,#category.category-' . $slug . ' strong,.category-' . $slug . ' .entry-category a,#popular .category-' . $slug . ' em,#popular .category-' . $slug . ' strong,.format-image.category-' . $slug . ' .entry-thumbnail:hover:after,.format-video.category-' . $slug . ' .entry-thumbnail:hover:after{ background-color: ' . $color . ';}';
-			$style .= '.quote.category-' . $slug . ',#category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
-			$style .= '#nav .category-' . $slug . ' a,body.category-' . $slug . ',body.category-' . $slug . ' #nav .current-cat a,#category.category-' . $slug . ' .wrap,.focus.category-' . $slug . ' .focus-text{ border-top-color: ' . $color . ';}';
+			$style .= '.post.category-' . $slug . ' a, #nav .category-' . $slug . ' a:hover, .tabs .category-' . $slug . ' a, body.category-' . $slug . ' #nav .current-cat > a, #nav .category-' . $slug . '.current-cat-parent > a, #category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
+			$style .= '.tabs .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' .on, #category.category-' . $slug . ' strong, .category-' . $slug . ' .entry-category a, #popular .category-' . $slug . ' em, #popular .category-' . $slug . ' strong, .format-image.category-' . $slug . ' .entry-thumbnail:hover:after, .format-video.category-' . $slug . ' .entry-thumbnail:hover:after,  .focus.category-' . $slug . '{ background-color: ' . $color . ';}';
+			$style .= '.quote.category-' . $slug . ', #category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
+			$style .= '#nav .category-' . $slug . ' a, body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .focus-text .entry-permalink{ border-top-color: ' . $color . ';}';
 		endforeach;
 		$style .= '</style>';
 		echo $style;
@@ -508,9 +508,9 @@ add_filter( 'body_class', 'madeleine_body_class' );
  */
 
 if ( !function_exists( 'madeleine_categories_list' ) ) {
-	function madeleine_categories_list() {
+	function madeleine_categories_list( $depth = 1) {
 		$cats = get_categories('orderby=ID');
-		$nav = wp_list_categories('depth=1&echo=0&orderby=ID&title_li=');
+		$nav = wp_list_categories('depth=' . $depth . '&echo=0&orderby=ID&title_li=');
 		foreach( $cats as $cat ):
 			$find = 'cat-item-' . $cat->term_id . '"';
 			$replace = 'category-' . $cat->slug . '"';
@@ -1039,7 +1039,7 @@ if ( !function_exists( 'madeleine_category_breadcrumb' ) ) {
 		$args = array(
 			'child_of'		=> $top_category_ID,
 			'echo'				=> false,
-			'orderby'			=> 'ID',
+			'orderby'			=> 'name',
 			'title_li'		=> ''
 		);
 		$link = get_category_link( $top_category_ID );
@@ -1554,7 +1554,10 @@ if ( !function_exists( 'madeleine_entry_verdict' ) ) {
 	function madeleine_entry_verdict( $id ) {
 		$good = get_post_meta( $id, '_madeleine_review_good', true );
 		$bad = get_post_meta( $id, '_madeleine_review_bad', true );
-		$lists = array( 'good' => [$good, __( 'Good', 'madeleine' )], 'bad' => [$bad, __( 'Bad', 'madeleine' )] );
+		$lists = array(
+			'good'	=> array($good, __( 'Good', 'madeleine' )),
+			'bad'		=> array($bad, __( 'Bad', 'madeleine' ))
+		);
 		echo '<div class="entry-value">';
 		foreach( $lists as $key => $value ):
 			echo '<div class="entry-value-' . $key . '">';
@@ -1797,12 +1800,13 @@ if ( !function_exists( 'madeleine_reviews_grid' ) ) {
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$grid .= '<div class="review">';
-			$grid .= '<a href="' . esc_url( get_permalink() ) . '" class="entry-thumbnail">' . get_the_post_thumbnail( null, 'tall' ) . '</a>';
-			$grid .= '<a class="review-text" href="' . esc_url( get_permalink() ) . '">';
+			$grid .= get_the_post_thumbnail( null, 'tall' );
+			$grid .= '<div class="review-text">';
 			$grid .= '<h2 class="entry-title">' . get_the_title() . '</h2>';
 			$grid .= '<p class="entry-summary">' . get_the_excerpt() . '</p>';
-			$grid .= '</a>';
+			$grid .= '</div>';
 			$grid .= madeleine_entry_rating( get_the_ID(), false );
+			$grid .= '<a class="entry-permalink" href="' . esc_url( get_permalink() ) . '"></a>';
 			$grid .= '</div>';
 		}
 		if ( $grid != '' ):
@@ -1964,8 +1968,8 @@ add_filter( 'query_vars', 'madeleine_query_vars' );
 
 
 $template_dir = get_template_directory();
-require_once( $template_dir .'/includes/init.php ');
-require_once( $template_dir .'/settings/init.php' );
+require_once( $template_dir . '/includes/init.php' );
+require_once( $template_dir . '/settings/init.php' );
 
 
 ?>

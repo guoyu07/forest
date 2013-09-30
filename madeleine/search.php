@@ -15,7 +15,7 @@
 						<em><?php _e( 'Nothing found for', 'madeleine' ); ?></em> <strong><?php the_search_query(); ?></strong>
 					</h1>
 				</hgroup>
-				<div class="entry-content no-search-results">
+				<div class="no-search-results">
 					<p><?php _e( 'Try another search', 'madeleine' ); ?></p>
 					<?php get_search_form(); ?>
 					<p><?php _e( 'Or browse the most popular tags:', 'madeleine' ); ?></p>
