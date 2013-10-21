@@ -1,0 +1,79 @@
+.madeleine-metabox-table tr{ border-top: 1px solid #eee;}
+.madeleine-metabox-table th{ padding-left: 0; width: 30%;}
+.madeleine-metabox-table td{ padding-right: 0; vertical-align: top;}
+.madeleine-metabox-table label span{ display: block; color: #999; margin: 5px 0 0 0;}
+.madeleine-metabox-table input,
+.madeleine-metabox-table textarea{ float: left; margin-right: 10px; max-width: 96%; width: 96%;}
+.madeleine-metabox-table input.file{ width: 85%;}
+.madeleine-metabox-table input.button{ margin-right: 0; width: auto;}
+.madeleine-metabox-table input.radio{ float: none; margin-right: 3px; width: auto;}
+.madeleine-metabox-table .radio-label{ margin-right: 10px;}
+
+#madeleine-category-color-form{ display: none;}
+#madeleine-color-choices li{ display: inline-block; cursor: pointer; height: 20px; width: 20px;}
+
+#madeleine-settings{ margin-top: 20px; max-width: 1003px; width: 1003px;}
+#madeleine-settings-header{ background: #708491; border-radius: 5px 5px 0 0; padding: 20px;}
+#madeleine-settings-header h2{ padding: 0;}
+#madeleine-settings-header #madeleine-settings-title{ background: url(../../images/logo.png) no-repeat center left; color: white; font: bold 20px/58px Bitter, Georgia, serif; height: 60px; padding-left: 80px; text-shadow: none;}
+#madeleine-settings-header div.updated{ margin: 0;}
+#madeleine-settings-header h2.nav-tab-wrapper{ border-bottom: none; margin-top: 20px;}
+#madeleine-settings-header h2 .nav-tab{ border-color: transparent; color: #708491; float: left; font: normal 13px/1 Bitter, Georgia, serif; margin: 0 5px -1px 0; padding: 12px 15px;}
+#madeleine-settings-header h2 .nav-tab:hover{ background: #d7dce1;}
+#madeleine-settings-header h2 .nav-tab-active,
+#madeleine-settings-header h2 .nav-tab-active:hover{ background: #fff; border-color: #d7dce1; border-bottom-color: transparent; color: #444; font-weight: bold;}
+#madeleine-settings-container{ background: #f2f4f6; border: 1px solid #d7dce1; border-radius: 0 0 5px 5px; border-top: none; padding-left: 160px; position: relative;}
+#madeleine-settings-tabs{ left: 0; position: absolute; top: 0; width: 161px;}
+#madeleine-settings-tabs a{ background: #f2f4f6; border-bottom: 1px solid #d7dce1; border-right: 1px solid #d7dce1; box-shadow: 0 1px 0 white inset; color: #708491; display: block; font: bold 14px/18px Bitter, Georgia, serif; padding: 11px 15px; text-decoration: none;}
+#madeleine-settings-tabs a:hover{ color: #444;}
+#madeleine-settings-tabs .current{ background: white; border-right-color: white; color: #444;}
+#madeleine-settings-form{ background: white; border-left: 1px solid #d7dce1; border-radius: 0 0 5px 0; font-size: 14px; line-height: 1.5; min-height: 460px; padding: 20px;}
+#madeleine-settings-form h3{ color: #708491; font: italic 18px/1.15 Bitter, Georgia, serif; margin: 20px 0 0; padding-top: 20px;}
+#madeleine-settings-form h3:first-of-type{ border-top: none; margin-top: 0; padding-top: 0;}
+#madeleine-settings-form ul{ list-style: square inside;}
+#madeleine-settings-form .form-table,
+#madeleine-settings-form .form-table tbody,
+#madeleine-settings-form .form-table tr,
+#madeleine-settings-form .form-table th,
+#madeleine-settings-form .form-table td{ display: block;}
+#madeleine-settings-form .form-table{ background: #f2f4f6; border-bottom: 1px solid #eaedef;}
+#madeleine-settings-form .form-table tr{ border-top: 1px solid #eaedef; clear: both; padding: 15px;}
+#madeleine-settings-form .form-table th{ font-weight: bold; margin: 0; padding: 0; width: auto;}
+#madeleine-settings-form .form-table td{ margin: 0; padding: 0;}
+#madeleine-settings-form .madeleine-description{ color: #999; float: left; margin: 0; padding-top: 3px; width: 300px;}
+#madeleine-settings-form .madeleine-field{ float: right; margin: 0; padding: 0; width: 450px;}
+#madeleine-settings-form .madeleine-field input[type="text"]{ background: #fff;}
+#madeleine-settings-form .madeleine-field input.regular-text{ width: 420px;}
+#madeleine-settings-form .madeleine-field textarea{ background: #fff; max-width: 420px;}
+#madeleine-settings-form .madeleine-field label{ margin-right: 20px; vertical-align: top;}
+#madeleine-settings-form .madeleine-font{ background: white; border: 1px solid #eaedef; margin-top: 10px; padding: 10px;}
+#madeleine-settings-form #madeleine-font-body{ font-size: 14px; line-height: 1.5;}
+#madeleine-settings-form #madeleine-font-title{ font-size: 24px; font-weight: bold;}
+
+/*#madeleine-settings-form .form-table{ margin: 0 0 20px; width: 70%;}
+#madeleine-settings-form .form-table tr{ background: #f2f4f6;}
+#madeleine-settings-form .form-table th,
+#madeleine-settings-form .form-table td{ border: 1px solid #d7dce1; color: #708491;}
+#madeleine-settings-form .form-table th{ background: #eaedef; color: #708491; font-weight: bold;}
+#madeleine-settings-form .form-table tr:hover th,
+#madeleine-settings-form .form-table tr:hover td{ color: #444;}
+#madeleine-settings-form .form-table tr:hover input,
+#madeleine-settings-form .form-table tr:hover textarea{ border-color: #444;}
+#madeleine-settings-form .form-table label{ cursor: pointer; margin-right: 10px;}*/
+
+/* Popular Posts */
+
+.madeleine-warning{ background: #d0574e; border-radius: 3px; color: white; margin: 4px 0; padding: 5px 10px;}
+#madeleine-unschedule-message{ display: none;}
+
+/* CSS 3 */
+
+/*#madeleine-settings-header{
+  background: -moz-linear-gradient(top,  #ffffff 0%, #f2f4f6 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f4f6));
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f4f6 100%);
+  background: -o-linear-gradient(top,  #ffffff 0%,#f2f4f6 100%);
+  background: -ms-linear-gradient(top,  #ffffff 0%,#f2f4f6 100%);
+  background: linear-gradient(to bottom,  #ffffff 0%,#f2f4f6 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f9fa', endColorstr='#f2f4f6',GradientType=0 );
+}*/

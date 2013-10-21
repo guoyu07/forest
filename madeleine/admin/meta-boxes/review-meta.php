@@ -15,7 +15,7 @@ if ( !function_exists( 'madeleine_add_review_meta_boxes' ) ) {
 			 'fields' => array(
 				array(
 					'name' => __( 'Rating', 'madeleine' ),
-					'help' => sprintf( __( 'Choose a number between 0 and %s, like 8.6.', 'madeleine' ), $maximum_rating ),
+					'help' => sprintf( __( 'Choose a number between 0 and %s.', 'madeleine' ), $maximum_rating ),
 					'id' => '_madeleine_review_rating',
 					'type' => 'text',
 					'default' => ''

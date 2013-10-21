@@ -2,6 +2,41 @@ jQuery(document).ready(function($) {
 
   console.log('Madeleine Admin JS loaded.');
 
+  // File uploader
+
+  var custom_uploader;
+
+  $('#upload-image-button').click(function(e) {
+
+    e.preventDefault();
+
+    // If the uploader object has already been created, reopen the dialog
+    if (custom_uploader) {
+      custom_uploader.open();
+      return;
+    }
+
+    // Extend the wp.media object
+    custom_uploader = wp.media.frames.file_frame = wp.media({
+      title: 'Choose Image',
+      button: {
+        text: 'Choose Image'
+      },
+      multiple: false
+    });
+
+    // When a file is selected, grab the URL and set it as the text field's value
+    custom_uploader.on('select', function() {
+      attachment = custom_uploader.state().get('selection').first().toJSON();
+      $('#upload-image-url').val(attachment.url);
+      $('#upload-image-preview').attr('src', attachment.url);
+    });
+
+    // Open the uploader dialog
+    custom_uploader.open();
+
+  });
+
   // Category colors
 
   var category_parent = $('#edittag #parent');
@@ -17,8 +52,8 @@ jQuery(document).ready(function($) {
     }
   }
 
-  function MadeleinePickColor(color) {
-    category_color.val(color);
+  function MadeleinePickColor(element, color) {
+    element.val(color);
   }
 
   category_parent.change( function() {
@@ -27,10 +62,10 @@ jQuery(document).ready(function($) {
 
   category_color.wpColorPicker({
     change: function(event, ui) {
-      MadeleinePickColor( category_color.wpColorPicker('color') );
+      MadeleinePickColor(category_color, category_color.wpColorPicker('color'));
     },
     clear: function() {
-      MadeleinePickColor('');
+      MadeleinePickColor(category_color, '');
     }
   });
 
@@ -39,6 +74,38 @@ jQuery(document).ready(function($) {
   });
 
   MadeleineToggleCategoryColorForm();
+
+  // Colors settings
+
+  $('.madeleine-color-picker').wpColorPicker({
+    change: function(event, ui) {
+      MadeleinePickColor($(this), $(this).wpColorPicker('color'));
+    },
+    clear: function() {
+      MadeleinePickColor($(this), '');
+    }
+  });
+
+  // Font tester
+
+  function MadeleinePreviewFont(element) {
+    var preview = $('#madeleine-font-' + element.data('font-select'));
+    var font = element.find('option:selected').text();
+    WebFont.load({
+      google: {
+        families: [font]
+      }
+    });
+    preview.css('font-family', font);
+  }
+
+  $('.madeleine-font-select').each( function() {
+    MadeleinePreviewFont($(this));
+  });
+
+  $('.madeleine-font-select').change( function() {
+    MadeleinePreviewFont($(this));
+  });
 
   // Post formats
 
@@ -67,14 +134,17 @@ jQuery(document).ready(function($) {
     }
   });
   
-  if (quote_button.is(':checked'))
+  if (quote_button.is(':checked')) {
     quote_panel.css('display', 'block');
+  }
 
-  if (link_button.is(':checked'))
+  if (link_button.is(':checked')) {
     link_panel.css('display', 'block');
+  }
     
-  if (video_button.is(':checked'))
+  if (video_button.is(':checked')) {
     video_panel.css('display', 'block');
+  }
 
   MadeleineHideAll(null);
 

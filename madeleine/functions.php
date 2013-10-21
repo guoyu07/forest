@@ -78,8 +78,8 @@ if ( !function_exists( 'madeleine_social_links' ) ) {
 	function madeleine_social_links() {
 		$social_options = get_option( 'madeleine_options_social' );
 		$social_links = '';
-		if ( isset( $social_options['social_accounts'] ) ):
-			foreach ( $social_options['social_accounts'] as $key => $value) {
+		if ( isset( $social_options['accounts'] ) ):
+			foreach ( $social_options['accounts'] as $key => $value) {
 				if ( $value != '' ):
 					$slug = str_replace( '_account', '', $key );
 					$name = ucwords( $slug );
@@ -93,7 +93,7 @@ if ( !function_exists( 'madeleine_social_links' ) ) {
 							$social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . esc_url( $value ) . '">' . $name . '</a>';
 							$social_links .= '<div class="social-window"><iframe src="//www.facebook.com/plugins/likebox.php?href=' . $value . '&amp;width=300&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="background:white; border:none; overflow:hidden; width:300px; height:62px;" allowTransparency="true"></iframe></div>';
 							break;
-						case 'googleplus':
+						case 'google':
 							$social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . esc_url( $value ) . '">Google +</a>';
 							$social_links .= '<div class="social-window">';
 							$social_links .= '<div class="g-person" data-href="' . esc_url( $value ) . '" data-rel="author"></div>';
@@ -136,12 +136,12 @@ endif;
 if ( !function_exists( 'madeleine_feed_redirect' ) ) {
 	function madeleine_feed_redirect() {
 		global $wp, $feed, $withcomments;
-		$analytics_options = get_option( 'madeleine_options_analytics' );
-		if ( is_array( $analytics_options ) ):
-			if ( array_key_exists( 'feedburner_url', $analytics_options ) && $analytics_options['feedburner_url'] != '' ):
+		$general_options = get_option( 'madeleine_options_general' );
+		if ( is_array( $general_options ) ):
+			if ( array_key_exists( 'feedburner_url', $general_options ) && $general_options['feedburner_url'] != '' ):
 				if ( is_feed() && $feed != 'comments-rss2' && !is_single() && $wp->query_vars['category_name'] == '' && ( $withcomments != 1 ) ):
 					if( function_exists('status_header') ) status_header( 302 );
-					header( "Location:" . trim( $analytics_options['feedburner_url'] ) );
+					header( "Location:" . trim( $general_options['feedburner_url'] ) );
 					header( "HTTP/1.1 302 Temporary Redirect" );
 					exit();
 				endif;
@@ -153,16 +153,16 @@ if ( !function_exists( 'madeleine_feed_redirect' ) ) {
 
 if ( !function_exists( 'madeleine_check_url' ) ) {
 	function madeleine_check_url() {
-		$analytics_options = get_option( 'madeleine_options_analytics' );
-		if( is_array( $analytics_options ) ):
-			if( array_key_exists( 'feedburner_url', $analytics_options ) && $analytics_options['feedburner_url'] != '' ):
+		$general_options = get_option( 'madeleine_options_general' );
+		if( is_array( $general_options ) ):
+			if( array_key_exists( 'feedburner_url', $general_options ) && $general_options['feedburner_url'] != '' ):
 				switch( basename($_SERVER['PHP_SELF']) ):
 					case 'wp-rss.php':
 					case 'wp-rss2.php':
 					case 'wp-atom.php':
 					case 'wp-rdf.php':
 						if( function_exists('status_header') ) status_header( 302 );
-						header( "Location:" . trim( $analytics_options['feedburner_url'] ) );
+						header( "Location:" . trim( $general_options['feedburner_url'] ) );
 						header( "HTTP/1.1 302 Temporary Redirect" );
 						exit();
 						break;
@@ -178,16 +178,84 @@ if ( !function_exists( 'madeleine_check_url' ) ) {
  *
  */
 
+if ( !function_exists( 'madeleine_fonts' ) ) {
+	function madeleine_fonts(){
+		$typography_options = get_option( 'madeleine_options_typography' );
+		$fonts = array(
+			'droidsans' => 'Droid+Sans:400,700',
+			'lato' => 'Lato:400,700,400italic,700italic',
+			'arvo' => 'Arvo:400,700,400italic,700italic',
+			'ptsans' => 'PT+Sans:400,700,400italic,700italic',
+			'ubuntu' => 'Ubuntu:400,700,400italic,700italic',
+			'bitter' => 'Bitter:400,700,400italic',
+			'droidserif' => 'Droid+Serif:400,700,400italic,700italic',
+			'opensans' => 'Open+Sans:400italic,700italic,400,700',
+			'oswald' => 'Oswald:400,700',
+			'roboto' => 'Roboto:400,400italic,700,700italic',
+			'montserrat' => 'Montserrat:400,700',
+			'nunito' => 'Nunito:400,700',
+			'francois' => 'Francois+One',
+			'merriweather' => 'Merriweather:400,400italic,700italic,700',
+			'merriweathersans' => 'Merriweather+Sans:400,700italic,700,400italic',
+			'gentiumbookbasic' => 'Gentium+Book+Basic:400,400italic,700,700italic'
+		);
+		$chosen_fonts = array();
+		if( is_array( $typography_options ) ):
+			if( array_key_exists( 'font_body', $typography_options ) && $typography_options['font_body'] != '' ):
+				$chosen_fonts[] = $typography_options['font_body'];
+			endif;
+			if( array_key_exists( 'font_title', $typography_options ) && $typography_options['font_title'] != '' ):
+				$chosen_fonts[] = $typography_options['font_title'];
+			endif;
+		endif;
+		$loaded_fonts = array_unique($chosen_fonts);
+		$fonts_list = '';
+		foreach ( $loaded_fonts as $loaded_font ):
+			$fonts_list .= $fonts[$loaded_font] . '|';
+		endforeach;
+		if ( $fonts_list != '' ):
+			echo '<link href="http://fonts.googleapis.com/css?family=' . substr( $fonts_list, 0, -1) . '" rel="stylesheet" type="text/css">';
+		endif;
+	}
+}
+
+
+/**
+ * Outputs the analytics tracking code in the footer (if provided).
+ *
+ */
+
 if ( !function_exists( 'madeleine_tracking_code' ) ) {
 	function madeleine_tracking_code(){
-		$analytics_options = get_option( 'madeleine_options_analytics' );
-		if( is_array( $analytics_options ) ):
-			if( array_key_exists( 'tracking_code', $analytics_options ) && $analytics_options['tracking_code'] != '' )
-				echo stripslashes( $analytics_options['tracking_code'] );
+		$general_options = get_option( 'madeleine_options_general' );
+		if( is_array( $general_options ) ):
+			if( array_key_exists( 'tracking_code', $general_options ) && $general_options['tracking_code'] != '' )
+				echo stripslashes( $general_options['tracking_code'] );
 		endif;
 	}
 }
 add_action( 'wp_footer', 'madeleine_tracking_code' );
+
+
+/**
+ * Outputs footer text (customizable in the theme settings).
+ *
+ */
+
+if ( !function_exists( 'madeleine_footer' ) ) {
+	function madeleine_footer(){
+		$general_options = get_option( 'madeleine_options_general' );
+		if( is_array( $general_options ) ):
+			if( array_key_exists( 'footer_text', $general_options ) && $general_options['footer_text'] != '' ):
+				echo nl2br( stripslashes( $general_options['footer_text'] ) );
+			else:
+				echo '<a href="' . esc_url( 'http://wordpress.org/' )  . '">' . sprintf( __( 'Powered by %s', 'madeleine' ), 'WordPress' ) . '</a>.<br>
+					Theme <a href="http://madeleine.haxokeno.com">Madeleine</a> available on Theme Forest.<br>
+					&copy; 2013 The Magazine Theme. All rights reserved.';
+			endif;
+		endif;
+	}
+}
 
 
 /**
@@ -230,6 +298,48 @@ add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
 
 
 /**
+ * Outputs a stylesheet in the <head> with the different fonts set in the theme settings.
+ *
+ */
+
+if ( !function_exists( 'madeleine_custom_typography' ) ) {
+	function madeleine_custom_typography() {
+		$typography_options = get_option( 'madeleine_options_typography' );
+		$fonts = array(
+			'droidsans' => 'Droid Sans',
+			'lato' => 'Lato',
+			'arvo' => 'Arvo',
+			'ptsans' => 'PT Sans',
+			'ubuntu' => 'Ubuntu',
+			'bitter' => 'Bitter',
+			'droidserif' => 'Droid Serif',
+			'opensans' => 'Open Sans',
+			'oswald' => 'Oswald',
+			'roboto' => 'Roboto',
+			'montserrat' => 'Montserrat',
+			'nunito' => 'Nunito',
+			'francois' => 'Francois One',
+			'merriweather' => 'Merriweather',
+			'merriweathersans' => 'Merriweather Sans',
+			'gentiumbookbasic' => 'Gentium Book Basicc'
+		);
+		$custom_css = '<style id="madeleine-custom-typography" type="text/css">';
+		if ( isset( $typography_options['font_body'] ) && $typography_options['font_body'] != '' ):
+			$font_body = $typography_options['font_body'];
+			$custom_css .= 'body, #trending .section, #footer-about, .entry-comments a .leave-reply, #latest a{ font-family: \'' . $fonts[$font_body] . '\', Arial, sans-serif;}';
+		endif;
+		if ( isset( $typography_options['font_title'] ) && $typography_options['font_title'] != '' ):
+			$font_title = $typography_options['font_title'];
+			$custom_css .= '.heading, .pagination, .tabs, .section, .widget-title, .button, #top-icon, #logo, #nav, #nav-icon, #today-news, #footer, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6, .entry-content figcaption, .entry-content input[type="submit"], .entry-content input[type="reset"], .entry-format, .entry-title, .entry-info, .post .entry-comments a, .page .entry-comments a, #wp-calendar caption, #popular li, #comments-title, #reply-title, .comment-info, #commentform label, .form-submit #submit, .entry-rating, .rating, .single-review .review .entry-summary, #menu-icon, #category{ font-family: \'' . $fonts[$font_title] . '\', Arial, sans-serif;}';
+		endif;
+		$custom_css .= '</style>';
+		echo $custom_css;
+	}
+}
+add_action( 'wp_print_styles', 'madeleine_custom_typography' );
+
+
+/**
  * Outputs a stylesheet in the <head> with the different colors set in the WP Customizer:
  * - the main website color
  * - the reviews color
@@ -239,22 +349,41 @@ add_action( 'wp_enqueue_scripts', 'madeleine_enqueue_scripts' );
 if ( !function_exists( 'madeleine_custom_colors' ) ) {
 	function madeleine_custom_colors() {
 		$colors_options = get_option( 'madeleine_options_colors' );
-		$reviews_options = get_option( 'madeleine_options_reviews' );
 		$custom_css = '<style id="madeleine-custom-colors" type="text/css">';
-		if ( isset( $colors_options['main_color'] ) && $colors_options['main_color'] != '' ):
-			$main_color = $colors_options['main_color'];
+		if ( isset( $colors_options['main'] ) && $colors_options['main'] != '' ):
+			$main_color = $colors_options['main'];
 			$custom_css .= 'body{ border-top-color: ' . $main_color . ';}';
-			$custom_css .= '#wp-calendar a,.entry-title a,#category .current-cat a{ color: ' . $main_color . ';}';
+			$custom_css .= 'a, #wp-calendar a,.entry-title a,#category .current-cat a{ color: ' . $main_color . ';}';
 			$custom_css .= '#wp-calendar #today,.post .entry-category a,.format-image .entry-thumbnail:hover:after,.format-video .entry-thumbnail:hover:after,#category strong{ background-color: ' . $main_color . ';}';
 			$custom_css .= '#category strong:after{ border-left-color: ' . $main_color . ';}';
 		endif;
-		if ( isset( $reviews_options['color'] ) && $reviews_options['color'] != '' ):
-			$reviews_color = $reviews_options['color'];
-			$custom_css .= '.review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
+		if ( isset( $colors_options['text'] ) && $colors_options['text'] != '' ):
+			$text_color = $colors_options['text'];
+			$custom_css .= 'body{ color: ' . $text_color . ';}';
+		endif;
+		if ( isset( $colors_options['reviews'] ) && $colors_options['reviews'] != '' ):
+			$reviews_color = $colors_options['reviews'];
+			$custom_css .= '#menu a, .review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
 			$custom_css .= '.review .entry-category a,.single-review #category strong, #reviews-tabs a:hover, #reviews-tabs .on{ background-color: ' . $reviews_color . ';}';
 			$custom_css .= '#jump .on,#jump .on:hover,#menu-icon,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
 			$custom_css .= '#nav .nav-reviews, .reviews-grid .review .review-text{ border-top-color: ' . $reviews_color . ';}';
 			$custom_css .= '.single-review #category strong:after{ border-left-color: ' . $reviews_color . ';}';
+		endif;
+		if ( isset( $colors_options['footer_background'] ) && $colors_options['footer_background'] != '' ):
+			$footer_background_color = $colors_options['footer_background'];
+			$custom_css .= '#footer{ background: ' . $footer_background_color . ';}';
+		endif;
+		if ( isset( $colors_options['footer_text'] ) && $colors_options['footer_text'] != '' ):
+			$footer_text_color = $colors_options['footer_text'];
+			$custom_css .= '#footer{ color: ' . $footer_text_color . ';}';
+		endif;
+		if ( isset( $colors_options['footer_title'] ) && $colors_options['footer_title'] != '' ):
+			$footer_title_color = $colors_options['footer_title'];
+			$custom_css .= '#footer .section, #footer-title{ color: ' . $footer_title_color . ';}';
+		endif;
+		if ( isset( $colors_options['footer_link'] ) && $colors_options['footer_link'] != '' ):
+			$footer_link_color = $colors_options['footer_link'];
+			$custom_css .= '#footer a, #footer-description{ color: ' . $footer_link_color . ';}';
 		endif;
 		$custom_css .= '</style>';
 		echo $custom_css;
@@ -274,7 +403,7 @@ add_action( 'wp_print_styles', 'madeleine_custom_colors' );
 if ( !function_exists( 'madeleine_categories_colors' ) ) {
 	function madeleine_categories_colors() {
 		$cats = get_categories( 'hide_empty=0&orderby=ID&parent=0' );
-		$category_meta = get_option( 'madeleine_category_meta' );
+		$category_meta = get_option( 'madeleine_category_colors' );
 		$style = '<style id="madeleine-categories-colors" type="text/css">';
 		foreach( $cats as $cat ):
 			if ( isset( $category_meta[$cat->term_id] ) ):
@@ -303,10 +432,10 @@ add_action( 'wp_print_styles', 'madeleine_categories_colors' );
 
 if ( !function_exists( 'madeleine_custom_css' ) ) {
 	function madeleine_custom_css() {
-		$css_options = get_option( 'madeleine_options_css' );
-		if ( isset( $css_options['custom_code'] ) && $css_options['custom_code'] != '' ):
+		$css_options = get_option( 'madeleine_options_general' );
+		if ( isset( $css_options['custom_css'] ) && $css_options['custom_css'] != '' ):
 			$custom_css = '<style id="madeleine-custom-css" type="text/css">';
-			$custom_css .= $css_options['custom_code'];
+			$custom_css .= $css_options['custom_css'];
 			$custom_css .= '</style>';
 			echo $custom_css;
 		endif;
@@ -518,6 +647,9 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
 			$find = 'cat-item-' . $cat->term_id . ' ';
 			$replace = 'category-' . $cat->slug . ' ';
 			$nav = str_replace( $find, $replace, $nav );
+			$find = ' title=';
+			$replace = ' data-title=';
+			$nav = str_replace( $find, $replace, $nav );
 		endforeach;
 		return $nav;
 	}
@@ -661,20 +793,28 @@ if ( !function_exists( 'madeleine_reviews_link' ) ) {
 
 if ( !function_exists( 'madeleine_trending' ) ) {
 	function madeleine_trending( $limit = 16 ) {
-		global $wpdb;
-		$term_ids = $wpdb->get_col("
-			SELECT term_id, taxonomy FROM $wpdb->term_taxonomy
-			INNER JOIN $wpdb->term_relationships ON $wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id
-			INNER JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
-			WHERE taxonomy = 'post_tag'
-			AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= $wpdb->posts.post_date");
-		if ( count( $term_ids ) > 0 ):
-			$tags = array_unique( $term_ids );
-			$tags = array_slice( $tags, 0, $limit );
-			foreach ( $tags as $tag ):
-				$tag_info = get_tag( $tag );
-				echo '<li><a href="' . esc_url( get_tag_link( $tag ) ) . '" rel="tag">' . $tag_info->name . '</a></li>';
-			endforeach;
+		$general_options = get_option( 'madeleine_options_general' );
+		if ( isset( $general_options['trending_status'] ) && $general_options['trending_status'] == 1 ):
+			$n = isset( $limit ) ? $limit : $general_options['trending_number'];
+			$trending = '<section><h4 class="section">' . __( 'Trending', 'madeleine' ) . '</h4><ul>';
+			global $wpdb;
+			$term_ids = $wpdb->get_col("
+				SELECT term_id, taxonomy FROM $wpdb->term_taxonomy
+				INNER JOIN $wpdb->term_relationships ON $wpdb->term_taxonomy.term_taxonomy_id=$wpdb->term_relationships.term_taxonomy_id
+				INNER JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
+				WHERE taxonomy = 'post_tag'
+				AND DATE_SUB(CURDATE(), INTERVAL 90 DAY) <= $wpdb->posts.post_date
+				AND $wpdb->posts.post_status = 'publish'");
+			if ( count( $term_ids ) > 4 ):
+				$tags = array_unique( $term_ids );
+				$tags = array_slice( $tags, 0, $n );
+				foreach ( $tags as $tag ):
+					$tag_info = get_tag( $tag );
+					$trending .= '<li><a href="' . esc_url( get_tag_link( $tag ) ) . '" rel="tag">' . $tag_info->name . '</a></li>';
+				endforeach;
+			endif;
+			$trending .= '</ul><div style="clear: left;"></div></section>';
+			echo $trending;
 		endif;
 	}
 }
@@ -1460,8 +1600,8 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
 		$permalink = get_permalink();
 		$encoded_permalink = urlencode( $permalink );
 		$title = get_the_title();
-		if ( isset( $social_options['social_buttons'] ) ):
-			foreach ( $social_options['social_buttons'] as $key => $value):
+		if ( isset( $social_options['buttons'] ) ):
+			foreach ( $social_options['buttons'] as $key => $value):
 				if ( $value == 1 ):
 					$slug = str_replace( '_button', '', $key );
 					$social_buttons .= '<div class="share">';
@@ -1473,7 +1613,7 @@ if ( !function_exists( 'madeleine_entry_share' ) ) {
 						case 'facebook':
 							$social_buttons .= '<iframe src="http://www.facebook.com/plugins/like.php?href=' . $encoded_permalink . '&width=128&height=21&colorscheme=light&layout=button_count&action=like&show_faces=false&send=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:128px; height:21px;" allowTransparency="true"></iframe>';
 							break;
-						case 'googleplus':
+						case 'google':
 							$social_buttons .= '<script src="https://apis.google.com/js/plusone.js"></script>';
 							$social_buttons .= '<g:plus action="share" href="' . $encoded_permalink . '" annotation="bubble"></g:plus>';
 							break;
@@ -1968,7 +2108,7 @@ add_filter( 'query_vars', 'madeleine_query_vars' );
 
 
 $template_dir = get_template_directory();
-require_once( $template_dir . '/includes/init.php' );
+require_once( $template_dir . '/admin/init.php' );
 require_once( $template_dir . '/settings/init.php' );
 
 

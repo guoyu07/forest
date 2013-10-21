@@ -1,7 +1,7 @@
 <?php
 
-define( 'INCLUDE_DIR', get_template_directory() .'/includes' );
-define( 'INCLUDE_URL', get_template_directory_uri() .'/includes' );
+define( 'ADMIN_DIR', get_template_directory() .'/admin' );
+define( 'ADMIN_URL', get_template_directory_uri() .'/admin' );
 
 
 /**
@@ -9,19 +9,19 @@ define( 'INCLUDE_URL', get_template_directory_uri() .'/includes' );
  *
  */
 
-require_once( INCLUDE_DIR .'/meta-boxes/meta-functions.php' );
-require_once( INCLUDE_DIR .'/meta-boxes/post-meta.php' );
-require_once( INCLUDE_DIR .'/meta-boxes/review-meta.php' );
+require_once( ADMIN_DIR .'/meta-boxes/meta-functions.php' );
+require_once( ADMIN_DIR .'/meta-boxes/post-meta.php' );
+require_once( ADMIN_DIR .'/meta-boxes/review-meta.php' );
 
 
 /**
  * Load the share count plugin.
- * It retrives the share count of Twitter, Facebook, Google +, Pinterest, and Reddit.
+ * It retrieves the share count of Twitter, Facebook, Google +, Pinterest, and Reddit.
  *
  */
 
-require_once( INCLUDE_DIR .'/share-count/get-share-count.php' );
-require_once( INCLUDE_DIR .'/share-count/set-share-count.php' );
+require_once( ADMIN_DIR .'/share-count/get-share-count.php' );
+require_once( ADMIN_DIR .'/share-count/set-share-count.php' );
 
 
 /**
@@ -29,12 +29,12 @@ require_once( INCLUDE_DIR .'/share-count/set-share-count.php' );
  *
  */
 
-require_once( INCLUDE_DIR .'/widgets/latest-posts-widget.php' );
-require_once( INCLUDE_DIR .'/widgets/popular-posts-widget.php' );
-require_once( INCLUDE_DIR .'/widgets/images-widget.php' );
-require_once( INCLUDE_DIR .'/widgets/videos-widget.php' );
-require_once( INCLUDE_DIR .'/widgets/links-widget.php' );
-require_once( INCLUDE_DIR .'/widgets/quotes-widget.php' );
+require_once( ADMIN_DIR .'/widgets/latest-posts-widget.php' );
+require_once( ADMIN_DIR .'/widgets/popular-posts-widget.php' );
+require_once( ADMIN_DIR .'/widgets/images-widget.php' );
+require_once( ADMIN_DIR .'/widgets/videos-widget.php' );
+require_once( ADMIN_DIR .'/widgets/links-widget.php' );
+require_once( ADMIN_DIR .'/widgets/quotes-widget.php' );
 
 
 /**
@@ -76,7 +76,7 @@ add_action( 'init', 'madeleine_editor_style' );
 if ( !function_exists( 'madeleine_admin_css' ) ) {
 	function madeleine_admin_css() {
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'madeleine_admin_css', INCLUDE_URL .'/css/madeleine-admin.css' );
+		wp_enqueue_style( 'madeleine_admin_css', ADMIN_URL .'/css/madeleine-admin.css' );
 	}
 }
 add_action( 'admin_print_styles', 'madeleine_admin_css' );
@@ -89,7 +89,17 @@ add_action( 'admin_print_styles', 'madeleine_admin_css' );
 
 if ( !function_exists( 'madeleine_enqueue_admin_scripts' ) ) {
 	function madeleine_enqueue_admin_scripts() {
-		wp_register_script( 'madeleine-admin', get_template_directory_uri() . '/includes/js/madeleine-admin.js' );
+		wp_register_script( 'madeleine-admin', get_template_directory_uri() . '/admin/js/madeleine-admin.js' );
+		wp_register_script( 'google-font', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js' );
+		if (isset($_GET['page']) && $_GET['page'] == 'madeleine_general_options_page'):
+			wp_enqueue_media();
+		endif;
+		if (isset($_GET['page']) && $_GET['page'] == 'madeleine_colors_options_page'):
+			wp_enqueue_script( 'jquery-color' );
+		endif;
+		if (isset($_GET['page']) && $_GET['page'] == 'madeleine_typography_options_page'):
+			wp_enqueue_script( 'google-font' );
+		endif;
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'madeleine-admin' );
 	}

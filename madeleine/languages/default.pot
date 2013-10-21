@@ -61,7 +61,7 @@ msgstr ""
 msgid "Pages:"
 msgstr ""
 
-#: content-quote.php:3 includes/meta-boxes/post-meta.php:67
+#: content-quote.php:3 admin/meta-boxes/post-meta.php:67
 msgid "Quote"
 msgstr ""
 
@@ -168,11 +168,11 @@ msgstr ""
 msgid "View all posts by %s"
 msgstr ""
 
-#: functions.php:1547 includes/meta-boxes/review-meta.php:31
+#: functions.php:1547 admin/meta-boxes/review-meta.php:31
 msgid "Good"
 msgstr ""
 
-#: functions.php:1547 includes/meta-boxes/review-meta.php:38
+#: functions.php:1547 admin/meta-boxes/review-meta.php:38
 msgid "Bad"
 msgstr ""
 
@@ -304,11 +304,11 @@ msgstr ""
 msgid "All reviews"
 msgstr ""
 
-#: functions.php:1881 includes/meta-boxes/review-meta.php:17
+#: functions.php:1881 admin/meta-boxes/review-meta.php:17
 msgid "Rating"
 msgstr ""
 
-#: functions.php:1884 includes/meta-boxes/review-meta.php:24
+#: functions.php:1884 admin/meta-boxes/review-meta.php:24
 msgid "Price"
 msgstr ""
 
@@ -341,186 +341,186 @@ msgid "Or browse the most popular tags:"
 msgstr ""
 
 #: taxonomy-post_format-post-format-image.php:7
-#: includes/widgets/images-widget.php:105
+#: admin/widgets/images-widget.php:105
 msgid "Images"
 msgstr ""
 
 #: taxonomy-post_format-post-format-link.php:7
-#: includes/widgets/links-widget.php:105
+#: admin/widgets/links-widget.php:105
 msgid "Links"
 msgstr ""
 
 #: taxonomy-post_format-post-format-quote.php:7
-#: includes/widgets/quotes-widget.php:106
+#: admin/widgets/quotes-widget.php:106
 msgid "Quotes"
 msgstr ""
 
 #: taxonomy-post_format-post-format-video.php:7
-#: includes/widgets/videos-widget.php:111
+#: admin/widgets/videos-widget.php:111
 msgid "Videos"
 msgstr ""
 
-#: includes/init.php:49
+#: admin/init.php:49
 msgid "Top Menu"
 msgstr ""
 
-#: includes/init.php:50
+#: admin/init.php:50
 msgid "Footer Menu"
 msgstr ""
 
-#: includes/init.php:125
+#: admin/init.php:125
 msgid "View all formats"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:8
+#: admin/meta-boxes/post-meta.php:8
 msgid "Video settings"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:9
+#: admin/meta-boxes/post-meta.php:9
 msgid ""
 "Choose a video to display. Just type the URL of a video and it will "
 "automatically fetch the correct embed code and the thumbnail."
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:15
+#: admin/meta-boxes/post-meta.php:15
 #: settings/custom/custom-settings.php:345
 msgid "YouTube URL"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:16
+#: admin/meta-boxes/post-meta.php:16
 msgid "Paste a video URL like http://www.youtube.com/watch?v=fDUKt_XgfJ4"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:22
+#: admin/meta-boxes/post-meta.php:22
 msgid "Vimeo URL"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:23 includes/meta-boxes/post-meta.php:30
+#: admin/meta-boxes/post-meta.php:23 admin/meta-boxes/post-meta.php:30
 msgid "Paste a video URL"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:29
+#: admin/meta-boxes/post-meta.php:29
 msgid "Dailymotion URL"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:41
+#: admin/meta-boxes/post-meta.php:41
 msgid "Link settings"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:42
+#: admin/meta-boxes/post-meta.php:42
 msgid "Type a link to display."
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:48
+#: admin/meta-boxes/post-meta.php:48
 msgid "URL"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:49
+#: admin/meta-boxes/post-meta.php:49
 msgid "The URL of your link, like http://codex.wordpress.org/"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:60
+#: admin/meta-boxes/post-meta.php:60
 msgid "Quote settings"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:61
+#: admin/meta-boxes/post-meta.php:61
 msgid ""
 "Type or paste a quote to display, and add the source or the author of the "
 "quote."
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:68
+#: admin/meta-boxes/post-meta.php:68
 msgid "The content of your quote."
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:74
+#: admin/meta-boxes/post-meta.php:74
 msgid "Source"
 msgstr ""
 
-#: includes/meta-boxes/post-meta.php:75
+#: admin/meta-boxes/post-meta.php:75
 msgid "The source or author of the quote."
 msgstr ""
 
-#: includes/meta-boxes/review-meta.php:10
+#: admin/meta-boxes/review-meta.php:10
 msgid "Review settings"
 msgstr ""
 
-#: includes/meta-boxes/review-meta.php:11
+#: admin/meta-boxes/review-meta.php:11
 msgid "Choose the review settings."
 msgstr ""
 
-#: includes/meta-boxes/review-meta.php:18
+#: admin/meta-boxes/review-meta.php:18
 #, php-format
 msgid "Choose a number between 0 and %s, like 8.6."
 msgstr ""
 
-#: includes/meta-boxes/review-meta.php:25
+#: admin/meta-boxes/review-meta.php:25
 msgid "Type the price of the product, like 299."
 msgstr ""
 
-#: includes/meta-boxes/review-meta.php:32
+#: admin/meta-boxes/review-meta.php:32
 msgid ""
 "The pros of the product you'reviewing. It will be displayed as a list. Just "
 "add a new line to add a new list item."
 msgstr ""
 
-#: includes/meta-boxes/review-meta.php:39
+#: admin/meta-boxes/review-meta.php:39
 msgid ""
 "The cons of the product you'reviewing. It will be displayed as a list. Just "
 "add a new line to add a new list item."
 msgstr ""
 
-#: includes/widgets/images-widget.php:32
+#: admin/widgets/images-widget.php:32
 msgid "A grid of your latest images"
 msgstr ""
 
-#: includes/widgets/images-widget.php:116
-#: includes/widgets/latest-posts-widget.php:130
-#: includes/widgets/links-widget.php:116
-#: includes/widgets/popular-posts-widget.php:117
-#: includes/widgets/quotes-widget.php:117
-#: includes/widgets/videos-widget.php:122
+#: admin/widgets/images-widget.php:116
+#: admin/widgets/latest-posts-widget.php:130
+#: admin/widgets/links-widget.php:116
+#: admin/widgets/popular-posts-widget.php:117
+#: admin/widgets/quotes-widget.php:117
+#: admin/widgets/videos-widget.php:122
 msgid "Title:"
 msgstr ""
 
-#: includes/widgets/images-widget.php:121
-#: includes/widgets/latest-posts-widget.php:135
-#: includes/widgets/links-widget.php:121
-#: includes/widgets/popular-posts-widget.php:122
-#: includes/widgets/quotes-widget.php:122
-#: includes/widgets/videos-widget.php:127
+#: admin/widgets/images-widget.php:121
+#: admin/widgets/latest-posts-widget.php:135
+#: admin/widgets/links-widget.php:121
+#: admin/widgets/popular-posts-widget.php:122
+#: admin/widgets/quotes-widget.php:122
+#: admin/widgets/videos-widget.php:127
 msgid "Display a total of"
 msgstr ""
 
-#: includes/widgets/latest-posts-widget.php:32
+#: admin/widgets/latest-posts-widget.php:32
 msgid "A list of your latest posts, with a pagination"
 msgstr ""
 
-#: includes/widgets/latest-posts-widget.php:117
+#: admin/widgets/latest-posts-widget.php:117
 msgid "Latest posts"
 msgstr ""
 
-#: includes/widgets/latest-posts-widget.php:150
+#: admin/widgets/latest-posts-widget.php:150
 msgid "Divide the lists every"
 msgstr ""
 
-#: includes/widgets/links-widget.php:32
+#: admin/widgets/links-widget.php:32
 msgid "A list of your latest links"
 msgstr ""
 
-#: includes/widgets/popular-posts-widget.php:32
+#: admin/widgets/popular-posts-widget.php:32
 msgid "A list of your popular posts"
 msgstr ""
 
-#: includes/widgets/popular-posts-widget.php:106
+#: admin/widgets/popular-posts-widget.php:106
 msgid "Popular posts"
 msgstr ""
 
-#: includes/widgets/quotes-widget.php:32
+#: admin/widgets/quotes-widget.php:32
 msgid "A list of your latest quotes"
 msgstr ""
 
-#: includes/widgets/videos-widget.php:32
+#: admin/widgets/videos-widget.php:32
 msgid "A list of your latest videos, with a pagination"
 msgstr ""
 

@@ -126,8 +126,8 @@ class madeleine_latest_posts_widget extends WP_Widget {
 		
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		// Possible options for the select menus
-		$total_values = [25, 50, 75, 100];
-		$division_values = [5, 10, 15, 20, 25];
+		$total_values = array(25, 50, 75, 100);
+		$division_values = array(5, 10, 15, 20, 25);
 		
 		?>
 

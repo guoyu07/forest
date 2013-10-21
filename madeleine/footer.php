@@ -17,12 +17,7 @@
 						<?php echo madeleine_categories_list(); ?>
 					</ul>
 				</section>
-				<section>
-					<h4 class="section"><?php _e( 'Trending', 'madeleine' ); ?></h4>
-					<ul>
-						<?php madeleine_trending( 7 ); ?>
-					</ul>
-				</section>
+				<?php madeleine_trending( 7 ); ?>
 				<section>
 					<h4 class="section"><?php _e( 'Social', 'madeleine' ); ?></h4>
 					<ul id="social-links">
@@ -39,9 +34,7 @@
 					<h2 id="footer-description"><?php bloginfo( 'description' ); ?></h2>
 				</hgroup>
 				<p id="footer-about">
-					<a href="<?php echo esc_url( 'http://wordpress.org/' ); ?>"><?php printf( __( 'Powered by %s', 'madeleine' ), 'WordPress' ); ?></a>.<br>
-					Theme <a href="#">Madeleine</a> available on Theme Forest.<br>
-					&copy; 2013 The Magazine Theme. All rights reserved.
+					<?php madeleine_footer(); ?>
 				</p>
 			</div>
 		</footer>

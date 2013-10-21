@@ -22,26 +22,39 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		** Colors section
 		*/
 
-		$wp_customize->add_setting(
-			'madeleine_options_colors[main_color]',
-			array(
-				'default'			=> '#d0574e',
-				'type'				=> 'option', 
-				'capability'	=> 'edit_theme_options'
-			)
+		$colors = array(
+			array('main', '708491', 'Main'),
+			array('text', '444444', 'Text'),
+			array('reviews', '276791', 'Reviews'),
+			array('footer_background', '708491', 'Footer Background'),
+			array('footer_text', 'b8c2c8', 'Footer Text'),
+			array('footer_title', 'ffffff', 'Footer Titles'),
+			array('footer_link', 'd7dce1', 'Footer Links')
 		);
 
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				'madeleine_colors_main', 
+		foreach ( $colors as $key=>$value ):
+			$wp_customize->add_setting(
+				'madeleine_options_colors[' . $value[0] . ']',
 				array(
-					'label'			=> __( 'Main Color', 'madeleine' ), 
-					'section'		=> 'colors',
-					'settings'	=> 'madeleine_options_colors[main_color]'
+					'default'			=> '#' . $value[1],
+					'type'				=> 'option', 
+					'capability'	=> 'edit_theme_options'
 				)
-			)
-		);
+			);
+
+			$wp_customize->add_control(
+				new WP_Customize_Color_Control(
+					$wp_customize,
+					'madeleine_colors_' . $value[0], 
+					array(
+						'label'			=> __( $value[2] . ' Color', 'madeleine' ), 
+						'section'		=> 'colors',
+						'settings'	=> 'madeleine_options_colors[' . $value[0] . ']',
+						'priority'	=> $key*10 + 10
+					)
+				)
+			);
+		endforeach;
 
 
 		/*
@@ -251,7 +264,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_social[social_accounts][twitter_account]',
+			'madeleine_options_social[accounts][twitter]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -264,14 +277,14 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 			array(
 				'label'			=> __( 'Twitter username (like "haxokeno")', 'madeleine' ),
 				'section'		=> 'madeleine_social_accounts_section',
-				'settings'	=> 'madeleine_options_social[social_accounts][twitter_account]',
+				'settings'	=> 'madeleine_options_social[accounts][twitter]',
 				'priority'	=> 10,
 				'type'			=> 'text'
 			)
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_social[social_accounts][facebook_account]',
+			'madeleine_options_social[accounts][facebook]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -284,14 +297,14 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 			array(
 				'label'			=> __( 'Facebook page URL', 'madeleine' ),
 				'section'		=> 'madeleine_social_accounts_section',
-				'settings'	=> 'madeleine_options_social[social_accounts][facebook_account]',
+				'settings'	=> 'madeleine_options_social[accounts][facebook]',
 				'priority'	=> 20,
 				'type'			=> 'text'
 			)
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_social[social_accounts][googleplus_account]',
+			'madeleine_options_social[accounts][google]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -300,18 +313,18 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		);
 
 		$wp_customize->add_control(
-			'madeleine_social_googleplus_account',
+			'madeleine_social_google_account',
 			array(
 				'label'			=> __( 'Google Plus URL', 'madeleine' ),
 				'section'		=> 'madeleine_social_accounts_section',
-				'settings'	=> 'madeleine_options_social[social_accounts][googleplus_account]',
+				'settings'	=> 'madeleine_options_social[accounts][google]',
 				'priority'	=> 30,
 				'type'			=> 'text'
 			)
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_social[social_accounts][tumblr_account]',
+			'madeleine_options_social[accounts][tumblr]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -324,14 +337,14 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 			array(
 				'label'			=> __( 'Tumblr URL', 'madeleine' ),
 				'section'		=> 'madeleine_social_accounts_section',
-				'settings'	=> 'madeleine_options_social[social_accounts][tumblr_account]',
+				'settings'	=> 'madeleine_options_social[accounts][tumblr]',
 				'priority'	=> 30,
 				'type'			=> 'text'
 			)
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_social[social_accounts][youtube_account]',
+			'madeleine_options_social[accounts][youtube]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -344,7 +357,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 			array(
 				'label'			=> __( 'YouTube URL', 'madeleine' ),
 				'section'		=> 'madeleine_social_accounts_section',
-				'settings'	=> 'madeleine_options_social[social_accounts][youtube_account]',
+				'settings'	=> 'madeleine_options_social[accounts][youtube]',
 				'priority'	=> 30,
 				'type'			=> 'text'
 			)
@@ -365,11 +378,11 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 			)
 		);
 
-		$social_buttons	= ['twitter', 'facebook', 'googleplus', 'pinterest', 'reddit'];
+		$social_buttons	= array('twitter', 'facebook', 'google', 'pinterest', 'reddit');
 
 		foreach( $social_buttons as $social_button):
 			$wp_customize->add_setting(
-				'madeleine_options_social[social_buttons][' . $social_button . '_button]',
+				'madeleine_options_social[buttons][' . $social_button . ']',
 				array(
 					'default'			=> '1',
 					'type'				=> 'option',
@@ -377,7 +390,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 				)
 			);
 
-			if ($social_button	== 'googleplus' ):
+			if ($social_button	== 'google' ):
 				$label	= 'Google +';
 			else:
 				$label	= ucwords( $social_button );
@@ -388,7 +401,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 				array(
 					'label'			=> $label . ' button',
 					'section'		=> 'madeleine_social_buttons_section',
-					'settings'	=> 'madeleine_options_social[social_buttons][' . $social_button . '_button]',
+					'settings'	=> 'madeleine_options_social[buttons][' . $social_button . ']',
 					'priority'	=> 10,
 					'type'			=> 'checkbox'
 				)
@@ -411,28 +424,6 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_reviews[color]',
-			array(
-				'default'			=> '#276791',
-				'type'				=> 'option', 
-				'capability'	=> 'edit_theme_options'
-			)
-		);
-
-		$wp_customize->add_control(
-			new WP_Customize_Color_Control(
-				$wp_customize,
-				'madeleine_reviews_color', 
-				array(
-					'label'				=> __( 'Color', 'madeleine' ), 
-					'section'			=> 'madeleine_reviews_section',
-					'settings'		=> 'madeleine_options_reviews[color]',
-					'priority'		=> 10
-				)
-			)
-		);
-
-		$wp_customize->add_setting(
 			'madeleine_options_reviews[maximum_rating]',
 			array(
 				'default'			=> '10',
@@ -447,13 +438,38 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 				'label'			=> __( 'Maximum rating', 'madeleine' ),
 				'section'		=> 'madeleine_reviews_section',
 				'settings'	=> 'madeleine_options_reviews[maximum_rating]',
-				'priority'	=> 20,
+				'priority'	=> 10,
 				'type'			=> 'select',
 				'choices'		=> array(
 					'10'	=> '10',
 					'20'	=> '20',
 					'50'	=> '50',
 					'100'	=> '100'
+				)
+			)
+		);
+
+		$wp_customize->add_setting(
+			'madeleine_options_reviews[currency]',
+			array(
+				'default'			=> '$',
+				'type'				=> 'option',
+				'capability'	=> 'edit_theme_options'
+			)
+		);
+
+		$wp_customize->add_control(
+			'madeleine_reviews_currency',
+			array(
+				'label'			=> __( 'Currency', 'madeleine' ),
+				'section'		=> 'madeleine_reviews_section',
+				'settings'	=> 'madeleine_options_reviews[currency]',
+				'priority'	=> 20,
+				'type'			=> 'select',
+				'choices'		=> array(
+					'$'		=> '$',
+					'€'		=> '€',
+					'£'		=> '£'
 				)
 			)
 		);
@@ -507,7 +523,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_analytics[feedburner_url]',
+			'madeleine_options_general[feedburner_url]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -520,14 +536,14 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 			array(
 				'label'			=> __( 'Feedburner URL', 'madeleine' ),
 				'section'		=> 'madeleine_analytics_section',
-				'settings'	=> 'madeleine_options_analytics[feedburner_url]',
+				'settings'	=> 'madeleine_options_general[feedburner_url]',
 				'priority'	=> 10,
 				'type'			=> 'text'
 			)
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_analytics[tracking_code]',
+			'madeleine_options_general[tracking_code]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -542,7 +558,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 				array(
 					'label'			=> __( 'Tracking code (e.g. Google Analytics)', 'madeleine' ), 
 					'section'		=> 'madeleine_analytics_section',
-					'settings'	=> 'madeleine_options_analytics[tracking_code]',
+					'settings'	=> 'madeleine_options_general[tracking_code]',
 					'priority'	=> 20
 				)
 			)
@@ -564,7 +580,7 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'madeleine_options_css[custom_code]',
+			'madeleine_options_general[custom_css]',
 			array(
 				'default'			=> '',
 				'type'				=> 'option',
@@ -575,11 +591,11 @@ if ( !function_exists( 'madeleine_customize_register' ) ) {
 		$wp_customize->add_control(
 			new Madeleine_Textarea_Control(
 				$wp_customize,
-				'madeleine_css_custom_code', 
+				'madeleine_css_custom_css', 
 				array(
 					'label'			=> __( 'CSS code', 'madeleine' ), 
 					'section'		=> 'madeleine_css_section',
-					'settings'	=> 'madeleine_options_css[custom_code]',
+					'settings'	=> 'madeleine_options_general[custom_css]',
 					'priority'	=> 10
 				)
 			)

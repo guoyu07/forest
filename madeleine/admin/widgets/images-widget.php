@@ -1,9 +1,9 @@
 <?php
 
 /*-----------------------------------------------------------------------------------
-	Plugin Name: Madeleine videos Widget
+	Plugin Name: Madeleine Images Widget
 	Plugin URI: http://haxokeno.com
-	Description: A widget that displays a list of your latest videos, with a pagination
+	Description: A widget that displays a grid of your latest images
 	Version: 1.0
 	Author: Haxokeno
 	Author URI: http://haxokeno.com
@@ -12,31 +12,31 @@
 
 // Register the widget
 
-if ( !function_exists( 'madeleine_register_videos_widget' ) ) {
-	function madeleine_register_videos_widget() {
-		register_widget( 'madeleine_videos_widget' );
+if ( !function_exists( 'madeleine_register_images_widget' ) ) {
+	function madeleine_register_images_widget() {
+		register_widget( 'madeleine_images_widget' );
 	}
 }
-add_action( 'widgets_init', 'madeleine_register_videos_widget' );
+add_action( 'widgets_init', 'madeleine_register_images_widget' );
 
 
 // Create the widget
 
-class madeleine_videos_widget extends WP_Widget {
+class madeleine_images_widget extends WP_Widget {
 
 	// Set widget options
 
-	function madeleine_videos_widget() {
+	function madeleine_images_widget() {
 		$widget_ops = array(
-			'classname' => 'madeleine-videos-widget',
-			'description' => __( 'A list of your latest videos, with a pagination', 'madeleine' )
+			'classname' => 'madeleine-images-widget',
+			'description' => __( 'A grid of your latest images', 'madeleine' )
 		);
 		$control_ops = array(
 			'width' => 300,
 			'height' => 350,
-			'id_base' => 'madeleine_videos_widget'
+			'id_base' => 'madeleine_images_widget'
 		);
-		$this->WP_Widget( 'madeleine_videos_widget', 'Madeleine Videos', $widget_ops, $control_ops );
+		$this->WP_Widget( 'madeleine_images_widget', 'Madeleine Images', $widget_ops, $control_ops );
 	}
 
 	// Display the widget
@@ -54,12 +54,12 @@ class madeleine_videos_widget extends WP_Widget {
 				array(
 					'taxonomy' => 'post_format',
 					'field' => 'slug',
-					'terms' => array( 'post-format-video' )
+					'terms' => array( 'post-format-image' )
 				)
 			)
 		);
-		$title = 'videos';
-		$cat = get_query_var('cat'); // If we're in a category archive, only display the videos of that category
+		$title = 'Images';
+		$cat = get_query_var('cat'); // If we're in a category archive, only display the images of that category
 		if ( $cat != '' ):
 			$category = get_category( $cat );
 			$title = $category->name . ' ' . $title;
@@ -68,25 +68,19 @@ class madeleine_videos_widget extends WP_Widget {
 		$query = new WP_Query( $args );
 		if ( $query->have_posts() ):
 			echo $before_widget;
-			echo '<div id="videos">';
+			echo '<div id="images">';
 			echo $before_title . $title . $after_title;
 			echo '<ul>';
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$categories = get_the_category( get_the_ID() );
 				$category = get_category( madeleine_top_category( $categories[0] ) );
-				echo '<li class="post format-video category-' . $category->category_nicename . '">';
-				madeleine_entry_thumbnail( 'medium' );
-				echo '<p class="entry-title">' . get_the_title() . '</p>';
+				echo '<li class="post format-image category-' . $category->category_nicename . '">';
+				madeleine_entry_thumbnail( 'thumbnail' );
 				echo '</li>';
 			}
 			echo '</ul>';
 			echo '<div style="clear: left;"></div>';
-			if ( $query->post_count > 1 ):
-				echo '<div id="videos-dots" class="dots">';
-				echo str_repeat( '<span></span>', $query->post_count );
-				echo '</div>';
-			endif;
 			echo '</div>';
 			echo $after_widget;
 		endif;
@@ -108,13 +102,13 @@ class madeleine_videos_widget extends WP_Widget {
 
 		// Setup the default values for the widget
 		$defaults = array(
-			'title' => __( 'Videos', 'madeleine' ),
+			'title' => __( 'Images', 'madeleine' ),
 			'total' => 6,
 		);
 		
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		// Possible options for the select menu
-		$total_values = [3, 5, 7];
+		$total_values = array(3, 6, 9);
 		
 		?>
 
@@ -135,7 +129,7 @@ class madeleine_videos_widget extends WP_Widget {
 				endforeach;
 				?>
 			</select>
-			videos
+			images
 		</p>
 			
 		<?php

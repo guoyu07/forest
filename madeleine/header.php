@@ -3,26 +3,8 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>
-		<?php
-
-		global $page, $paged;
-		wp_title( '|', true, 'right' );
-
-		// Add the blog name.
-		bloginfo( 'name' );
-
-		// Add the blog description for the home/front page.
-		$site_description = get_bloginfo( 'description', 'display' );
-		if ( $site_description && ( is_home() || is_front_page() ) )
-			echo " | $site_description";
-
-		// Add a page number if necessary:
-		if ( $paged >= 2 || $page >= 2 )
-			echo ' | ' . sprintf( 'Page %s', max( $paged, $page ) );
-
-		?>
-	</title>
+	<title><?php global $page, $paged;  wp_title( '|', true, 'right' ); bloginfo( 'name' ); $site_description = get_bloginfo( 'description', 'display' ); if ( $site_description && ( is_home() || is_front_page() ) ) { echo " | $site_description"; } if ( $paged >= 2 || $page >= 2 ) { echo ' | ' . sprintf( 'Page %s', max( $paged, $page ) ); } ?></title>
+	<?php madeleine_fonts(); ?>
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
@@ -63,11 +45,7 @@
 						<div style="clear: left;"></div>
 					</nav>
 					<div id="trending">
-						<p><?php _e( 'Trending', 'madeleine' ); ?></p>
-						<ul>
-							<?php madeleine_trending(); ?>
-						</ul>
-						<div style="clear: left;"></div>
+						<?php madeleine_trending(); ?>
 					</div>
 				</div>
 			</div>

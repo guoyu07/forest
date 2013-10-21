@@ -109,7 +109,7 @@ class madeleine_popular_posts_widget extends WP_Widget {
 		
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		// Possible options for the select menus
-		$total_values = [3, 5, 7];
+		$total_values = array(3, 5, 7);
 		
 		?>
 
