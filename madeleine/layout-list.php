@@ -6,5 +6,4 @@
 		else
 			get_template_part( 'content', get_post_format() );
 	endwhile; ?>
-	<?php madeleine_pagination(); ?>
 </div>

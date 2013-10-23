@@ -17,36 +17,46 @@
 		<div style="clear: left;"></div>
 	<?php endif; ?>
 	<header id="header">
-		<div class="wrap">
-			<a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-				<hgroup>
-					<h1 id="title">
-						<?php bloginfo( 'name' ); ?>
-					</h1>
-					<h2 id="description"><?php bloginfo( 'description' ); ?></h2>
-				</hgroup>
-			</a>
-			<br>
-			<ul id="social-icons">
-				<li class="social-rss"><a href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
-				<?php madeleine_social_links(); ?>
-			</ul>
-			<?php get_search_form(); ?>
-			<div id="navigation">
-				<a id="nav-icon"><span class="icon icon-menu"></span>Navigation</a>
-				<div id="nav-menu">
-					<nav id="nav">
-						<ul>
-							<li><a class="nav-home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home"><span class="icon icon-home"></span><?php _e( 'Home', 'madeleine' ); ?></a></li>
-							<?php echo madeleine_categories_list( 2 ); ?>
-							<?php madeleine_reviews_link(); ?>
-							<?php madeleine_format_icons(); ?>
-						</ul>
-						<div style="clear: left;"></div>
-					</nav>
-					<div id="trending">
-						<?php madeleine_trending(); ?>
+		<div id="level-header" class="level">
+			<div class="wrap">
+				<a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<hgroup>
+						<h1 id="title">
+							<?php bloginfo( 'name' ); ?>
+						</h1>
+						<h2 id="description"><?php bloginfo( 'description' ); ?></h2>
+					</hgroup>
+				</a>
+				<br>
+				<ul id="social-icons">
+					<li class="social-rss"><a href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
+					<?php madeleine_social_links(); ?>
+				</ul>
+				<?php get_search_form(); ?>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<div id="level-navigation" class="level">
+			<div class="wrap">
+				<div id="navigation">
+					<a id="nav-icon"><span class="icon icon-menu"></span>Navigation</a>
+					<div id="nav-menu">
+						<nav id="nav">
+							<ul>
+								<li><a class="nav-home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="Home" rel="home"><span class="icon icon-home"></span><?php _e( 'Home', 'madeleine' ); ?></a></li>
+								<?php echo madeleine_categories_list(); ?>
+								<?php madeleine_reviews_link(); ?>
+								<?php madeleine_format_icons(); ?>
+							</ul>
+							<div style="clear: left;"></div>
+						</nav>
+						<div id="trending">
+							<?php madeleine_trending(); ?>
+						</div>
 					</div>
+				</div>
+				<div id="subnav">
+					<?php madeleine_subnav(); ?>
 				</div>
 			</div>
 		</div>

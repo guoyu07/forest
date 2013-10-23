@@ -7,15 +7,6 @@
 					<article id="post-<?php the_ID(); ?>" class="post">
 						<header class="entry-header">
 							<h1 class="entry-title"><?php the_title(); ?></h1>
-							<div class="entry-info">
-								<?php if ( comments_open() && ! post_password_required() ) : ?>
-									<div class="entry-comments">
-										<?php comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' ); ?>
-									</div>
-								<?php endif; ?>
-								<?php madeleine_entry_info(); ?>
-								<div style="clear: both;"></div>
-							</div>
 						</header>
 						<div class="entry-content">
 							<?php the_content(); ?>

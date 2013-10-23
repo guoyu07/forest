@@ -266,6 +266,7 @@ if ( !function_exists( 'madeleine_footer' ) ) {
 if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
 	function madeleine_enqueue_scripts() {
 		$js_directory = get_template_directory_uri() . '/js/';
+		wp_register_script( 'menu-aim', $js_directory . 'jquery.menu-aim.js', 'jquery', '1.0' );
 		wp_register_script( 'global', $js_directory . 'global.js', 'jquery', '1.0' );
 		wp_register_script( 'date', $js_directory . 'date.js', 'jquery', '1.0' );
 		wp_register_script( 'home', $js_directory . 'home.js', 'jquery', '1.0' );
@@ -276,6 +277,8 @@ if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'jquery-effects-core' );
+		wp_enqueue_script( 'menu-aim' );
 		wp_enqueue_script( 'global' );
 
 		if ( is_home() ):
@@ -363,8 +366,8 @@ if ( !function_exists( 'madeleine_custom_colors' ) ) {
 		endif;
 		if ( isset( $colors_options['reviews'] ) && $colors_options['reviews'] != '' ):
 			$reviews_color = $colors_options['reviews'];
-			$custom_css .= '#menu a, .review .entry-title a,#nav .nav-reviews:hover{ color: ' . $reviews_color . ';}';
-			$custom_css .= '.review .entry-category a,.single-review #category strong, #reviews-tabs a:hover, #reviews-tabs .on{ background-color: ' . $reviews_color . ';}';
+			$custom_css .= '#menu a, .review .entry-title a{ color: ' . $reviews_color . ';}';
+			$custom_css .= '#nav .nav-reviews:hover, .review .entry-category a,.single-review #category strong, #reviews-tabs a:hover, #reviews-tabs .on{ background-color: ' . $reviews_color . ';}';
 			$custom_css .= '#jump .on,#jump .on:hover,#menu-icon,#menu .current-cat a,#menu .ui-slider-handle:hover,#menu .ui-state-active{ background-color: ' . $reviews_color . ';}';
 			$custom_css .= '#nav .nav-reviews, .reviews-grid .review .review-text{ border-top-color: ' . $reviews_color . ';}';
 			$custom_css .= '.single-review #category strong:after{ border-left-color: ' . $reviews_color . ';}';
@@ -412,10 +415,10 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
 				$color = '#d0574e';
 			endif;
 			$slug = $cat->slug;
-			$style .= '.post.category-' . $slug . ' a, #nav .category-' . $slug . ' a:hover, .tabs .category-' . $slug . ' a, body.category-' . $slug . ' #nav .current-cat > a, #nav .category-' . $slug . '.current-cat-parent > a, #category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
-			$style .= '.tabs .category-' . $slug . ' a:hover,.tabs .category-' . $slug . ' .on, #category.category-' . $slug . ' strong, .category-' . $slug . ' .entry-category a, #popular .category-' . $slug . ' em, #popular .category-' . $slug . ' strong, .format-image.category-' . $slug . ' .entry-thumbnail:hover:after, .format-video.category-' . $slug . ' .entry-thumbnail:hover:after,  .focus.category-' . $slug . '{ background-color: ' . $color . ';}';
+			$style .= '.post.category-' . $slug . ' a, .subnav.category-' . $slug . ' .subnav-menu a, .tabs .category-' . $slug . ' a, body.category-' . $slug . ' #nav .current-cat > a, #nav .category-' . $slug . '.current-cat-parent > a, #category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
+			$style .= '#nav .category-' . $slug . ' a:hover, #nav .category-' . $slug . ' .maintainHover, .tabs .category-' . $slug . ' a:hover, .subnav.category-' . $slug . ' .subnav-menu a:hover, .tabs .category-' . $slug . ' .on, #category.category-' . $slug . ' strong, .category-' . $slug . ' .entry-category a, #popular .category-' . $slug . ' em, #popular .category-' . $slug . ' strong, .format-image.category-' . $slug . ' .entry-thumbnail:hover:after, .format-video.category-' . $slug . ' .entry-thumbnail:hover:after,  .focus.category-' . $slug . '{ background-color: ' . $color . ';}';
 			$style .= '.quote.category-' . $slug . ', #category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
-			$style .= '#nav .category-' . $slug . ' a, body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .focus-text .entry-permalink{ border-top-color: ' . $color . ';}';
+			$style .= '#nav .category-' . $slug . ' a, .subnav.category-' . $slug . ', body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .focus-text .entry-permalink{ border-top-color: ' . $color . ';}';
 		endforeach;
 		$style .= '</style>';
 		echo $style;
@@ -642,7 +645,7 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
 		$nav = wp_list_categories('depth=' . $depth . '&echo=0&orderby=ID&title_li=');
 		foreach( $cats as $cat ):
 			$find = 'cat-item-' . $cat->term_id . '"';
-			$replace = 'category-' . $cat->slug . '"';
+			$replace = 'category-' . $cat->slug . '" data-slug="' . $cat->slug . '"';
 			$nav = str_replace( $find, $replace, $nav );
 			$find = 'cat-item-' . $cat->term_id . ' ';
 			$replace = 'category-' . $cat->slug . ' ';
@@ -652,6 +655,60 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
 			$nav = str_replace( $find, $replace, $nav );
 		endforeach;
 		return $nav;
+	}
+}
+
+
+/**
+ * Displays a submenu for each category.
+ *
+ *
+ */
+
+if ( !function_exists( 'madeleine_subnav' ) ) {
+	function madeleine_subnav() {
+		$top_categories = get_categories('orderby=ID&parent=0');
+		$subnav = '<div id="subnav-viewport">';
+		$subnav = '<div id="subnav-reel" style="width: 7140px;">';
+		foreach ( $top_categories as $top_category ):
+			$subnav .= '<div class="subnav category-' . $top_category->slug . '">';
+			$subnav .= '<p class="title">';
+			$subnav .= '<a href="' . get_category_link( $top_category->cat_ID ) . '">';
+			$subnav .= '<em>' . $top_category->name . '</em>';
+			$subnav .= '<strong>' . $top_category->description . '</strong>';
+			$subnav .= '</a>';
+			$subnav .= '</p>';
+			$subnav .= '<ul class="subnav-menu">';
+			$subnav .= wp_list_categories('child_of=' . $top_category->cat_ID . '&depth=1&echo=0&orderby=ID&title_li=');
+			$subnav .= '</ul>';
+			$subnav .= '<div class="subnav-posts">';
+			$standard_posts = madeleine_standard_posts();
+			$args = array(
+				'cat' => $top_category->cat_ID,
+				'posts_per_page' => 4,
+				'post_type' => 'post',
+				'post_status' => 'publish',
+				'tax_query' => $standard_posts
+			);
+			$query = new WP_Query( $args );
+			if ( $query->have_posts() ):
+				while ( $query->have_posts() ):
+					$query->the_post();
+					$image_id = get_post_thumbnail_id();
+					$image_url = wp_get_attachment_image_src( $image_id, 'medium', true );
+					$subnav .= '<a class="subnav-post" style="background-image: url(' . $image_url[0] . ');" href="' . esc_url( get_permalink() ) . '">';
+					$subnav .= '<strong class="entry-title">' . get_the_title() . '</strong>';
+					$subnav .= '</a>';
+				endwhile;
+			endif;
+			$subnav .= '</div>';
+			$subnav .= '<div style="clear: left;"></div>';
+			$subnav .= '</div>';
+		endforeach;
+		$subnav .= '</div>';
+		$subnav .= '</div>';
+		echo $subnav;
+		wp_reset_postdata();
 	}
 }
 
@@ -729,8 +786,9 @@ if ( !function_exists( 'madeleine_format_list' ) ) {
 					)
 				);
 				$query = new WP_Query( $args );
-				if ( $query->have_posts() )
+				if ( $query->have_posts() ):
 					echo '<li><a href="' . esc_url( get_post_format_link( $format ) ) . '" title="' . esc_attr( ucwords( $format ) ) . 's">' . ucwords( $format ) . 's</a></li>';
+				endif;
 			endforeach;
 		endif;
 	}
@@ -889,7 +947,7 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 			if ( $query->found_posts > 4 ):
 				$n = 1;
 				echo '<div id="focus">';
-				while ( $query->have_posts() ) {
+				while ( $query->have_posts() ):
 					$query->the_post();
 					$categories = get_the_category();
 					$top_category = get_category( madeleine_top_category( $categories[0] ) );
@@ -913,7 +971,7 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 					echo '</div>';
 					echo '</article>';
 					$n++;
-				}
+				endwhile;
 				echo '<div style="clear: left;"></div>';
 				echo '</div>';
 				wp_reset_postdata();

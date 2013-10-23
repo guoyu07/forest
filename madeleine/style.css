@@ -40,6 +40,7 @@ body,
 #latest a{ font-family: Arial, sans-serif;}
 
 .heading,
+.title,
 .pagination,
 .tabs,
 .section,
@@ -49,6 +50,7 @@ body,
 #logo,
 #nav,
 #nav-icon,
+.subnav-menu,
 #today-news,
 #footer,
 .entry-content h2,
@@ -98,10 +100,12 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 */
 
 .wrap{ margin: 0 auto; position: relative; width: 1020px;}
-.heading{ border-bottom: 1px solid #eaedef; color: #708491; font-size: 24px; line-height: 1.15; margin: 0 20px; padding: 20px 0;}
+.heading{ border-bottom: 1px solid #eaedef; color: #708491; font-size: 32px; line-height: 1.15; margin: 0 20px; padding: 20px 0 25px;}
 .heading .icon{ display: none;}
+.title a:hover{ text-decoration: none;}
 .title strong{ color: #444;}
 .title p{ color: #444; font-weight: bold;}
+.title em{ color: #708491;}
 .subtitle{ font-size: 17px; line-height: 1.25; margin-top: 10px;}
 .pagination{ clear: left; font-size: 16px; font-weight: bold; height: 30px; line-height: 30px; padding: 20px 0; position: relative; text-align: center;}
 .pagination a,
@@ -228,12 +232,15 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #nav{ background: white; background: white; border: solid #eaedef; border-width: 1px 0; font-size: 14px; font-weight: bold; line-height: 28px;}
 #nav li{ display: block; float: left; position: relative;}
 #nav a{ border-right: 1px solid #eaedef; border-top: 2px solid #708491; color: #444; float: left; height: 30px; margin: -1px -1px 0 0; padding: 0 10px 0 11px; white-space: nowrap;}
-#nav a:hover{ color: #708491; text-decoration: none;}
+#nav a:hover{ background: white; border-right-color: white; color: #708491; text-decoration: none;}
+#nav .cat-item a:hover,
+#nav .cat-item .maintainHover{ color: white !important;}
 #nav li:hover .children{ display: block;}
 #nav .children{ background: white; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25); display: none; left: 0; position: absolute; top: 100%; z-index: 1986;}
 #nav .children li{ float: none;}
 #nav .children a{ border: none; display: block; float: none; margin: 0; padding-right: 40px;}
 #nav .children a:hover{ background: #f2f4f6;}
+#nav .nav-reviews:hover{ color: white;}
 #nav .nav-home{ border-top-color: #444; /*height: 30px;*/ overflow: hidden; padding: 0 2px 0 4px; text-indent: -290486px; width: 30px;}
 #nav .nav-format{ border-top-color: transparent; /*height: 30px;*/ margin-right: 0; overflow: hidden; padding: 0; text-indent: -290486px; width: 30px;}
 #nav .nav-format:hover{ border-top-color: #708491;}
@@ -247,6 +254,19 @@ textarea, input[type="text"], input[type="submit"]{ -webkit-appearance: none;}
 #trending .section,
 #trending a{ color: #708491; float: left; font-size: 11px; line-height: 1.5; margin-left: 10px;}
 #trending .section{ color: #444; font-size: 11px; font-style: normal; font-weight: bold; letter-spacing: 0; line-height: 1.5; margin-bottom: 0; text-transform: none;}
+#subnav{ background: white; box-shadow: 0 16px 16px rgba(0, 0, 0, 0.48); height: 0; left: 0; overflow: hidden; position: absolute; top: 32px; width: 100%; z-index: 4000;}
+#subnav-reel{ left: 0; min-height: 241px; position: absolute; top: 0;}
+.subnav{ background: white; border-top: 2px solid #00f; float: left; min-height: 241px; padding: 10px 10px 20px; width: 1000px;}
+.subnav .title{ border-bottom: 1px solid #eaedef; font-size: 24px; margin: 0 10px 15px; padding-bottom: 5px;}
+.subnav .title em{ margin-right: 10px;}
+.subnav-menu{ float: left; width: 150px;}
+.subnav-menu li{ display: inline;}
+.subnav-menu a{ display: block; font-size: 16px; font-weight: bold; line-height: 1.25; padding: 2px 10px 3px;}
+.subnav-menu a:hover{ color: white !important; text-decoration: none;}
+.subnav-post{ background: no-repeat center center; background-size: cover; display: block; float: left; height: 150px; margin-left: 10px; overflow: hidden; position: relative; width: 200px;}
+.subnav-post:hover{ text-decoration: none;}
+.subnav-post .entry-title{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: white; display: block; left: 0; padding: 10px; position: absolute;}
+.subnav-post:hover .entry-title{ background: rgba(14, 24, 31, 0.86);}
 
 #footer{ background: #708491; clear: both; font-size: 13px; line-height: 1.5; min-height: 240px; padding: 40px 0; position: relative; z-index: 2013;}
 #footer, #footer .section, #footer-title{ color: #b8c2c8;}
@@ -439,20 +459,23 @@ blockquote.right{}
  * 
 */
 
-.single #lead .post,
-.page #lead .post{ padding: 20px; width: 640px;}
-.single #lead .entry-format{ background: #eaedef url(images/icons.png) no-repeat 5px -30px; border-radius: 15px; float: left; height: 30px; line-height: 30px; margin-bottom: 20px; padding: 0 20px 0 40px;}
-.single #lead .entry-title,
-.single-attachment .entry-title,
-.page #lead .entry-title{ font-size: 28px; line-height: 1.15; margin-bottom: 20px;}
-.single #lead .entry-info,
-.page #lead .entry-info{ font-size: 13px; line-height: 30px; margin-bottom: 10px;}
-.single #lead .entry-format{ margin-right: 10px;}
-.single #lead .entry-comments{ padding-top: 7px;}
-.single #lead .entry-comments a{ margin-left: 20px;}
-.single #lead .entry-thumbnail{ margin-bottom: 1em;}
+body.single #lead .post,
+body.page #lead .post{ padding: 20px; width: 640px;}
+body.single .entry-article .entry-format{ background: #eaedef url(images/icons.png) no-repeat 5px -30px; border-radius: 15px; float: left; height: 30px; line-height: 30px; margin-bottom: 20px; padding: 0 20px 0 40px;}
+body.single .entry-article .entry-title,
+body.single-attachment .entry-title,
+body.page .entry-article .entry-title{ font-size: 48px; line-height: 1.15; padding: 25px 20px 35px;}
+body.single .entry-article .entry-bar{ background: #f2f4f6; border: solid #eaedef; border-width: 1px 0; min-height: 32px;}
+body.single .entry-article .entry-category{ float: left; height: 32px; line-height: 32px; margin: 0 10px 0 0;}
+body.single .entry-article .entry-category a{ height: 32px; font-size: 14px; font-weight: bold; line-height: 32px; padding: 0 12px;}
+body.single .entry-article .entry-info,
+body.page .entry-article .entry-info{ font-size: 13px; line-height: 30px;}
+body.single .entry-article .entry-format{ margin-right: 10px;}
+body.single .entry-article .entry-comments{ padding-top: 7px;}
+body.single .entry-article .entry-comments a{ margin-left: 20px;}
+body.single .entry-article .entry-thumbnail{ margin-bottom: 1em;}
 
-.single-attachment .attachment{ padding: 20px;}
+body.single-attachment .attachment{ padding: 20px;}
 
 
 /**
@@ -867,7 +890,7 @@ blockquote.right{}
  * 
 */
 
-#trending section{
+#nav{
   background: -moz-linear-gradient(top,  #ffffff 0%, #f2f4f6 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f4f6));
   background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f4f6 100%);
@@ -877,7 +900,7 @@ blockquote.right{}
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f9fa', endColorstr='#f2f4f6',GradientType=0 );
 }
 
-a{
+a, .subnav-posts .entry-title{
   transition: background 250ms ease-out, color 250ms ease-out;
   -moz-transition: background 250ms ease-out, color 250ms ease-out;
   -ms-transition: background 250ms ease-out, color 250ms ease-out;
@@ -953,7 +976,7 @@ a{
   .widget{ margin-bottom: 15px; padding-bottom: 15px;}
   #images li{ height: 96px; width: 96px;}
   /* Single */
-  .single #lead .post, .page #lead .post{ padding: 15px; width: 610px;}
+  body.single #lead .post, .page #lead .post{ padding: 15px; width: 610px;}
   .entry-share .share{ width: 120px;}
   #commentform{ padding: 15px;}
   #commentform textarea{ max-width: 561px; min-width: 561px; width: 561px;}
@@ -1011,7 +1034,7 @@ a{
   .widget{ margin-bottom: 10px; padding-bottom: 10px;}
   #images li{ height: 93px; width: 93px;}
   /* Single */
-  .single #lead .post, .page #lead .post{ padding: 10px; width: 580px;}
+  body.single #lead .post, .page #lead .post{ padding: 10px; width: 580px;}
   .entry-share .share{ width: 110px;}
   #commentform{ padding: 10px;}
   #commentform textarea{ max-width: 536px; min-width: 536px; width: 536px;}
@@ -1092,7 +1115,7 @@ a{
   .widget{ float: none; margin: 20px; width: auto;}
   #images li{ height: 93px; width: 93px;}
   /* Single */
-  .single #lead .post, .page #lead .post{ padding: 20px; width: auto;}
+  body.single #lead .post, .page #lead .post{ padding: 20px; width: auto;}
   .entry-share .share{ width: 128px;}
   #commentform{ padding: 20px;}
   #commentform textarea{ max-width: 96%; min-width: 96%; padding: 2%; width: 96%;}

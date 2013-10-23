@@ -28,13 +28,73 @@ jQuery(document).ready(function ($) {
     return false;
   });
 
+  // Subnav
+
+  var $nav = $('#nav');
+  var $nav_links = $('#nav .cat-item a');
+  var $subnav = $('#subnav');
+  var $subnav_reel = $('#subnav-reel');
+  var hovering_submenu = false;
+  var submenu_timer;
+
+  $nav_links.hover(
+    function() {
+      hovering_submenu = true;
+      $subnav.height(241);
+    }, function() {
+      hovering_submenu = false;
+      exitSubmenu();
+    }
+  );
+
+  $subnav.hover(
+    function() {
+      hovering_submenu = true;
+      $subnav.height(241);
+    }, function() {
+      hovering_submenu = false;
+      exitSubmenu();
+    }
+  );
+
+  function activateSubmenu(row) {
+    var $row = $(row);
+    var index = $nav_links.index($row);
+    $subnav_reel.stop().animate({
+      left: index * -1020
+    }, 500, 'easeOutExpo');
+    $row.addClass('maintainHover');
+  }
+
+  function deactivateSubmenu(row) {
+    var $row = $(row);
+    $row.removeClass('maintainHover');
+  }
+
+  function exitSubmenu() {
+    submenu_timer = setTimeout(function() {
+      if (!hovering_submenu) {
+        $subnav.height(0);
+        $nav_links.removeClass('maintainHover');
+      }
+    }, 100);
+  }
+
+  $nav.menuAim({
+      activate: activateSubmenu,
+      deactivate: deactivateSubmenu,
+      rowSelector: '.cat-item a',
+      submenuDirection: 'below',
+      tolerance: 0
+  });
+
   // Latest posts widget
 
   var $latest_lists = $('#latest ul');
   var $latest_dots = $('#latest-dots span');
   $latest_dots.first().addClass('on');
 
-  $latest_dots.hover( function() {
+  $latest_dots.click( function() {
     var index = $(this).index();
     var $target = $latest_lists.eq(index);
     $latest_dots.removeClass('on');
@@ -62,10 +122,12 @@ jQuery(document).ready(function ($) {
   $videos_dots.first().addClass('on');
 
   $videos_dots.click( function() {
+    var index = $(this).index();
+    var $target = $videos.eq(index);
     $videos_dots.removeClass('on');
     $(this).addClass('on');
-    $videos.hide();
-    $videos.eq($(this).index()).show();
+    $videos.not($target).hide();
+    $target.show();
   });
 
   var global_resize_timer;
