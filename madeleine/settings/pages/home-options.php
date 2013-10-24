@@ -4,6 +4,7 @@ if ( !function_exists( 'madeleine_default_options_home' ) ) {
 	function madeleine_default_options_home() {
 		$defaults = array(
 			'focus_status' => 1,
+			'focus_layout' => 'puzzle',
 			'grid_number' => 6,
 			'next_status' => 1,
 			'next_number' => 10,
@@ -31,7 +32,7 @@ if ( !function_exists( 'madeleine_initialize_home_options' ) ) {
 		
 		add_settings_field( 
 			'focus_status', // ID used to identify the field throughout the theme
-			__( 'Focus posts status', 'madeleine' ), // The label to the left of the option interface element
+			__( 'Focus status', 'madeleine' ), // The label to the left of the option interface element
 			'madeleine_field_callback', // The name of the function responsible for rendering the option interface
 			'madeleine_home_options_page', // The page on which this option will be displayed
 			'focus_section', // The name of the section to which this field belongs
@@ -40,6 +41,21 @@ if ( !function_exists( 'madeleine_initialize_home_options' ) ) {
 				'type' => 'radio',
 				'option' => 'madeleine_options_home',
 				'id' => 'focus_status'
+			)
+		);
+		
+		add_settings_field( 
+			'focus_layout',
+			__( 'Focus layout', 'madeleine' ),
+			'madeleine_field_callback',
+			'madeleine_home_options_page',
+			'focus_section',
+			array(
+				'description' => 'The layout of the Focus posts.',
+				'type' => 'select',
+				'option' => 'madeleine_options_home',
+				'id' => 'focus_layout',
+				'select' => array('puzzle', 'highlight', 'carousel')
 			)
 		);
 

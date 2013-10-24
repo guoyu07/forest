@@ -788,23 +788,42 @@ body.single-attachment .attachment{ padding: 20px;}
 */
 
 #focus{ height: 480px; position: relative; width: 1020px;}
-.focus{ height: 160px; overflow: hidden; position: absolute; width: 340px;}
-#focus-1{ height: 320px; left: 0; top: 0; width: 680px;}
-#focus-2{ right: 0; top: 0;}
-#focus-3{ bottom: 0; left: 0;}
-#focus-4{ bottom: 0; left: 340px;}
-#focus-5{ bottom: 0; height: 320px; right: 0;}
-.focus .entry-permalink{ border-top: 1px solid #444; display: block; height: 100%; left: 0; position: absolute; top: 0; width: 100%;}
-.focus-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; left: 0; padding: 20px; position: absolute; width: 300px;}
-#focus-1 .focus-text{ font-size: 16px; width: 640px;}
-#focus-1 .entry-title{ font-size: 32px;}
-#focus-5 .entry-title{ font-size: 24px;}
-.focus .entry-title{ color: white !important;}
-.focus .entry-category{ position: absolute; right: 0; top: 0;}
-.focus .entry-excerpt{ color: #afc6d5; display: none; padding-top: 10px;}
-#focus-1 .entry-excerpt,
-#focus-5 .entry-excerpt{ display: block;}
-.focus:hover .entry-permalink{ border-top-width: 3px;}
+
+.focus-puzzle .focus{ height: 160px; overflow: hidden; position: absolute; width: 340px;}
+.focus-puzzle #focus-1{ height: 320px; left: 0; top: 0; width: 680px;}
+.focus-puzzle #focus-2{ right: 0; top: 0;}
+.focus-puzzle #focus-3{ bottom: 0; left: 0;}
+.focus-puzzle #focus-4{ bottom: 0; left: 340px;}
+.focus-puzzle #focus-5{ bottom: 0; height: 320px; right: 0;}
+.focus-puzzle .focus .entry-permalink{ border-top: 2px solid #444; display: block; height: 100%; left: 0; position: absolute; top: 0; width: 100%;}
+.focus-puzzle .focus-text{ background: rgba(14, 24, 31, 0.48); bottom: 0; left: 0; padding: 20px; position: absolute; width: 300px;}
+.focus-puzzle #focus-1 .focus-text{ font-size: 16px; width: 640px;}
+.focus-puzzle #focus-1 .entry-title{ font-size: 32px;}
+.focus-puzzle #focus-5 .entry-title{ font-size: 24px;}
+.focus-puzzle .focus .entry-title{ color: white !important;}
+.focus-puzzle .focus .entry-category{ position: absolute; right: 0; top: 0;}
+.focus-puzzle .focus .entry-excerpt{ color: #afc6d5; display: none; padding-top: 10px;}
+.focus-puzzle #focus-1 .entry-excerpt,
+.focus-puzzle #focus-5 .entry-excerpt{ display: block;}
+.focus-puzzle .focus:hover .entry-permalink{ border-top-width: 4px;}
+
+.focus-highlight .focus{ left: 0; overflow: hidden; position: absolute;}
+.focus-highlight .focus .entry-permalink{ border-top: 2px solid #444; display: block; height: 100%; position: absolute; top: 0; width: 100%; z-index: 1000;}
+.focus-highlight .focus:hover .entry-permalink{ border-top-width: 4px;}
+.focus-highlight .focus .entry-category{ position: absolute; right: 0; top: 0; z-index: 1001;}
+.focus-highlight .focus-big{ display: none; height: 320px; left: 0; top: 0; width: 1020px;}
+.focus-highlight .focus-big .focus-image{ background: no-repeat center center; background-size: cover; height: 320px; left: 0; position: absolute; top: 0; width: 680px;}
+.focus-highlight .focus-big .focus-text{ background: white; height: 300px; padding: 20px 20px 0; position: absolute; right: 0; top: 0; width: 300px;}
+.focus-highlight .focus-big .entry-title{ font-size: 32px; line-height: 1.15; margin-bottom: 15px;}
+.focus-highlight .focus-big .entry-info{ margin-bottom: 10px; position: relative; z-index: 1001;}
+.focus-highlight .focus-big .entry-excerpt{ color: #708491; font-size: 16px;}
+.focus-highlight #focus-big-1{ display: block;}
+.focus-highlight .focus-small{ background: no-repeat center center; background-size: cover; height: 160px; top: 320px; width: 255px;}
+.focus-highlight .focus-small .entry-title{ background: rgba(14, 24, 31, 0.48); bottom: 0; color: white; font-size: 20px; left: 0; line-height: 1.25; padding: 15px; position: absolute; width: 225px;}
+.focus-highlight #focus-small-1{ display: none;}
+.focus-highlight #focus-small-3{ left: 255px;}
+.focus-highlight #focus-small-4{ left: 510px;}
+.focus-highlight #focus-small-5{ left: 765px;}
 
 
 /**
@@ -860,7 +879,7 @@ body.single-attachment .attachment{ padding: 20px;}
  * 
 */
 
-#date-archive{ height: 40px; line-height: 40px; position: relative; z-index: 2013;}
+#date-archive{ font-size: 20px; height: 40px; line-height: 40px; position: relative; z-index: 2013;}
 #date-archive ul{ background: #eaedef; float: left; left: 0; position: absolute; top: 0; width: 160px;}
 #date-archive .year{ display: none;}
 #date-archive .year.on{ display: block;}
