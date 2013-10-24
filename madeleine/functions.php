@@ -418,7 +418,7 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
 			$style .= '.post.category-' . $slug . ' a, .subnav.category-' . $slug . ' .subnav-menu a, .tabs .category-' . $slug . ' a, body.category-' . $slug . ' #nav .current-cat > a, #nav .category-' . $slug . '.current-cat-parent > a, #category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
 			$style .= '#nav .category-' . $slug . ' a:hover, #nav .category-' . $slug . ' .maintainHover, .tabs .category-' . $slug . ' a:hover, .subnav.category-' . $slug . ' .subnav-menu a:hover, .tabs .category-' . $slug . ' .on, #category.category-' . $slug . ' strong, .category-' . $slug . ' .entry-category a, #popular .category-' . $slug . ' em, #popular .category-' . $slug . ' strong, .format-image.category-' . $slug . ' .entry-thumbnail:hover:after, .format-video.category-' . $slug . ' .entry-thumbnail:hover:after,  .focus.category-' . $slug . '{ background-color: ' . $color . ';}';
 			$style .= '.quote.category-' . $slug . ', #category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
-			$style .= '#nav .category-' . $slug . ' a, .subnav.category-' . $slug . ', body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .entry-permalink{ border-top-color: ' . $color . ';}';
+			$style .= '#nav .category-' . $slug . ' a, .subnav.category-' . $slug . ', body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .focus-text{ border-top-color: ' . $color . ';}';
 		endforeach;
 		$style .= '</style>';
 		echo $style;
@@ -946,6 +946,7 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 			if ( $query->found_posts > 4 ):
 				$n = 1;
 				if ( $home_options['focus_layout'] == 'highlight' ):
+					echo '<div id="level-focus-highlight" class="level"><div class="wrap">';
 					echo '<div id="focus" class="focus-highlight">';
 					while ( $query->have_posts() ):
 						$query->the_post();
@@ -979,10 +980,36 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 						echo '</article>';
 						$n++;
 					endwhile;
-					echo '</div>';
+					echo '</div></div></div>';
 				elseif ( $home_options['focus_layout'] == 'carousel' ):
-					echo '<div id="focus">';
+					echo '<div id="level-focus-carousel" class="level"><div class="wrap">';
+					echo '<div id="focus" class="focus-carousel">';
+					while ( $query->have_posts() ):
+						$query->the_post();
+						$categories = get_the_category();
+						$top_category = get_category( madeleine_top_category( $categories[0] ) );
+						$category_links = '';
+						$class = 'focus category-' . $top_category->category_nicename;
+						$letters = array('alpha', 'beta', 'gamma', 'delta', 'epsilon');
+						foreach ( $categories as $category ):
+							$category_links .= '<li><a href="' . esc_url( get_category_link( $category->cat_ID ) ) . '">' . $category->name . '</a></li>';
+						endforeach;
+						$thumbnail_full_url = madeleine_entry_thumbnail_url( 'full' );
+						echo '<article class="post focus-' . $letters[$n - 1] . ' ' . $class . '" style="background-image: url(' . $thumbnail_full_url . ');">';
+						echo '<a class="entry-permalink" href="' . esc_url( get_permalink() ) . '"></a>';
+						echo '<ul class="entry-category">' . $category_links . '</ul>';
+						echo '<div class="focus-text">';
+						echo '<h2 class="entry-title">' . get_the_title() . '</h2>';
+						echo '<p class="entry-info">';
+						madeleine_entry_info();
+						echo '</p>';
+						echo '</div>';
+						echo '</article>';
+						$n++;
+					endwhile;
+					echo '</div></div></div>';
 				else:
+					echo '<div id="level-focus-puzzle" class="level"><div class="wrap">';
 					echo '<div id="focus" class="focus-puzzle">';
 					while ( $query->have_posts() ):
 						$query->the_post();
@@ -993,16 +1020,17 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 						foreach ( $categories as $category ):
 							$category_links .= '<li><a href="' . esc_url( get_category_link( $category->cat_ID ) ) . '">' . $category->name . '</a></li>';
 						endforeach;
-						echo '<article class="post ' . $class . '" id="focus-' . $n . '">';
+						echo '<article class="post ' . $class . '" id="focus-' . $n . '"';
 						if ( $n == 1 ):
-							madeleine_entry_thumbnail( 'focus' );
+							echo ' style="background-image: url(' . madeleine_entry_thumbnail_url( 'focus' ) . ');"';
 						elseif ( $n == 5 ):
-							madeleine_entry_thumbnail( 'tall' );
+							echo ' style="background-image: url(' . madeleine_entry_thumbnail_url( 'tall' ) . ');"';
 						else:
-							madeleine_entry_thumbnail( 'wide' );
+							echo ' style="background-image: url(' . madeleine_entry_thumbnail_url( 'wide' ) . ');"';
 						endif;
-						echo '<div class="focus-text">';
+						echo '>';
 						echo '<a class="entry-permalink" href="' . esc_url( get_permalink() ) . '"></a>';
+						echo '<div class="focus-text">';
 						echo '<h2 class="entry-title">' . get_the_title() . '</h2>';
 						echo '<ul class="entry-category">' . $category_links . '</ul>';
 						echo '<p class="entry-excerpt">' . get_the_excerpt() . '</p>';
@@ -1011,7 +1039,7 @@ if ( !function_exists( 'madeleine_focus' ) ) {
 						$n++;
 					endwhile;
 					echo '<div style="clear: left;"></div>';
-					echo '</div>';
+					echo '</div></div></div>';
 				endif;
 				wp_reset_postdata();
 				return $sticky_posts;

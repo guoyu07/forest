@@ -4,7 +4,7 @@ if ( !function_exists( 'madeleine_default_options_home' ) ) {
 	function madeleine_default_options_home() {
 		$defaults = array(
 			'focus_status' => 1,
-			'focus_layout' => 'puzzle',
+			'focus_layout' => 'highlight',
 			'grid_number' => 6,
 			'next_status' => 1,
 			'next_number' => 10,
@@ -52,10 +52,26 @@ if ( !function_exists( 'madeleine_initialize_home_options' ) ) {
 			'focus_section',
 			array(
 				'description' => 'The layout of the Focus posts.',
-				'type' => 'select',
+				'type' => 'boxes',
 				'option' => 'madeleine_options_home',
 				'id' => 'focus_layout',
-				'select' => array('puzzle', 'highlight', 'carousel')
+				'boxes' => array(
+					array(
+						'value' => 'highlight',
+						'label' => 'Highlight',
+						'image' => 'focus-highlight'
+					),
+					array(
+						'value' => 'carousel',
+						'label' => 'Carousel',
+						'image' => 'focus-carousel'
+					),
+					array(
+						'value' => 'puzzle',
+						'label' => 'Puzzle',
+						'image' => 'focus-puzzle'
+					)
+				)
 			)
 		);
 

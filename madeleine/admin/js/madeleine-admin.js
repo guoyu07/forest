@@ -37,6 +37,26 @@ jQuery(document).ready(function($) {
 
   });
 
+  // Settings boxes
+
+  var $box_fields = $('.madeleine-box-field');
+  var $boxes = $('.madeleine-box');
+
+  $box_fields.each( function() {
+    var id = $(this).attr('id');
+    var current_value = $(this).val();
+    var $related_boxes = $('.madeleine-boxes[data-field="' + id + '"]');
+    $related_boxes.find('.madeleine-box[data-value="' + current_value + '"]').addClass('selected');
+  });
+
+  $boxes.click( function() {
+    var field = $(this).parent().data('field');
+    var value = $(this).data('value');
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
+    $('#' + field).val(value);
+  });
+
   // Category colors
 
   var category_parent = $('#edittag #parent');

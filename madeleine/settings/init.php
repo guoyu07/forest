@@ -216,12 +216,12 @@ if ( !function_exists( 'madeleine_field_callback' ) ) {
 			$val = isset( $options[$args['id']] ) ? $options[$args['id']] : '';
 			$name = $args['option'] . '[' . $args['id'] . ']';
 		endif;
-		echo '<p class="madeleine-description">';
+		echo '<div class="madeleine-description">';
 		if ( isset( $args['image'] ) ):
 			echo '<img src="' . SETTINGS_URL . '/images/' . $args['image'] . '.png"><br>';
 		endif;
-		echo $args['description'] . '</p>';
-		echo '<p class="madeleine-field">';
+		echo $args['description'] . '</div>';
+		echo '<div class="madeleine-field">';
 		if ( $args['type'] == 'text' ):
 			echo '<input class="regular-text" type="text" name="' . $name . '" value="' . $val . '">';
 		elseif ( $args['type'] == 'textarea' ):
@@ -258,14 +258,26 @@ if ( !function_exists( 'madeleine_field_callback' ) ) {
 				<br>
 				<img id="upload-image-preview" style="max-width: 450px; display: block;" src="' . esc_url( $val ) . '">';
 			echo $html;
+		elseif ( $args['type'] == 'boxes' ):
+			$html_id = 'madeleine-' . str_replace('_', '-', $args['id']);
+			$html = '<input id="' . $html_id . '" class="madeleine-box-field" type="hidden" name="' . $name .'" value="' . $val . '">';
+			$html .= '<div class="madeleine-boxes" data-field="' . $html_id . '">';
+			foreach ( $args['boxes'] as $box ):
+				$html .= '<span class="madeleine-box" data-value="' . $box['value'] . '">';
+				$html .= '<img src="' . SETTINGS_URL . '/images/' . $box['image'] . '.png"><br>';
+				$html .= $box['label'];
+				$html .= '</span>';
+			endforeach;
+			$html .= '</div>';
+			echo $html;
 		endif;
-		echo '</p>';
+		echo '</div>';
 		if ( $args['id'] == 'font_body' ):
 			echo '<div style="clear: both;"></div>
-			<p id="madeleine-font-body" class="madeleine-font">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tempus pretium justo id ultrices. Vivamus erat orci, sodales vel nulla non, accumsan faucibus purus. Nullam cursus, diam vel ultricies blandit, elit libero ullamcorper sapien, eu lacinia mauris leo eu odio. Maecenas feugiat in nunc vitae varius. Etiam at varius metus. Mauris a condimentum urna. Duis nulla justo, dictum a lorem id, imperdiet luctus sem. Proin adipiscing, orci quis euismod volutpat, lectus dui vehicula eros, in faucibus sapien purus quis leo. Integer laoreet sagittis sem et vestibulum. Donec lacinia nisl id est lacinia ultricies. Quisque non sem facilisis, sodales metus fringilla, commodo magna.</p>';
+			<div id="madeleine-font-body" class="madeleine-font">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tempus pretium justo id ultrices. Vivamus erat orci, sodales vel nulla non, accumsan faucibus purus. Nullam cursus, diam vel ultricies blandit, elit libero ullamcorper sapien, eu lacinia mauris leo eu odio. Maecenas feugiat in nunc vitae varius. Etiam at varius metus. Mauris a condimentum urna. Duis nulla justo, dictum a lorem id, imperdiet luctus sem. Proin adipiscing, orci quis euismod volutpat, lectus dui vehicula eros, in faucibus sapien purus quis leo. Integer laoreet sagittis sem et vestibulum. Donec lacinia nisl id est lacinia ultricies. Quisque non sem facilisis, sodales metus fringilla, commodo magna.</div>';
 		elseif ( $args['id'] == 'font_title' ):
 			echo '<div style="clear: both;"></div>
-			<p id="madeleine-font-title" class="madeleine-font">The quick brown fox jumps over the lazy dog</p>';
+			<div id="madeleine-font-title" class="madeleine-font">The quick brown fox jumps over the lazy dog</div>';
 		endif;
 		echo '<div style="clear: both;"></div>';
 	}
