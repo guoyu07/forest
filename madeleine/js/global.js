@@ -35,25 +35,30 @@ jQuery(document).ready(function ($) {
   var $subnav = $('#subnav');
   var $subnav_reel = $('#subnav-reel');
   var hovering_submenu = false;
-  var submenu_timer;
+  var hover_timer;
+  var exit_timer;
 
   $nav_links.hover(
     function() {
       hovering_submenu = true;
-      $subnav.height(241);
+      $subnav.stop().animate({
+        height: 241
+      }, 250);
     }, function() {
       hovering_submenu = false;
-      exitSubmenu();
+      unhoverSubmenu();
     }
   );
 
   $subnav.hover(
     function() {
       hovering_submenu = true;
-      $subnav.height(241);
+      $subnav.stop().animate({
+        height: 241
+      }, 250);
     }, function() {
       hovering_submenu = false;
-      exitSubmenu();
+      unhoverSubmenu();
     }
   );
 
@@ -71,11 +76,20 @@ jQuery(document).ready(function ($) {
     $row.removeClass('maintainHover');
   }
 
-  function exitSubmenu() {
-    submenu_timer = setTimeout(function() {
+  function unhoverSubmenu() {
+    hover_timer = setTimeout(function() {
       if (!hovering_submenu) {
-        $subnav.height(0);
-        $nav_links.removeClass('maintainHover');
+        $subnav.stop().height(0);
+        $("a.maintainHover").removeClass("maintainHover");
+      }
+    }, 100);
+  }
+
+
+  function exitSubmenu() {
+    exit_timer = setTimeout(function() {
+      if (!hovering_submenu) {
+        $("a.maintainHover").removeClass("maintainHover");
       }
     }, 100);
   }
@@ -83,6 +97,7 @@ jQuery(document).ready(function ($) {
   $nav.menuAim({
       activate: activateSubmenu,
       deactivate: deactivateSubmenu,
+      // exitMenu: exitSubmenu,
       rowSelector: '.cat-item a',
       submenuDirection: 'below',
       tolerance: 0

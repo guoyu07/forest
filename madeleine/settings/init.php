@@ -46,6 +46,33 @@ if ( !function_exists( 'madeleine_theme_settings' ) ) {
 		
 		add_submenu_page(
 			'madeleine_general_options_page',
+			__( 'Colors', 'madeleine' ),
+			__( 'Colors', 'madeleine' ),
+			'update_core',
+			'madeleine_colors_options_page',
+			create_function( null, 'madeleine_settings_display( "colors_options" );' )
+		);
+		
+		add_submenu_page(
+			'madeleine_general_options_page',
+			__( 'Typography', 'madeleine' ),
+			__( 'Typography', 'madeleine' ),
+			'update_core',
+			'madeleine_typography_options_page',
+			create_function( null, 'madeleine_settings_display( "typography_options" );' )
+		);
+		
+		add_submenu_page(
+			'madeleine_general_options_page',
+			__( 'Layout', 'madeleine' ),
+			__( 'Layout', 'madeleine' ),
+			'update_core',
+			'madeleine_layout_options_page',
+			create_function( null, 'madeleine_settings_display( "layout_options" );' )
+		);
+		
+		add_submenu_page(
+			'madeleine_general_options_page',
 			__( 'Social Features', 'madeleine' ),
 			__( 'Social Features', 'madeleine' ),
 			'update_core',
@@ -88,24 +115,6 @@ if ( !function_exists( 'madeleine_theme_settings' ) ) {
 			'madeleine_header_and_background_options_page',
 			create_function( null, 'madeleine_settings_display( "header_and_background_options" );' )
 		);
-		
-		add_submenu_page(
-			'madeleine_general_options_page',
-			__( 'Colors', 'madeleine' ),
-			__( 'Colors', 'madeleine' ),
-			'update_core',
-			'madeleine_colors_options_page',
-			create_function( null, 'madeleine_settings_display( "colors_options" );' )
-		);
-		
-		add_submenu_page(
-			'madeleine_general_options_page',
-			__( 'Typography', 'madeleine' ),
-			__( 'Typography', 'madeleine' ),
-			'update_core',
-			'madeleine_typography_options_page',
-			create_function( null, 'madeleine_settings_display( "typography_options" );' )
-		);
 	}
 }
 add_action( 'admin_menu', 'madeleine_theme_settings' );
@@ -137,6 +146,8 @@ if ( !function_exists( 'madeleine_settings_display' ) ) {
 					$active_tab = 'colors_options';
 				elseif ( $active_tab == 'typography_options' ):
 					$active_tab = 'typography_options';
+				elseif ( $active_tab == 'layout_options' ):
+					$active_tab = 'layout_options';
 				else:
 					$active_tab = 'general_options';
 				endif;
@@ -148,8 +159,9 @@ if ( !function_exists( 'madeleine_settings_display' ) ) {
 					<a href="?page=madeleine_general_options_page" class="<?php echo $active_tab == 'general_options' ? 'current' : ''; ?>"><?php _e( 'General Options', 'madeleine' ); ?></a>
 					<a href="?page=madeleine_colors_options_page" class="<?php echo $active_tab == 'colors_options' ? 'current' : ''; ?>"><?php _e( 'Colors', 'madeleine' ); ?></a>
 					<a href="?page=madeleine_typography_options_page" class="<?php echo $active_tab == 'typography_options' ? 'current' : ''; ?>"><?php _e( 'Typography', 'madeleine' ); ?></a>
+					<a href="?page=madeleine_layout_options_page" class="<?php echo $active_tab == 'layout_options' ? 'current' : ''; ?>"><?php _e( 'Layout', 'madeleine' ); ?></a>
 					<a href="?page=madeleine_social_options_page" class="<?php echo $active_tab == 'social_options' ? 'current' : ''; ?>"><?php _e( 'Social Features', 'madeleine' ); ?></a>
-					<a href="?page=madeleine_home_options_page" class="<?php echo $active_tab == 'home_options' ? 'current' : ''; ?>"><?php _e( 'Homepage', 'madeleine' ); ?></a>
+					<a href="?page=madeleine_home_options_page" class="<?php echo $active_tab == 'home_options' ? 'current' : ''; ?>"><?php _e( 'Home Options', 'madeleine' ); ?></a>
 					<a href="?page=madeleine_popular_posts_options_page" class="<?php echo $active_tab == 'popular_posts_options' ? 'current' : ''; ?>"><?php _e( 'Popular Posts', 'madeleine' ); ?></a>
 					<a href="?page=madeleine_reviews_options_page" class="<?php echo $active_tab == 'reviews_options' ? 'current' : ''; ?>"><?php _e( 'Reviews', 'madeleine' ); ?></a>
 					<a href="?page=madeleine_header_and_background_options_page" class="<?php echo $active_tab == 'header_and_background_options' ? 'current' : ''; ?>"><?php _e( 'Header &amp; Background', 'madeleine' ); ?></a>
@@ -167,6 +179,9 @@ if ( !function_exists( 'madeleine_settings_display' ) ) {
 						elseif( $active_tab == 'typography_options' ):
 							settings_fields( 'madeleine_typography_options_group' );
 							do_settings_sections( 'madeleine_typography_options_page' );
+						elseif( $active_tab == 'layout_options' ):
+							settings_fields( 'madeleine_layout_options_group' );
+							do_settings_sections( 'madeleine_layout_options_page' );
 						elseif( $active_tab == 'social_options' ):
 							settings_fields( 'madeleine_social_options_group' );
 							do_settings_sections( 'madeleine_social_options_page' );
@@ -291,8 +306,9 @@ if ( !function_exists( 'madeleine_field_callback' ) ) {
 
 require_once( SETTINGS_DIR .'/pages/general-options.php' );
 require_once( SETTINGS_DIR .'/pages/colors-options.php' );
-require_once( SETTINGS_DIR .'/pages/social-options.php' );
 require_once( SETTINGS_DIR .'/pages/typography-options.php' );
+require_once( SETTINGS_DIR .'/pages/layout-options.php' );
+require_once( SETTINGS_DIR .'/pages/social-options.php' );
 require_once( SETTINGS_DIR .'/pages/home-options.php' );
 require_once( SETTINGS_DIR .'/pages/popular-posts-options.php' );
 require_once( SETTINGS_DIR .'/pages/reviews-options.php' );

@@ -416,9 +416,9 @@ if ( !function_exists( 'madeleine_categories_colors' ) ) {
 			endif;
 			$slug = $cat->slug;
 			$style .= '.post.category-' . $slug . ' a, .subnav.category-' . $slug . ' .subnav-menu a, .tabs .category-' . $slug . ' a, body.category-' . $slug . ' #nav .current-cat > a, #nav .category-' . $slug . '.current-cat-parent > a, #category.category-' . $slug . ' .current-cat a{ color: ' . $color . ';}';
-			$style .= '#nav .category-' . $slug . ' a:hover, #nav .category-' . $slug . ' .maintainHover, .tabs .category-' . $slug . ' a:hover, .subnav.category-' . $slug . ' .subnav-menu a:hover, .tabs .category-' . $slug . ' .on, #category.category-' . $slug . ' strong, .category-' . $slug . ' .entry-category a, #popular .category-' . $slug . ' em, #popular .category-' . $slug . ' strong, .format-image.category-' . $slug . ' .entry-thumbnail:hover:after, .format-video.category-' . $slug . ' .entry-thumbnail:hover:after,  .focus.category-' . $slug . '{ background-color: ' . $color . ';}';
+			$style .= '#nav .category-' . $slug . ' a:hover, #nav .category-' . $slug . ' .maintainHover, .tabs .category-' . $slug . ' a:hover, .subnav.category-' . $slug . ' .subnav-menu a:hover, .tabs .category-' . $slug . ' .on, #category.category-' . $slug . ' strong, .category-' . $slug . ' .entry-category a, #popular .category-' . $slug . ' em, #popular .category-' . $slug . ' strong, .format-image.category-' . $slug . ' .entry-thumbnail:hover:after, .format-video.category-' . $slug . ' .entry-thumbnail:hover:after{ background-color: ' . $color . ';}';
 			$style .= '.quote.category-' . $slug . ', #category.category-' . $slug . ' strong:after{ border-left-color: ' . $color . ';}';
-			$style .= '#nav .category-' . $slug . ' a, .subnav.category-' . $slug . ', body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .focus-text{ border-top-color: ' . $color . ';}';
+			$style .= '#nav .category-' . $slug . ' a, .subnav.category-' . $slug . ', body.category-' . $slug . ', body.category-' . $slug . ' #nav .current-cat a, #category.category-' . $slug . ' .wrap, .focus.category-' . $slug . ' .focus-text, .focus.category-' . $slug . ' .entry-permalink{ border-top-color: ' . $color . ';}';
 		endforeach;
 		$style .= '</style>';
 		echo $style;
@@ -640,7 +640,7 @@ add_filter( 'body_class', 'madeleine_body_class' );
  */
 
 if ( !function_exists( 'madeleine_categories_list' ) ) {
-	function madeleine_categories_list( $depth = 1) {
+	function madeleine_categories_list( $depth = 1 ) {
 		$cats = get_categories('orderby=ID');
 		$nav = wp_list_categories('depth=' . $depth . '&echo=0&orderby=ID&title_li=');
 		foreach( $cats as $cat ):
@@ -650,13 +650,28 @@ if ( !function_exists( 'madeleine_categories_list' ) ) {
 			$find = 'cat-item-' . $cat->term_id . ' ';
 			$replace = 'category-' . $cat->slug . ' ';
 			$nav = str_replace( $find, $replace, $nav );
-			$find = ' title=';
-			$replace = ' data-title=';
-			$nav = str_replace( $find, $replace, $nav );
 		endforeach;
 		return $nav;
 	}
 }
+
+
+/**
+ * Modifies the output of wp_list_categories.
+ * 
+ * @return string
+ */
+
+if ( !function_exists( 'madeleine_filter_categories_list' ) ) {
+	function madeleine_filter_categories_list( $list ) {
+		$find = ' title=';
+		$replace = ' data-title=';
+		$list = str_replace( $find, $replace, $list );
+		return $list;
+	}
+}
+add_filter( 'wp_list_categories', 'madeleine_filter_categories_list' );
+
 
 
 /**
