@@ -32,13 +32,13 @@ if ( !function_exists( 'madeleine_header_style' ) ) {
 			<?php endif; ?>
 
 			<?php if ( !display_header_text() ) : ?>
-				#title,
+				#name,
 				#description{ display: none;}
 				<?php if ( !empty( $header_image ) ) : ?>
 					#logo{ padding-left: 0; width: 60px;}
 				<?php endif; ?>
 			<?php	elseif ( $text_color != get_theme_support( 'custom-header', 'default-text-color' ) ) : ?>
-				#title{ color: #<?php echo esc_attr( $text_color ); ?>;}
+				#name{ color: #<?php echo esc_attr( $text_color ); ?>;}
 			<?php endif; ?>
 		</style>
 		<?php

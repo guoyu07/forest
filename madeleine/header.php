@@ -21,7 +21,7 @@
 			<div class="wrap">
 				<a id="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 					<hgroup>
-						<h1 id="title">
+						<h1 id="name">
 							<?php bloginfo( 'name' ); ?>
 						</h1>
 						<h2 id="description"><?php bloginfo( 'description' ); ?></h2>
@@ -29,7 +29,7 @@
 				</a>
 				<br>
 				<ul id="social-icons">
-					<li class="social-rss"><a href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
+					<li class="social-rss"><a class="social-icon" href="<?php bloginfo( 'rss2_url' ); ?>"></a></li>
 					<?php madeleine_social_links(); ?>
 				</ul>
 				<?php get_search_form(); ?>

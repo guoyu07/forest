@@ -293,6 +293,14 @@ if ( !function_exists( 'madeleine_field_callback' ) ) {
 		elseif ( $args['id'] == 'font_title' ):
 			echo '<div style="clear: both;"></div>
 			<div id="madeleine-font-title" class="madeleine-font">The quick brown fox jumps over the lazy dog</div>';
+		elseif ( $args['id'] == 'font_name' ):
+			$name = get_bloginfo( 'name' );
+			echo '<div style="clear: both;"></div>
+			<div id="madeleine-font-name" class="madeleine-font">' . $name . '</div>';
+		elseif ( $args['id'] == 'font_description' ):
+			$description = get_bloginfo( 'description' );
+			echo '<div style="clear: both;"></div>
+			<div id="madeleine-font-description" class="madeleine-font">' . $description . '</div>';
 		endif;
 		echo '<div style="clear: both;"></div>';
 	}

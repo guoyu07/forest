@@ -4,7 +4,9 @@ if ( !function_exists( 'madeleine_default_options_typography' ) ) {
 	function madeleine_default_options_typography() {
 		$defaults = array(
 			'font_body' => '',
-			'font_title' => ''
+			'font_title' => 'bitter',
+			'font_name' => 'bitter',
+			'font_description' => 'bitter'
 		);
 	return apply_filters( 'madeleine_default_options_typography', $defaults );
 	}
@@ -26,7 +28,7 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 		
 		add_settings_field( 
 			'font_body',
-			__( 'Body Font', 'madeleine' ),
+			__( 'Body font', 'madeleine' ),
 			'madeleine_field_callback',
 			'madeleine_typography_options_page',
 			'typography_section',
@@ -38,21 +40,21 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 				'selectid' => 'body',
 				'select' => array(
 					array('', 'Arial'),
-					array('bitter', 'Bitter'),
+					array('opensans', 'Open Sans'),
+					array('ubuntu', 'Ubuntu'),
 					array('droidsans', 'Droid Sans'),
 					array('lato', 'Lato'),
-					array('arvo', 'Arvo'),
 					array('ptsans', 'PT Sans'),
-					array('ubuntu', 'Ubuntu'),
-					array('droidserif', 'Droid Serif'),
-					array('opensans', 'Open Sans'),
-					array('oswald', 'Oswald'),
 					array('roboto', 'Roboto'),
-					array('montserrat', 'Montserrat'),
-					array('nunito', 'Nunito'),
-					array('francois', 'Francois One'),
-					array('merriweather', 'Merriweather'),
 					array('merriweathersans', 'Merriweather Sans'),
+					array('nunito', 'Nunito'),
+					array('bitter', 'Bitter'),
+					array('montserrat', 'Montserrat'),
+					array('arvo', 'Arvo'),
+					array('oswald', 'Oswald'),
+					array('merriweather', 'Merriweather'),
+					array('francois', 'Francois One'),
+					array('droidserif', 'Droid Serif'),
 					array('gentiumbookbasic', 'Gentium Book Basic')
 				)
 			)
@@ -60,7 +62,7 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 		
 		add_settings_field( 
 			'font_title',
-			__( 'Title Font', 'madeleine' ),
+			__( 'Title font', 'madeleine' ),
 			'madeleine_field_callback',
 			'madeleine_typography_options_page',
 			'typography_section',
@@ -71,23 +73,91 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 				'id' => 'font_title',
 				'selectid' => 'title',
 				'select' => array(
-					array('', 'Arial'),
 					array('bitter', 'Bitter'),
-					array('droidsans', 'Droid'),
-					array('lato', 'Lato'),
-					array('arvo', 'Arvo'),
-					array('ptsans', 'PT Sans'),
-					array('ubuntu', 'Ubuntu'),
-					array('droidserif', 'Droid Serif'),
-					array('opensans', 'Open Sans'),
-					array('oswald', 'Oswald'),
-					array('roboto', 'Roboto'),
 					array('montserrat', 'Montserrat'),
-					array('nunito', 'Nunito'),
-					array('francois', 'Francois One'),
+					array('arvo', 'Arvo'),
+					array('oswald', 'Oswald'),
 					array('merriweather', 'Merriweather'),
+					array('francois', 'Francois One'),
+					array('droidserif', 'Droid Serif'),
+					array('gentiumbookbasic', 'Gentium Book Basic'),
+					array('', 'Arial'),
+					array('opensans', 'Open Sans'),
+					array('ubuntu', 'Ubuntu'),
+					array('droidsans', 'Droid Sans'),
+					array('lato', 'Lato'),
+					array('ptsans', 'PT Sans'),
+					array('roboto', 'Roboto'),
 					array('merriweathersans', 'Merriweather Sans'),
-					array('gentiumbookbasic', 'Gentium Book Basic')
+					array('nunito', 'Nunito')
+				)
+			)
+		);
+		
+		add_settings_field( 
+			'font_name',
+			__( 'Header Name font', 'madeleine' ),
+			'madeleine_field_callback',
+			'madeleine_typography_options_page',
+			'typography_section',
+			array(
+				'description' => 'The font used for the site\'s name in the header.<br>Default: <strong>Bitter</strong>',
+				'type' => 'font',
+				'option' => 'madeleine_options_typography',
+				'id' => 'font_name',
+				'selectid' => 'name',
+				'select' => array(
+					array('bitter', 'Bitter'),
+					array('montserrat', 'Montserrat'),
+					array('arvo', 'Arvo'),
+					array('oswald', 'Oswald'),
+					array('merriweather', 'Merriweather'),
+					array('francois', 'Francois One'),
+					array('droidserif', 'Droid Serif'),
+					array('gentiumbookbasic', 'Gentium Book Basic'),
+					array('', 'Arial'),
+					array('opensans', 'Open Sans'),
+					array('ubuntu', 'Ubuntu'),
+					array('droidsans', 'Droid Sans'),
+					array('lato', 'Lato'),
+					array('ptsans', 'PT Sans'),
+					array('roboto', 'Roboto'),
+					array('merriweathersans', 'Merriweather Sans'),
+					array('nunito', 'Nunito')
+				)
+			)
+		);
+		
+		add_settings_field( 
+			'font_description',
+			__( 'Header Description font', 'madeleine' ),
+			'madeleine_field_callback',
+			'madeleine_typography_options_page',
+			'typography_section',
+			array(
+				'description' => 'The font used for the site\'s description in the header.<br>Default: <strong>Bitter</strong>',
+				'type' => 'font',
+				'option' => 'madeleine_options_typography',
+				'id' => 'font_description',
+				'selectid' => 'description',
+				'select' => array(
+					array('bitter', 'Bitter'),
+					array('montserrat', 'Montserrat'),
+					array('arvo', 'Arvo'),
+					array('oswald', 'Oswald'),
+					array('merriweather', 'Merriweather'),
+					array('francois', 'Francois One'),
+					array('droidserif', 'Droid Serif'),
+					array('gentiumbookbasic', 'Gentium Book Basic'),
+					array('', 'Arial'),
+					array('opensans', 'Open Sans'),
+					array('ubuntu', 'Ubuntu'),
+					array('droidsans', 'Droid Sans'),
+					array('lato', 'Lato'),
+					array('ptsans', 'PT Sans'),
+					array('roboto', 'Roboto'),
+					array('merriweathersans', 'Merriweather Sans'),
+					array('nunito', 'Nunito')
 				)
 			)
 		);

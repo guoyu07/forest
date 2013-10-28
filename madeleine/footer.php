@@ -28,7 +28,7 @@
 				</section>
 				<?php get_search_form(); ?>
 				<hgroup id="footer-logo">
-					<h1 id="footer-title">
+					<h1 id="footer-name">
 						<?php bloginfo( 'name' ); ?>
 					</h1>
 					<h2 id="footer-description"><?php bloginfo( 'description' ); ?></h2>

@@ -2,8 +2,8 @@ jQuery(document).ready(function ($) {
 
   // Top menu
 
-  var $top_icon = $('#top-icon');
-  var $top_menu = $('#top-menu');
+  var $top_icon = $('#top-icon'),
+      $top_menu = $('#top-menu');
 
   $top_icon.click( function() {
     $top_menu.toggle();
@@ -11,8 +11,8 @@ jQuery(document).ready(function ($) {
 
   // Nav menu
 
-  var $nav_icon = $('#nav-icon');
-  var $nav_menu = $('#nav-menu');
+  var $nav_icon = $('#nav-icon'),
+      $nav_menu = $('#nav-menu');
 
   $nav_icon.click( function() {
     $nav_menu.toggle();
@@ -20,8 +20,8 @@ jQuery(document).ready(function ($) {
 
   // Category menu
 
-  var $category_icon = $('#category strong .icon');
-  var $category_menu = $('#category ul');
+  var $category_icon = $('#category strong .icon'),
+      $category_menu = $('#category ul');
 
   $category_icon.click( function() {
     $category_menu.toggle();
@@ -30,13 +30,13 @@ jQuery(document).ready(function ($) {
 
   // Subnav
 
-  var $nav = $('#nav');
-  var $nav_links = $('#nav .cat-item a');
-  var $subnav = $('#subnav');
-  var $subnav_reel = $('#subnav-reel');
-  var hovering_submenu = false;
-  var hover_timer;
-  var exit_timer;
+  var $nav = $('#nav'),
+      $nav_links = $('#nav .cat-item a'),
+      $subnav = $('#subnav'),
+      $subnav_reel = $('#subnav-reel'),
+      hovering_submenu = false,
+      hover_timer,
+      exit_timer;
 
   $nav_links.hover(
     function() {
@@ -97,7 +97,6 @@ jQuery(document).ready(function ($) {
   $nav.menuAim({
       activate: activateSubmenu,
       deactivate: deactivateSubmenu,
-      // exitMenu: exitSubmenu,
       rowSelector: '.cat-item a',
       submenuDirection: 'below',
       tolerance: 0
@@ -105,8 +104,9 @@ jQuery(document).ready(function ($) {
 
   // Latest posts widget
 
-  var $latest_lists = $('#latest ul');
-  var $latest_dots = $('#latest-dots span');
+  var $latest_lists = $('#latest ul'),
+      $latest_dots = $('#latest-dots span');
+
   $latest_dots.first().addClass('on');
 
   $latest_dots.click( function() {
@@ -119,8 +119,9 @@ jQuery(document).ready(function ($) {
   });
 
   // Popular posts widget
-  var $popular_bars = $('#popular li em');
-  var popular_highest = parseInt($popular_bars.first().data('total'));
+
+  var $popular_bars = $('#popular li em'),
+      popular_highest = parseInt($popular_bars.first().data('total'));
 
   $.each($popular_bars, function() {
     var total = $(this).data('total');
@@ -132,8 +133,9 @@ jQuery(document).ready(function ($) {
 
   // Videos widget
 
-  var $videos = $('#videos li');
-  var $videos_dots = $('#videos-dots span');
+  var $videos = $('#videos li'),
+      $videos_dots = $('#videos-dots span');
+
   $videos_dots.first().addClass('on');
 
   $videos_dots.click( function() {

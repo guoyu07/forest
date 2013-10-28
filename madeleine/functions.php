@@ -85,32 +85,32 @@ if ( !function_exists( 'madeleine_social_links' ) ) {
 					$name = ucwords( $slug );
 					switch( $slug ):
 						case 'twitter':
-							$social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="https://twitter.com/' . $value . '">' . $name . '</a>';
-							$social_links .= '<div class="social-window"><a href="https://twitter.com/' . $value . '" class="twitter-follow-button" data-show-count="false">Follow @' . $value . '</a></div>';
-							$social_links .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+							$social_links .= '<li class="social-' . $slug . '"><a class="social-icon" href="https://twitter.com/' . $value . '">' . $name . '</a>';
 							break;
 						case 'facebook':
-							$social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . esc_url( $value ) . '">' . $name . '</a>';
-							$social_links .= '<div class="social-window"><iframe src="//www.facebook.com/plugins/likebox.php?href=' . $value . '&amp;width=300&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="background:white; border:none; overflow:hidden; width:300px; height:62px;" allowTransparency="true"></iframe></div>';
+							$social_links .= '<li id="social-facebook" class="social-' . $slug . '"><a class="social-icon" href="' . esc_url( $value ) . '">' . $name . '</a>';
+							$social_links .= '<div class="social-window">';
+							$social_links .= '<iframe src="//www.facebook.com/plugins/likebox.php?href=' . esc_url( $value ) . '&amp;width=300&amp;height=258&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:258px;" allowTransparency="true"></iframe>';
+							$social_links .= '</div>';
 							break;
 						case 'google':
-							$social_links .= '<li class="social-' . $slug . '"><a class="social-follow" href="' . esc_url( $value ) . '">Google +</a>';
+							$social_links .= '<li id="social-google" class="social-' . $slug . '"><a class="social-icon" href="' . esc_url( $value ) . '">Google +</a>';
 							$social_links .= '<div class="social-window">';
-							$social_links .= '<div class="g-person" data-href="' . esc_url( $value ) . '" data-rel="author"></div>';
+							$social_links .= '<div class="g-person" data-href="' . $value . '" data-rel="author"></div>';
 							$social_links .= '<script type="text/javascript">';
-							$social_links .= "(function() {";
+							$social_links .= '(function() {';
 							$social_links .= "var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;";
 							$social_links .= "po.src = 'https://apis.google.com/js/plusone.js';";
 							$social_links .= "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);";
-							$social_links .= "})();";
+							$social_links .= '})();';
 							$social_links .= '</script>';
 							$social_links .= '</div>';
 							break;
 						case 'tumblr':
-							$social_links .= '<li class="social-' . $slug . '"><a href="' . esc_url( $value ) . '">' . $name . '</a>';
+							$social_links .= '<li class="social-' . $slug . '"><a class="social-icon" href="' . esc_url( $value ) . '">' . $name . '</a>';
 							break;
 						case 'youtube':
-							$social_links .= '<li class="social-' . $slug . '"><a href="' . esc_url( $value ) . '">' . $name . '</a>';
+							$social_links .= '<li class="social-' . $slug . '"><a class="social-icon" href="' . esc_url( $value ) . '">' . $name . '</a>';
 							break;
 					endswitch;
 					$social_links .= '</li>';
@@ -174,7 +174,7 @@ if ( !function_exists( 'madeleine_check_url' ) ) {
 
 
 /**
- * Outputs the analytics tracking code in the footer (if provided).
+ * Outputs the analytics tracking code in the header (if provided).
  *
  */
 
@@ -218,6 +218,30 @@ if ( !function_exists( 'madeleine_fonts' ) ) {
 		endif;
 	}
 }
+
+
+/**
+ * Outputs the favicon in the head.
+ *
+ */
+
+if ( !function_exists( 'madeleine_favicon' ) ) {
+	function madeleine_favicon(){
+		$general_options = get_option( 'madeleine_options_general' );
+		if( is_array( $general_options ) ):
+			if( array_key_exists( 'favicon', $general_options ) && $general_options['favicon'] != '' ):
+				$favicon = $general_options['favicon'];
+			else:
+				$favicon = get_template_directory_uri() . '/images/favicon.png';
+			endif;
+		else:
+			$favicon = get_template_directory_uri() . '/images/favicon.png';
+		endif;
+		$favicon = get_template_directory_uri() . '/images/favicon.png';
+		echo '<link rel="icon" href="' . esc_url( $favicon ) . '">';
+	}
+}
+add_action( 'wp_head', 'madeleine_favicon' );
 
 
 /**
@@ -335,6 +359,14 @@ if ( !function_exists( 'madeleine_custom_typography' ) ) {
 			$font_title = $typography_options['font_title'];
 			$custom_css .= '.heading, .pagination, .tabs, .section, .widget-title, .button, #top-icon, #logo, #nav, #nav-icon, #today-news, #footer, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6, .entry-content figcaption, .entry-content input[type="submit"], .entry-content input[type="reset"], .entry-format, .entry-title, .entry-info, .post .entry-comments a, .page .entry-comments a, #wp-calendar caption, #popular li, #comments-title, #reply-title, .comment-info, #commentform label, .form-submit #submit, .entry-rating, .rating, .single-review .review .entry-summary, #menu-icon, #category{ font-family: \'' . $fonts[$font_title] . '\', Arial, sans-serif;}';
 		endif;
+		if ( isset( $typography_options['font_name'] ) && $typography_options['font_name'] != '' ):
+			$font_name = $typography_options['font_name'];
+			$custom_css .= '#name, #footer-name{ font-family: \'' . $fonts[$font_name] . '\', Arial, sans-serif;}';
+		endif;
+		if ( isset( $typography_options['font_description'] ) && $typography_options['font_description'] != '' ):
+			$font_description = $typography_options['font_description'];
+			$custom_css .= '#description, #footer-description{ font-family: \'' . $fonts[$font_description] . '\', Arial, sans-serif;}';
+		endif;
 		$custom_css .= '</style>';
 		echo $custom_css;
 	}
@@ -382,7 +414,7 @@ if ( !function_exists( 'madeleine_custom_colors' ) ) {
 		endif;
 		if ( isset( $colors_options['footer_title'] ) && $colors_options['footer_title'] != '' ):
 			$footer_title_color = $colors_options['footer_title'];
-			$custom_css .= '#footer .section, #footer-title{ color: ' . $footer_title_color . ';}';
+			$custom_css .= '#footer .section, #footer-name{ color: ' . $footer_title_color . ';}';
 		endif;
 		if ( isset( $colors_options['footer_link'] ) && $colors_options['footer_link'] != '' ):
 			$footer_link_color = $colors_options['footer_link'];
