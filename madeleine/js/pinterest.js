@@ -2,22 +2,22 @@ jQuery(document).ready(function ($) {
 
   // Pinterest
 
-  var pinterest = $('.pinterest');
-  var pins = $('.pinterest .post');
-  var viewport = window.innerWidth;
+  var $pinterest = $('.pinterest'),
+      $pins = $('.pinterest .post'),
+      viewport = window.innerWidth;
 
   function Grid(space, gutter) {
-    pins.css('position','absolute');
+    $pins.css('position','absolute');
     var columns = 3;
     var column = (space / columns);
-    var pins_count = pins.size();
+    var pins_count = $pins.size();
 
     var grid = new Array(columns);
     $.each(grid, function(j) {
       grid[j] = 0;
     });
     
-    $.each(pins, function() {
+    $.each($pins, function() {
       var lowest = Math.min.apply(null, grid);
       var lowest_index = grid.indexOf(lowest);
       var height = $(this).outerHeight();
@@ -37,12 +37,12 @@ jQuery(document).ready(function ($) {
     });
     
     var biggest = Math.max.apply(null, grid);
-    pinterest.css('height', biggest + 'px');
+    $pinterest.css('height', biggest + 'px');
   }
   
   function Reset() {
-    pins.css('padding', '20px 19px 20px 20px');
-    pins.css('position', 'static');
+    $pins.css('padding', '20px 19px 20px 20px');
+    $pins.css('position', 'static');
   }
   
   function Display(size) {

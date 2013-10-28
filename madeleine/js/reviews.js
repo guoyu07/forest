@@ -51,6 +51,7 @@ jQuery(document).ready(function ($) {
 
   // Initialization
 
+  var home_url = $('body').data('url');
   var parameters = URLToArray(window.location.search);
   var reviews_title = $('#reviews-title');
   var reviews_filter = $('#reviews-filter');
@@ -116,7 +117,7 @@ jQuery(document).ready(function ($) {
   });
 
   reviews_button.click( function() {
-    var url = 'http://192.168.0.6/forest/reviews' + ArrayToURL(parameters);
+    var url = home_url + '/reviews' + ArrayToURL(parameters);
     LoadReviews(url);
     return false;
   });

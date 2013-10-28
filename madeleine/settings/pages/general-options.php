@@ -68,7 +68,7 @@ if ( !function_exists( 'madeleine_initialize_general_options' ) ) {
 				'type' => 'select',
 				'option' => 'madeleine_options_general',
 				'id' => 'trending_number',
-				'select' => array(5, 10, 15, 20)
+				'select' => array(5, 10, 15, 20, 25)
 			)
 		);
 		

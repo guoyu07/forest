@@ -182,22 +182,23 @@ if ( !function_exists( 'madeleine_fonts' ) ) {
 	function madeleine_fonts(){
 		$typography_options = get_option( 'madeleine_options_typography' );
 		$fonts = array(
-			'droidsans' => 'Droid+Sans:400,700',
-			'lato' => 'Lato:400,700,400italic,700italic',
 			'arvo' => 'Arvo:400,700,400italic,700italic',
-			'ptsans' => 'PT+Sans:400,700,400italic,700italic',
-			'ubuntu' => 'Ubuntu:400,700,400italic,700italic',
 			'bitter' => 'Bitter:400,700,400italic',
+			'droidsans' => 'Droid+Sans:400,700',
 			'droidserif' => 'Droid+Serif:400,700,400italic,700italic',
-			'opensans' => 'Open+Sans:400italic,700italic,400,700',
-			'oswald' => 'Oswald:400,700',
-			'roboto' => 'Roboto:400,400italic,700,700italic',
-			'montserrat' => 'Montserrat:400,700',
-			'nunito' => 'Nunito:400,700',
 			'francois' => 'Francois+One',
+			'gentiumbookbasic' => 'Gentium+Book+Basic:400,400italic,700,700italic',
+			'lato' => 'Lato:400,700,400italic,700italic',
 			'merriweather' => 'Merriweather:400,400italic,700italic,700',
 			'merriweathersans' => 'Merriweather+Sans:400,700italic,700,400italic',
-			'gentiumbookbasic' => 'Gentium+Book+Basic:400,400italic,700,700italic'
+			'montserrat' => 'Montserrat:400,700',
+			'nunito' => 'Nunito:400,700',
+			'opensans' => 'Open+Sans:400italic,700italic,400,700',
+			'oswald' => 'Oswald:400,700',
+			'ptsans' => 'PT+Sans:400,700,400italic,700italic',
+			'roboto' => 'Roboto:400,400italic,700,700italic',
+			'sourcesans' => 'Source+Sans+Pro:400,700,400italic,700italic:latin',
+			'ubuntu' => 'Ubuntu:400,700,400italic,700italic'
 		);
 		$chosen_fonts = array();
 		if( is_array( $typography_options ) ):
@@ -304,13 +305,12 @@ if ( !function_exists( 'madeleine_enqueue_scripts' ) ) {
 		wp_enqueue_script( 'jquery-effects-core' );
 		wp_enqueue_script( 'menu-aim' );
 		wp_enqueue_script( 'global' );
+		wp_enqueue_script( 'pinterest' );
 
 		if ( is_home() ):
 			wp_enqueue_script( 'home' );
 		elseif ( is_date() ):
 			wp_enqueue_script( 'date' );
-		elseif ( is_tag() ):
-			wp_enqueue_script( 'pinterest' );
 		elseif ( is_post_type_archive( 'review' ) || is_tax( 'product' ) || is_tax( 'brand' ) ):
 			wp_enqueue_script( 'reviews' );
 		elseif ( is_singular( 'review' ) ):
@@ -333,31 +333,32 @@ if ( !function_exists( 'madeleine_custom_typography' ) ) {
 	function madeleine_custom_typography() {
 		$typography_options = get_option( 'madeleine_options_typography' );
 		$fonts = array(
-			'droidsans' => 'Droid Sans',
-			'lato' => 'Lato',
 			'arvo' => 'Arvo',
-			'ptsans' => 'PT Sans',
-			'ubuntu' => 'Ubuntu',
 			'bitter' => 'Bitter',
+			'droidsans' => 'Droid Sans',
 			'droidserif' => 'Droid Serif',
-			'opensans' => 'Open Sans',
-			'oswald' => 'Oswald',
-			'roboto' => 'Roboto',
-			'montserrat' => 'Montserrat',
-			'nunito' => 'Nunito',
 			'francois' => 'Francois One',
+			'gentiumbookbasic' => 'Gentium Book Basic',
+			'lato' => 'Lato',
 			'merriweather' => 'Merriweather',
 			'merriweathersans' => 'Merriweather Sans',
-			'gentiumbookbasic' => 'Gentium Book Basicc'
+			'montserrat' => 'Montserrat',
+			'nunito' => 'Nunito',
+			'opensans' => 'Open Sans',
+			'oswald' => 'Oswald',
+			'ptsans' => 'PT Sans',
+			'roboto' => 'Roboto',
+			'sourcesans' => 'Source Sans Pro',
+			'ubuntu' => 'Ubuntu'
 		);
 		$custom_css = '<style id="madeleine-custom-typography" type="text/css">';
 		if ( isset( $typography_options['font_body'] ) && $typography_options['font_body'] != '' ):
 			$font_body = $typography_options['font_body'];
-			$custom_css .= 'body, #trending .section, #footer-about, .entry-comments a .leave-reply, #latest a{ font-family: \'' . $fonts[$font_body] . '\', Arial, sans-serif;}';
+			$custom_css .= 'body, #trending .section, #footer-about, #latest a{ font-family: \'' . $fonts[$font_body] . '\', Arial, sans-serif;}';
 		endif;
 		if ( isset( $typography_options['font_title'] ) && $typography_options['font_title'] != '' ):
 			$font_title = $typography_options['font_title'];
-			$custom_css .= '.heading, .pagination, .tabs, .section, .widget-title, .button, #top-icon, #logo, #nav, #nav-icon, #today-news, #footer, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6, .entry-content figcaption, .entry-content input[type="submit"], .entry-content input[type="reset"], .entry-format, .entry-title, .entry-info, .post .entry-comments a, .page .entry-comments a, #wp-calendar caption, #popular li, #comments-title, #reply-title, .comment-info, #commentform label, .form-submit #submit, .entry-rating, .rating, .single-review .review .entry-summary, #menu-icon, #category{ font-family: \'' . $fonts[$font_title] . '\', Arial, sans-serif;}';
+			$custom_css .= '.heading, .pagination, .tabs, .section, .widget-title, .button, #top-icon, #logo, #nav, #nav-icon, #today-news, #footer, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6, .entry-content figcaption, .entry-content input[type="submit"], .entry-content input[type="reset"], .entry-format, .entry-title, .entry-info, #wp-calendar caption, #popular li, #comments-title, #reply-title, .comment-info, #commentform label, .form-submit #submit, .entry-rating, .rating, .single-review .review .entry-summary, #menu-icon, #category{ font-family: \'' . $fonts[$font_title] . '\', Arial, sans-serif;}';
 		endif;
 		if ( isset( $typography_options['font_name'] ) && $typography_options['font_name'] != '' ):
 			$font_name = $typography_options['font_name'];
@@ -1154,8 +1155,6 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
 			$query->set( 'tax_query', $standard_posts );
 			$query->set( 'post__not_in', $sticky_posts );
 			$query->set( 'posts_per_page', $grid_number );
-		elseif ( $query->is_tag() && $query->is_main_query() ):
-			$query->set( 'posts_per_page', -1 );
 		elseif ( ( $query->is_post_type_archive( 'review' ) || $query->is_tax( 'product' ) || $query->is_tax( 'brand' ) ) && $query->is_main_query() ):
 			$reviews_options = get_option( 'madeleine_options_reviews' );
 			$maximum_rating = ( isset( $reviews_options['maximum_rating'] ) ) ? $reviews_options['maximum_rating'] : 10;
@@ -1204,10 +1203,80 @@ if ( !function_exists( 'madeleine_archive_settings' ) ) {
 			);
 			$query->set( 'tax_query', $tax_query );
 			$query->set( 'meta_query', $meta_query );
+		elseif ( $query->is_search() && $query->is_main_query() ):
+			$layout_options = get_option( 'madeleine_options_layout' );
+			if ( $layout_options['search'] == 'pinterest' ):
+				$pinterest_number = ( isset( $layout_options['pinterest_number'] ) ) ? $layout_options['pinterest_number'] : 9;
+				$query->set( 'posts_per_page', $pinterest_number );
+			endif;
+		elseif ( $query->is_archive() && $query->is_main_query() ):
+			$layout_options = get_option( 'madeleine_options_layout' );
+			$pinterest_number = ( isset( $layout_options['pinterest_number'] ) ) ? $layout_options['pinterest_number'] : 9;
+			if ( is_category() ):
+				$query->set( 'layout', $layout_options['category'] );
+				if ( $layout_options['category'] == 'pinterest' ):
+					$query->set( 'posts_per_page', $pinterest_number );
+				endif;
+			elseif ( is_tag() ):
+				$query->set( 'layout', $layout_options['tag'] );
+				if ( $layout_options['tag'] == 'pinterest' ):
+					$query->set( 'posts_per_page', $pinterest_number );
+				endif;
+			elseif ( is_author() ):
+				$query->set( 'layout', $layout_options['author'] );
+				if ( $layout_options['author'] == 'pinterest' ):
+					$query->set( 'posts_per_page', $pinterest_number );
+				endif;
+			elseif ( is_date() ):
+				$query->set( 'layout', $layout_options['date'] );
+				if ( $layout_options['date'] == 'pinterest' ):
+					$query->set( 'posts_per_page', $pinterest_number );
+				endif;
+			endif;
 		endif;
 	}
 }
 add_action( 'pre_get_posts', 'madeleine_archive_settings' );
+
+
+/**
+ * Displays a list of posts depending on the layout chosen in the settings.
+ * 
+ * @param string $template the archive template.
+ * @return string
+ */
+
+if ( !function_exists( 'madeleine_layout' ) ) {
+	function madeleine_layout( $template ) {
+		$layout_options = get_option( 'madeleine_options_layout' );
+		$layout = isset( $layout_options[$template] ) ? $layout_options[$template] : 'list';
+		if ( $layout != 'pinterest' ):
+			echo '<div id="lead">';
+		endif;
+		get_template_part( 'layout', $layout );
+		madeleine_pagination();
+		if ( $layout != 'pinterest' ):
+			echo '</div>';
+		endif;
+		return $layout;
+	}
+}
+
+
+/**
+ * Displays the sidebar depending on the layout.
+ * 
+ * @param string $layout
+ * @return string
+ */
+
+if ( !function_exists( 'madeleine_sidebar' ) ) {
+	function madeleine_sidebar( $layout ) {
+		if ( $layout != 'pinterest' ):
+			get_sidebar();
+		endif;
+	}
+}
 
 
 /**
@@ -1468,46 +1537,45 @@ if ( !function_exists( 'madeleine_date_archive' ) ) {
 if ( !function_exists( 'madeleine_nested_date' ) ) {
 	function madeleine_nested_date() {
 		global $wpdb;
-		$y = get_query_var( 'year' );
-		$m = get_query_var( 'monthnum' );
-		$d = get_query_var( 'day' );
-		// if ( is_year() ):
-		//	 $type = 'year';
-		// elseif ( is_month() ):
-		//	 $y = substr( $date, 0, 4);
-		//	 $m = abs( substr( $date, 4, 2) );
-		//	 $type = 'month';
-		// elseif ( is_day() ):
-		//	 $y = substr( $date, 0, 4);
-		//	 $m = abs( substr( $date, 4, 2) );
-		//	 $d = abs( substr( $date, 6, 2) );
-		//	 $type = 'day';
-		// endif;
-		$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
-		$years_list = '<li class="select"><span class="icon icon-close"></span>' . __( 'Select year', 'madeleine' ) . '</li>';
-		echo '<div id="date-archive" data-year="' . $y . '" data-month="' . $m . '" data-day="' . $d . '">';
-		foreach( $years as $year ):
-			$years_list .= '<li class="year" data-value="' . $year . '"><a href="'. esc_url( get_year_link( $year ) ) . '"><span class="icon icon-dropdown"></span>' . $year . '</a></li>';
-			$months_list = '<li class="select"><span class="icon icon-close"></span>' . __( 'Select month', 'madeleine' ) . '</li>';
-			$months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
-			foreach( $months as $month ):
-				$months_list .= '<li class="month" data-value="' . $month . '""><a href="' . esc_url( get_month_link( $year, $month ) ) . '"><span class="icon icon-dropdown"></span>' . date( 'F', mktime( 0, 0, 0, $month, 1, $year ) ) . '</a></li>';
-				echo '<ul class="days" data-year="' . $year . '" data-month="' . $month . '">';
-				$days = $wpdb->get_col("SELECT DISTINCT DAY(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date) = '" . $month . "' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
-				echo '<li class="select"><span class="icon icon-close"></span>' . __( 'Select day', 'madeleine' ) . '</li>';
-				foreach( $days as $day ):
-					echo '<li class="day" data-value="' . $day . '"><a href="' . esc_url( get_day_link( $year, $month, $day ) ) . '"><span class="icon icon-dropdown"></span>' . $day . '</a></li>';
+		if ( get_option( 'permalink_structure' ) != '' ):
+			$y = get_query_var( 'year' );
+			$m = get_query_var( 'monthnum' );
+			$d = get_query_var( 'day' );
+			$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
+			$years_list = '';
+			echo '<div id="date-archive" data-year="' . $y . '" data-month="' . $m . '" data-day="' . $d . '">';
+			foreach( $years as $year ):
+				$years_list .= '<li class="date-year" data-value="' . $year . '"><span class="icon icon-dropdown"></span>' . $year . '</li>';
+				$months_list = '<li class="date-select" data-type="month"><span class="icon icon-close"></span>' . __( 'Select month', 'madeleine' ) . '</li>';
+				$months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
+				foreach( $months as $month ):
+					$months_list .= '<li class="date-month" data-value="' . $month . '""><span class="icon icon-dropdown"></span>' . date( 'F', mktime( 0, 0, 0, $month, 1, $year ) ) . '</li>';
+					echo '<ul class="date-days" data-year="' . $year . '" data-month="' . $month . '">';
+					$days = $wpdb->get_col("SELECT DISTINCT DAY(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date) = '" . $month . "' AND YEAR(post_date) = '" . $year . "' ORDER BY post_date DESC");
+					echo '<li class="date-select" data-type="day"><span class="icon icon-close"></span>' . __( 'Select day', 'madeleine' ) . '</li>';
+					foreach( $days as $day ):
+						echo '<li class="date-day" data-value="' . $day . '"><span class="icon icon-dropdown"></span>' . $day . '</li>';
+					endforeach;
+					echo '</ul>';
 				endforeach;
+				echo '<ul class="date-months" data-year="' . $year . '">';
+				echo $months_list;
 				echo '</ul>';
 			endforeach;
-			echo '<ul class="months" data-year="' . $year . '">';
-			echo $months_list;
+			echo '<ul class="date-years active">';
+			echo $years_list;
 			echo '</ul>';
-		endforeach;
-		echo '<ul class="years active">';
-		echo $years_list;
-		echo '</ul>';
-		echo '</div>';
+			echo '<div id="date-go">Go</div>';
+			echo '</div>';
+		else:
+			if ( is_day() ) :
+				printf( __( '<em>Day:</em> <strong>%s</strong>', 'madeleine' ), get_the_date() );
+			elseif ( is_month() ) :
+				printf( __( '<em>Month:</em> <strong>%s</strong>', 'madeleine' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'madeleine' ) ) );
+			elseif ( is_year() ) :
+				printf( __( '<em>Year:</em> <strong>%s</strong>', 'madeleine' ), get_the_date( _x( 'Y', 'yearly archives date format', 'madeleine' ) ) );
+			endif;
+		endif;
 	}
 }
 
@@ -2285,6 +2353,7 @@ add_action( 'wp_ajax_madeleine_ajax', 'madeleine_ajax_request' );
 
 if ( !function_exists( 'madeleine_query_vars' ) ) {
 	function madeleine_query_vars( $vars ) {
+		$vars[] = 'layout';
 		$vars[] = 'product_id';
 		$vars[] = 'brand_id';
 		$vars[] = 'rating_min';

@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <?php madeleine_reviews_breadcrumb(); ?>
-<div id="main">
+<div id="level-main" class="level">
 	<div class="wrap">
 		<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>

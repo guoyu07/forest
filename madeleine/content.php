@@ -1,6 +1,6 @@
 <?php $class = ( is_sticky() ? 'sticky' : '' ); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( $class ); ?>>
-	<?php if ( is_archive() || is_search() ): ?>
+	<?php if ( get_query_var( 'layout' ) == 'list' ): ?>
 		<?php if ( is_sticky() ) : ?>
 			<?php madeleine_entry_thumbnail( 'large' ); ?>
 		<?php else : ?>

@@ -65,8 +65,9 @@ jQuery(document).ready(function ($) {
   function activateSubmenu(row) {
     var $row = $(row);
     var index = $nav_links.index($row);
+    var space = $subnav.width();
     $subnav_reel.stop().animate({
-      left: index * -1020
+      left: index * -space
     }, 500, 'easeOutExpo');
     $row.addClass('maintainHover');
   }

@@ -24,31 +24,33 @@ jQuery(document).ready(function ($) {
     }, 500);
   }
 
-  var highlight_timer = setInterval( function() {
-    if (!highlighting) {
-      HighlightCycle();
-    }
-  }, 5000);
+  // var highlight_timer = setInterval( function() {
+  //   if (!highlighting) {
+  //     HighlightCycle();
+  //   }
+  // }, 5000);
 
-  $('#level-focus-highlight #focus').hover(
-    function() {
-      window.clearInterval(highlight_timer);
-    },
-    function() {
-      highlight_timer = setInterval( function() {
-        if (!highlighting) {
-          HighlightCycle();
-        }
-      }, 5000);
-    }
-  );
+  // $('#level-focus-highlight #focus').hover(
+  //   function() {
+  //     window.clearInterval(highlight_timer);
+  //   },
+  //   function() {
+  //     highlight_timer = setInterval( function() {
+  //       if (!highlighting) {
+  //         HighlightCycle();
+  //       }
+  //     }, 5000);
+  //   }
+  // );
 
   $focus_small_links.click( function() {
-    var index = $focus_small_links.index(this);
-    if (!highlighting) {
-      HighlightCycle(index);
+    if (window.innerWidth > 680) {
+      var index = $focus_small_links.index(this);
+      if (!highlighting) {
+        HighlightCycle(index);
+      }
+      return false;
     }
-    return false;
   });
 
   // Focus Carousel
@@ -79,33 +81,35 @@ jQuery(document).ready(function ($) {
     }, 1000);
   }
 
-  var carousel_timer = setInterval(CarouselCycle, 5000);
+  // var carousel_timer = setInterval(CarouselCycle, 5000);
 
-  $('#level-focus-carousel').hover(
-    function() {
-      window.clearInterval(carousel_timer);
-    },
-    function() {
-      if (!carouseling) {
-        $focus_carousel.removeClass('focus-direction-right').addClass('focus-direction-left');
-        carousel_timer = setInterval(CarouselCycle, 5000);
-      }
-    }
-  );
+  // $('#level-focus-carousel').hover(
+  //   function() {
+  //     window.clearInterval(carousel_timer);
+  //   },
+  //   function() {
+  //     if (!carouseling) {
+  //       $focus_carousel.removeClass('focus-direction-right').addClass('focus-direction-left');
+  //       carousel_timer = setInterval(CarouselCycle, 5000);
+  //     }
+  //   }
+  // );
 
   $focus_carousel_links.click( function() {
-    if (carouseling) {
-      return false;
-    } else {
-      var index = $focus_carousel_links.index(this);
-      if (positions[index] == 2) {
-        $focus_carousel.removeClass('focus-direction-right').addClass('focus-direction-left');
-        CarouselCycle('left');
+    if (window.innerWidth > 680) {
+      if (carouseling) {
         return false;
-      } else if (positions[index] == 4) {
-        $focus_carousel.removeClass('focus-direction-left').addClass('focus-direction-right');;
-        CarouselCycle('right');
-        return false;
+      } else {
+        var index = $focus_carousel_links.index(this);
+        if (positions[index] == 1 || positions[index] == 2) {
+          $focus_carousel.removeClass('focus-direction-right').addClass('focus-direction-left');
+          CarouselCycle('left');
+          return false;
+        } else if (positions[index] == 4) {
+          $focus_carousel.removeClass('focus-direction-left').addClass('focus-direction-right');;
+          CarouselCycle('right');
+          return false;
+        }
       }
     }
   });
@@ -148,13 +152,14 @@ jQuery(document).ready(function ($) {
   var $reviews_tabs = $('#reviews-tabs ul a');
   var $reviews_link = $('#reviews-link');
   var reviews_loading = false;
+  var home_url = $('body').data('url');
   $reviews_tabs.first().addClass('on');
 
   function UpdateReviews(id) {
     $('#reviews-loading').show();
     reviews_loading = true;
     $.ajax({
-      url: 'http://localhost/forest/wp-admin/admin-ajax.php',
+      url: home_url + '/wp-admin/admin-ajax.php',
       data: {
         'action': 'madeleine_ajax',
         'fn': 'madeleine_reviews_tabs',

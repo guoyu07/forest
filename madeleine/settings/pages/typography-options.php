@@ -44,10 +44,11 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 					array('ubuntu', 'Ubuntu'),
 					array('droidsans', 'Droid Sans'),
 					array('lato', 'Lato'),
-					array('ptsans', 'PT Sans'),
+					array('sourcesans', 'Source Sans Pro'),
 					array('roboto', 'Roboto'),
-					array('merriweathersans', 'Merriweather Sans'),
+					array('ptsans', 'PT Sans'),
 					array('nunito', 'Nunito'),
+					array('merriweathersans', 'Merriweather Sans'),
 					array('bitter', 'Bitter'),
 					array('montserrat', 'Montserrat'),
 					array('arvo', 'Arvo'),
@@ -86,10 +87,11 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 					array('ubuntu', 'Ubuntu'),
 					array('droidsans', 'Droid Sans'),
 					array('lato', 'Lato'),
-					array('ptsans', 'PT Sans'),
+					array('sourcesans', 'Source Sans Pro'),
 					array('roboto', 'Roboto'),
-					array('merriweathersans', 'Merriweather Sans'),
-					array('nunito', 'Nunito')
+					array('ptsans', 'PT Sans'),
+					array('nunito', 'Nunito'),
+					array('merriweathersans', 'Merriweather Sans')
 				)
 			)
 		);
@@ -120,10 +122,11 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 					array('ubuntu', 'Ubuntu'),
 					array('droidsans', 'Droid Sans'),
 					array('lato', 'Lato'),
-					array('ptsans', 'PT Sans'),
+					array('sourcesans', 'Source Sans Pro'),
 					array('roboto', 'Roboto'),
-					array('merriweathersans', 'Merriweather Sans'),
-					array('nunito', 'Nunito')
+					array('ptsans', 'PT Sans'),
+					array('nunito', 'Nunito'),
+					array('merriweathersans', 'Merriweather Sans')
 				)
 			)
 		);
@@ -154,10 +157,11 @@ if ( !function_exists( 'madeleine_initialize_typography_options' ) ) {
 					array('ubuntu', 'Ubuntu'),
 					array('droidsans', 'Droid Sans'),
 					array('lato', 'Lato'),
-					array('ptsans', 'PT Sans'),
+					array('sourcesans', 'Source Sans Pro'),
 					array('roboto', 'Roboto'),
-					array('merriweathersans', 'Merriweather Sans'),
-					array('nunito', 'Nunito')
+					array('ptsans', 'PT Sans'),
+					array('nunito', 'Nunito'),
+					array('merriweathersans', 'Merriweather Sans')
 				)
 			)
 		);

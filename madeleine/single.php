@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <?php madeleine_category_breadcrumb(); ?>
-<div id="main">
+<div id="level-main" class="level">
 	<div class="wrap">
 		<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -18,10 +18,10 @@
 									</ul>
 								<?php endif; ?>
 							<?php endif; ?>
+							<?php if ( $format ): ?>
+								<a class="entry-format" href="<?php echo esc_url( home_url( '/' ) . '/type/' . $format ); ?>"><?php echo $format; ?></a>
+							<?php endif; ?>
 							<div class="entry-info">
-								<?php if ( $format ): ?>
-									<a class="entry-format" href="<?php echo esc_url( home_url( '/' ) . '/type/' . $format ); ?>"><?php echo $format; ?></a>
-								<?php endif; ?>
 								<?php if ( comments_open() && ! post_password_required() ) : ?>
 									<div class="entry-comments">
 										<?php comments_popup_link( '<span class="leave-reply">+</span>', '1', '%' ); ?>

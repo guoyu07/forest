@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <?php madeleine_category_breadcrumb(); ?>
-<div id="main">
+<div id="level-main" class="level">
 	<div class="wrap">
 		<?php if ( have_posts() ) : ?>
 			<hgroup class="heading">
@@ -13,12 +13,9 @@
 					?>
 				</h1>
 			</hgroup>
-			<div id="lead">
-				<?php get_template_part( 'layout', 'grid' ); ?>
-				<?php madeleine_pagination(); ?>
-			</div>
+			<?php $layout = madeleine_layout( 'category' ); ?>
 		<?php endif; ?>
-		<?php get_sidebar(); ?>
+		<?php madeleine_sidebar( $layout ); ?>
 		<div style="clear: both;"></div>
 	</div>
 </div>

@@ -6,8 +6,10 @@ if ( !function_exists( 'madeleine_default_options_layout' ) ) {
 			'home' => 'grid',
 			'category' => 'list',
 			'tag' => 'pinterest',
+			'author' => 'list',
 			'date' => 'list',
-			'search' => 'list'
+			'search' => 'list',
+			'pinterest_number' => 9,
 		);
 	return apply_filters( 'madeleine_default_options_layout', $defaults );
 	}
@@ -147,6 +149,37 @@ if ( !function_exists( 'madeleine_initialize_layout_options' ) ) {
 		);
 		
 		add_settings_field( 
+			'author',
+			__( 'Author', 'madeleine' ),
+			'madeleine_field_callback',
+			'madeleine_layout_options_page',
+			'layout_section',
+			array(
+				'description' => 'The layout of posts on an Author page.',
+				'type' => 'boxes',
+				'option' => 'madeleine_options_layout',
+				'id' => 'author',
+				'boxes' => array(
+					array(
+						'value' => 'grid',
+						'label' => 'Grid',
+						'image' => 'layout-grid'
+					),
+					array(
+						'value' => 'list',
+						'label' => 'List',
+						'image' => 'layout-list'
+					),
+					array(
+						'value' => 'pinterest',
+						'label' => 'Pinterest',
+						'image' => 'layout-pinterest'
+					)
+				)
+			)
+		);
+		
+		add_settings_field( 
 			'search',
 			__( 'Search', 'madeleine' ),
 			'madeleine_field_callback',
@@ -174,6 +207,21 @@ if ( !function_exists( 'madeleine_initialize_layout_options' ) ) {
 						'image' => 'layout-pinterest'
 					)
 				)
+			)
+		);
+		
+		add_settings_field( 
+			'pinterest_number',
+			__( 'Pinterest Number', 'madeleine' ),
+			'madeleine_field_callback',
+			'madeleine_layout_options_page',
+			'layout_section',
+			array(
+				'description' => 'The number of posts in a Pinterest layout.',
+				'type' => 'select',
+				'option' => 'madeleine_options_layout',
+				'id' => 'pinterest_number',
+				'select' => array(6, 9, 12, 15, 18)
 			)
 		);
 		
